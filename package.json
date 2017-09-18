@@ -1,0 +1,9 @@
+{
+  "name": "calltocode.org",
+  "version": "0.0.0",
+  "description": "platform where college students can get development experience by working with nonprofits",
+  "main": "index.js",
+  "repository": "git@github.com:CodeForSocialGood/calltocode.org.git",
+  "author": "c2c team",
+  "private": true
+}
