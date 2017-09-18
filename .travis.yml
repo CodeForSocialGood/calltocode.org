@@ -11,3 +11,5 @@ branches:
     - master
 before_script:
   - npm prune
+notifications:
+  slack: code4socialgood:63gGHImfymHIsTLbljQ9EFgv
