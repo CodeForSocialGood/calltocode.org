@@ -10,13 +10,10 @@ notifications:
 branches:
   only:
   - master
-before_script:
-- npm prune
 notifications:
   slack: code4socialgood:$SLACK_TOKEN
 deploy:
   provider: heroku
-  skip_cleanup: true
   api_key:
     secure: "$HEROKU_API_KEY"
   app:
