@@ -11,12 +11,21 @@
   },
   "scripts": {
     "start:dev": "nodemon -w server/ -x 'yarn start'",
-    "start": "node server/"
+    "start": "node server/",
+    "pretest": "eslint client/ server/",
+    "test": ""
   },
   "dependencies": {
     "express": "^4.15.4"
   },
   "devDependencies": {
+    "eslint": "^4.7.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.12.1"
   }
 }

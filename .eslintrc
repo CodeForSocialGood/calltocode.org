@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "prefer-const": 2
+  },
+  "plugins": [
+    "react"
+  ]
+}

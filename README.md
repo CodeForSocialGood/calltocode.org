@@ -21,4 +21,4 @@
 [test]: https://img.shields.io/badge/test-calltocode.herokuapp.com-orange.svg
 [test-url]: https://calltocode.herokuapp.com/
 
-[logo]: /media/logo.png
+[logo]: /docs/media/logo.png
