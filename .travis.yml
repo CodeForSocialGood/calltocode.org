@@ -11,7 +11,8 @@ branches:
   only:
   - master
 notifications:
-  slack: "code4socialgood:$SLACK_TOKEN"
+  slack:
+    secure: "$SLACK_TOKEN"
 deploy:
   provider: heroku
   api_key:
