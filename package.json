@@ -5,5 +5,18 @@
   "main": "index.js",
   "repository": "git@github.com:CodeForSocialGood/calltocode.org.git",
   "author": "c2c team",
-  "private": true
+  "private": true,
+  "engines": {
+    "node": "8.5.0"
+  },
+  "scripts": {
+    "start:dev": "nodemon -w server/ -x 'yarn start'",
+    "start": "node server/"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }
