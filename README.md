@@ -2,6 +2,7 @@
 
 ![nonprofit][nonprofit]
 [![travis][travis]][travis-url]
+[![test][test]][test-url]
 
 ![logo][logo]
 
@@ -16,5 +17,8 @@
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
 
 [nonprofit]: https://img.shields.io/badge/project-nonprofit-ff69b4.svg
+
+[test]: https://img.shields.io/badge/test-calltocode.herokuapp.com-orange.svg
+[test-url]: https://calltocode.herokuapp.com/
 
 [logo]: /media/logo.png
