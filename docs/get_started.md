@@ -6,4 +6,7 @@ $ git solo <initials>  # or git duet <initials> <initials>
 
 # start the app in dev mode on port 3000
 $ yarn start:dev
+
+# run tests and linting
+$ yarn test
 ```
