@@ -1,5 +1,7 @@
 # calltocode.org
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/CodeForSocialGood/calltocode.org.svg)](https://greenkeeper.io/)
+
 ![nonprofit][nonprofit]
 [![travis][travis]][travis-url]
 [![test][test]][test-url]
