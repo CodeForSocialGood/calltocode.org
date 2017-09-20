@@ -10,6 +10,7 @@ notifications:
 branches:
   only:
   - master
+  - /^greenkeeper/.*$/
 notifications:
   slack:
     secure: "$SLACK_TOKEN"
