@@ -54,6 +54,7 @@ $ brew install yarn --without-node
 ```bash
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
 ```
+*If you are on a mac and having trouble, make sure to run `touch ~/.bash_profile` before running the above.*
 
 ## 6. Install [Direnv](https://github.com/direnv/direnv#install)
 ```bash
