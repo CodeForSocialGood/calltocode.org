@@ -13,11 +13,13 @@
     "start:dev": "nodemon -w server/ -x 'yarn start'",
     "start": "node server/",
     "pretest": "eslint client/ server/",
-    "test": "node server/"
+    "test": "mocha"
   },
   "dependencies": {
     "express": "^4.15.4",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "should": "^13.1.0",
+    "should-http": "^0.1.1"
   },
   "devDependencies": {
     "eslint": "^4.7.1",
