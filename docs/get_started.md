@@ -1,12 +1,23 @@
 # Get Started
 
+## 1. Install dependencies.
 ```bash
-# whenever you are working solo or in a pair, make sure to git pair. if you haven't already done so, add yourself to .git-authors.
-$ git solo <initials>  # or git duet <initials> <initials>
+$ yarn
+```
 
-# start the app in dev mode on port 3000
-$ yarn start:dev
+## 2. Setup pairing.
+```bash
+$ git solo <initials>                 # if you are solo
+$ git duet <initials-1> <initials-2>  # if you are pairing
+```
 
-# run tests and linting
+## 3. Run tests.
+```bash
 $ yarn test
+```
+
+## 4. Start the app.
+```bash
+$ yarn start:dev    # run in debug mode
+$ yarn start        # run in normal mode
 ```
