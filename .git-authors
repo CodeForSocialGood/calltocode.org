@@ -3,7 +3,11 @@ pairs:
   ybw: Yosef Benny Widyokarsono; fybwid
   rt: Ryan Thomas; ryanthomas970
   ym: Yugma Moradia; yugma93
+  kj: Karthi Jagatheesan
 
 email:
   prefix: pair
   domain: gmail.com
+
+email_addresses:
+   kj: karthijey@yahoo.com
