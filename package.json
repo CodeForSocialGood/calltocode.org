@@ -13,7 +13,7 @@
     "start:dev": "nodemon -w server/ -x 'yarn start'",
     "start": "node server/",
     "pretest": "eslint client/ server/",
-    "test": "node server/"
+    "test": ""
   },
   "dependencies": {
     "express": "^4.15.4"
