@@ -54,7 +54,13 @@ $ brew install yarn --without-node
 ```bash
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
 ```
-*If you are on a mac and having trouble, make sure to run `touch ~/.bash_profile` before running the above.*
+
+### NVM setting
+```bash
+$ nvm install 8.5.0 # Install Node version 8.5.0 for this project
+$ nvm alias default 8.5.0 # Set Node 8.5.0 as default
+```
+*If you are on a mac and having trouble, make sure to run `touch ~/.bash_profile` before running the above command.*
 
 ## 6. Install [Direnv](https://github.com/direnv/direnv#install)
 ```bash
@@ -69,4 +75,4 @@ $ nvm install
 $ direnv allow
 ```
 
-**Make sure your IDE supports [editorconfig](http://editorconfig.org/).*
+**Make sure your IDE supports [editorconfig](http://editorconfig.org/).**

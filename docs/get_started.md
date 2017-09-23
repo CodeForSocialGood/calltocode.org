@@ -1,23 +1,34 @@
 # Get Started
 
-## 1. Install dependencies.
+## Before working on the project, make sure you have done this steps:
+
+### Install dependencies.
 ```bash
 $ yarn
 ```
 
-## 2. Setup pairing.
+### Setup pairing.
 ```bash
 $ git solo <initials>                 # if you are solo
 $ git duet <initials-1> <initials-2>  # if you are pairing
 ```
 
-## 3. Start the app.
+### Run build.
+```bash
+$ yarn build
+```
+
+## Start working on the project
+
+### Start the app.
 ```bash
 $ yarn start:dev    # run in debug mode
 $ yarn start        # run in normal mode
 ```
 
-## 4. Run tests.
+## Before submitted changes, test first:
+
+### Run tests.
 ```bash
 $ yarn test
 ```
