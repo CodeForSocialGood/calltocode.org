@@ -11,13 +11,13 @@ $ git solo <initials>                 # if you are solo
 $ git duet <initials-1> <initials-2>  # if you are pairing
 ```
 
-## 3. Run tests.
-```bash
-$ yarn test
-```
-
-## 4. Start the app.
+## 3. Start the app.
 ```bash
 $ yarn start:dev    # run in debug mode
 $ yarn start        # run in normal mode
+```
+
+## 4. Run tests.
+```bash
+$ yarn test
 ```
