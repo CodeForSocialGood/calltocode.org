@@ -10,15 +10,33 @@
     "node": "8.5.0"
   },
   "scripts": {
-    "start:dev": "nodemon -w server/ -x 'yarn start'",
+    "prebuild": "rm -rf client/dist/",
+    "build": "webpack --bail",
+    "prestart": "yarn build",
     "start": "node server/",
-    "pretest": "eslint client/ server/",
-    "test": ""
+    "client:watch": "webpack --watch",
+    "server:watch": "nodemon --watch server/ --exec 'node server/'",
+    "start:dev": "npm-run-all --parallel client:watch server:watch",
+    "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
+    "test": "ava client/src/**/*.test.js server/**/*.test.js"
   },
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.6.0"
   },
   "devDependencies": {
+    "ava": "^0.22.0",
     "eslint": "^4.7.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
@@ -26,6 +44,17 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.3.0",
     "eslint-plugin-standard": "^3.0.1",
-    "nodemon": "^1.12.1"
+    "ignore-styles": "^5.0.1",
+    "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.1",
+    "supertest": "^3.0.0",
+    "supertest-as-promised": "^4.0.2"
+  },
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "babel-register",
+      "ignore-styles"
+    ]
   }
 }
