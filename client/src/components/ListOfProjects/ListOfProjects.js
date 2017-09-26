@@ -3,18 +3,24 @@ import React from 'react'
 import projects from '../../data/projects.json'
 
 function ListOfProjects () {
+  const projectListItems = projects.map((project, index) => {
+    return <li key={index} className={styles.listOrg} onClick={mailToOrganization(project)}>Name:{project.name} Role:{project.role}</li>
+  })
+
   return (
     <section className={styles.orgSection}>
       <h1 className={styles.title}>Apply Below</h1>
       <ul>
-        <li className={styles.listOrg}>Name:{projects[0].name} Role:{projects[0].role}</li>
-        <li className={styles.listOrg}>Name:{projects[1].name} Role:{projects[1].role}</li>
-        <li className={styles.listOrg}>Name:{projects[2].name} Role:{projects[2].role}</li>
-        <li className={styles.listOrg}>Name:{projects[3].name} Role:{projects[3].role}</li>
-        <li className={styles.listOrg}>Name:{projects[4].name} Role:{projects[4].role}</li>
+        {projectListItems}
       </ul>
     </section>
   )
+}
+
+function mailToOrganization (project) {
+  return () => {
+    window.open(`mailto:${project.email}?subject=${project.name}&body=I am interested in the role ${project.role}`)
+  }
 }
 
 export default ListOfProjects
