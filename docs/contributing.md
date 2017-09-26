@@ -1,20 +1,20 @@
 # Contributing
 
 ## Branching
-Whenever you start new work, make sure to create a new branch.
+When you start new work, create a new branch.
 ```bash
-$ git checkout -b feature/123456
+$ git checkout -b feature/<story-number>
 ```
 
 ## Pairing
-Make sure to always pair when you work. See [Get Started](/docs/get_started.md).
+Always pair when you work. See [Get Started](/docs/get_started.md).
 ```bash
 $ git solo <initials>                 # if solo
 $ git duet <initials-1> <initials-2>  # if pairing
 ```
 
 ## Commit Message
-Whenever you make commits, make sure to reference the pivotal tracker story number of what you are working on. For example,
+Reference the pivotal tracker story number for what you are working on.
 ```bash
 $ git commit -m "[#123456] add something"
 ```
@@ -45,7 +45,7 @@ $ git pull -r
 ```
 
 ## Pull Request
-Once you are done with your commits, push your branch to remote before you create a pull request on github.
+Once you are done with your commits, push your branch to the repository before creating a pull request. You can create a pull request using the github web interface.
 ```bash
 $ git push --set-upstream origin <branch-name>
 ```
