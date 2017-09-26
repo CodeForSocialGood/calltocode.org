@@ -1,9 +1,8 @@
-import styles from './ListOfOrganization.css'
+import styles from './ListOfProjects.css'
 import React from 'react'
 import projects from '../../data/projects.json'
 
-// TODO: rename ListOfOrganization
-function ListOfOrganization () {
+function ListOfProjects () {
   return (
     <section className={styles.orgSection}>
       <h1 className={styles.title}>Apply Below</h1>
@@ -18,4 +17,4 @@ function ListOfOrganization () {
   )
 }
 
-export default ListOfOrganization
+export default ListOfProjects
