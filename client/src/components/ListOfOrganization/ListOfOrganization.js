@@ -1,17 +1,18 @@
-
 import styles from './ListOfOrganization.css'
 import React from 'react'
+import projects from '../../data/projects.json'
 
+// TODO: rename ListOfOrganization
 function ListOfOrganization () {
   return (
     <section className={styles.orgSection}>
       <h1 className={styles.title}>Apply Below</h1>
-      <ul >
-        <li className={styles.listOrg}>Name:Organization1 Role:Role1</li>
-        <li className={styles.listOrg}>Name:Organization2 Role:Role2</li>
-        <li className={styles.listOrg}>Name:Organization3 Role:Role3</li>
-        <li className={styles.listOrg}>Name:Organization4 Role:Role4</li>
-        <li className={styles.listOrg}>Name:Organization5 Role:Role5</li>
+      <ul>
+        <li className={styles.listOrg}>Name:{projects[0].name} Role:{projects[0].role}</li>
+        <li className={styles.listOrg}>Name:{projects[1].name} Role:{projects[1].role}</li>
+        <li className={styles.listOrg}>Name:{projects[2].name} Role:{projects[2].role}</li>
+        <li className={styles.listOrg}>Name:{projects[3].name} Role:{projects[3].role}</li>
+        <li className={styles.listOrg}>Name:{projects[4].name} Role:{projects[4].role}</li>
       </ul>
     </section>
   )
