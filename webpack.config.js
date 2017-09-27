@@ -37,7 +37,7 @@ const config = {
     })
   ],
 
-  devtool: 'inline-source-map'
+  devtool: 'source-map'
 }
 
 module.exports = config
