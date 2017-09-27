@@ -13,11 +13,6 @@ $ git solo <initials>                 # if you are solo
 $ git duet <initials-1> <initials-2>  # if you are pairing
 ```
 
-### Run build.
-```bash
-$ yarn build
-```
-
 ## Start working on the project
 
 ### Start the app.
@@ -27,6 +22,11 @@ $ yarn start        # run in normal mode
 ```
 
 ## Before submitted changes, test first:
+
+### Run build.
+```bash
+$ yarn build
+```
 
 ### Run tests.
 ```bash
