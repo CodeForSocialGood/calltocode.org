@@ -26,7 +26,6 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.7",
@@ -50,8 +49,7 @@
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
     "sinon": "^4.0.0",
-    "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2"
+    "supertest": "^3.0.0"
   },
   "ava": {
     "babel": "inherit",
@@ -60,8 +58,8 @@
       "ignore-styles"
     ],
     "files": [
-			"client/src/**/*.test.js",
-			"server/**/*.test.js"
-		]
+      "client/src/**/*.test.js",
+      "server/**/*.test.js"
+    ]
   }
 }
