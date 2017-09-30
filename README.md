@@ -11,12 +11,13 @@
 ## Get Started
 ```bash
 $ yarn                                # install dependencies (npm install)
-$ git solo <initials>                 # if you are working solo
-$ git duet <initials-1> <initials-2>  # if you are pairing with someone
 $ yarn start:dev                      # run in watch mode (npm run start:dev)
 $ yarn start                          # run in normal mode (npm run start)
 $ yarn build                          # generate client distribution (npm run build)
 $ yarn test                           # run tests (npm test)
+$ git solo <initials>                 # if you are working solo
+$ git duet <initials-1> <initials-2>  # if you are pairing with someone
+$ clean_branches.sh                   # clean local branches besides master
 ```
 **Although yarn is recommended, you may use npm natively. The corresponding npm commands are in parenthesis above.*
 
