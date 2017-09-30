@@ -12,6 +12,8 @@
 
 1. [Setup](docs/setup.md)
 1. [Get Started](docs/get_started.md)
+1. [Contributing](docs/contributing.md)
+1. [Windows Shell Setup](docs/windows_shell_setup.md)
 
 [travis]: https://travis-ci.org/CodeForSocialGood/calltocode.org.svg
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
