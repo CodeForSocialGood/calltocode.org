@@ -5,16 +5,14 @@ import Header from './components/Header/Header'
 import ListOfProjects from './components/ListOfProjects/ListOfProjects'
 import Login from './components/Login/Login'
 
-import Layout from './Layout'
-
 function App () {
   return (
     <BrowserRouter>
-      <Layout>
+      <div>
         <Header/>
         <Route exact path='/' component={ListOfProjects}/>
         <Route path='/login' component={Login}/>
-      </Layout>
+      </div>
     </BrowserRouter>
   )
 }
