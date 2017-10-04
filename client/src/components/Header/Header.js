@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import { login } from '../../actions/index'
+import { push } from 'react-router-redux'
 
 class Header extends React.Component {
   render () {
@@ -22,7 +23,7 @@ class Header extends React.Component {
     return (
       <header className={styles.header}>
         {headerButtons}
-        <button onClick={() => this.props.login('kevin@email.com', 'kevin.password')} className={styles.button}>Log In Debug</button>
+        <button onClick={() => { this.props.login('kevin@email.com', 'kevin.password'); console.log('pushing'); push('/') }} className={styles.button}>Log In Debug</button>
       </header>
     )
   }
@@ -37,4 +38,4 @@ function mapStateToProps (state) {
   return { loggedIn: state.loggedIn }
 }
 
-export default connect(mapStateToProps, { login })(Header)
+export default connect(mapStateToProps, { push, login })(Header)

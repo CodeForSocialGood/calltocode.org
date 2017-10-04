@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 
+import { push } from 'react-router-redux'
 import { login } from '../../actions'
 
 class Login extends Component {
@@ -53,13 +54,10 @@ class Login extends Component {
 }
 
 const LoginForm = reduxForm({
-  form: 'LoginForm'
+  form: 'LoginForm',
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(Login)
 
-function mapStateToProps (state) {
-  return { loggedIn: state.loggedIn }
-}
-
-export default connect(mapStateToProps, { login })(LoginForm)
+export default connect(null, { login, push })(LoginForm)
 
 // () => login('kevin@email.com', 'kevin.password')
