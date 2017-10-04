@@ -19,6 +19,14 @@ class Login extends Component {
     )
   }
 
+  renderPassword (field) {
+    return (
+      <div className={styles.inputRow}>
+        <input className={styles.inputPassword} type="password" placeholder="Password" {...field.input}/>
+      </div>
+    )
+  }
+
   onSubmit (values) {
     console.log('values', values)
     this.props.login(values.email, values.password)
@@ -36,7 +44,7 @@ class Login extends Component {
         />
         <Field
           name="password"
-          component={(field) => <div className={styles.inputRow}><input className={styles.inputPassword} type="password" placeholder="Password" {...field.input}/></div>}
+          component={this.renderPassword}
         />
         <button type="submit" className={styles.buttonSubmit}>Submit</button>
       </form>
@@ -44,18 +52,14 @@ class Login extends Component {
   }
 }
 
-function validate (values) {
-  console.log('validate values', values)
-  return {}
-}
-
 const LoginForm = reduxForm({
-  validate,
   form: 'LoginForm'
 })(Login)
 
-// export default LoginForm
+function mapStateToProps (state) {
+  return { loggedIn: state.loggedIn }
+}
 
-export default connect(null, { login })(LoginForm)
+export default connect(mapStateToProps, { login })(LoginForm)
 
 // () => login('kevin@email.com', 'kevin.password')
