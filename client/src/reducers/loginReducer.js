@@ -7,7 +7,6 @@ export default function (state = false, action) {
     case LOGIN:
       const ret = (action.payload.email === credentials.email && action.payload.password === credentials.password)
       if (ret) {
-        BrowserHistory
       }
       return ret
     default:

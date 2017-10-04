@@ -10,8 +10,10 @@ function App () {
     <BrowserRouter>
       <div>
         <Header/>
-        <Route exact path='/' component={ListOfProjects}/>
-        <Route path='/login' component={Login}/>
+        <Switch>
+          <Route path='/login' component={Login}/>
+          <Route path='/' component={ListOfProjects}/>
+        </Switch>
       </div>
     </BrowserRouter>
   )
