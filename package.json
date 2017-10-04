@@ -36,6 +36,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-form": "^7.0.4",
     "redux-logger": "^3.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0"

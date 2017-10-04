@@ -37,7 +37,7 @@ const config = {
     })
   ],
 
-  devtool: 'source-map'
+  devtool: 'eval'
 }
 
 module.exports = config
