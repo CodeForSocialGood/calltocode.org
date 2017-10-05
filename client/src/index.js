@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 
 import createHistory from 'history/createBrowserHistory'
 
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import reducers from './reducers'
 
@@ -18,16 +18,18 @@ const history = createHistory()
 // Build the middleware for intercepting and dispatching navigation actions
 const middleware = routerMiddleware(history)
 
-// const logger = createLogger()
-
-// const createStoreWithMiddleware = applyMiddleware(logger)(createStore)
+const logger = createLogger({
+  // predicate: (getState, action) => !action.type.contains('redux-form')
+  predicate: (getState, action) => action.type.indexOf('redux-form') === -1
+})
 
 const store = createStore(
   combineReducers({
     ...reducers,
     router: routerReducer
   }),
-  applyMiddleware(middleware)
+  applyMiddleware(middleware),
+  applyMiddleware(logger)
 )
 
 ReactDOM.render(
