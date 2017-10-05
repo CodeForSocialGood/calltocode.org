@@ -19,7 +19,6 @@ class Header extends React.Component {
         <Link key='login' to='/login' className={styles.button}>LOGIN</Link>
       ]
     }
-
     return (
       <header className={styles.header}>
         {headerButtons}
