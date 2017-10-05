@@ -1,5 +1,4 @@
 import { LOGIN } from '../actions/types'
-import { browserHistory } from 'react-router'
 import credentials from '../data/login.json'
 
 export default function (state = false, action) {

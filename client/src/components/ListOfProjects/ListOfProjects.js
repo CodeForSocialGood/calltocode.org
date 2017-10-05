@@ -1,6 +1,7 @@
 import styles from './ListOfProjects.css'
 import React from 'react'
 import projects from '../../data/projects.json'
+import emailApiClient from '../../apiClients/email'
 
 function ListOfProjects () {
   const projectListItems = projects.map((project, index) => {
@@ -19,7 +20,10 @@ function ListOfProjects () {
 
 function mailToOrganization (project) {
   return () => {
-    window.open(`mailto:${project.email}?subject=${project.name}&body=I am interested in the role ${project.role}`)
+    const {email, name, role} = project
+    const projectInfo = {email, name, role}
+
+    emailApiClient.send(projectInfo)
   }
 }
 
