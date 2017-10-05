@@ -1,15 +1,7 @@
 {
   "presets": [
     "react",
-    "latest",
-    ["env", {
-      "targets": {
-        "browsers": [
-          "> 5%",
-          "last 2 versions"
-        ]
-      }
-    }],
+    "env",
     "stage-0"
   ],
   "plugins": [
