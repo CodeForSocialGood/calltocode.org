@@ -23,7 +23,6 @@ class Header extends React.Component {
     return (
       <header className={styles.header}>
         {headerButtons}
-        <button onClick={() => { this.props.login('kevin@email.com', 'kevin.password'); console.log('pushing'); push('/') }} className={styles.button}>Log In Debug</button>
       </header>
     )
   }

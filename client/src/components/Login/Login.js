@@ -2,9 +2,12 @@ import styles from './Login.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import PropTypes from 'prop-types'
 
 import { push } from 'react-router-redux'
 import { login } from '../../actions'
+
+import credentials from '../../data/login'
 
 class Login extends Component {
   renderEmail (field) {
@@ -29,7 +32,6 @@ class Login extends Component {
   }
 
   onSubmit (values) {
-    console.log('values', values)
     this.props.login(values.email, values.password)
   }
 
@@ -53,9 +55,27 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  login: PropTypes.func,
+  handleSubmit: PropTypes.func
+}
+
+// This function currently just checks whether the test username and password are provided
+function validate (values) {
+  const errors = {}
+  if (values.email !== credentials.email) {
+    errors.email = `Email should be ${credentials.email}`
+  }
+  if (values.password !== credentials.password) {
+    errors.password = `Password should be ${credentials.password}`
+  }
+  return errors
+}
+
 const LoginForm = reduxForm({
   form: 'LoginForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/')),
+  validate
 })(Login)
 
 export default connect(null, { login, push })(LoginForm)
