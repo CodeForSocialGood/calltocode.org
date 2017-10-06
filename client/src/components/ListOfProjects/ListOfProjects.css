@@ -4,8 +4,9 @@
 }
 
 .orgSection {
-    display: block;
-    padding: 100px 60px;
+  display: block;
+  padding: 0 60px;
+  margin-top: 30px;
 }
 
 .listOrg    {
