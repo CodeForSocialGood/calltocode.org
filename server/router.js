@@ -10,5 +10,6 @@ router.use(function routeLog (req, res, next) {
 const routerService = new RouterService()
 router.get('/', routerService.getIndex.bind(routerService))
 router.post('/email', routerService.postEmail.bind(routerService))
+router.get('*', routerService.getIndex.bind(routerService))
 
 module.exports = router
