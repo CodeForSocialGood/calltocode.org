@@ -2,6 +2,6 @@ import loginReducer from './loginReducer'
 import { reducer as formReducer } from 'redux-form'
 
 export default {
-  loggedIn: loginReducer,
+  login: loginReducer,
   form: formReducer
 }

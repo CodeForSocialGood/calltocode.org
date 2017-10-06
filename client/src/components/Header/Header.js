@@ -5,9 +5,6 @@ import PropTypes from 'prop-types'
 
 import { Link } from 'react-router-dom'
 
-import { login } from '../../actions/index'
-import { push } from 'react-router-redux'
-
 class Header extends React.Component {
   render () {
     let headerButtons
@@ -33,7 +30,7 @@ Header.propTypes = {
 }
 
 function mapStateToProps (state) {
-  return { loggedIn: state.loggedIn }
+  return { loggedIn: state.login.loggedIn }
 }
 
-export default connect(mapStateToProps, { push, login })(Header)
+export default connect(mapStateToProps)(Header)

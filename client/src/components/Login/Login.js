@@ -32,7 +32,7 @@ class Login extends Component {
   }
 
   onSubmit (values) {
-    this.props.login(values.email, values.password)
+    this.props.login()
   }
 
   render () {

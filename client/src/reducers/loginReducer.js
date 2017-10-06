@@ -1,10 +1,9 @@
 import { LOGIN } from '../actions/types'
-import credentials from '../data/login.json'
 
-export default function (state = false, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case LOGIN:
-      return (action.payload.email === credentials.email && action.payload.password === credentials.password)
+      return {...state, loggedIn: true}
     default:
       return state
   }
