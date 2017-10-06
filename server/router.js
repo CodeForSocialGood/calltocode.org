@@ -1,6 +1,5 @@
 const express = require('express')
 const RouterService = require('./services/RouterService')
-const path = require('path')
 
 const router = express.Router()
 router.use(function routeLog (req, res, next) {
