@@ -12,15 +12,12 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 
 import reducers from './reducers'
 
-// Create a browser History
-const history = createHistory()
+const browserHistory = createHistory()
 
-// Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+const navigationMiddleware = routerMiddleware(browserHistory)
 
-const logger = createLogger({
-  // predicate: (getState, action) => !action.type.contains('redux-form')
-  predicate: (getState, action) => action.type.indexOf('redux-form') === -1
+const loggedMiddleware = createLogger({
+  predicate: (getState, action) => !action.type.includes('redux-form')
 })
 
 const store = createStore(
@@ -28,14 +25,13 @@ const store = createStore(
     ...reducers,
     router: routerReducer
   }),
-  applyMiddleware(middleware),
-  applyMiddleware(logger)
+  applyMiddleware(navigationMiddleware),
+  applyMiddleware(loggedMiddleware)
 )
 
 ReactDOM.render(
-  // <Provider store={createStoreWithMiddleware(rootReducer)}>
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <ConnectedRouter history={browserHistory}>
       <App />
     </ConnectedRouter>
   </Provider>
