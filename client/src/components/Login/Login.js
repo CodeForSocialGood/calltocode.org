@@ -60,8 +60,7 @@ Login.propTypes = {
   handleSubmit: PropTypes.func
 }
 
-// This function currently just checks whether the test username and password are provided
-function validate (values) {
+function validateEmailAndPassword (values) {
   const errors = {}
   if (values.email !== credentials.email) {
     errors.email = `Email should be ${credentials.email}`
@@ -75,9 +74,7 @@ function validate (values) {
 const LoginForm = reduxForm({
   form: 'LoginForm',
   onSubmitSuccess: (result, dispatch) => dispatch(push('/')),
-  validate
+  validate: validateEmailAndPassword
 })(Login)
 
 export default connect(null, { login, push })(LoginForm)
-
-// () => login('kevin@email.com', 'kevin.password')
