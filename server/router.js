@@ -1,5 +1,6 @@
 const express = require('express')
 const RouterService = require('./services/RouterService')
+const path = require('path')
 
 const router = express.Router()
 router.use(function routeLog (req, res, next) {
@@ -10,5 +11,9 @@ router.use(function routeLog (req, res, next) {
 const routerService = new RouterService()
 router.get('/', routerService.getIndex.bind(routerService))
 router.post('/email', routerService.postEmail.bind(routerService))
+
+router.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
+})
 
 module.exports = router
