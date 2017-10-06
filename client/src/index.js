@@ -35,4 +35,5 @@ ReactDOM.render(
       <App />
     </ConnectedRouter>
   </Provider>
-  , document.querySelector('main'))
+  , document.querySelector('main')
+)
