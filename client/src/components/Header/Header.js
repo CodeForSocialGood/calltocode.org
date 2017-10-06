@@ -25,7 +25,6 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  login: PropTypes.func,
   loggedIn: PropTypes.bool
 }
 
