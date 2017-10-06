@@ -11,9 +11,6 @@ router.use(function routeLog (req, res, next) {
 const routerService = new RouterService()
 router.get('/', routerService.getIndex.bind(routerService))
 router.post('/email', routerService.postEmail.bind(routerService))
-
-router.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
-})
+router.get('*', routerService.getIndex.bind(routerService))
 
 module.exports = router
