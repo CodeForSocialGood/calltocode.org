@@ -1,32 +1,28 @@
-import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import createHistory from 'history/createBrowserHistory'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
-
-import createHistory from 'history/createBrowserHistory'
-
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
+import './index.css'
+import App from './App'
 import reducers from './reducers'
 
 const browserHistory = createHistory()
-
 const navigationMiddleware = routerMiddleware(browserHistory)
-
-const loggedMiddleware = createLogger({
+const loggerMiddleware = createLogger({
   predicate: (getState, action) => !action.type.includes('redux-form')
 })
 
 const store = createStore(
   combineReducers({
     ...reducers,
-    router: routerReducer
+    routing: routerReducer
   }),
   applyMiddleware(navigationMiddleware),
-  applyMiddleware(loggedMiddleware)
+  applyMiddleware(loggerMiddleware)
 )
 
 ReactDOM.render(
@@ -34,6 +30,8 @@ ReactDOM.render(
     <ConnectedRouter history={browserHistory}>
       <App />
     </ConnectedRouter>
-  </Provider>
-  , document.querySelector('main')
+  </Provider>,
+  document.querySelector('main')
 )
+
+export default store

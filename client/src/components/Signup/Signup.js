@@ -1,47 +1,58 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Field, reduxForm } from 'redux-form'
+import { push } from 'react-router-redux'
+import PropTypes from 'prop-types'
+
 import styles from '../Login/Login.css'
-import React from 'react'
+import { signup } from '../../actions'
 
-class Signup extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      emailField: '',
-      passwordField: ''
-    }
-
-    this.handleFieldChange = this.handleFieldChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+class Signup extends Component {
+  renderEmail (field) {
+    return (
+      <input className={styles.inputEmail}
+        placeholder="Email"
+        {...field.input} />
+    )
   }
 
-  handleFieldChange (event) {
-    const {name, value} = event.target
-
-    this.setState({
-      [name]: value
-    })
-  }
-
-  handleSubmit (event) {
-    console.log(`An email was submitted: ${this.state.emailField}`)
-    console.log(`A password was submitted: ${this.state.passwordField}`)
-    event.preventDefault()
+  renderPassword (field) {
+    return (
+      <input className={styles.inputPassword}
+        type="password"
+        placeholder="Password"
+        {...field.input} />
+    )
   }
 
   render () {
+    const { handleSubmit, signup } = this.props
+
     return (
-      <form className={styles.form} onSubmit={this.handleSubmit}>
-        <h1 className={styles.title}>Sign Up</h1>
+      <form className={styles.form} onSubmit={handleSubmit(signup)}>
+        <h1 className={styles.title}>Signup</h1>
 
-        <input className={styles.inputEmail} type="text" name="emailField" value={this.state.emailField}
-          placeholder="Email" onChange={this.handleFieldChange} />
+        <Field name="email"
+          component={this.renderEmail} />
+        <Field name="password"
+          component={this.renderPassword} />
 
-        <input className={styles.inputPassword} type="password" name="passwordField" value={this.state.passwordField}
-          placeholder="Password" onChange={this.handleFieldChange} />
-
-        <input className={styles.buttonSubmit} type="submit" value="Sign Up" />
+        <button className={styles.buttonSubmit} type="submit">
+          Submit
+        </button>
       </form>
     )
   }
 }
 
-export default Signup
+Signup.propTypes = {
+  signup: PropTypes.func,
+  handleSubmit: PropTypes.func
+}
+
+const SignupForm = reduxForm({
+  form: 'SignupForm',
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
+})(Signup)
+
+export default connect(null, { signup })(SignupForm)

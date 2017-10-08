@@ -1,13 +1,16 @@
-import { LOGIN } from '../actions/types'
+import { LOGIN, SIGNUP } from '../actions/types'
 
 const defaultState = {
-  loggedIn: false
+  loggedIn: false,
+  email: null
 }
 
-export default function (state = defaultState, action) {
-  switch (action.type) {
+export default function (state = defaultState, { type, value }) {
+  switch (type) {
     case LOGIN:
-      return {...state, loggedIn: true}
+      return {...state, loggedIn: true, email: value}
+    case SIGNUP:
+      return {...state, loggedIn: true, email: value}
     default:
       return state
   }
