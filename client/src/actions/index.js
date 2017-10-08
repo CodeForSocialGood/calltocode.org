@@ -1,14 +1,16 @@
 import { LOGIN, SIGNUP } from './types'
 
-function login () {
+function login ({ email }) {
   return {
-    type: LOGIN
+    type: LOGIN,
+    value: email
   }
 }
 
-function signup () {
+function signup ({ email }) {
   return {
-    type: SIGNUP
+    type: SIGNUP,
+    value: email
   }
 }
 
