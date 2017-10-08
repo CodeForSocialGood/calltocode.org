@@ -33,3 +33,5 @@ ReactDOM.render(
   </Provider>,
   document.querySelector('main')
 )
+
+export default store

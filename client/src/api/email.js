@@ -1,3 +1,5 @@
+import store from '..'
+
 const emailApiClient = {
   send (projectInfo) {
     const options = {
@@ -8,7 +10,7 @@ const emailApiClient = {
       body: JSON.stringify({
         project: projectInfo,
         user: {
-          email: 'kevin@email.com' // TODO: default for now
+          email: store.getState().login.email
         }
       })
     }
