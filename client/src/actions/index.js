@@ -14,7 +14,6 @@ function signup ({ email }) {
   }
 }
 
-
 export {
   login,
   signup
