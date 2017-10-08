@@ -1,7 +1,19 @@
-import { LOGIN } from './types'
+import { LOGIN, SIGNUP } from './types'
 
-export function login (email, password) {
+function login () {
   return {
     type: LOGIN
   }
+}
+
+function signup () {
+  return {
+    type: SIGNUP
+  }
+}
+
+
+export {
+  login,
+  signup
 }

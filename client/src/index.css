@@ -52,3 +52,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+main {
+  width: 960px;
+  margin: 0 auto;
+}

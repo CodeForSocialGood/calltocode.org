@@ -1,21 +1,23 @@
-import styles from './Header.css'
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { Link } from 'react-router-dom'
+import styles from './Header.css'
 
-class Header extends React.Component {
+class Header extends Component {
   render () {
     let headerButtons
+
     if (this.props.loggedIn) {
       headerButtons = <Link to='/' className={styles.button}>LOG OUT</Link>
     } else {
       headerButtons = [
-        <Link key='signup' to='/' className={styles.button}>SIGN UP</Link>,
+        <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
         <Link key='login' to='/login' className={styles.button}>LOGIN</Link>
       ]
     }
+
     return (
       <header className={styles.header}>
         {headerButtons}

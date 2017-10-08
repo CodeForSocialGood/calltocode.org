@@ -1,11 +1,16 @@
-import styles from './ListOfProjects.css'
 import React from 'react'
+
+import styles from './ListOfProjects.css'
 import projects from '../../data/projects.json'
-import emailApiClient from '../../apiClients/email'
+import emailApiClient from '../../api/email'
 
 function ListOfProjects () {
   const projectListItems = projects.map((project, index) => {
-    return <li key={index} className={styles.listOrg} onClick={mailToOrganization(project)}>Name:{project.name} Role:{project.role}</li>
+    return (
+      <li key={index} className={styles.listOrg} onClick={mailToOrganization(project)}>
+        Name:{project.name} Role:{project.role}
+      </li>
+    )
   })
 
   return (

@@ -1,55 +1,46 @@
-import styles from './Login.css'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import { push } from 'react-router-redux'
-import { login } from '../../actions'
-
+import styles from './Login.css'
 import credentials from '../../data/login'
+import { login } from '../../actions'
 
 class Login extends Component {
   renderEmail (field) {
     return (
-      <div className={styles.inputRow}>
-        <input
-          className={styles.inputEmail}
-          type="text"
-          placeholder="Email"
-          {...field.input}
-        />
-      </div>
+      <input className={styles.inputEmail}
+        placeholder="Email"
+        {...field.input} />
     )
   }
 
   renderPassword (field) {
     return (
-      <div className={styles.inputRow}>
-        <input className={styles.inputPassword} type="password" placeholder="Password" {...field.input}/>
-      </div>
+      <input className={styles.inputPassword}
+        placeholder="Password"
+        type="password"
+        {...field.input} />
     )
   }
 
-  onSubmit (values) {
-    this.props.login()
-  }
-
   render () {
-    const { handleSubmit } = this.props
+    const { handleSubmit, login } = this.props
+
     return (
-      <form className={styles.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+      <form className={styles.form} onSubmit={handleSubmit(login)}>
         <h1 className={styles.title}>Login</h1>
 
-        <Field
-          name="email"
-          component={this.renderEmail}
-        />
-        <Field
-          name="password"
-          component={this.renderPassword}
-        />
-        <button type="submit" className={styles.buttonSubmit}>Submit</button>
+        <Field name="email"
+          component={this.renderEmail} />
+        <Field name="password"
+          component={this.renderPassword} />
+
+        <button className={styles.buttonSubmit} type="submit">
+          Submit
+        </button>
       </form>
     )
   }
@@ -77,4 +68,4 @@ const LoginForm = reduxForm({
   validate: validateEmailAndPassword
 })(Login)
 
-export default connect(null, { login, push })(LoginForm)
+export default connect(null, { login })(LoginForm)
