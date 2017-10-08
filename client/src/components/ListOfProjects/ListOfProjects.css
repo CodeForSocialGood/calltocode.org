@@ -19,6 +19,6 @@
 }
 
 li:hover{
-  box-shadow: 0 6px 4px -2px #808080;
+  box-shadow: 0 6px 4px -2px gray;
   cursor: pointer;
 }
