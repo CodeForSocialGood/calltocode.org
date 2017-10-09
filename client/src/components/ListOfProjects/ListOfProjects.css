@@ -17,3 +17,8 @@
   background-color: darkgray;
   margin-bottom: 15px;
 }
+
+li:hover{
+  box-shadow: 0 3px 4px 1px gray;
+  cursor: pointer;
+}
