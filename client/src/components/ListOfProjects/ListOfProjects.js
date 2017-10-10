@@ -9,10 +9,12 @@ import { connect } from 'react-redux'
 
 function ListOfProjects (props) {
   const liClassName = props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
-  const liOnClick = props.loggedIn ? (project) => mailToOrganization(project) : null
   const projectListItems = projects.map((project, index) => {
     return (
-      <li key={index} className={liClassName} onClick={liOnClick}>
+      <li
+        key={index}
+        className={liClassName}
+        onClick={props.loggedIn ? mailToOrganization(project) : null}>
         Name:{project.name} Role:{project.role}
       </li>
     )
