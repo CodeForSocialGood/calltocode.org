@@ -9,7 +9,7 @@
   margin-top: 30px;
 }
 
-.listOrg    {
+.listOrg, .listOrgLoggedIn {
   padding: 20px;
   border: 0;
   border-radius: 5px;
@@ -18,7 +18,7 @@
   margin-bottom: 15px;
 }
 
-li:hover{
+li.listOrgLoggedIn:hover {
   box-shadow: 0 3px 4px 1px gray;
   cursor: pointer;
 }
