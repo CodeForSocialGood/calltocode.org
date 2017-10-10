@@ -1,13 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import styles from './ListOfProjects.css'
 import projects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
 
-function ListOfProjects () {
+import { connect } from 'react-redux'
+
+function ListOfProjects (props) {
+  const liClassName = props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
   const projectListItems = projects.map((project, index) => {
     return (
-      <li key={index} className={styles.listOrg} onClick={mailToOrganization(project)}>
+      <li
+        key={index}
+        className={liClassName}
+        onClick={props.loggedIn ? mailToOrganization(project) : null}>
         Name:{project.name} Role:{project.role}
       </li>
     )
@@ -32,4 +39,12 @@ function mailToOrganization (project) {
   }
 }
 
-export default ListOfProjects
+function mapStateToProps (state) {
+  return { loggedIn: state.login.loggedIn }
+}
+
+ListOfProjects.propTypes = {
+  loggedIn: PropTypes.bool.isRequired
+}
+
+export default connect(mapStateToProps)(ListOfProjects)
