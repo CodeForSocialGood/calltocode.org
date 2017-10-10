@@ -2,6 +2,7 @@
   text-align: right;
   padding: 0 60px;
   margin-top: 20px;
+  display: grid;
 }
 
 .button {
