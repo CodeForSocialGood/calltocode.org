@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import { logout } from '../../actions'
 import styles from './Header.css'
 
 class Header extends Component {
@@ -10,7 +11,7 @@ class Header extends Component {
     let headerButtons
 
     if (this.props.loggedIn) {
-      headerButtons = <Link to='/' className={styles.button}>LOG OUT</Link>
+      headerButtons = <Link to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>
     } else {
       headerButtons = [
         <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
@@ -27,11 +28,12 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  loggedIn: PropTypes.bool
+  loggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
   return { loggedIn: state.login.loggedIn }
 }
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps, { logout })(Header)
