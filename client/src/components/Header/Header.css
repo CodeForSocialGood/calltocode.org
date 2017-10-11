@@ -1,5 +1,5 @@
 .header {
-  text-align: right;
+  /* text-align: right; */
   padding: 0 60px;
   margin-top: 20px;
   display: grid;
@@ -12,8 +12,16 @@
   color: white;
   font-size: 100%;
   border-radius: 5px;
+  margin-left: 10px;
+  float: right;
 }
 
-.button:first-child {
-  margin-right: 10px;
+img {
+  height: 42px;
+  vertical-align: middle;
+  float: left;
+}
+
+.clearfix {
+  clear: both;
 }
