@@ -1,8 +1,8 @@
 .header {
-  /* text-align: right; */
   padding: 0 60px;
   margin-top: 20px;
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .button {
@@ -13,15 +13,11 @@
   font-size: 100%;
   border-radius: 5px;
   margin-left: 10px;
-  float: right;
+}
+.buttons {
+  text-align: right;
 }
 
 img {
   height: 42px;
-  vertical-align: middle;
-  float: left;
-}
-
-.clearfix {
-  clear: both;
 }
