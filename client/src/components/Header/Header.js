@@ -21,6 +21,7 @@ class Header extends Component {
 
     return (
       <header className={styles.header}>
+        <img src={require('../../../images/logo.png')} />
         {headerButtons}
       </header>
     )
