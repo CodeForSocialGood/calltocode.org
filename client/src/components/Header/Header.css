@@ -1,6 +1,6 @@
 .header {
   padding: 0 60px;
-  margin-top: 20px;
+  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
