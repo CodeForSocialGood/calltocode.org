@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     validate: {
       validator (email, done) {
         User.find({ email }, (error, docs) => {
+          if (error) return console.error(error)
           const userDoesNotExist = docs.length === 0
           done(userDoesNotExist)
         })

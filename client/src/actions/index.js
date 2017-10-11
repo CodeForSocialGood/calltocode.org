@@ -1,5 +1,6 @@
 import { LOGIN, LOGOUT } from './types'
 import signupApiClient from '../api/signup'
+import SignupException from '../exceptions/SignupException'
 
 function login ({ email }) {
   return {
@@ -20,7 +21,7 @@ function signup ({ email, password }) {
     if (response.status === 200) {
       return dispatch(login({ email }))
     }
-    throw new Exception()
+    throw new SignupException()
   }
 }
 

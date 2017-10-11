@@ -1,5 +1,3 @@
-import store from '..'
-
 const signupApiClient = {
   signup (user) {
     const options = {
