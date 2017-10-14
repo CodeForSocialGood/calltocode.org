@@ -21,7 +21,10 @@ class Header extends Component {
 
     return (
       <header className={styles.header}>
-        {headerButtons}
+        <img className={styles.logo} src={require('../../../images/logo.png')} />
+        <div className={styles.buttons}>
+          {headerButtons}
+        </div>
       </header>
     )
   }
