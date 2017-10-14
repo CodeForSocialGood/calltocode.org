@@ -14,10 +14,11 @@
   border-radius: 5px;
   margin-left: 10px;
 }
+
 .buttons {
   text-align: right;
 }
 
-img {
+.logo {
   height: 42px;
 }

@@ -5,16 +5,16 @@ const srcDir = path.join(__dirname, 'client', 'src')
 
 const config = {
   context: srcDir,
-  
+
   entry: {
     index: './index.js'
   },
-  
+
   output: {
     path: path.join(__dirname, 'client', 'dist'),
     filename: 'bundle.js'
   },
-  
+
   module: {
     rules: [
       {
@@ -32,14 +32,12 @@ const config = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192
-            }
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8192
           }
-        ]
+        }
       }
     ]
   },
