@@ -1,15 +1,18 @@
 const express = require('express')
-const RouterService = require('./services/RouterService')
+const emailController = require('./controllers/emailController')._init()
+const signupController = require('./controllers/signupController')._init()
+const indexController = require('./controllers/indexController')._init()
 
 const router = express.Router()
+
 router.use(function routeLog (req, res, next) {
   console.log(`${req.originalUrl} on ${new Date()}`)
   next()
 })
 
-const routerService = new RouterService()
-router.get('/', routerService.getIndex.bind(routerService))
-router.post('/email', routerService.postEmail.bind(routerService))
-router.get('*', routerService.getIndex.bind(routerService))
+router.post('/email', emailController.sendEmailToOrganization.bind(emailController))
+router.post('/signup', signupController.signupNewUser.bind(signupController))
+router.get('/', indexController.getIndexPage.bind(indexController))
+router.get('*', indexController.getIndexPage.bind(indexController))
 
 module.exports = router

@@ -1,4 +1,6 @@
-import { LOGIN, SIGNUP, LOGOUT } from './types'
+import { LOGIN, LOGOUT } from './types'
+import signupApiClient from '../api/signup'
+import SignupException from '../exceptions/SignupException'
 
 function login ({ email }) {
   return {
@@ -13,10 +15,13 @@ function logout () {
   }
 }
 
-function signup ({ email }) {
-  return {
-    type: SIGNUP,
-    value: email
+function signup ({ email, password }) {
+  return async dispatch => {
+    const response = await signupApiClient.signup({ email, password })
+    if (response.status === 200) {
+      return dispatch(login({ email }))
+    }
+    throw new SignupException()
   }
 }
 
