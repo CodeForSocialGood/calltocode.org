@@ -16,19 +16,30 @@ const config = {
   },
 
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }, {
+        test: /\.css$/,
+        loaders: [
+          'style-loader?sourceMap',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]__[hash:base64:5]'
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8192
+          }
+        }
       }
-    }, {
-      test: /\.css$/,
-      loaders: [
-        'style-loader?sourceMap',
-        'css-loader?modules&importLoaders=1&localIdentName=[local]__[hash:base64:5]'
-      ]
-    }]
+    ]
   },
 
   plugins: [
