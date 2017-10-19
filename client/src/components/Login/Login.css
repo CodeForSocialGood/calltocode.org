@@ -45,3 +45,8 @@ button {
   color: white;
   background-color: royalblue;
 }
+
+.errorContent  {
+  font-size: 1rem;
+  color: darkred;
+}
