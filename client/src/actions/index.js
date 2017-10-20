@@ -7,20 +7,20 @@ import credentials from '../data/login'
 function login (values) {
   if (values.email !== credentials.email) {
     throw new SubmissionError({
-        email: `Email should be ${credentials.email}`,
-        _error: 'Incorrect credentials, please try again!'
-      })
+      email: `Email should be ${credentials.email}`,
+      _error: 'Incorrect credentials, please try again!'
+    })
   } else if (values.password !== credentials.password) {
     throw new SubmissionError({
-        password: `Password should be ${credentials.password}`,
-        _error: 'Incorrect credentials, please try again!'
-      })
+      password: `Password should be ${credentials.password}`,
+      _error: 'Incorrect credentials, please try again!'
+    })
   } else {
-      return {
-        type: LOGIN,
-        value: values.email
-      }
+    return {
+      type: LOGIN,
+      value: values.email
     }
+  }
 }
 
 function logout () {
