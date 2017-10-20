@@ -5,7 +5,6 @@ import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import styles from './Login.css'
-import credentials from '../../data/login'
 import { login } from '../../actions'
 
 class Login extends Component {
@@ -49,7 +48,9 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  error: PropTypes.any,
+  submitting: PropTypes.any
 }
 
 const LoginForm = reduxForm({
