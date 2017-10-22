@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './ListOfProjects.css'
+import styles from './ListOfProjects.scss'
 import projects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
 

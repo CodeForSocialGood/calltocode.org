@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import styles from './Login.css'
+import styles from './Login.scss'
 import credentials from '../../data/login'
 import { login } from '../../actions'
 

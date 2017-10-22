@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { logout } from '../../actions'
-import styles from './Header.css'
+import styles from './Header.scss'
 
 class Header extends Component {
   render () {

@@ -19,7 +19,7 @@
 }
 
 .listOrgLoggedIn {
-  composes: listOrg;
+  @extend .listOrg;
 }
 
 .listOrgLoggedIn:hover {

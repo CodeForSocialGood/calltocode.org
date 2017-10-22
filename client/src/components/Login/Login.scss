@@ -1,3 +1,5 @@
+@import "../../scss/partials/button";
+
 .form {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -22,18 +24,24 @@
   padding: 10px 5px;
 }
 
+.fieldInput {
+  @extend .field;
+  @extend .input;
+}
+
 .inputEmail {
-  composes: field input;
+  @extend .fieldInput;
   grid-row: 2;
 }
 
 .inputPassword {
-  composes: field input;
+  @extend .fieldInput;
   grid-row: 3;
 }
 
 .buttonSubmit {
-  composes: field button from '../_shared/button.css';
+  @extend %button;
+  @extend .field;
   grid-row: 4;
   padding: 20px;
 }

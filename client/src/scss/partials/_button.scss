@@ -1,4 +1,4 @@
-.button {
+%button {
   color: white;
   background-color: royalblue;
   font-size: 100%;
@@ -6,7 +6,7 @@
   border-radius: 5px;
 }
 
-.button:hover {
+%button:hover {
   cursor: pointer;
   background-color: darkblue;
 }
