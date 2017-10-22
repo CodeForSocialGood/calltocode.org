@@ -1,3 +1,5 @@
+@import '../../scss/partials/partials';
+
 .title {
   font-size: 20px;
   margin-bottom: 15px;
@@ -14,7 +16,7 @@
   border: 0;
   border-radius: 5px;
   color: white;
-  background-color: darkgray;
+  background-color: $listColor;
   margin-bottom: 15px;
 }
 
@@ -23,6 +25,6 @@
 }
 
 .listOrgLoggedIn:hover {
-  box-shadow: 0 3px 4px 1px gray;
-  cursor: pointer;
+  @extend %hover;
+  @extend %boxShadowSmall;
 }
