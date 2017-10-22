@@ -37,6 +37,17 @@ const config = {
         }),
       },
       {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader?sourceMap',
+          //resolve-url-loader may be chained before sass-loader if necessary
+          use: [
+            'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"',
+            'sass-loader?sourceMap'
+          ],
+        })
+      },
+      {
         test: /\.(png|jpg|gif)$/,
         use: {
           loader: 'url-loader',
