@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const srcDir = path.join(__dirname, 'client', 'src')
 
@@ -24,11 +25,16 @@ const config = {
           loader: 'babel-loader'
         }
       }, {
-        test: /\.css$/,
+        /*test: /\.css$/,
         loaders: [
           'style-loader?sourceMap',
           'css-loader?modules&importLoaders=1&localIdentName=[local]__[hash:base64:5]'
-        ]
+        ]*/
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+            fallback: 'style-loader?sourceMap',
+            use: 'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"'
+        }),
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -45,7 +51,11 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(srcDir, 'index.html')
-    })
+    }),
+    new ExtractTextPlugin({
+      filename: 'app.css',
+      allChunks: true
+    }),
   ],
 
   devtool: 'source-map'
