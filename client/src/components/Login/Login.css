@@ -37,3 +37,8 @@
   grid-row: 4;
   padding: 20px;
 }
+
+.errorContent  {
+  font-size: 1rem;
+  color: darkred;
+}
