@@ -5,7 +5,6 @@ import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import styles from './Login.css'
-import credentials from '../../data/login'
 import { login } from '../../actions'
 
 class Login extends Component {
@@ -27,7 +26,7 @@ class Login extends Component {
   }
 
   render () {
-    const { handleSubmit, login } = this.props
+    const { handleSubmit, login, error, submitting } = this.props
 
     return (
       <form className={styles.form} onSubmit={handleSubmit(login)}>
@@ -38,9 +37,10 @@ class Login extends Component {
         <Field name="password"
           component={this.renderPassword} />
 
-        <button className={styles.buttonSubmit} type="submit">
-          Submit
+        <button className={styles.buttonSubmit} type="submit" disabled={submitting}>
+          Login
         </button>
+        <div className={styles.errorContent}>{error}</div>
       </form>
     )
   }
@@ -48,24 +48,14 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func,
-  handleSubmit: PropTypes.func
-}
-
-function validateEmailAndPassword (values) {
-  const errors = {}
-  if (values.email !== credentials.email) {
-    errors.email = `Email should be ${credentials.email}`
-  }
-  if (values.password !== credentials.password) {
-    errors.password = `Password should be ${credentials.password}`
-  }
-  return errors
+  handleSubmit: PropTypes.func,
+  error: PropTypes.any,
+  submitting: PropTypes.any
 }
 
 const LoginForm = reduxForm({
   form: 'LoginForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/')),
-  validate: validateEmailAndPassword
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(Login)
 
 export default connect(null, { login })(LoginForm)

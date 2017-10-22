@@ -18,6 +18,10 @@
   font-size: 1rem;
 }
 
+button {
+  font-size: 100%;
+}
+
 .input {
   padding: 10px 5px;
 }
@@ -33,7 +37,16 @@
 }
 
 .buttonSubmit {
-  composes: field button from '../_shared/button.css';
+  composes: field;
   grid-row: 4;
   padding: 20px;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  background-color: royalblue;
+}
+
+.errorContent  {
+  font-size: 1rem;
+  color: darkred;
 }
