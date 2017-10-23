@@ -13,6 +13,10 @@
   margin-left: 10px;
 }
 
+.button:hover {
+  @extend %hover;
+}
+
 .buttons {
   text-align: right;
 }
