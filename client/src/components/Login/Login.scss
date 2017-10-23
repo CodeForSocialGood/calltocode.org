@@ -9,7 +9,7 @@
   padding: 10px 5px;
 }
 
-.fieldInput {
+%fieldInput {
   @extend %field;
   @extend %input;
 }
