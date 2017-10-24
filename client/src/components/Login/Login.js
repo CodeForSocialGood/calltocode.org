@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import styles from './Login.css'
-import credentials from '../../data/login'
 import { login } from '../../actions'
+import loginApiClient from '../../api/login'
 
 class Login extends Component {
   renderEmail (field) {
@@ -26,11 +26,22 @@ class Login extends Component {
     )
   }
 
+  async validateEmailAndPassword (values) {
+    const { email, password } = values
+    const response = await loginApiClient.login(email, password)
+
+    if (response.status === 403) {
+      throw new SubmissionError({ email, _error: 'Unauthorized!' })
+    } else {
+      this.props.login({ email })
+    }
+  }
+
   render () {
-    const { handleSubmit, login } = this.props
+    const { handleSubmit } = this.props
 
     return (
-      <form className={styles.form} onSubmit={handleSubmit(login)}>
+      <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
         <h1 className={styles.title}>Login</h1>
 
         <Field name="email"
@@ -51,21 +62,9 @@ Login.propTypes = {
   handleSubmit: PropTypes.func
 }
 
-function validateEmailAndPassword (values) {
-  const errors = {}
-  if (values.email !== credentials.email) {
-    errors.email = `Email should be ${credentials.email}`
-  }
-  if (values.password !== credentials.password) {
-    errors.password = `Password should be ${credentials.password}`
-  }
-  return errors
-}
-
 const LoginForm = reduxForm({
   form: 'LoginForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/')),
-  validate: validateEmailAndPassword
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(Login)
 
 export default connect(null, { login })(LoginForm)
