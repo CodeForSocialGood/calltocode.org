@@ -6,12 +6,8 @@
 }
 
 .button {
+  composes: button from '../_shared/button.css';
   padding: 10px;
-  border: 0;
-  background-color: royalblue;
-  color: white;
-  font-size: 100%;
-  border-radius: 5px;
   margin-left: 10px;
 }
 
