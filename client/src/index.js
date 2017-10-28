@@ -22,7 +22,11 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
-  applyMiddleware(navigationMiddleware, loggerMiddleware, thunkMiddleware)
+  applyMiddleware(
+    navigationMiddleware,
+    loggerMiddleware,
+    thunkMiddleware
+  )
 )
 
 ReactDOM.render(

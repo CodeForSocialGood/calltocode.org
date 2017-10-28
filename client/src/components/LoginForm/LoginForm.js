@@ -4,11 +4,11 @@ import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import styles from './Login.scss'
+import styles from './LoginForm.scss'
 import { login } from '../../actions'
 import loginApiClient from '../../api/login'
 
-class Login extends Component {
+class LoginForm extends Component {
   renderEmail (field) {
     return (
       <input className={styles.inputEmail}
@@ -57,14 +57,14 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+LoginForm.propTypes = {
   login: PropTypes.func,
   handleSubmit: PropTypes.func
 }
 
-const LoginForm = reduxForm({
+const LoginFormRedux = reduxForm({
   form: 'LoginForm',
   onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
-})(Login)
+})(LoginForm)
 
-export default connect(null, { login })(LoginForm)
+export default connect(null, { login })(LoginFormRedux)
