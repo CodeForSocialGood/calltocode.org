@@ -7,7 +7,7 @@ import SignupValidator from './SignupValidator'
 import styles from '../LoginForm/LoginForm.scss'
 import { signup } from '../../actions'
 
-function EmailField({ input, meta: { error, warning } }) {
+function EmailField ({ input, meta: { error, warning } }) {
   return [
     <input key="field"
       className={styles.inputEmail}
@@ -20,7 +20,7 @@ function EmailField({ input, meta: { error, warning } }) {
   ]
 }
 
-function PasswordField({ input, meta: { error, warning } }) {
+function PasswordField ({ input, meta: { error, warning } }) {
   return [
     <input key="field"
       className={styles.inputPassword}
@@ -34,7 +34,7 @@ function PasswordField({ input, meta: { error, warning } }) {
   ]
 }
 
-function SignupForm(props) {
+function SignupForm (props) {
   const { handleSubmit } = props
 
   return (
