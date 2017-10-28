@@ -25,15 +25,10 @@ const config = {
           loader: 'babel-loader'
         }
       }, {
-        /*test: /\.css$/,
-        loaders: [
-          'style-loader?sourceMap',
-          'css-loader?modules&importLoaders=1&localIdentName=[local]__[hash:base64:5]'
-        ]*/
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-            fallback: 'style-loader?sourceMap',
-            use: 'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"'
+          fallback: 'style-loader?sourceMap',
+          use: 'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"'
         }),
       },
       {

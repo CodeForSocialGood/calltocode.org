@@ -8,15 +8,14 @@ import emailApiClient from '../../api/email'
 import { connect } from 'react-redux'
 
 class ListOfProjects extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.renderListOfProjects = this.renderListOfProjects.bind(this);
+    this.renderListOfProjects = this.renderListOfProjects.bind(this)
   }
 
-  renderListOfProjects() {
-
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg;
+  renderListOfProjects () {
+    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
 
     return projects.map((project, index) => {
       return (
@@ -26,11 +25,11 @@ class ListOfProjects extends Component {
           onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
           Name:{project.name} Role:{project.role}
         </li>
-      );
-    });
+      )
+    })
   }
 
-  render() {
+  render () {
     return (
       <section className={styles.orgSection}>
         <h1 className={styles.title}>Apply Below</h1>
@@ -38,7 +37,7 @@ class ListOfProjects extends Component {
           {this.renderListOfProjects()}
         </ul>
       </section>
-    );
+    )
   }
 }
 
