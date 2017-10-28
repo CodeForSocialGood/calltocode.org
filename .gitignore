@@ -3,4 +3,6 @@ node_modules/
 dist/
 **/.DS_Store
 *.log
-.secrets
+.env
+package-lock.json
+npm-shrinkwrap.json
