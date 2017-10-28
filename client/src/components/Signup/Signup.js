@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import styles from '../Login/Login.css'
+import styles from '../Login/Login.scss'
 import { signup } from '../../actions'
 
 /**

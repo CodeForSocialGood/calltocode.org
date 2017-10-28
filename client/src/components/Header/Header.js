@@ -4,26 +4,37 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { logout } from '../../actions'
-import styles from './Header.css'
+import styles from './Header.scss'
 
 class Header extends Component {
-  render () {
-    let headerButtons
+  constructor(props) {
+    super(props);
+
+    this.renderHeaderButtons = this.renderHeaderButtons.bind(this);
+  }
+
+  renderHeaderButtons() {
 
     if (this.props.loggedIn) {
-      headerButtons = <Link to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>
-    } else {
-      headerButtons = [
+      return (
+        <Link to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>
+      );
+    }
+    else {
+      return ([
         <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
         <Link key='login' to='/login' className={styles.button}>LOGIN</Link>
-      ]
+      ]);
     }
+  }
+
+  render () {
 
     return (
       <header className={styles.header}>
         <img className={styles.logo} src={require('../../../images/logo.png')} />
         <div className={styles.buttons}>
-          {headerButtons}
+          {this.renderHeaderButtons()}
         </div>
       </header>
     )

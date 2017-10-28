@@ -4,7 +4,7 @@ import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import styles from './Login.css'
+import styles from './Login.scss'
 import { login } from '../../actions'
 import loginApiClient from '../../api/login'
 

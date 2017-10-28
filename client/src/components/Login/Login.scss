@@ -1,3 +1,19 @@
+@import '../../scss/partials/partials';
+
+%field {
+  grid-column: 1 / 1;
+  font-size: 1rem;
+}
+
+%input {
+  padding: 10px 5px;
+}
+
+%fieldInput {
+  @extend %field;
+  @extend %input;
+}
+
 .form {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -13,27 +29,19 @@
   margin-bottom: 15px;
 }
 
-.field {
-  grid-column: 1 / 1;
-  font-size: 1rem;
-}
-
-.input {
-  padding: 10px 5px;
-}
-
 .inputEmail {
-  composes: field input;
+  @extend %fieldInput;
   grid-row: 2;
 }
 
 .inputPassword {
-  composes: field input;
+  @extend %fieldInput;
   grid-row: 3;
 }
 
 .buttonSubmit {
-  composes: field button from '../_shared/button.css';
+  @extend %button;
+  @extend %field;
   grid-row: 4;
   padding: 20px;
 }
