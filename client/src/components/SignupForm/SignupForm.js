@@ -30,7 +30,7 @@ function PasswordField ({ input, meta: { error } }) {
       {...input} />,
 
     <div key="error">
-      {error}
+      {JSON.stringify(error)}
     </div>
   ]
 }

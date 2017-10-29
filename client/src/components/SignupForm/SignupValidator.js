@@ -26,7 +26,6 @@ class SignupValidator {
       lowerCase: value && regexLowerCase.test(value),
       hasOneDigit: value && regexDigit.test(value),
       hasSpecialChar: value && regexSpecialChars.test(value),
-      isValid: false
     }
     let counter = 0
 
@@ -46,7 +45,7 @@ class SignupValidator {
       return
     }
 
-    return 'Invalid password'
+    return rules
   }
 
   /**
