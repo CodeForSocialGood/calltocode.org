@@ -18,34 +18,34 @@ class SignupValidator {
     const regexDigit = new RegExp(/[0-9]/)
     const regexIdenticalChars = new RegExp(/([0-9]|[aA-zZ])\1\1/)
 
-    const res = {
+    const rules = {
       minLength: value && value.length >= 10,
       maxLength: value && value.length <= 128,
       noIdenticalChars: value && !regexIdenticalChars.test(value),
       upperCase: value && regexUpperCase.test(value),
       lowerCase: value && regexLowerCase.test(value),
       hasOneDigit: value && regexDigit.test(value),
-      hasSpecialChar: value && regexSpecialChars.test(value),
-      isValid: false
+      hasSpecialChar: value && regexSpecialChars.test(value)
     }
     let counter = 0
 
-    if (res.upperCase) {
+    if (rules.upperCase) {
       counter++
     }
-    if (res.lowerCase) {
+    if (rules.lowerCase) {
       counter++
-    } if (res.hasOneDigit) {
+    } if (rules.hasOneDigit) {
       counter++
     }
-    if (res.hasSpecialChar) {
+    if (rules.hasSpecialChar) {
       counter++
     }
 
-    if (counter >= 3 && res.noIdenticalChars && res.minLength && res.maxLength) {
-      res.isValid = true
+    if (counter >= 3 && rules.noIdenticalChars && rules.minLength && rules.maxLength) {
+      return
     }
-    return res
+
+    return rules
   }
 
   /**
@@ -53,14 +53,8 @@ class SignupValidator {
   * @param {*} value email to be validated
   */
   static validateEmail (value) {
-    const res = {
-      message: '',
-      isValid: false
-    }
     if (!value || (value && value.length === 0)) {
-      res.message = 'Can\'t be blank'
-      res.isValid = false
-      return res
+      return `Can't be blank`
     }
 
     const sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]'
@@ -79,13 +73,10 @@ class SignupValidator {
 
     const reValidEmail = new RegExp(sValidEmail)
     if (reValidEmail.test(value)) {
-      res.isValid = true
-    } else {
-      res.isValid = false
-      res.message = 'Invalid email'
+      return
     }
 
-    return res
+    return 'Invalid email'
   }
 }
 
