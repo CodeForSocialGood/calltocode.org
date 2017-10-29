@@ -25,7 +25,7 @@ class SignupValidator {
       upperCase: value && regexUpperCase.test(value),
       lowerCase: value && regexLowerCase.test(value),
       hasOneDigit: value && regexDigit.test(value),
-      hasSpecialChar: value && regexSpecialChars.test(value),
+      hasSpecialChar: value && regexSpecialChars.test(value)
     }
     let counter = 0
 

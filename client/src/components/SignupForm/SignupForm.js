@@ -67,6 +67,7 @@ PasswordField.propTypes = {
 }
 
 SignupForm.propTypes = {
+  signup: PropTypes.func,
   handleSubmit: PropTypes.func
 }
 
