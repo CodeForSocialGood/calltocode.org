@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
@@ -7,7 +8,7 @@ import SignupValidator from './SignupValidator'
 import styles from '../LoginForm/LoginForm.scss'
 import { signup } from '../../actions'
 
-function EmailField ({ input, meta: { error, warning } }) {
+function EmailField ({ input, meta: { error } }) {
   return [
     <input key="field"
       className={styles.inputEmail}
@@ -15,12 +16,12 @@ function EmailField ({ input, meta: { error, warning } }) {
       {...input} />,
 
     <div key="error">
-      {(error && !error.isValid && <div>{error.message}</div>)}
+      {error}
     </div>
   ]
 }
 
-function PasswordField ({ input, meta: { error, warning } }) {
+function PasswordField ({ input, meta: { error } }) {
   return [
     <input key="field"
       className={styles.inputPassword}
@@ -29,13 +30,13 @@ function PasswordField ({ input, meta: { error, warning } }) {
       {...input} />,
 
     <div key="error">
-      {(error && !error.isValid && <div>{JSON.stringify(error)}</div>)}
+      {error}
     </div>
   ]
 }
 
 function SignupForm (props) {
-  const { handleSubmit } = props
+  const { handleSubmit, signup } = props
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(signup)}>
@@ -69,7 +70,9 @@ SignupForm.propTypes = {
   handleSubmit: PropTypes.func
 }
 
-export default reduxForm({
+const SignupFormRedux = reduxForm({
   form: 'SignupForm',
   onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(SignupForm)
+
+export default connect(null, { signup })(SignupFormRedux)
