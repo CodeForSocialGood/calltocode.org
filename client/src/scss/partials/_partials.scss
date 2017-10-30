@@ -1,0 +1,9 @@
+// import this file to get access to all other files in partials directory
+//
+// this is compiled from top to bottom, so bear this in mind when one depends on another.
+// eg button requires some variables, so it has to be imported after
+
+@import "variables";
+@import "effects";
+
+@import "button";

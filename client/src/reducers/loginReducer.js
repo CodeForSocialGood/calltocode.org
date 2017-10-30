@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SIGNUP } from '../actions/types'
+import { LOGIN, LOGOUT } from '../actions/types'
 
 const defaultState = {
   loggedIn: false,
@@ -11,8 +11,6 @@ export default function (state = defaultState, { type, value }) {
       return {...state, loggedIn: true, email: value}
     case LOGOUT:
       return defaultState
-    case SIGNUP:
-      return {...state, loggedIn: true, email: value}
     default:
       return state
   }

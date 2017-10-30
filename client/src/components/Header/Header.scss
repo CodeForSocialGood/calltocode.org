@@ -1,0 +1,26 @@
+@import '../../scss/partials/partials';
+
+.header {
+  padding: 0 60px;
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.button {
+  @extend %button;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.button:hover {
+  @extend %hover;
+}
+
+.buttons {
+  text-align: right;
+}
+
+.logo {
+  height: 42px;
+}

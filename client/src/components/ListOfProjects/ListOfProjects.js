@@ -1,33 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './ListOfProjects.css'
+import styles from './ListOfProjects.scss'
 import projects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
 
 import { connect } from 'react-redux'
 
-function ListOfProjects (props) {
-  const liClassName = props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
-  const projectListItems = projects.map((project, index) => {
-    return (
-      <li
-        key={index}
-        className={liClassName}
-        onClick={props.loggedIn ? mailToOrganization(project) : null}>
-        Name:{project.name} Role:{project.role}
-      </li>
-    )
-  })
+class ListOfProjects extends Component {
+  constructor (props) {
+    super(props)
 
-  return (
-    <section className={styles.orgSection}>
-      <h1 className={styles.title}>Apply Below</h1>
-      <ul>
-        {projectListItems}
-      </ul>
-    </section>
-  )
+    this.renderListOfProjects = this.renderListOfProjects.bind(this)
+  }
+
+  renderListOfProjects () {
+    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
+
+    return projects.map((project, index) => {
+      return (
+        <li
+          key={index}
+          className={liClassName}
+          onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
+          Name:{project.name} Role:{project.role}
+        </li>
+      )
+    })
+  }
+
+  render () {
+    return (
+      <section className={styles.orgSection}>
+        <h1 className={styles.title}>Apply Below</h1>
+        <ul>
+          {this.renderListOfProjects()}
+        </ul>
+      </section>
+    )
+  }
 }
 
 function mailToOrganization (project) {
