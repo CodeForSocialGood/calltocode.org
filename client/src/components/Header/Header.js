@@ -29,7 +29,9 @@ class Header extends Component {
   render () {
     return (
       <header className={styles.header}>
-        <img className={styles.logo} src={require('../../../images/logo.png')} />
+        <Link to='/'>
+          <img className={styles.logo} src={require('../../../images/logo.png')} />
+        </Link>
         <div className={styles.buttons}>
           {this.renderHeaderButtons()}
         </div>
