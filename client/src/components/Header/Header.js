@@ -15,9 +15,10 @@ class Header extends Component {
 
   renderHeaderButtons () {
     if (this.props.loggedIn) {
-      return (
-        <Link to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>
-      )
+      return ([
+        <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
+        <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>
+      ])
     } else {
       return ([
         <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
