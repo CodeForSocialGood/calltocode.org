@@ -1,0 +1,29 @@
+@import '../../scss/partials/partials';
+
+%form {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 15px;
+  padding: 20px 60px;
+}
+
+%formTitle {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+%formTitleSecondary {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+%fieldText {
+  padding: 10px 5px;
+  font-size: 1rem;
+}
+
+%buttonSubmit {
+  @extend %button;
+  padding: 20px;
+}
