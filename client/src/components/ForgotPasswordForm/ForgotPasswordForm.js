@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Field, reduxForm, SubmissionError } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 
 import styles from './ForgotPasswordForm.scss'
@@ -15,7 +15,6 @@ class ForgotPasswordForm extends Component {
   }
 
   render () {
-
     return (
       <form
         className={styles.form}>
