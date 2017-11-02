@@ -11,83 +11,27 @@ h1 {
   grid-row: 1;
 }
 
-.inputEmailContainer{
-  grid-column: 1 / 1;
-  grid-row: 2;
-
-  .tick,
-  .cross {
-    text-align: right;
-    width: 7%;
-    display: inline-block;
-  }
-
-}
-
 .inputEmail {
   @extend %fieldText;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
   grid-column: 1 / 1;
   grid-row: 2;
 }
 
-.inputEmailWithError {
+.inputPassword {
   @extend %fieldText;
-  border: none;
-  width: 90%;
-  display: inline-block;
-}
-
-.inputEmailError {
-  color: $errorColor;
-  font-size: 12px;
-  margin-top: -10px;
   grid-column: 1 / 1;
   grid-row: 3;
-}
-
-.inputPassword {
-  @extend %fieldText;
-  grid-column: 1 / 1;
-  grid-row: 4;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
-}
-
-.inputEmail,
-.inputEmailWithError,
-.inputPassword {
-  &:focus {
-    outline: none;
-  }
-}
-.inputPassword,
-.inputEmailContainer{
-  &.error {
-    border-bottom: 1px solid $errorColor;
-  }
-  &.valid {
-    border-bottom: 1px solid $validInputColor;
-  }
 }
 
 .buttonSubmit {
   @extend %buttonSubmit;
   grid-column: 1 / 1;
-  grid-row: 5;
-}
-
-.errorContent {
-  grid-row: 6;
-  grid-column: 1 / 1;
-  font-size: 1rem;
-  color: $errorColor;
+  grid-row: 4;
 }
 
 .forgotPassword {
   grid-column: 1 / 1;
-  grid-row: 7;
+  grid-row: 5;
   margin: 20px auto;
   text-align: center;
   color: $primaryColor;
@@ -95,46 +39,4 @@ h1 {
   &:hover {
     color: $primaryColorHover;
   }
-}
-
-
-.tick:before{
-  content: "\2713 ";
-  color: $validInputColor;
-}
-
-.cross:before{
-  content: "\2717 ";
-  color: $errorColor;
-}
-
-.show{
-  display: block;
-}
-
-.hide{
-  display: none;
-}
-
-.validpopup{
-  background-color: #fff;
-  max-width: 25vw;
-  font-size: .8em;
-  padding: 3%;
-  grid-area: 4 / 1 / span 4 / 1 ;
-  z-index: 1;
-  left: 10%;
-  position: relative;
-  li {
-    margin-top: 3%;
-  }
-  @extend %boxShadowSmall
-}
-
-.bold{
-  font-weight: bold;
-}
-
-.inputPassword ~ span {
-  grid-area: 4 / 2 / 4 / 2;
 }
