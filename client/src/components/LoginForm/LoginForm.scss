@@ -57,26 +57,28 @@
 }
 
 .show{
-  display:block;
+  display: block;
 }
 
 .hide{
-  display:none;
+  display: none;
 }
 
 .validpopup{
-  width:40%;
-  background-color:#fff;
-  position: relative;
-  left:4vw;
+  background-color: #fff;
+  width: 35%;
   font-size: .8em;
-  padding:2%;
+  padding: 3%;
+  grid-row: 4 / span 4 ;
+  grid-column: 1;
+  z-index: 1;
+  left: 10%;
+  position: relative;
+  li {
+    margin-top: 3%;
+  }
 }
 
 .bold{
   font-weight: bold;
-}
-
-.validpopup ul li{
-  margin-top: 3%;
 }
