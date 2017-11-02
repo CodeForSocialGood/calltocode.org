@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, SubmissionError } from 'redux-form'
 import { push } from 'react-router-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import styles from './LoginForm.scss'
@@ -44,14 +45,24 @@ class LoginForm extends Component {
       <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
         <h1 className={styles.title}>Login</h1>
 
-        <Field name="email"
+        <Field
+          name="email"
           component={this.renderEmail} />
-        <Field name="password"
+        <Field
+          name="password"
           component={this.renderPassword} />
 
         <button className={styles.buttonSubmit} type="submit">
           Submit
         </button>
+
+        <Link
+          className={styles.forgotPassword}
+          key='forgotPassword'
+          to='/forgot-password' >
+          Forgot Password?
+        </Link>
+
       </form>
     )
   }
