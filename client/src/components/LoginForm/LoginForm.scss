@@ -40,8 +40,21 @@
 }
 
 .buttonSubmit {
-  @extend %button;
+  @extend %buttonSub;
   @extend %field;
   grid-row: 4;
   padding: 20px;
+}
+
+.buttonError {
+  @extend %buttonErr;
+  @extend %field;
+  grid-row: 4;
+  padding: 20px;
+}
+
+.errorContent {
+  grid-row: 5;
+  font-size: 1rem;
+  color: $errorColor;
 }

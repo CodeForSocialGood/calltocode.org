@@ -13,7 +13,7 @@ class LoginForm extends Component {
     return (
       <input className={styles.inputEmail}
         placeholder="Email"
-        {...field.input} />
+        {...field.input} title = {field.meta.error} />
     )
   }
 
@@ -22,7 +22,7 @@ class LoginForm extends Component {
       <input className={styles.inputPassword}
         placeholder="Password"
         type="password"
-        {...field.input} />
+        {...field.input} title = {field.meta.error} />
     )
   }
 
@@ -31,14 +31,23 @@ class LoginForm extends Component {
     const response = await loginApiClient.login(email, password)
 
     if (response.status === 403) {
-      throw new SubmissionError({ email, _error: 'Unauthorized!' })
+      if (response.statusText === 'Wrong Email') {
+        throw new SubmissionError({ email: response.statusText,
+          _error: 'Incorrect credentials, please try again!!' })
+      } else if (response.statusText === 'Wrong Password') {
+        throw new SubmissionError({ password: response.statusText,
+          _error: 'Incorrect credentials, please try again!' })
+      } else {
+        throw new SubmissionError({ email,
+          _error: 'Incorrect credentials, please try again!' })
+      }
     } else {
       this.props.login({ email })
     }
   }
 
   render () {
-    const { handleSubmit } = this.props
+    const { handleSubmit, error } = this.props
 
     return (
       <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
@@ -49,9 +58,12 @@ class LoginForm extends Component {
         <Field name="password"
           component={this.renderPassword} />
 
-        <button className={styles.buttonSubmit} type="submit">
+        <button className={error ? styles.buttonError : styles.buttonSubmit} type="submit">
           Submit
         </button>
+        <div className={styles.errorContent}>
+          {error}
+        </div>
       </form>
     )
   }
@@ -59,7 +71,8 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   login: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  error: PropTypes.string
 }
 
 const LoginFormRedux = reduxForm({
