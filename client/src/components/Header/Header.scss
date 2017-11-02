@@ -11,10 +11,10 @@
   @extend %button;
   padding: 10px;
   margin-left: 10px;
-}
 
-.button:hover {
-  @extend %hover;
+  &:hover {
+    @extend %hover;
+  }
 }
 
 .buttons {
