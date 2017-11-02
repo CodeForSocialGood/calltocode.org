@@ -21,18 +21,34 @@ function EmailField ({ input, meta: { error } }) {
   ]
 }
 
-function PasswordField ({ input, meta: { error } }) {
+function PasswordField ({ input, meta: { error, active } }) {
   return [
     <input key="field"
       className={styles.inputPassword}
       type="password"
       placeholder="Password"
       {...input} />,
-
-    <div key="error">
-      {JSON.stringify(error)}
-    </div>
+    <span key="valid" className={error ? styles.cross : styles.tick}></span>,
+    <Field key="popup" name="popup"
+      component={ValidationPopup} active={active} error={error} />
   ]
+}
+
+const ValidationPopup = ({error, active}) => {
+  return (
+    <div className={`${styles.validpopup} ${active && error ? styles.show : styles.hide}` }>
+      <p className={styles.bold}>Password must have</p>
+      <ul>
+        <li className={ error && error.upperCase ? styles.tick : styles.cross }> at least 1 UpperCase Character </li>
+        <li className={ error && error.lowerCase ? styles.tick : styles.cross }> at least 1 LowerCase Character </li>
+        <li className={ error && error.hasOneDigit ? styles.tick : styles.cross }> at least 1 Number </li>
+        <li className={ error && error.hasSpecialChar ? styles.tick : styles.cross }> at least 1 Special Character </li>
+        <li className={ error && error.minLength ? styles.tick : styles.cross }> at least 10 Characters </li>
+        <li className={ error && error.maxLength ? styles.tick : styles.cross }> at most 128 Characters </li>
+        <li className={ error && error.noIdenticalChars ? styles.tick : styles.cross }> not more than 2 identical characters in a row </li>
+      </ul>
+    </div>
+  )
 }
 
 function SignupForm (props) {
@@ -69,6 +85,11 @@ PasswordField.propTypes = {
 SignupForm.propTypes = {
   signup: PropTypes.func,
   handleSubmit: PropTypes.func
+}
+
+ValidationPopup.propTypes = {
+  error: PropTypes.object,
+  active: PropTypes.bool
 }
 
 const SignupFormRedux = reduxForm({

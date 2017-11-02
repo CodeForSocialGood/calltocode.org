@@ -45,3 +45,38 @@
   grid-row: 4;
   padding: 20px;
 }
+
+.tick:before{
+  content: "\2713 ";
+  color: darkgreen;
+}
+
+.cross:before{
+  content: "\2717 ";
+  color: crimson;
+}
+
+.show{
+  display:block;
+}
+
+.hide{
+  display:none;
+}
+
+.validpopup{
+  width:40%;
+  background-color:#fff;
+  position: relative;
+  left:4vw;
+  font-size: .8em;
+  padding:2%;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.validpopup ul li{
+  margin-top: 3%;
+}
