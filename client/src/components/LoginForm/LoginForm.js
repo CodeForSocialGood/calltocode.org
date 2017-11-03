@@ -14,7 +14,8 @@ class LoginForm extends Component {
     return (
       <input className={styles.inputEmail}
         placeholder="Email"
-        {...field.input} title = {field.meta.error} />
+        title = {field.meta.error}
+        {...field.input} />
     )
   }
 
@@ -23,24 +24,26 @@ class LoginForm extends Component {
       <input className={styles.inputPassword}
         placeholder="Password"
         type="password"
-        {...field.input} title = {field.meta.error} />
+        title = {field.meta.error}
+        {...field.input} />
     )
   }
 
   async validateEmailAndPassword (values) {
     const { email, password } = values
     const response = await loginApiClient.login(email, password)
-
+    const _error = 'Incorrect credentials, please try again!'
+    console.log(response)
     if (response.status === 403) {
       if (response.statusText === 'Wrong Email') {
         throw new SubmissionError({ email: response.statusText,
-          _error: 'Incorrect credentials, please try again!!' })
+          _error })
       } else if (response.statusText === 'Wrong Password') {
         throw new SubmissionError({ password: response.statusText,
-          _error: 'Incorrect credentials, please try again!' })
+          _error })
       } else {
         throw new SubmissionError({ email,
-          _error: 'Incorrect credentials, please try again!' })
+          _error })
       }
     } else {
       this.props.login({ email })
