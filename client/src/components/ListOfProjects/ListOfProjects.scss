@@ -28,3 +28,17 @@
   @extend %hover;
   @extend %boxShadowSmall;
 }
+
+.projectApplicationStatus {
+  float:right;
+}
+
+.projectApplicationPassed {
+  @extend .projectApplicationStatus;
+  color:green;
+}
+
+.projectApplicationFailed {
+  @extend .projectApplicationStatus;
+  color:red;
+}
