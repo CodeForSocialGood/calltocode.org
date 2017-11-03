@@ -16,6 +16,12 @@ const loginController = {
 
       if (user && password === user.password) {
         return res.sendStatus(200)
+      } else if (user && password !== user.password) {
+        res.statusMessage = 'Wrong Password'
+      }
+
+      if (user === null) {
+        res.statusMessage = 'Wrong Email'
       }
 
       res.sendStatus(403)
