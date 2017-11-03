@@ -2,19 +2,10 @@
 
 %button {
   color: white;
+  background-color: $primaryColor;
   font-size: 100%;
   border: 0;
   border-radius: 5px;
-}
-
-%buttonSub {
-  @extend %button;
-  background-color: $primaryColor;
-}
-
-%buttonErr {
-  @extend %button;
-  background-color: $errorBtnColor;
 }
 
 %button:hover {

@@ -8,7 +8,7 @@
 }
 
 .button {
-  @extend %buttonSub;
+  @extend %button;
   padding: 10px;
   margin-left: 10px;
 
