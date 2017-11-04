@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './ListOfProjects.scss'
-import projects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
-
 import {connect} from 'react-redux'
+
 
 class ListOfProjects extends Component {
   constructor(props) {
@@ -16,7 +15,9 @@ class ListOfProjects extends Component {
   }
 
   renderListOfProjects() {
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
+    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg;
+    var projects = this.props.projects;
+
 
     return projects.map((project, index) => {
       return (
@@ -59,7 +60,6 @@ class ListOfProjects extends Component {
       </section>
     )
   }
-
 }
 
 
@@ -74,7 +74,10 @@ function mailToOrganization(project) {
 }
 
 function mapStateToProps(state) {
-  return {loggedIn: state.login.loggedIn}
+  return {
+    loggedIn: state.login.loggedIn,
+    projects: state.projects
+  }
 }
 
 ListOfProjects.propTypes = {
