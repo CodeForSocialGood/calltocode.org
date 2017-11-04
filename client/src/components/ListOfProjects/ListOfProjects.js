@@ -59,12 +59,15 @@ class ListOfProjects extends Component {
       </section>
     )
   }
+
 }
+
+
 
 function mailToOrganization(project) {
   return () => {
-    const {email, name, role} = project
-    const projectInfo = {email, name, role}
+    const {email, name, role} = project;
+    const projectInfo = {email, name, role};
 
     emailApiClient.send(projectInfo)
   }
@@ -76,6 +79,6 @@ function mapStateToProps(state) {
 
 ListOfProjects.propTypes = {
   loggedIn: PropTypes.bool.isRequired
-}
+};
 
 export default connect(mapStateToProps)(ListOfProjects)

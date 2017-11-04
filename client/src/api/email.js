@@ -13,10 +13,10 @@ const emailApiClient = {
           email: store.getState().login.email
         }
       })
-    }
+    };
 
-    fetch('/email', options)
+    return fetch('/email', options)
   }
-}
+};
 
 export default emailApiClient
