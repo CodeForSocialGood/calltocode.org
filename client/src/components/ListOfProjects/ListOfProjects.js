@@ -16,15 +16,14 @@ class ListOfProjects extends Component {
 
   renderListOfProjects() {
     const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg;
-    var projects = this.props.projects;
-
+    var {projects, dispatch} = this.props;
 
     return projects.map((project, index) => {
       return (
         <li
           key={index}
           className={liClassName}
-          onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
+          onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
           Name:{project.name} Role:{project.role} {this.renderProject(project)}
         </li>
       )
@@ -64,12 +63,16 @@ class ListOfProjects extends Component {
 
 
 
-function mailToOrganization(project) {
+function mailToOrganization(project, dispatch) {
   return () => {
     const {email, name, role} = project;
     const projectInfo = {email, name, role};
 
-    emailApiClient.send(projectInfo)
+    emailApiClient.send(projectInfo).then(function(){
+      dispatch({
+        type:"ApplyProject"
+      })
+    })
   }
 }
 
