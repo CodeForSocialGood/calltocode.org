@@ -26,6 +26,7 @@ $ yarn db                             # start mongodb
 1. [Setup](docs/setup.md)
 1. [Contributing](docs/contributing.md)
 1. [Windows Shell Setup](docs/windows_shell_setup.md)
+1. [Database](docs/database.md)
 
 [travis]: https://travis-ci.org/CodeForSocialGood/calltocode.org.svg
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
