@@ -1,47 +1,99 @@
 @import '../../scss/partials/partials';
-
-%field {
-  grid-column: 1 / 1;
-  font-size: 1rem;
-}
-
-%input {
-  padding: 10px 5px;
-}
-
-%fieldInput {
-  @extend %field;
-  @extend %input;
-}
+@import '../../scss/elements/form';
 
 .form {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
-  grid-row-gap: 15px;
-  padding: 20px 60px;
+  @extend %form;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.title {
+h1 {
+  @extend %formTitle;
   grid-column: 1 / 1;
   grid-row: 1;
-  font-size: 3rem;
-  margin-bottom: 15px;
 }
 
 .inputEmail {
-  @extend %fieldInput;
+  @extend %fieldText;
+  grid-column: 1 / 1;
   grid-row: 2;
 }
 
 .inputPassword {
-  @extend %fieldInput;
+  @extend %fieldText;
+  grid-column: 1 / 1;
   grid-row: 3;
 }
 
 .buttonSubmit {
-  @extend %button;
-  @extend %field;
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
   grid-row: 4;
+}
+
+.buttonError {
+  @extend %button;
+  background-color: $errorBtnColor;
   padding: 20px;
+  grid-column: 1 / 1;
+  grid-row: 4;
+}
+
+.errorContent {
+  grid-row: 5;
+  grid-column: 1 / 1;
+  font-size: 1rem;
+  color: $errorColor;
+}
+
+.forgotPassword {
+  grid-column: 1 / 1;
+  grid-row: 6;
+  margin: 20px auto;
+  text-align: center;
+  color: $primaryColor;
+
+  &:hover {
+    color: $primaryColorHover;
+  }
+}
+
+.tick:before{
+  content: "\2713 ";
+  color: darkgreen;
+}
+
+.cross:before{
+  content: "\2717 ";
+  color: crimson;
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+
+.validpopup{
+  background-color: #fff;
+  width: 70%;
+  font-size: .8em;
+  padding: 3%;
+  grid-area: 4 / 1 / span 4 / 1 ;
+  z-index: 1;
+  left: 10%;
+  position: relative;
+  li {
+    margin-top: 3%;
+  }
+  @extend %boxShadowSmall
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.inputPassword ~ span {
+  grid-area: 3 / 2 / 3 / 2;
 }
