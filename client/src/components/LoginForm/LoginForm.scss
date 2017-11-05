@@ -3,6 +3,7 @@
 
 .form {
   @extend %form;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 h1 {
@@ -54,4 +55,45 @@ h1 {
   &:hover {
     color: $primaryColorHover;
   }
+}
+
+.tick:before{
+  content: "\2713 ";
+  color: darkgreen;
+}
+
+.cross:before{
+  content: "\2717 ";
+  color: crimson;
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+
+.validpopup{
+  background-color: #fff;
+  width: 70%;
+  font-size: .8em;
+  padding: 3%;
+  grid-area: 4 / 1 / span 4 / 1 ;
+  z-index: 1;
+  left: 10%;
+  position: relative;
+  li {
+    margin-top: 3%;
+  }
+  @extend %boxShadowSmall
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.inputPassword ~ span {
+  grid-area: 3 / 2 / 3 / 2;
 }
