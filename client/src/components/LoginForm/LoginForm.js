@@ -64,7 +64,7 @@ class LoginForm extends Component {
           name="password"
           component={this.renderPassword} />
 
-        <button className={error ? styles.buttonError : styles.buttonSubmit} type="submit">
+        <button className={styles.buttonSubmit} type="submit">
           Submit
         </button>
         <div className={styles.errorContent}>
