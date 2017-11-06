@@ -9,11 +9,8 @@ import styles from '../LoginForm/LoginForm.scss'
 import { signup } from '../../actions'
 
 function EmailField ({ input, meta: { error } }) {
-  var classNames = require('classnames')
-  const emailClasses = classNames(styles.inputEmailContainer, {
-    [styles.error]: error,
-    [styles.valid]: !error
-  })
+  const emailClasses = `${styles.inputEmailContainer} ${error ? styles.error : styles.valid}`
+
   return [
     <div key="mailContainer" className={emailClasses}>
       <input key="field"
@@ -30,11 +27,8 @@ function EmailField ({ input, meta: { error } }) {
 }
 
 function PasswordField ({ input, meta: { error, active } }) {
-  var classNames = require('classnames')
-  const passClasses = classNames(styles.inputPassword, {
-    [styles.error]: error,
-    [styles.valid]: !error
-  })
+  const passClasses = `${styles.inputPassword} ${error ? styles.error : styles.valid}`
+
   return [
     <input key="field"
       className={passClasses}
