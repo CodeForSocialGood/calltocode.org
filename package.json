@@ -18,7 +18,8 @@
     "server:watch": "nodemon --watch server/ --exec 'node server/'",
     "start:dev": "npm-run-all --parallel client:watch server:watch",
     "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
-    "test": "ava"
+    "test": "ava",
+    "db": "./db/run.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
