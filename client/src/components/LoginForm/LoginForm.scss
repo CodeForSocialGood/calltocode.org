@@ -57,12 +57,13 @@ h1 {
 }
 
 .inputEmail,
+.inputEmailWithError,
 .inputPassword {
   &:focus {
     outline: none;
   }
 }
-.inputEmail,
+.inputPassword,
 .inputEmailContainer{
   &.error {
     border-bottom: 1px solid $errorColor;
