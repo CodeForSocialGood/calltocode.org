@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 
 function connectToDatabase () {
-  const dbUser = process.env.DB_USER || 'user'
-  const dbPass = process.env.DB_PASS || 'pass'
+  const url = process.env.NODE_ENV === 'dev'
+    ? 'mongodb://admin@127.0.0.1:27017/admin'
+    : `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds117495.mlab.com:17495/c2c`
 
-  mongoose.connect(`mongodb://${dbUser}:${dbPass}@ds117495.mlab.com:17495/c2c`, {
+  mongoose.connect(url, {
     useMongoClient: true
   })
 
