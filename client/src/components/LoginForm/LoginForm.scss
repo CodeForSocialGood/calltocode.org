@@ -29,14 +29,6 @@ h1 {
   grid-row: 4;
 }
 
-.buttonError {
-  @extend %button;
-  background-color: $errorBtnColor;
-  padding: 20px;
-  grid-column: 1 / 1;
-  grid-row: 4;
-}
-
 .errorContent {
   grid-row: 5;
   grid-column: 1 / 1;
