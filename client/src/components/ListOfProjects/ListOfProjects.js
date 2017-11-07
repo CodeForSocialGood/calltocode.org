@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './ListOfProjects.scss'
-import projects from '../../data/projects.json'
+import defaultProjects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
 
 import { connect } from 'react-redux'
@@ -12,12 +12,13 @@ class ListOfProjects extends Component {
     super(props)
 
     this.renderListOfProjects = this.renderListOfProjects.bind(this)
+    this.projects = this.props.projects || defaultProjects
   }
 
   renderListOfProjects () {
     const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
 
-    return projects.map((project, index) => {
+    return this.projects.map((project, index) => {
       return (
         <li
           key={index}
