@@ -3,7 +3,6 @@
 
 .form {
   @extend %form;
-  grid-template-columns: repeat(2, 1fr);
 }
 
 h1 {
@@ -79,14 +78,7 @@ h1 {
   grid-row: 5;
 }
 
-.buttonError {
-  @extend %button;
-  background-color: $errorBtnColor;
-  padding: 20px;
-  grid-column: 1 / 1;
   grid-row: 5;
-}
-
 .errorContent {
   grid-row: 6;
   grid-column: 1 / 1;
@@ -127,7 +119,7 @@ h1 {
 
 .validpopup{
   background-color: #fff;
-  width: 70%;
+  max-width: 25vw;
   font-size: .8em;
   padding: 3%;
   grid-area: 4 / 1 / span 4 / 1 ;
