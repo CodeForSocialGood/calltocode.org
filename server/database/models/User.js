@@ -14,7 +14,8 @@ const userSchema = mongoose.Schema({
       message: 'User already exists!'
     }
   },
-  password: String
+  password: String,
+  opportunityIds: Array,
 })
 
 const User = mongoose.model('User', userSchema)
