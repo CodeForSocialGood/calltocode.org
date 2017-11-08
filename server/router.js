@@ -15,7 +15,7 @@ router.use(function routeLog (req, res, next) {
 router.post('/login', loginController.login.bind(loginController))
 router.post('/email', emailController.sendEmailToOrganization.bind(emailController))
 router.post('/signup', signupController.signupNewUser.bind(signupController))
-router.get('/setup', setupController.seedDatabase.bind(setupController))
+router.get('/setup', setupController.setupDatabase.bind(setupController))
 router.get('/', indexController.getIndexPage.bind(indexController))
 router.get('*', indexController.getIndexPage.bind(indexController))
 
