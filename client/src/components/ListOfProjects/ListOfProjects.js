@@ -56,7 +56,8 @@ function mapStateToProps (state) {
 }
 
 ListOfProjects.propTypes = {
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  projects: PropTypes.array
 }
 
 export default connect(mapStateToProps)(ListOfProjects)
