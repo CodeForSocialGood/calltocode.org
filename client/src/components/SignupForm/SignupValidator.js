@@ -54,7 +54,7 @@ class SignupValidator {
   */
   static validateEmail (value) {
     if (!value || (value && value.length === 0)) {
-      return `Can't be blank`
+      return `Cannot be blank`
     }
 
     const sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]'
