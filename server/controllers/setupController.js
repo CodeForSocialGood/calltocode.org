@@ -1,41 +1,55 @@
 const OppsModel = require('../database/models/Opportunities')
-const seedOpps = require('../database/seedOpportunities')
+const UserModel = require('../database/models/User')
+const seedOppsData = require('../database/seedOpportunities')
+const seedUsersData = require('../database/seedUsers')
 
 const setupController = {
-  _init (Opps = OppsModel) {
+  _init (Opps = OppsModel, Users = UserModel) {
     this.Opps = Opps
-    this.seedOpps = seedOpps
-    this.seedDatabase = this.seedDatabase.bind(this)
+    this.Users = Users
+    this.seedOpps = this.seedOpps.bind(this)
+    this.seedUsers = this.seedUsers.bind(this)
     return this
   },
 
   setupDatabase (req, res) {
     const opps = this.Opps
-    opps.count( (err, count) => {
+    const users = this.Users
+
+    if (opps.length === 0) {
+       this.seedOpps(req, res)
+    }
+    else if (users.length === 0) {
+       this.seedUsers(req, res)
+    }
+    else {
+      return res.send('DB already setup!')
+    }
+  },
+
+  seedOpps (req, res) {
+    const opps = this.Opps
+
+    opps.create( seedOppsData, (err, results) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
       }
-      if (count === 0) {
-        this.seedDatabase(req, res)
-      }
-      return res.send('DB already setup!')
+      console.log(`seeded opportunities!`)
     })
   },
 
-  seedDatabase (req, res) {
-    const opps = this.Opps
-    opps.create( seedOpps, (err, results) => {
+  seedUsers (req, res) {
+    const users = this.Users
+
+    users.create( seedUsersData, (err, results) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
       }
-      console.log(`seeded database!`)
-      return res.send(results)
+      console.log(`seeded users!`)
     })
-  }
-
-
+  },
 }
 
 module.exports = setupController
