@@ -7,3 +7,4 @@
     $ yarn db
     ```
 1. Make sure the database is running by being able to access the web interface at `http://localhost:28017`.
+1. You fill the database with the mock data by visiting /seed/opps and seed/users
