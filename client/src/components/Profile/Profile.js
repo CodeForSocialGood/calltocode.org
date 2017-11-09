@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
+import ListOfProjects from '../ListOfProjects/ListOfProjects'
+import projects from '../../data/profile-projects.json'
 
-export default class Profile extends Component {
-  render () {
-    return <div>this is my profile</div>
-  }
+function Profile () {
+  return (
+    <ListOfProjects projects={projects} />
+  )
 }
+
+export default Profile
