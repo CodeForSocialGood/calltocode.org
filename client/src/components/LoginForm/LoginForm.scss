@@ -11,26 +11,75 @@ h1 {
   grid-row: 1;
 }
 
-.inputEmail {
-  @extend %fieldText;
+.inputEmailContainer{
   grid-column: 1 / 1;
   grid-row: 2;
+
+  .tick,
+  .cross {
+    text-align: right;
+    width: 7%;
+    display: inline-block;
+  }
+
+}
+
+.inputEmail {
+  @extend %fieldText;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+  grid-column: 1 / 1;
+  grid-row: 2;
+}
+
+.inputEmailWithError {
+  @extend %fieldText;
+  border: none;
+  width: 90%;
+  display: inline-block;
+}
+
+.inputEmailError {
+  color: $errorColor;
+  font-size: 12px;
+  margin-top: -10px;
+  grid-column: 1 / 1;
+  grid-row: 3;
 }
 
 .inputPassword {
   @extend %fieldText;
   grid-column: 1 / 1;
-  grid-row: 3;
+  grid-row: 4;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+}
+
+.inputEmail,
+.inputEmailWithError,
+.inputPassword {
+  &:focus {
+    outline: none;
+  }
+}
+.inputPassword,
+.inputEmailContainer{
+  &.error {
+    border-bottom: 1px solid $errorColor;
+  }
+  &.valid {
+    border-bottom: 1px solid $validInputColor;
+  }
 }
 
 .buttonSubmit {
   @extend %buttonSubmit;
   grid-column: 1 / 1;
-  grid-row: 4;
+  grid-row: 5;
 }
 
 .errorContent {
-  grid-row: 5;
+  grid-row: 6;
   grid-column: 1 / 1;
   font-size: 1rem;
   color: $errorColor;
@@ -38,7 +87,7 @@ h1 {
 
 .forgotPassword {
   grid-column: 1 / 1;
-  grid-row: 6;
+  grid-row: 7;
   margin: 20px auto;
   text-align: center;
   color: $primaryColor;
@@ -48,14 +97,15 @@ h1 {
   }
 }
 
+
 .tick:before{
   content: "\2713 ";
-  color: darkgreen;
+  color: $validInputColor;
 }
 
 .cross:before{
   content: "\2717 ";
-  color: crimson;
+  color: $errorColor;
 }
 
 .show{
@@ -86,5 +136,5 @@ h1 {
 }
 
 .inputPassword ~ span {
-  grid-area: 3 / 2 / 3 / 2;
+  grid-area: 4 / 2 / 4 / 2;
 }
