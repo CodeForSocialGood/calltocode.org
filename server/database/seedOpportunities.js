@@ -1,27 +1,27 @@
 module.exports = [
   {
-    "name": "Organization1",
-    "role": "Role1",
-    "email": "1@email.com"
+    'name': 'Organization1',
+    'role': 'Role1',
+    'email': '1@email.com'
   },
   {
-    "name": "Organization2",
-    "role": "Role2",
-    "email": "2@email.com"
+    'name': 'Organization2',
+    'role': 'Role2',
+    'email': '2@email.com'
   },
   {
-    "name": "Organization3",
-    "role": "Role3",
-    "email": "3@email.com"
+    'name': 'Organization3',
+    'role': 'Role3',
+    'email': '3@email.com'
   },
   {
-    "name": "Organization4",
-    "role": "Role4",
-    "email": "4@email.com"
+    'name': 'Organization4',
+    'role': 'Role4',
+    'email': '4@email.com'
   },
   {
-    "name": "Organization5",
-    "role": "Role5",
-    "email": "5@email.com"
+    'name': 'Organization5',
+    'role': 'Role5',
+    'email': '5@email.com'
   }
 ]

@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     }
   },
   password: String,
-  opportunitiesAppliedFor: Array,
+  opportunitiesAppliedFor: Array
 })
 
 const User = mongoose.model('User', userSchema)

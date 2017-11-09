@@ -17,12 +17,10 @@ const setupController = {
     const users = this.Users
 
     if (opps.length === 0) {
-       this.seedOpps(req, res)
-    }
-    else if (users.length === 0) {
-       this.seedUsers(req, res)
-    }
-    else {
+      this.seedOpps(req, res)
+    } else if (users.length === 0) {
+      this.seedUsers(req, res)
+    } else {
       return res.send('DB already setup!')
     }
   },
@@ -30,7 +28,7 @@ const setupController = {
   seedOpps (req, res) {
     const opps = this.Opps
 
-    opps.create( seedOppsData, (err, results) => {
+    opps.create(seedOppsData, (err, results) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
@@ -42,14 +40,14 @@ const setupController = {
   seedUsers (req, res) {
     const users = this.Users
 
-    users.create( seedUsersData, (err, results) => {
+    users.create(seedUsersData, (err, results) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
       }
       console.log(`seeded users!`)
     })
-  },
+  }
 }
 
 module.exports = setupController

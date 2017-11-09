@@ -1,9 +1,9 @@
 const express = require('express')
-const setupController   = require('./controllers/setupController')._init()
-const emailController   = require('./controllers/emailController')._init()
-const signupController  = require('./controllers/signupController')._init()
-const indexController   = require('./controllers/indexController')._init()
-const loginController   = require('./controllers/loginController')._init()
+const setupController = require('./controllers/setupController')._init()
+const emailController = require('./controllers/emailController')._init()
+const signupController = require('./controllers/signupController')._init()
+const indexController = require('./controllers/indexController')._init()
+const loginController = require('./controllers/loginController')._init()
 
 const router = express.Router()
 
