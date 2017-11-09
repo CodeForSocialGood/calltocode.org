@@ -9,7 +9,7 @@ const opportunitiesController = {
   getOpp (req, res) {
     const opps = this.opps
 
-    opps.findById({ _id : req.params.id }, (err, opp) => {
+    opps.findById({ _id: req.params.id }, (err, opp) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
@@ -20,7 +20,6 @@ const opportunitiesController = {
       }
       return res.sendStatus(404)
     })
-
   },
 
   getAllOpps (req, res) {
@@ -33,7 +32,6 @@ const opportunitiesController = {
       }
       return res.send(opps)
     })
-
   }
 }
 

@@ -9,7 +9,7 @@ const userController = {
   getUser (req, res) {
     const users = this.Users
 
-    users.findById({ _id : req.params.id }, (err, user) => {
+    users.findById({ _id: req.params.id }, (err, user) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
@@ -20,7 +20,6 @@ const userController = {
       }
       return res.sendStatus(404)
     })
-
   },
 
   getAllUsers (req, res) {
@@ -33,7 +32,6 @@ const userController = {
       }
       return res.send(users)
     })
-
   }
 }
 

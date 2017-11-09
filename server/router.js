@@ -7,7 +7,6 @@ const loginController = require('./controllers/loginController')._init()
 const userController = require('./controllers/userController')._init()
 const opportunitiesController = require('./controllers/opportunitiesController')._init()
 
-
 const router = express.Router()
 
 router.use(function routeLog (req, res, next) {

@@ -13,45 +13,38 @@ const setupController = {
   seedOpps (req, res) {
     const opps = this.Opps
 
-    opps.count({}, (err, count) => {
-      if (count !== 0) {
-        console.log('opps already seeded!')
-        return res.send('opps already seeded!')
-      }
-
-      opps.create(seedOppsData, (err, results) => {
-        if (err) {
-          console.error(err)
-          return res.sendStatus(500)
-        }
-
-        console.log(`seeded opportunities!`)
-        return res.status(200).send(`seeded opportunities!`)
-      })
-
-    })
+    this.seedCollection(req, res, opps, seedOppsData)
   },
 
   seedUsers (req, res) {
     const users = this.Users
 
-    users.count({}, (err, count) => {
-      if (count !== 0) {
-        console.log('users already seeded!')
-        return res.send('users already seeded!')
+    this.seedCollection(req, res, users, seedUsersData)
+  },
+
+  seedCollection (req, res, model, seedData) {
+    model.count({}, (err, count) => {
+      if (err) {
+        console.error(err)
+        return res.sendStatus(500)
       }
 
-      users.create(seedUsersData, (err, results) => {
+      if (count !== 0) {
+        console.log(`${model.collection.name} already seeded!`)
+        return res.send(`${model.collection.name} already seeded!`)
+      }
+
+      model.create(seedData, (err, results) => {
         if (err) {
           console.error(err)
           return res.sendStatus(500)
         }
 
-        console.log(`seeded users!`)
-        return res.status(200).send(`seeded users!`)
+        console.log(`${model.collection.name} seeded!`)
+        return res.status(200).send(`${model.collection.name} seeded!`)
       })
     })
-  },
+  }
 }
 
 module.exports = setupController
