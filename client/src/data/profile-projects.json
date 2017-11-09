@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Organization1",
+    "role": "Role1",
+    "email": "1@email.com"
+  },
+  {
+    "name": "Organization2",
+    "role": "Role2",
+    "email": "2@email.com"
+  }
+]
