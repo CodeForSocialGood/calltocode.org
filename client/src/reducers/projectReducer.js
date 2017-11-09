@@ -4,8 +4,21 @@ var defaultState= [];
 
 export default function (state=defaultState, action) {
   if (action.type===ApplyProject) {
-      console.log("projectReducer is called");
+    var {id,result} = action;
+    var projects = [];
+
+    state.forEach(project=> {
+      var p=Object.assign({}, project);
+
+      if (id == project.id) {
+        p.applicationResult = result;
+      }
+      projects.push(p);
+    });
+
+    return projects;
+  } else {
+    return state;
   }
 
-  return state;
 }

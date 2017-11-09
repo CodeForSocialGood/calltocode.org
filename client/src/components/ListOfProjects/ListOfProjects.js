@@ -15,30 +15,39 @@ class ListOfProjects extends Component {
   }
 
   renderListOfProjects() {
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg;
     var {projects, dispatch} = this.props;
 
+
     return projects.map((project, index) => {
+      var applied = project.applicationResult === true || project.applicationResult === false;
+      var liClassName = this.props.loggedIn && !applied ? styles.listOrgLoggedIn : styles.listOrg;
+
       return (
         <li
           key={index}
-          className={liClassName}
           onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
-          Name:{project.name} Role:{project.role} {this.renderProject(project)}
-        </li>
+
+
+          <div className={liClassName}    style={{marginRight:"50px"}}>
+          Name:{project.name} Role:{project.role}
+          </div>
+
+            {this.renderProject(project)}
+
+          </li>
       )
     })
   }
 
 
   renderProject(project) {
-    if (true === project.applicationStatus) {
+    if (true === project.applicationResult) {
       return (
         <span className={styles.projectApplicationPassed}>
           &#10004;
         </span>
       )
-    } else if (false === project.applicationStatus) {
+    } else if (false === project.applicationResult) {
       return (
         <span className={styles.projectApplicationFailed}>
           &#10007;
@@ -70,7 +79,7 @@ function mailToOrganization(project, dispatch) {
 
     emailApiClient.send(projectInfo).then(function(){
       dispatch({
-        type:"ApplyProject"
+        type:"ApplyProject", id: project.id, result: true
       })
     })
   }
