@@ -33,7 +33,7 @@
   float:right;
 }
 
-.projectApplicationPassed {
+.projectApplicationPassed{
   @extend .projectApplicationStatus;
   color:green;
 }
