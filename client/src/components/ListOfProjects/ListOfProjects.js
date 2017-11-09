@@ -17,14 +17,11 @@ class ListOfProjects extends Component {
   renderListOfProjects() {
     var {projects, dispatch} = this.props;
 
-
     return projects.map((project, index) => {
-      var applied = project.applicationResult === true || project.applicationResult === false;
-      var liClassName = this.props.loggedIn && !applied ? styles.listOrgLoggedIn : styles.listOrg;
-
       return (
         <li
           key={index}
+          className={liClassName}
           onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
 
           {this.renderApplicationResult(project)}

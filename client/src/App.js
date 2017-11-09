@@ -1,5 +1,6 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
+import {Provider} from "react-redux";
 import Header from './components/Header/Header'
 import LoginForm from './components/LoginForm/LoginForm'
 import SignupForm from './components/SignupForm/SignupForm'
@@ -12,6 +13,7 @@ function App() {
   return (
     <div>
       <Header />
+      <Provider store={store}>
         <Switch>
           <Route path='/login' component={LoginForm} />
           <Route path='/signup' component={SignupForm} />
@@ -19,6 +21,7 @@ function App() {
           <Route path='/forgot-password' component={ForgotPasswordForm} />
           <Route path='/' component={ListOfProjects} />
         </Switch>
+      </Provider>
     </div>
   )
 }
