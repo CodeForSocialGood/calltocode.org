@@ -11,7 +11,7 @@ class ListOfProjects extends Component {
     super(props);
 
     this.renderListOfProjects = this.renderListOfProjects.bind(this)
-    this.renderProject = this.renderProject.bind(this);
+    this.renderApplicationResult = this.renderApplicationResult.bind(this);
   }
 
   renderListOfProjects() {
@@ -27,20 +27,19 @@ class ListOfProjects extends Component {
           key={index}
           onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
 
-
-          <div className={liClassName}    style={{marginRight:"50px"}}>
-          Name:{project.name} Role:{project.role}
+          {this.renderApplicationResult(project)}
+          <div className={styles.projectApplicationItemContainer}>
+          <div className={liClassName}>
+            Name:{project.name} Role:{project.role}
           </div>
-
-            {this.renderProject(project)}
-
-          </li>
+          </div>
+        </li>
       )
     })
   }
 
 
-  renderProject(project) {
+  renderApplicationResult(project) {
     if (true === project.applicationResult) {
       return (
         <span className={styles.projectApplicationPassed}>
@@ -54,7 +53,7 @@ class ListOfProjects extends Component {
         </span>
       )
     } else {
-      return null;
+      return null
     }
   }
 
@@ -71,15 +70,14 @@ class ListOfProjects extends Component {
 }
 
 
-
 function mailToOrganization(project, dispatch) {
   return () => {
     const {email, name, role} = project;
     const projectInfo = {email, name, role};
 
-    emailApiClient.send(projectInfo).then(function(){
+    emailApiClient.send(projectInfo).then(function () {
       dispatch({
-        type:"ApplyProject", id: project.id, result: true
+        type: "ApplyProject", id: project.id, result: true
       })
     })
   }
