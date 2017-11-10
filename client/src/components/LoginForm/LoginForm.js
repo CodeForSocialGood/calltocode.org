@@ -29,30 +29,36 @@ class LoginForm extends Component {
     )
   }
 
-  async validateEmailAndPassword (values) {
+  validateEmailAndPassword (values) {
     const { email, password } = values
-    const response = await loginApiClient.login(email, password)
     const _error = 'Incorrect credentials, please try again!'
-    console.log(response)
-    if (response.status === 200) {
-      this.props.login({ email })
-    } else {
-      if (response.status === 403) {
-        if (response.statusText === 'Wrong Email') {
-          throw new SubmissionError({ email: response.statusText,
-            _error })
-        } else if (response.statusText === 'Wrong Password') {
-          throw new SubmissionError({ password: response.statusText,
-            _error })
+
+    let request = loginApiClient.login(email, password)
+
+    request.then( response => {
+      return response.json().then( data => {
+        console.log(data)
+        if (response.status === 200) {
+          this.props.login({ email, id: data.id })
         } else {
-          throw new SubmissionError({ email,
-            _error: response.statusText })
+          if (response.status === 403) {
+            if (response.statusText === 'Wrong Email') {
+              throw new SubmissionError({ email: response.statusText,
+                _error })
+            } else if (response.statusText === 'Wrong Password') {
+              throw new SubmissionError({ password: response.statusText,
+                _error })
+            } else {
+              throw new SubmissionError({ email,
+                _error: response.statusText })
+            }
+          } else {
+            throw new SubmissionError({ email,
+              _error: response.statusText })
+          }
         }
-      } else {
-        throw new SubmissionError({ email,
-          _error: response.statusText })
-      }
-    }
+      })
+    })
   }
 
   render () {

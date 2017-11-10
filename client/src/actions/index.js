@@ -1,11 +1,15 @@
 import { LOGIN, LOGOUT } from './types'
 import signupApiClient from '../api/signup'
 import SignupException from '../exceptions/SignupException'
+import profileApiClient from '../api/profile'
 
-function login ({ email }) {
+function login ({ email, id }) {
   return {
     type: LOGIN,
-    value: email
+    value: email,
+    payload: {
+      id: id
+    }
   }
 }
 

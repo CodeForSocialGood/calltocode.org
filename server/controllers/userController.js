@@ -6,6 +6,24 @@ const userController = {
     return this
   },
 
+  getUserByEmail (req, res) {
+    const users = this.Users
+    const { email } = req.body
+
+    users.findOne({ email }, (err, user) => {
+      if (err) {
+        console.error(err)
+        return res.sendStatus(500)
+      }
+
+      if (user) {
+        res.status(200).json(user)
+      }
+
+      res.sendStatus(404)
+    })
+  },
+
   getUser (req, res) {
     const users = this.Users
 
