@@ -31,34 +31,18 @@ class LoginForm extends Component {
 
   validateEmailAndPassword (values) {
     const { email, password } = values
-    const _error = 'Incorrect credentials, please try again!'
 
-    let request = loginApiClient.login(email, password)
-
-    request.then( response => {
-      return response.json().then( data => {
-        console.log(data)
+    loginApiClient.login(email, password)
+      .then(response => {
         if (response.status === 200) {
-          this.props.login({ email, id: data.id })
+          return response.json()
+            .then(data => {
+              this.props.login({ email, id: data.id })
+            })
         } else {
-          if (response.status === 403) {
-            if (response.statusText === 'Wrong Email') {
-              throw new SubmissionError({ email: response.statusText,
-                _error })
-            } else if (response.statusText === 'Wrong Password') {
-              throw new SubmissionError({ password: response.statusText,
-                _error })
-            } else {
-              throw new SubmissionError({ email,
-                _error: response.statusText })
-            }
-          } else {
-            throw new SubmissionError({ email,
-              _error: response.statusText })
-          }
+          handleValidationRequestError(response, email, password)
         }
       })
-    })
   }
 
   render () {
@@ -90,6 +74,26 @@ class LoginForm extends Component {
         </Link>
       </form>
     )
+  }
+}
+
+function handleValidationRequestError (response, email, password) {
+  const _error = 'Incorrect credentials, please try again!'
+
+  if (response.status === 403) {
+    if (response.statusText === 'Wrong Email') {
+      throw new SubmissionError({ email: response.statusText,
+        _error })
+    } else if (response.statusText === 'Wrong Password') {
+      throw new SubmissionError({ password: response.statusText,
+        _error })
+    } else {
+      throw new SubmissionError({ email,
+        _error: response.statusText })
+    }
+  } else {
+    throw new SubmissionError({ email,
+      _error: response.statusText })
   }
 }
 
