@@ -25,7 +25,7 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
-  {projects:projects},
+  {"projects": projects},
   applyMiddleware(
     navigationMiddleware,
     loggerMiddleware,
