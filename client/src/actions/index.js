@@ -25,8 +25,17 @@ function signup ({ email, password }) {
   }
 }
 
+function projectApplicationResult({projectId, result}){
+  return {
+    type: ApplyProject,
+    projectId,
+    result
+  }
+}
+
 export {
   login,
   logout,
-  signup
+  signup,
+  projectApplicationResult
 }
