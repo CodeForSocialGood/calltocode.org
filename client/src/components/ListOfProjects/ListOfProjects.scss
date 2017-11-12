@@ -28,3 +28,24 @@
   @extend %hover;
   @extend %boxShadowSmall;
 }
+
+.projectApplicationItemContainer {
+  margin-right: 35px
+}
+
+
+.projectApplicationStatus {
+  float:right;
+  padding:15px 0 20px 0;
+  font-size: 1.5em;
+}
+
+.projectApplicationPassed{
+  @extend .projectApplicationStatus;
+  color:green;
+}
+
+.projectApplicationFailed {
+  @extend .projectApplicationStatus;
+  color:red;
+}

@@ -1,36 +1,60 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './ListOfProjects.scss'
-import defaultProjects from '../../data/projects.json'
 import emailApiClient from '../../api/email'
+import {connect} from 'react-redux'
 
-import { connect } from 'react-redux'
 
 class ListOfProjects extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.renderListOfProjects = this.renderListOfProjects.bind(this)
-    this.projects = this.props.projects || defaultProjects
+    this.renderApplicationResult = this.renderApplicationResult.bind(this);
   }
 
-  renderListOfProjects () {
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
+  renderListOfProjects() {
+    var {projects, dispatch} = this.props;
 
-    return this.projects.map((project, index) => {
+    return projects.map((project, index) => {
       return (
         <li
           key={index}
           className={liClassName}
-          onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
-          Name:{project.name} Role:{project.role}
+          onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
+
+          {this.renderApplicationResult(project)}
+          <div className={styles.projectApplicationItemContainer}>
+          <div className={liClassName}>
+            Name:{project.name} Role:{project.role}
+          </div>
+          </div>
         </li>
       )
     })
   }
 
-  render () {
+
+  renderApplicationResult(project) {
+    if (true === project.applicationResult) {
+      return (
+        <span className={styles.projectApplicationPassed}>
+          &#10004;
+        </span>
+      )
+    } else if (false === project.applicationResult) {
+      return (
+        <span className={styles.projectApplicationFailed}>
+          &#10007;
+        </span>
+      )
+    } else {
+      return null
+    }
+  }
+
+  render() {
     return (
       <section className={styles.orgSection}>
         <h1 className={styles.title}>Apply Below</h1>
@@ -42,22 +66,29 @@ class ListOfProjects extends Component {
   }
 }
 
-function mailToOrganization (project) {
-  return () => {
-    const {email, name, role} = project
-    const projectInfo = {email, name, role}
 
-    emailApiClient.send(projectInfo)
+function mailToOrganization(project, dispatch) {
+  return () => {
+    const {email, name, role} = project;
+    const projectInfo = {email, name, role};
+
+    emailApiClient.send(projectInfo).then(function () {
+      dispatch({
+        type: "ApplyProject", id: project.id, result: true
+      })
+    })
   }
 }
 
-function mapStateToProps (state) {
-  return { loggedIn: state.login.loggedIn }
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.login.loggedIn,
+    projects: state.projects
+  }
 }
 
 ListOfProjects.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-  projects: PropTypes.array
-}
+  loggedIn: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(ListOfProjects)

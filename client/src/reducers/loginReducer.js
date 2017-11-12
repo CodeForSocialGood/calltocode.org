@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT } from '../actions/types'
 const defaultState = {
   loggedIn: false,
   email: null
-}
+};
 
 export default function (state = defaultState, { type, value }) {
   switch (type) {
