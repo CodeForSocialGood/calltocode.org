@@ -2,12 +2,11 @@ import { LOGIN, LOGOUT } from './types'
 import signupApiClient from '../api/signup'
 import SignupException from '../exceptions/SignupException'
 
-function login ({ email, id }) {
+function login ({ user }) {
   return {
     type: LOGIN,
-    value: email,
     payload: {
-      id: id
+      user: user 
     }
   }
 }
@@ -23,8 +22,8 @@ function signup ({ email, password }) {
     const response = await signupApiClient.signup({ email, password })
     if (response.status === 200) {
       return response.json()
-        .then(data => {
-          dispatch(login({ email, id: data.id }))
+        .then(user => {
+          dispatch(login( user ))
         })
     }
     throw new SignupException()

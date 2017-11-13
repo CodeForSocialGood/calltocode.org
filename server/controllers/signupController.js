@@ -14,7 +14,7 @@ const signupController = {
         return res.sendStatus(500)
       }
       console.log(`${savedUser.email} saved!`)
-      res.json({ id: savedUser.id })
+      res.json({ savedUser })
     })
   }
 }

@@ -2,14 +2,13 @@ import { LOGIN, LOGOUT } from '../actions/types'
 
 const defaultState = {
   loggedIn: false,
-  email: null,
-  id: null
+  user: {}
 }
 
 export default function (state = defaultState, { type, value, payload }) {
   switch (type) {
     case LOGIN:
-      return {...state, loggedIn: true, email: value, id: payload.id}
+      return {...state, loggedIn: true, user: payload.user }
     case LOGOUT:
       return defaultState
     default:

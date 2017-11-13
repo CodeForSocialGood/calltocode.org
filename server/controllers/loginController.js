@@ -16,7 +16,7 @@ const loginController = {
 
       if (user && password === user.password) {
         res.header('Content-Type', 'application/json')
-        return res.json({ id: user.id })
+        return res.json({ user })
       } else if (user && password !== user.password) {
         res.statusMessage = 'Wrong Password'
       }
