@@ -8,7 +8,7 @@ const loginController = {
 
   login (req, res) {
     const {email, password} = req.body
-    this.User.findOne({ email }, 'email password', (error, user) => {
+    this.User.findOne({ email }, (error, user) => {
       if (error) {
         console.error(error)
         return res.sendStatus(403)
@@ -16,6 +16,7 @@ const loginController = {
 
       if (user && password === user.password) {
         res.header('Content-Type', 'application/json')
+        console.log(user)
         return res.json({ user })
       } else if (user && password !== user.password) {
         res.statusMessage = 'Wrong Password'

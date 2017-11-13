@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     }
   },
   password: String,
-  opportunitiesAppliedFor: Array
+  opportunitiesAppliedFor: [mongoose.Schema.Types.ObjectId]
 })
 
 const User = mongoose.model('User', userSchema)
