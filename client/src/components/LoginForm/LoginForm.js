@@ -37,7 +37,7 @@ class LoginForm extends Component {
         if (response.status === 200) {
           return response.json()
             .then(user => {
-              this.props.login( user )
+              this.props.login(user)
             })
         } else {
           handleValidationRequestError(response, email, password)

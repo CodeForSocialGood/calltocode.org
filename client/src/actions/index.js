@@ -6,7 +6,7 @@ function login ({ user }) {
   return {
     type: LOGIN,
     payload: {
-      user: user 
+      user: user
     }
   }
 }
@@ -23,7 +23,7 @@ function signup ({ email, password }) {
     if (response.status === 200) {
       return response.json()
         .then(user => {
-          dispatch(login( user ))
+          dispatch(login(user))
         })
     }
     throw new SignupException()
