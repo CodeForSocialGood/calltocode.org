@@ -1,7 +1,6 @@
 import { LOGIN, LOGOUT } from './types'
 import signupApiClient from '../api/signup'
 import SignupException from '../exceptions/SignupException'
-import profileApiClient from '../api/profile'
 
 function login ({ email, id }) {
   return {
@@ -23,7 +22,10 @@ function signup ({ email, password }) {
   return async dispatch => {
     const response = await signupApiClient.signup({ email, password })
     if (response.status === 200) {
-      return dispatch(login({ email }))
+      return response.json()
+        .then(data => {
+          dispatch(login({ email, id: data.id }))
+        })
     }
     throw new SignupException()
   }
