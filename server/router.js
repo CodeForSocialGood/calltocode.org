@@ -14,15 +14,19 @@ router.use(function routeLog (req, res, next) {
   next()
 })
 
+//api
+router.get('/api/opps', opportunitiesController.getAllOpps.bind(opportunitiesController))
+router.get('/api/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
+router.get('/api/users', userController.getAllUsers.bind(userController))
+router.get('/api/user/:id', userController.getUser.bind(userController))
+
+//seeding
+router.get('/seed/opps', setupController.seedOpps.bind(setupController))
+router.get('/seed/users', setupController.seedUsers.bind(setupController))
+
 router.post('/login', loginController.login.bind(loginController))
 router.post('/email', emailController.sendEmailToOrganization.bind(emailController))
 router.post('/signup', signupController.signupNewUser.bind(signupController))
-router.get('/seed/opps', setupController.seedOpps.bind(setupController))
-router.get('/seed/users', setupController.seedUsers.bind(setupController))
-router.get('/opportunities', opportunitiesController.getAllOpps.bind(opportunitiesController))
-router.get('/opportunity/:id', opportunitiesController.getOpp.bind(opportunitiesController))
-router.get('/users', userController.getAllUsers.bind(userController))
-router.get('/user/:id', userController.getUser.bind(userController))
 router.get('/', indexController.getIndexPage.bind(indexController))
 router.get('*', indexController.getIndexPage.bind(indexController))
 
