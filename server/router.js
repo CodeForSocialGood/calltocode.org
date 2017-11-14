@@ -15,9 +15,10 @@ router.use(function routeLog (req, res, next) {
 })
 
 //api
-router.get('/api/opps', opportunitiesController.getAllOpps.bind(opportunitiesController))
+router.get('/api/all-opps', opportunitiesController.getAllOpps.bind(opportunitiesController))
+router.post('/api/opps', opportunitiesController.getOpps.bind(opportunitiesController))
 router.get('/api/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
-router.get('/api/users', userController.getAllUsers.bind(userController))
+router.get('/api/all-users', userController.getAllUsers.bind(userController))
 router.get('/api/user/:id', userController.getUser.bind(userController))
 
 //seeding

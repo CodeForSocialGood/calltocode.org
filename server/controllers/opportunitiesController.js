@@ -22,6 +22,23 @@ const opportunitiesController = {
     })
   },
 
+  getOpps (req, res) {
+    const opps = this.opps
+    const { opportunitiesAppliedFor } = req.body
+
+    opps.find({ '_id': { $in: opportunitiesAppliedFor }}, (err, docs) => {
+      if (err) {
+        console.error(err)
+        return res.sendStatus(500)
+      }
+
+      if (docs) {
+        return res.status(200).send(docs)
+      }
+      return res.sendStatus(404)
+    });
+  },
+
   getAllOpps (req, res) {
     const opps = this.opps
 
