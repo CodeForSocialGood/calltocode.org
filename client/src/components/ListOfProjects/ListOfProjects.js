@@ -13,27 +13,30 @@ class ListOfProjects extends Component {
 
     this.renderListOfProjects = this.renderListOfProjects.bind(this)
     this.projects = this.props.projects || defaultProjects
+    this.title = this.props.title || "Apply Below"
   }
 
   renderListOfProjects () {
     const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
 
     return this.projects.map((project, index) => {
-      return (
-        <li
-          key={index}
-          className={liClassName}
-          onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
-          Name:{project.name} Role:{project.role}
-        </li>
-      )
+      if( project.name && project.role ) {
+        return (
+          <li
+            key={index}
+            className={liClassName}
+            onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
+            Name:{project.name} Role:{project.role}
+          </li>
+        )
+      }
     })
   }
 
   render () {
     return (
       <section className={styles.orgSection}>
-        <h1 className={styles.title}>Apply Below</h1>
+        <h1 className={styles.title}>{this.title}</h1>
         <ul>
           {this.renderListOfProjects()}
         </ul>
@@ -57,7 +60,8 @@ function mapStateToProps (state) {
 
 ListOfProjects.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  projects: PropTypes.array
+  projects: PropTypes.array,
+  title: PropTypes.string
 }
 
 export default connect(mapStateToProps)(ListOfProjects)

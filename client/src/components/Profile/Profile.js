@@ -3,27 +3,29 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
+import styles from '../ListOfProjects/ListOfProjects.scss'
 
 class Profile extends Component {
-  constructor(props) {
-    super(props)
-
-    TODO:// getListOfProjects from opportunitiesAppliedFor in user object
-  }
 
   render () {
     return (
-      <ListOfProjects projects={} />
+      <ListOfProjects
+        title={'Opportunities Applied For'}
+        projects={this.props.opps} />
     )
   }
 }
 
 Profile.propTypes = {
-  user: PropTypes.obj.isRequired
+  user: PropTypes.object.isRequired,
+  opps: PropTypes.array
 }
 
 function mapStateToProps (state) {
-  return { user: state.login.user }
+  return {
+    user: state.login.user,
+    opps: state.login.opps
+  }
 }
 
 export default connect(mapStateToProps, null)(Profile)
