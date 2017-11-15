@@ -76,7 +76,10 @@ function mailToOrganization (project, dispatch) {
 }
 
 function mapStateToProps (state) {
-  return { loggedIn: state.login.loggedIn }
+  return {
+    loggedIn: state.login.loggedIn,
+    project: state.projects
+  }
 }
 
 ListOfProjects.propTypes = {
