@@ -1,12 +1,21 @@
 import { LOGIN, LOGOUT } from './types'
 import signupApiClient from '../api/signup'
+import oppsApiClient from '../api/opportunities'
 import SignupException from '../exceptions/SignupException'
 
 function login ({ user }) {
-  return {
-    type: LOGIN,
-    payload: {
-      user: user
+
+  return async dispatch => {
+
+    const response = await oppsApiClient.getOpps( user.opportunitiesAppliedFor )
+    if (response.status === 200) {
+      return response.json().then(opps => {
+
+        dispatch({
+          type: LOGIN,
+          payload: { user, opps }
+        })
+      })
     }
   }
 }
