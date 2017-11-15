@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from './types'
+import { LOGIN, LOGOUT, ApplyProject } from './types'
 import signupApiClient from '../api/signup'
 import SignupException from '../exceptions/SignupException'
 
@@ -17,7 +17,7 @@ function logout () {
 
 function signup ({ email, password }) {
   return async dispatch => {
-    const response = await signupApiClient.signup({ email, password })
+    const response = await signupApiClient.signup({ email, password });
     if (response.status === 200) {
       return dispatch(login({ email }))
     }
@@ -25,8 +25,17 @@ function signup ({ email, password }) {
   }
 }
 
+function projectApplicationResult({projectId, result}){
+  return {
+    type: ApplyProject,
+    projectId,
+    result
+  }
+}
+
 export {
   login,
   logout,
-  signup
+  signup,
+  projectApplicationResult
 }
