@@ -11,7 +11,8 @@ export default function (state = defaultState, action) {
       const p = Object.assign({}, project);
       if (id == project.id)
         p.applicationResult = result;
-      projects.push(p)});
+      projects.push(p);
+    });
       return projects;
   }
   else{
