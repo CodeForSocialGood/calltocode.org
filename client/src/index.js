@@ -12,25 +12,24 @@ import App from './App'
 import reducers from './reducers'
 import projects from './data/projects.json'
 
-
 const browserHistory = createHistory()
 const navigationMiddleware = routerMiddleware(browserHistory)
 const loggerMiddleware = createLogger({
   predicate: (getState, action) => action.type && !action.type.includes('redux-form')
-});
+})
 
 const store = createStore(
   combineReducers({
     ...reducers,
     routing: routerReducer
   }),
-  {"projects": projects},
+  {'projects': projects},
   applyMiddleware(
     navigationMiddleware,
     loggerMiddleware,
     thunkMiddleware
   )
-);
+)
 
 ReactDOM.render(
   <Provider store={store}>

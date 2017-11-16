@@ -83,7 +83,8 @@ function mapStateToProps (state) {
 
 ListOfProjects.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  projects: PropTypes.array
+  projects: PropTypes.array,
+  dispatch: PropTypes.func
 }
 
 export default connect(mapStateToProps)(ListOfProjects)
