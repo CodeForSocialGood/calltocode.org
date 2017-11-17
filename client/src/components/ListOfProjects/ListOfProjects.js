@@ -14,17 +14,20 @@ class ListOfProjects extends Component {
   }
 
   renderListOfProjects () {
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
     const {projects, dispatch} = this.props;
 
     return projects.map((project, index) => {
+      const applied = project.applicationResult === true || project.applicationResult === false;
+      const liClassName = this.props.loggedIn && !applied ? styles.listOrgLoggedIn : styles.listOrg;
+
       return (
         <li
           key={index}
-          className={liClassName}
-          onClick={this.props.loggedIn ? mailToOrganization(project, dispatch) : null}>
+          onClick={this.props.loggedIn && ! applied ? mailToOrganization(project, dispatch) : null}>
           {this.renderProjectApplicationResult(project)}
-          Name:{project.name} Role:{project.role}
+          <div className={liClassName}>
+            Name:{project.name} Role:{project.role}
+          </div>
         </li>
       )
     })
@@ -33,15 +36,15 @@ class ListOfProjects extends Component {
   renderProjectApplicationResult(project) {
     if (true === project.applicationResult) {
       return (
-        <div>
-          &#10006;
-        </div>
+        <span className={styles.listApplyPass}>
+          &#10004;
+        </span>
       )
     }else if(false === project.applicationResult) {
       return (
-        <div>
+        <span className={styles.listApplyFail}>
           &#10007;
-        </div>
+        </span>
       )
     }else
       return null
