@@ -10,6 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 import './index.css'
 import App from './App'
 import reducers from './reducers'
+import projects from './data/projects.json'
 
 const browserHistory = createHistory()
 const navigationMiddleware = routerMiddleware(browserHistory)
@@ -22,6 +23,7 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
+  {'projects': projects},
   applyMiddleware(
     navigationMiddleware,
     loggerMiddleware,
