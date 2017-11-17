@@ -8,15 +8,9 @@ class ListOfProjects extends Component {
   constructor (props) {
     super(props);
 
-<<<<<<< HEAD
-    this.renderListOfProjects = this.renderListOfProjects.bind(this)
-    this.projects = this.props.projects || defaultProjects
-    this.title = this.props.title || 'Apply Below'
-=======
     this.renderListOfProjects = this.renderListOfProjects.bind(this);
     this.projects = this.props.projects;
     this.renderProjectApplicationResult = this.renderProjectApplicationResult.bind(this);
->>>>>>> hhy_project
   }
 
   renderListOfProjects () {
@@ -26,19 +20,6 @@ class ListOfProjects extends Component {
       const applied = project.applicationResult === true || project.applicationResult === false;
       const liClassName = this.props.loggedIn && !applied ? styles.listOrgLoggedIn : styles.listOrg;
 
-<<<<<<< HEAD
-    return this.projects.map((project, index) => {
-      if (project.name && project.role) {
-        return (
-          <li
-            key={index}
-            className={liClassName}
-            onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
-            Name:{project.name} Role:{project.role}
-          </li>
-        )
-      }
-=======
       return (
         <li
           key={index}
@@ -49,7 +30,6 @@ class ListOfProjects extends Component {
           </div>
         </li>
       )
->>>>>>> hhy_project
     })
   }
 
@@ -107,11 +87,7 @@ function mapStateToProps (state) {
 ListOfProjects.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   projects: PropTypes.array,
-<<<<<<< HEAD
-  title: PropTypes.string
-=======
   dispatch: PropTypes.func
->>>>>>> hhy_project
 }
 
 export default connect(mapStateToProps)(ListOfProjects)
