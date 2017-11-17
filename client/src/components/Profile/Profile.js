@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
-import styles from '../ListOfProjects/ListOfProjects.scss'
 
 class Profile extends Component {
-
   render () {
     return (
       <ListOfProjects

@@ -14,14 +14,14 @@ router.use(function routeLog (req, res, next) {
   next()
 })
 
-//api
+// api
 router.get('/api/all-opps', opportunitiesController.getAllOpps.bind(opportunitiesController))
 router.post('/api/opps', opportunitiesController.getOpps.bind(opportunitiesController))
 router.get('/api/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
 router.get('/api/all-users', userController.getAllUsers.bind(userController))
 router.get('/api/user/:id', userController.getUser.bind(userController))
 
-//seeding
+// seeding
 router.get('/seed/opps', setupController.seedOpps.bind(setupController))
 router.get('/seed/users', setupController.seedUsers.bind(setupController))
 

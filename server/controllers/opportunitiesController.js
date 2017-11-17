@@ -26,7 +26,10 @@ const opportunitiesController = {
     const opps = this.opps
     const { opportunitiesAppliedFor } = req.body
 
-    opps.find({ '_id': { $in: opportunitiesAppliedFor }}, (err, docs) => {
+    opps.find({
+      '_id': {
+        $in: opportunitiesAppliedFor
+      }}, (err, docs) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
@@ -36,7 +39,7 @@ const opportunitiesController = {
         return res.status(200).send(docs)
       }
       return res.sendStatus(404)
-    });
+    })
   },
 
   getAllOpps (req, res) {

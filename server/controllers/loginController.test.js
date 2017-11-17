@@ -15,7 +15,7 @@ test('login with email and password', t => {
   }
   const UserModel = {
     findOne (query, fieldsToReturn, cb) {
-      if (query.email === req.body.email && fieldsToReturn === 'email password') {
+      if (query.email === req.body.email && fieldsToReturn === 'email password opportunitiesAppliedFor') {
         cb(null, req.body)
       }
     }
@@ -23,9 +23,7 @@ test('login with email and password', t => {
 
   // mocks
   const resMock = mock(res)
-    .expects('sendStatus')
-    .once()
-    .withExactArgs(200)
+    .expects('send')
 
   // action
   loginController._init(UserModel)

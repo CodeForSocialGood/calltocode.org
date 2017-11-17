@@ -4,13 +4,10 @@ import oppsApiClient from '../api/opportunities'
 import SignupException from '../exceptions/SignupException'
 
 function login ({ user }) {
-
   return async dispatch => {
-
-    const response = await oppsApiClient.getOpps( user.opportunitiesAppliedFor )
+    const response = await oppsApiClient.getOpps(user.opportunitiesAppliedFor)
     if (response.status === 200) {
       return response.json().then(opps => {
-
         dispatch({
           type: LOGIN,
           payload: { user, opps }

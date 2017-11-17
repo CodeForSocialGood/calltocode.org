@@ -13,14 +13,14 @@ class ListOfProjects extends Component {
 
     this.renderListOfProjects = this.renderListOfProjects.bind(this)
     this.projects = this.props.projects || defaultProjects
-    this.title = this.props.title || "Apply Below"
+    this.title = this.props.title || 'Apply Below'
   }
 
   renderListOfProjects () {
     const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
 
     return this.projects.map((project, index) => {
-      if( project.name && project.role ) {
+      if (project.name && project.role) {
         return (
           <li
             key={index}
