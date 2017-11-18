@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 import styles from '../ListOfProjects/ListOfProjects.scss'
 import emailApiClient from '../../api/email'
 
@@ -10,40 +12,44 @@ class Project extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.mailToOrganization = this.mailToOrganization.bind(this)
     this.renderProjectApplicationResult = this.renderProjectApplicationResult.bind(this)
+    this.getAppliedStatus = this.getAppliedStatus.bind(this)
   }
 
   handleClick () {
-    if (this.props.loggedIn /* TODO && ! this.props.project.applied */) {
+    const applied = this.getAppliedStatus()
+    if (this.props.loggedIn && ! applied ) {
       return this.mailToOrganization(this.props.project)
     }
   }
 
-  mailToOrganization (project) {
+  mailToOrganization(project) {
     return emailApiClient.send(project).then(response => {
-      console.log(project)
-      this.props.applyForProject(project)
+      this.props.applyForProject(project, this.props.user)
     })
   }
 
-  renderProjectApplicationResult (project) {
-    if (this.props.project.applicationResult === true) {
+  renderProjectApplicationResult(project) {
+    const applied = this.getAppliedStatus()
+    if (applied) {
       return (
         <span className={styles.listApplyPass}>
           &#10004;
         </span>
       )
-    } else if (this.props.project.applicationResult === false) {
+    } else {
       return (
         <span className={styles.listApplyFail}>
           &#10007;
         </span>
       )
-    } else { return null }
+    }
   }
 
   render () {
-    // const applied = this.props.project.applicationResult === true || this.props.project.applicationResult === false
-    const liClassName = this.props.loggedIn /* TODO && !applied */ ? styles.listOrgLoggedIn : styles.listOrg
+    const applied = this.getAppliedStatus()
+    const liClassName = this.props.loggedIn && ! applied ?
+    styles.listOrgLoggedIn :
+    styles.listOrg
 
     return (
       <li
@@ -55,6 +61,10 @@ class Project extends Component {
       </li>
     )
   }
+
+  getAppliedStatus() {
+    return this.props.user.opportunitiesAppliedFor.indexOf(this.props.project._id) !== -1
+  }
 }
 
 Project.propTypes = {
@@ -63,4 +73,10 @@ Project.propTypes = {
   applyForProject: PropTypes.func.isRequired
 }
 
-export default Project
+function mapStateToProps(state) {
+  return {
+    user: state.login.user
+  }
+}
+
+export default connect(mapStateToProps, null)(Project)

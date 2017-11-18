@@ -7,7 +7,11 @@ import {
 
 const defaultState = {
   loggedIn: false,
-  user: {},
+  user: {
+    email: '',
+    password: '',
+    opportunitiesAppliedFor: []
+  },
   opps: []
 }
 

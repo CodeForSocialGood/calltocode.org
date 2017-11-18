@@ -43,21 +43,22 @@ function signup ({ email, password }) {
   }
 }
 
-function applyForProject (project) {
+function applyForProject (project, user) {
   const projectId = project._id
-  // update user in db then update state
+
   return (dispatch, getState) => {
-    const user = getState().login.user
-    // get updated user state
+    let updatedUser = { ...user }
+
     if (user.opportunitiesAppliedFor.indexOf(projectId) === -1) {
-      user.opportunitiesAppliedFor = [...user.opportunitiesAppliedFor, projectId]
+      const opportunitiesAppliedFor = [...user.opportunitiesAppliedFor, projectId]
+      updatedUser = { ...user, opportunitiesAppliedFor }
     }
 
     userApiClient.updateOppsAppliedFor(projectId, user.id).then(response => {
       if (response.status === 200) {
         dispatch({
           type: UPDATE_USER,
-          payload: user
+          payload: updatedUser
         })
       }
     })
@@ -66,10 +67,8 @@ function applyForProject (project) {
 
 function getOppsAppliedFor (user) {
   return async dispatch => {
-    console.log(user)
     const response = await oppsApiClient.getOppsAppliedFor(user.opportunitiesAppliedFor)
     if (response.status === 200) {
-      console.log(response)
       return response.json().then(opps => {
         dispatch({
           type: GET_OPPS_APPLIED_FOR,
