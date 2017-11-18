@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { getOppsAppliedFor } from '../../actions'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
 class Profile extends Component {
+  componentDidMount () {
+    this.props.getOppsAppliedFor(this.props.user)
+  }
+
   render () {
     return (
       <ListOfProjects
@@ -16,7 +21,8 @@ class Profile extends Component {
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
-  opps: PropTypes.array
+  opps: PropTypes.array,
+  getOppsAppliedFor: PropTypes.func.isRequired
 }
 
 function mapStateToProps (state) {
@@ -26,4 +32,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, null)(Profile)
+export default connect(mapStateToProps, { getOppsAppliedFor })(Profile)

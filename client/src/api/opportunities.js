@@ -1,5 +1,5 @@
 const oppsApiClient = {
-  getOpps (opportunitiesAppliedFor) {
+  getOppsAppliedFor (opportunitiesAppliedFor) {
     const options = {
       method: 'POST',
       headers: {
@@ -9,6 +9,14 @@ const oppsApiClient = {
     }
 
     return fetch('/api/opps', options)
+  },
+
+  getAllOpps () {
+    const options = {
+      method: 'GET'
+    }
+
+    return fetch('/api/all-opps', options)
   }
 }
 

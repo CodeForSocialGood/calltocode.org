@@ -1,9 +1,13 @@
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
-const ApplyProject = 'ApplyProject'
+const POPULATE_OPPS = 'POPULATE_OPPS'
+const GET_OPPS_APPLIED_FOR = 'GET_OPPS_APPLIED_FOR'
+const UPDATE_USER = 'UPDATE_USER'
 
 export {
   LOGIN,
   LOGOUT,
-  ApplyProject
+  POPULATE_OPPS,
+  GET_OPPS_APPLIED_FOR,
+  UPDATE_USER
 }
