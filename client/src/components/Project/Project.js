@@ -17,18 +17,18 @@ class Project extends Component {
 
   handleClick () {
     const applied = this.getAppliedStatus()
-    if (this.props.loggedIn && ! applied ) {
+    if (this.props.loggedIn && !applied) {
       return this.mailToOrganization(this.props.project)
     }
   }
 
-  mailToOrganization(project) {
+  mailToOrganization (project) {
     return emailApiClient.send(project).then(response => {
       this.props.applyForProject(project, this.props.user)
     })
   }
 
-  renderProjectApplicationResult(project) {
+  renderProjectApplicationResult (project) {
     const applied = this.getAppliedStatus()
     if (applied) {
       return (
@@ -47,9 +47,9 @@ class Project extends Component {
 
   render () {
     const applied = this.getAppliedStatus()
-    const liClassName = this.props.loggedIn && ! applied ?
-    styles.listOrgLoggedIn :
-    styles.listOrg
+    const liClassName = this.props.loggedIn && !applied
+      ? styles.listOrgLoggedIn
+      : styles.listOrg
 
     return (
       <li
@@ -62,7 +62,7 @@ class Project extends Component {
     )
   }
 
-  getAppliedStatus() {
+  getAppliedStatus () {
     return this.props.user.opportunitiesAppliedFor.indexOf(this.props.project._id) !== -1
   }
 }
@@ -70,10 +70,11 @@ class Project extends Component {
 Project.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   project: PropTypes.object.isRequired,
+  user: PropTypes.object,
   applyForProject: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     user: state.login.user
   }
