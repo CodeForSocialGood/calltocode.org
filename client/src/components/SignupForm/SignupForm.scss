@@ -11,7 +11,7 @@ h1 {
   grid-row: 1;
 }
 
-.inputEmailContainer{
+.inputEmailContainer {
   grid-column: 1 / 1;
   grid-row: 2;
 
@@ -56,13 +56,16 @@ h1 {
 
 .inputEmail,
 .inputEmailWithError,
-.inputPassword {
+.inputPassword,
+.inputIsOrganization,
+.inputOrganizationName,
+.inputOrganizationURL {
   &:focus {
     outline: none;
   }
 }
-.inputPassword,
-.inputEmailContainer{
+.inputEmailContainer,
+.inputPassword {
   &.error {
     border-bottom: 1px solid $errorColor;
   }
@@ -74,7 +77,13 @@ h1 {
 .buttonSubmit {
   @extend %buttonSubmit;
   grid-column: 1 / 1;
-  grid-row: 5;
+  grid-row: 6;
+}
+
+.buttonSubmitMoved {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 9;
 }
 
 .errorContent {
@@ -84,55 +93,69 @@ h1 {
   color: $errorColor;
 }
 
-.forgotPassword {
-  grid-column: 1 / 1;
-  grid-row: 7;
-  margin: 20px auto;
-  text-align: center;
-  color: $primaryColor;
-
-  &:hover {
-    color: $primaryColorHover;
-  }
-}
-
-.tick:before{
+.tick:before {
   content: "\2713 ";
   color: $validInputColor;
 }
 
-.cross:before{
+.cross:before {
   content: "\2717 ";
   color: $errorColor;
 }
 
-.show{
+.show {
   display: block;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
-.validpopup{
+.validpopup {
   background-color: #fff;
   max-width: 25vw;
   font-size: .8em;
   padding: 3%;
   grid-area: 4 / 1 / span 4 / 1 ;
   z-index: 1;
-  left: 10%;
-  position: relative;
+  position: absolute;
+  right: 0;
   li {
     margin-top: 3%;
   }
   @extend %boxShadowSmall
 }
 
-.bold{
+.bold {
   font-weight: bold;
 }
 
 .inputPassword ~ span {
   grid-area: 4 / 2 / 4 / 2;
+}
+
+.inputCheckboxContainer {
+  @extend %checkboxContainer;
+}
+
+.inputIsOrganization {
+  @extend %checkbox;
+  grid-column: 1 / 1;
+  grid-row: 5;
+}
+
+.inputOrganizationName {
+  @extend %fieldText;
+  grid-column: 1 / 1;
+  grid-row: 6;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+}
+
+.inputOrganizationURL {
+  @extend %fieldText;
+  grid-column: 1 / 1;
+  grid-row: 7;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
 }

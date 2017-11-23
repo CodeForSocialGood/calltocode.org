@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field, formValueSelector, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 import SignupValidator from './SignupValidator'
 
-import styles from '../LoginForm/LoginForm.scss'
+import styles from './SignupForm.scss'
 import { signup } from '../../actions'
 
-function EmailField ({ input, meta: { error } }) {
+const EmailField = ({ input, meta: { error } }) => {
   const emailClasses = `${styles.inputEmailContainer} ${error ? styles.error : styles.valid}`
 
   return [
@@ -22,11 +22,10 @@ function EmailField ({ input, meta: { error } }) {
     <div key="error" className={styles.inputEmailError}>
       {error}
     </div>
-
   ]
 }
 
-function PasswordField ({ input, meta: { error, active } }) {
+const PasswordField = ({ input, meta: { active, error } }) => {
   const passClasses = `${styles.inputPassword} ${error ? styles.error : styles.valid}`
 
   return [
@@ -38,6 +37,35 @@ function PasswordField ({ input, meta: { error, active } }) {
     <Field key="popup" name="popup"
       component={ValidationPopup} active={active} error={error} />
   ]
+}
+
+const IsOrganizationField = ({ input }) => {
+  return (
+    <div className={styles.inputCheckboxContainer}>
+      <input className={styles.inputIsOrganization}
+        type="checkbox"
+        { ...input } />
+      <label>Organization</label>
+    </div>
+  )
+}
+
+const OrganizationNameField = ({ input }) => {
+  return (
+    <input className={styles.inputOrganizationName}
+      type="text"
+      placeholder="Organization Name"
+      { ...input } />
+  )
+}
+
+const OrganizationURLField = ({ input }) => {
+  return (
+    <input className={styles.inputOrganizationURL}
+      type="text"
+      placeholder="Organization URL"
+      { ...input } />
+  )
 }
 
 const ValidationPopup = ({ error, active }) => {
@@ -57,21 +85,34 @@ const ValidationPopup = ({ error, active }) => {
   )
 }
 
-function SignupForm (props) {
-  const { handleSubmit, signup } = props
+const SignupForm = (props) => {
+  const { handleSubmit, isOrganization, signup } = props
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(signup)}>
       <h1 className={styles.title}>Signup</h1>
 
       <Field name="email"
-        component={EmailField}
+        component={ EmailField }
         validate={SignupValidator.validateEmail} />
       <Field name="password"
-        component={PasswordField}
+        component={ PasswordField }
         validate={SignupValidator.validatePassword} />
 
-      <button className={styles.buttonSubmit} type="submit">
+      <Field name="isOrganization"
+        component={ IsOrganizationField } />
+
+      { isOrganization &&
+        <Field name="organizationName"
+          component={ OrganizationNameField } />
+      }
+      { isOrganization &&
+        <Field name="organizationURL"
+          component={ OrganizationURLField } />
+      }
+
+      <button className={isOrganization ? styles.buttonSubmitMoved : styles.buttonSubmit}
+        type="submit">
         Submit
       </button>
     </form>
@@ -88,14 +129,27 @@ PasswordField.propTypes = {
   meta: PropTypes.object
 }
 
-SignupForm.propTypes = {
-  signup: PropTypes.func,
-  handleSubmit: PropTypes.func
+IsOrganizationField.propTypes = {
+  input: PropTypes.object
+}
+
+OrganizationNameField.propTypes = {
+  input: PropTypes.object
+}
+
+OrganizationURLField.propTypes = {
+  input: PropTypes.object
 }
 
 ValidationPopup.propTypes = {
-  error: PropTypes.object,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  error: PropTypes.object
+}
+
+SignupForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  isOrganization: PropTypes.bool,
+  signup: PropTypes.func
 }
 
 const SignupFormRedux = reduxForm({
@@ -103,4 +157,9 @@ const SignupFormRedux = reduxForm({
   onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(SignupForm)
 
-export default connect(null, { signup })(SignupFormRedux)
+const selector = formValueSelector('SignupForm')
+const mapStateToProps = state => {
+  return { isOrganization: selector(state, 'isOrganization') }
+}
+
+export default connect(mapStateToProps, { signup })(SignupFormRedux)
