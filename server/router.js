@@ -1,5 +1,4 @@
 const express = require('express')
-const setupController = require('./controllers/setupController')._init()
 const emailController = require('./controllers/emailController')._init()
 const signupController = require('./controllers/signupController')._init()
 const indexController = require('./controllers/indexController')._init()
@@ -20,10 +19,6 @@ router.post('/api/opps', opportunitiesController.getOpps.bind(opportunitiesContr
 router.get('/api/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
 router.get('/api/all-users', userController.getAllUsers.bind(userController))
 router.get('/api/user/:id', userController.getUser.bind(userController))
-
-// seeding
-router.get('/seed/opps', setupController.seedOpps.bind(setupController))
-router.get('/seed/users', setupController.seedUsers.bind(setupController))
 
 router.post('/login', loginController.login.bind(loginController))
 router.post('/email', emailController.sendEmailToOrganization.bind(emailController))
