@@ -8,22 +8,23 @@ import SignupValidator from './SignupValidator'
 import styles from '../LoginForm/LoginForm.scss'
 import { signup } from '../../actions'
 
-function EmailField ({ input, meta: { error } }) {
-  const emailClasses = `${styles.inputEmailContainer} ${error ? styles.error : styles.valid}`
+function EmailField ({ input, meta: { dirty, error } }) {
+  const emailClasses = `${styles.inputEmail} ${dirty ? error ? styles.error : styles.valid : ''}`
 
-  return [
-    <div key="mailContainer" className={emailClasses}>
+  return (
+    <div className={styles.inputEmailContainer}>
       <input key="field"
-        className={styles.inputEmailWithError}
+        className={emailClasses}
         placeholder="Email"
         {...input } />
-      <div key="valid" className={error ? styles.cross : styles.tick}></div>
-    </div>,
-    <div key="error" className={styles.inputEmailError}>
-      {error}
+      { dirty &&
+        <div className={error ? styles.cross : styles.tick}></div>
+      }
+      { dirty &&
+        <div className={styles.inputEmailError}>{ error }</div>
+      }
     </div>
-
-  ]
+  )
 }
 
 function PasswordField ({ input, meta: { error, active } }) {
