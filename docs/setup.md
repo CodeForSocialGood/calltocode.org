@@ -52,7 +52,7 @@ $ nvm install
 $ direnv allow
 ```
 
-**Make sure your IDE supports [editorconfig](http://editorconfig.org/).**
+### 7. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
 
 ## <a name="linux"></a> Linux Setup
 
