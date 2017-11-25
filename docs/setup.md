@@ -73,7 +73,7 @@ $ test -r ~/.profile && echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.pro
 $ echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.profile
 ```
 
-#### 2.2 CentOS/Fedora/RedHat
+#### 2.2. CentOS/Fedora/RedHat
 
 ```bash
 $ test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$PATH"
