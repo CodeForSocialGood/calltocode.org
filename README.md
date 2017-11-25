@@ -25,7 +25,7 @@ $ yarn db:reset                       # return db to initial seeded state (npm r
 
 - [Developer Environment Setup](docs/setup.md)
 - [Database Setup](docs/database.md)
-- [Contributing](docs/CONTRIBUTING.md)
+- [Contributing](docs/contributing.md)
 
 [nonprofit]: https://img.shields.io/badge/project-nonprofit-ff69b4.svg
 
