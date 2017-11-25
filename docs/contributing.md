@@ -1,5 +1,15 @@
 # Contributing
 
+## Cloning
+Clone the repo into your workspace
+> It is recommended to setup ssh. Please [add a new SSH key to your GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
+
+```bash
+$ cd ~
+$ mkdir -p workspace && cd workspace
+$ git clone git@github.com:CodeForSocialGood/calltocode.org
+```
+
 ## Branching
 When you start new work, create a new branch.
 ```bash
@@ -7,10 +17,10 @@ $ git checkout -b feature/<story-number>
 ```
 
 ## Pairing
-Always pair when you work. See [Get Started](/docs/get_started.md).
+Always pair when you work. See [Developer Environment Setup](./setup.md#rest).
 ```bash
-$ git solo <initials>                 # if solo
-$ git duet <initials-1> <initials-2>  # if pairing
+$ git solo <initials>                 # if you are working solo
+$ git duet <initials-1> <initials-2>  # if you are pairing with someone
 ```
 
 ## Commit Message
