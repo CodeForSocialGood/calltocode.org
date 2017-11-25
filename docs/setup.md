@@ -1,7 +1,7 @@
 # Developer Environment Setup
 
 This document contains general guidelines for setting up a developer environment sufficient for getting started with
-contributing on this project:
+contributing to this project:
 
 - [Mac OS Setup](#mac)
 - [Linux Setup](#linux)
@@ -83,7 +83,7 @@ $ echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.bash_profile
 ```
 *For more details, go to [Linuxbrew](http://linuxbrew.sh/).*
 
-### 3. Follow [Mac OS Setup](#mac) starting from [section 2](#rest)
+### 3. Follow Mac OS Setup starting from [section 2](#rest)
 
 ## <a name="windows10"></a> Windows 10 Setup
 

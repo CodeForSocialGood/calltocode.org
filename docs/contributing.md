@@ -1,7 +1,7 @@
 # Contributing
 
 ## Cloning
-Clone the repo into your workspace
+Clone the repo into your workspace.
 > It is recommended to setup ssh. Please [add a new SSH key to your GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
 
 ```bash
