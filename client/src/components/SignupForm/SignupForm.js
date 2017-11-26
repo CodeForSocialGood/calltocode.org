@@ -8,41 +8,45 @@ import SignupValidator from './SignupValidator'
 import styles from './SignupForm.scss'
 import { signup } from '../../actions'
 
-const EmailField = ({ input, meta: { error } }) => {
-  const emailClasses = `${styles.inputEmailContainer} ${error ? styles.error : styles.valid}`
+const EmailField = ({ input, meta: { dirty, error } }) => {
+  const emailClasses = `${styles.inputEmail} ${dirty ? error ? styles.error : styles.valid : ''}`
 
-  return [
-    <div key="mailContainer" className={emailClasses}>
+  return (
+    <div className={ styles.inputEmailContainer }>
       <input key="field"
-        className={styles.inputEmailWithError}
+        className={ emailClasses }
         placeholder="Email"
-        {...input } />
-      <div key="valid" className={error ? styles.cross : styles.tick}></div>
-    </div>,
-    <div key="error" className={styles.inputEmailError}>
-      {error}
+        { ...input } />
+      { dirty &&
+        <div className={ error ? styles.cross : styles.tick }></div>
+      }
+      { dirty &&
+        <div className={ styles.inputEmailError }>{ error }</div>
+      }
     </div>
-  ]
+  )
 }
 
-const PasswordField = ({ input, meta: { active, error } }) => {
-  const passClasses = `${styles.inputPassword} ${error ? styles.error : styles.valid}`
+const PasswordField = ({ input, meta: { active, dirty, error } }) => {
+  const passClasses = `${styles.inputPassword} ${dirty ? error ? styles.error : styles.valid : ''}`
 
-  return [
-    <input key="field"
-      className={passClasses}
-      type="password"
-      placeholder="Password"
-      {...input} />,
-    <Field key="popup" name="popup"
-      component={ValidationPopup} active={active} error={error} />
-  ]
+  return (
+    <div className={ styles.inputPasswordContainer }>
+      <input key="field"
+        className={ passClasses }
+        type="password"
+        placeholder="Password"
+        { ...input } />
+      <Field key="popup" name="popup"
+        component={ ValidationPopup } active={ active } error={ error } />
+    </div>
+  )
 }
 
 const IsOrganizationField = ({ input }) => {
   return (
-    <div className={styles.inputCheckboxContainer}>
-      <input className={styles.inputIsOrganization}
+    <div className={ styles.inputCheckboxContainer }>
+      <input className={ styles.inputIsOrganization }
         type="checkbox"
         { ...input } />
       <label>Organization</label>
@@ -52,7 +56,7 @@ const IsOrganizationField = ({ input }) => {
 
 const OrganizationNameField = ({ input }) => {
   return (
-    <input className={styles.inputOrganizationName}
+    <input className={ styles.inputOrganizationName }
       type="text"
       placeholder="Organization Name"
       { ...input } />
@@ -61,7 +65,7 @@ const OrganizationNameField = ({ input }) => {
 
 const OrganizationURLField = ({ input }) => {
   return (
-    <input className={styles.inputOrganizationURL}
+    <input className={ styles.inputOrganizationURL }
       type="text"
       placeholder="Organization URL"
       { ...input } />
@@ -70,8 +74,8 @@ const OrganizationURLField = ({ input }) => {
 
 const ValidationPopup = ({ error, active }) => {
   return (
-    <div className={`${styles.validpopup} ${active ? styles.show : styles.hide}` }>
-      <p className={styles.bold}>Password must have</p>
+    <div className={`${styles.validationPopup} ${active ? styles.show : styles.hide}` }>
+      <p className={ styles.bold }>Password must have</p>
       <ul>
         <li className={ error == null || error.upperCase ? styles.tick : styles.cross }> at least 1 UpperCase Character </li>
         <li className={ error == null || error.lowerCase ? styles.tick : styles.cross }> at least 1 LowerCase Character </li>
@@ -89,15 +93,15 @@ const SignupForm = (props) => {
   const { handleSubmit, isOrganization, signup } = props
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(signup)}>
-      <h1 className={styles.title}>Signup</h1>
+    <form className={ styles.form } onSubmit={handleSubmit(signup)}>
+      <h1 className={ styles.title }>Signup</h1>
 
       <Field name="email"
         component={ EmailField }
-        validate={SignupValidator.validateEmail} />
+        validate={ SignupValidator.validateEmail } />
       <Field name="password"
         component={ PasswordField }
-        validate={SignupValidator.validatePassword} />
+        validate={ SignupValidator.validatePassword } />
 
       <Field name="isOrganization"
         component={ IsOrganizationField } />
@@ -111,7 +115,7 @@ const SignupForm = (props) => {
           component={ OrganizationURLField } />
       }
 
-      <button className={isOrganization ? styles.buttonSubmitMoved : styles.buttonSubmit}
+      <button className={ isOrganization ? styles.buttonSubmitMoved : styles.buttonSubmit }
         type="submit">
         Submit
       </button>

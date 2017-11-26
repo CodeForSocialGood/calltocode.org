@@ -11,61 +11,38 @@ h1 {
   grid-row: 1;
 }
 
+input:focus {
+  outline: none;
+}
+
 .inputEmailContainer {
+  position: relative;
   grid-column: 1 / 1;
   grid-row: 2;
+  overflow-x: hidden;
 
   .tick,
   .cross {
-    text-align: right;
-    width: 7%;
-    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 12.5px;
   }
 }
 
-.inputEmail {
-  @extend %fieldText;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
-  grid-column: 1 / 1;
-  grid-row: 2;
-}
-
-.inputEmailWithError {
-  @extend %fieldText;
-  border: none;
-  width: 90%;
-  display: inline-block;
-}
-
-.inputEmailError {
-  color: $errorColor;
-  font-size: 12px;
-  margin-top: -10px;
-  grid-column: 1 / 1;
-  grid-row: 3;
-}
-
-.inputPassword {
-  @extend %fieldText;
+.inputPasswordContainer {
+  position: relative;
   grid-column: 1 / 1;
   grid-row: 4;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
+  overflow-x: hidden;
 }
 
 .inputEmail,
-.inputEmailWithError,
-.inputPassword,
-.inputIsOrganization,
-.inputOrganizationName,
-.inputOrganizationURL {
-  &:focus {
-    outline: none;
-  }
-}
-.inputEmailContainer,
 .inputPassword {
+  @extend %fieldText;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+
   &.error {
     border-bottom: 1px solid $errorColor;
   }
@@ -74,74 +51,21 @@ h1 {
   }
 }
 
-.buttonSubmit {
-  @extend %buttonSubmit;
-  grid-column: 1 / 1;
-  grid-row: 6;
-}
-
-.buttonSubmitMoved {
-  @extend %buttonSubmit;
-  grid-column: 1 / 1;
-  grid-row: 9;
-}
-
-.errorContent {
-  grid-row: 6;
-  grid-column: 1 / 1;
-  font-size: 1rem;
+.inputEmailError {
+  position: fixed;
+  margin-top: 5px;
   color: $errorColor;
-}
-
-.tick:before {
-  content: "\2713 ";
-  color: $validInputColor;
-}
-
-.cross:before {
-  content: "\2717 ";
-  color: $errorColor;
-}
-
-.show {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
-.validpopup {
-  background-color: #fff;
-  max-width: 25vw;
-  font-size: .8em;
-  padding: 3%;
-  grid-area: 4 / 1 / span 4 / 1 ;
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  li {
-    margin-top: 3%;
-  }
-  @extend %boxShadowSmall
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.inputPassword ~ span {
-  grid-area: 4 / 2 / 4 / 2;
+  font-size: 12px;
 }
 
 .inputCheckboxContainer {
   @extend %checkboxContainer;
+  grid-column: 1 / 1;
+  grid-row: 5;
 }
 
 .inputIsOrganization {
   @extend %checkbox;
-  grid-column: 1 / 1;
-  grid-row: 5;
 }
 
 .inputOrganizationName {
@@ -158,4 +82,55 @@ h1 {
   grid-row: 7;
   border: none;
   border-bottom: 1px solid $inputsBorderColor;
+}
+
+.buttonSubmit {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 6;
+}
+
+.buttonSubmitMoved {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 9;
+}
+
+.tick:before {
+  content: "\2713 ";
+  color: $validInputColor;
+}
+
+.cross:before {
+  content: "\2717 ";
+  color: $errorColor;
+}
+
+.validationPopup {
+  @extend %boxShadowSmall;
+  z-index: 1;
+  position: fixed;
+  left: 25%;
+  max-width: 25vw;
+  margin-top: 5px;
+  padding: 3%;
+  background-color: #fff;
+  font-size: .8em;
+  grid-area: 4 / 1 / span 4 / 1;
+
+  li {
+    margin-top: 3%;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.bold {
+  font-weight: bold;
 }
