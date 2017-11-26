@@ -14,14 +14,15 @@ h1 {
 .inputEmailContainer{
   grid-column: 1 / 1;
   grid-row: 2;
+  position: relative;
+  overflow: hidden;
 
   .tick,
   .cross {
-    text-align: right;
-    width: 7%;
-    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 15px;
   }
-
 }
 
 .inputEmail {
@@ -30,19 +31,21 @@ h1 {
   border-bottom: 1px solid $inputsBorderColor;
   grid-column: 1 / 1;
   grid-row: 2;
-}
+  width: 100%;
 
-.inputEmailWithError {
-  @extend %fieldText;
-  border: none;
-  width: 90%;
-  display: inline-block;
+  &.error {
+    border-bottom: 1px solid $errorColor;
+  }
+  &.valid {
+    border-bottom: 1px solid $validInputColor;
+  }
 }
 
 .inputEmailError {
+  position: fixed;
   color: $errorColor;
   font-size: 12px;
-  margin-top: -10px;
+  margin-top: 5px;
   grid-column: 1 / 1;
   grid-row: 3;
 }
@@ -60,15 +63,6 @@ h1 {
 .inputPassword {
   &:focus {
     outline: none;
-  }
-}
-.inputPassword,
-.inputEmailContainer{
-  &.error {
-    border-bottom: 1px solid $errorColor;
-  }
-  &.valid {
-    border-bottom: 1px solid $validInputColor;
   }
 }
 
