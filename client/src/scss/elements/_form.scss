@@ -23,6 +23,29 @@
   font-size: 1rem;
 }
 
+%checkboxContainer {
+  @extend %fieldText;
+  display: inline;
+  padding: 0;
+
+  label {
+    position: relative;
+    top: -2px;
+  }
+}
+
+%checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  border: 1px solid $inputsBorderColor;
+  box-shadow: none;
+
+  &:checked:after {
+    font-size: 25px;
+  }
+}
+
 %buttonSubmit {
   @extend %button;
   padding: 20px;
