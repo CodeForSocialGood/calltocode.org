@@ -9,7 +9,7 @@ import styles from './SignupForm.scss'
 import { signup } from '../../actions'
 
 function EmailField ({ input, meta: { dirty, error } }) {
-  const emailClasses = `${styles.inputEmail} ${GetValidationClass(dirty, error)}`
+  const emailClasses = `${styles.inputEmail} ${getValidationClass(dirty, error)}`
 
   return (
     <div className={ styles.inputEmailContainer }>
@@ -28,7 +28,7 @@ function EmailField ({ input, meta: { dirty, error } }) {
 }
 
 function PasswordField ({ input, meta: { active, dirty, error } }) {
-  const passwordClasses = `${styles.inputPassword} ${GetValidationClass(dirty, error)}`
+  const passwordClasses = `${styles.inputPassword} ${getValidationClass(dirty, error)}`
 
   return (
     <div className={ styles.inputPasswordContainer }>
