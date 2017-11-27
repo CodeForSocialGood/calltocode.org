@@ -7,7 +7,7 @@
   "author": "c2c team",
   "private": true,
   "engines": {
-    "node": "8.6.0"
+    "node": "9.2.0"
   },
   "scripts": {
     "prebuild": "rm -rf client/dist/",

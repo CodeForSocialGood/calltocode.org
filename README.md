@@ -18,6 +18,9 @@ $ yarn build                          # generate client distribution (npm run bu
 $ yarn test                           # run tests (npm test)
 $ yarn db                             # start mongodb and seed db (npm run db)
 $ yarn db:reset                       # return db to initial seeded state (npm run db:reset)
+$ docker-compose build                # build project's docker image
+$ docker-compose run app              # run the app in dev mode with docker
+$ docker-compose up -d db             # start mongodb with docker
 ```
 **Although yarn is recommended, you may use npm natively. The corresponding npm commands are in parenthesis above.*
 
