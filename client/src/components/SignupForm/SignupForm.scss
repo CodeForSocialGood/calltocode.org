@@ -110,8 +110,8 @@ input:focus {
   @extend %boxShadowSmall;
   z-index: 1;
   position: fixed;
-  left: 25%;
   max-width: 25vw;
+  margin-left: 25%;
   margin-top: 5px;
   padding: 3%;
   background-color: #fff;

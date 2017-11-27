@@ -8,13 +8,13 @@ import SignupValidator from './SignupValidator'
 import styles from './SignupForm.scss'
 import { signup } from '../../actions'
 
-const EmailField = ({ input, meta: { dirty, error } }) => {
-  const emailClasses = `${styles.inputEmail} ${dirty ? error ? styles.error : styles.valid : ''}`
+function EmailField ({ input, meta: { dirty, error } }) {
+  const emailClasses = `${styles.inputEmail} ${GetValidationClass(dirty, error)}`
 
   return (
     <div className={ styles.inputEmailContainer }>
-      <input key="field"
-        className={ emailClasses }
+      <input className={ emailClasses }
+        type="text"
         placeholder="Email"
         { ...input } />
       { dirty &&
@@ -27,13 +27,12 @@ const EmailField = ({ input, meta: { dirty, error } }) => {
   )
 }
 
-const PasswordField = ({ input, meta: { active, dirty, error } }) => {
-  const passClasses = `${styles.inputPassword} ${dirty ? error ? styles.error : styles.valid : ''}`
+function PasswordField ({ input, meta: { active, dirty, error } }) {
+  const passwordClasses = `${styles.inputPassword} ${GetValidationClass(dirty, error)}`
 
   return (
     <div className={ styles.inputPasswordContainer }>
-      <input key="field"
-        className={ passClasses }
+      <input className={ passwordClasses }
         type="password"
         placeholder="Password"
         { ...input } />
@@ -43,7 +42,7 @@ const PasswordField = ({ input, meta: { active, dirty, error } }) => {
   )
 }
 
-const IsOrganizationField = ({ input }) => {
+function IsOrganizationField ({ input }) {
   return (
     <div className={ styles.inputCheckboxContainer }>
       <input className={ styles.inputIsOrganization }
@@ -54,7 +53,7 @@ const IsOrganizationField = ({ input }) => {
   )
 }
 
-const OrganizationNameField = ({ input }) => {
+function OrganizationNameField ({ input }) {
   return (
     <input className={ styles.inputOrganizationName }
       type="text"
@@ -63,7 +62,7 @@ const OrganizationNameField = ({ input }) => {
   )
 }
 
-const OrganizationURLField = ({ input }) => {
+function OrganizationURLField ({ input }) {
   return (
     <input className={ styles.inputOrganizationURL }
       type="text"
@@ -72,9 +71,17 @@ const OrganizationURLField = ({ input }) => {
   )
 }
 
-const ValidationPopup = ({ error, active }) => {
+function GetValidationClass (dirty, error) {
+  if (dirty) {
+    return error ? styles.error : styles.valid
+  }
+
+  return ''
+}
+
+function ValidationPopup ({ active, error }) {
   return (
-    <div className={`${styles.validationPopup} ${active ? styles.show : styles.hide}` }>
+    <div className={ `${styles.validationPopup} ${active ? styles.show : styles.hide}` }>
       <p className={ styles.bold }>Password must have</p>
       <ul>
         <li className={ error == null || error.upperCase ? styles.tick : styles.cross }> at least 1 UpperCase Character </li>
@@ -89,16 +96,17 @@ const ValidationPopup = ({ error, active }) => {
   )
 }
 
-const SignupForm = (props) => {
+function SignupForm (props) {
   const { handleSubmit, isOrganization, signup } = props
 
   return (
-    <form className={ styles.form } onSubmit={handleSubmit(signup)}>
+    <form className={ styles.form } onSubmit={ handleSubmit(signup) }>
       <h1 className={ styles.title }>Signup</h1>
 
       <Field name="email"
         component={ EmailField }
         validate={ SignupValidator.validateEmail } />
+
       <Field name="password"
         component={ PasswordField }
         validate={ SignupValidator.validatePassword } />
@@ -110,6 +118,7 @@ const SignupForm = (props) => {
         <Field name="organizationName"
           component={ OrganizationNameField } />
       }
+      
       { isOrganization &&
         <Field name="organizationURL"
           component={ OrganizationURLField } />
