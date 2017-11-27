@@ -71,7 +71,7 @@ function OrganizationURLField ({ input }) {
   )
 }
 
-function GetValidationClass (dirty, error) {
+function getValidationClass (dirty, error) {
   if (dirty) {
     return error ? styles.error : styles.valid
   }
@@ -118,7 +118,7 @@ function SignupForm (props) {
         <Field name="organizationName"
           component={ OrganizationNameField } />
       }
-      
+
       { isOrganization &&
         <Field name="organizationURL"
           component={ OrganizationURLField } />
