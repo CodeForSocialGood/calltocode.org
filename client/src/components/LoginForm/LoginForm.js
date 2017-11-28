@@ -29,20 +29,16 @@ class LoginForm extends Component {
     )
   }
 
-  validateEmailAndPassword (values) {
+  async validateEmailAndPassword (values) {
     const { email, password } = values
 
-    loginApiClient.login(email, password)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json()
-            .then(user => {
-              this.props.login(user)
-            })
-        } else {
-          handleValidationRequestError(response, email, password)
-        }
-      })
+    const response = await loginApiClient.login(email, password)
+    if (response.status === 200) {
+      const user = await response.json()
+      this.props.login(user)
+    } else {
+      handleValidationRequestError(response, email, password)
+    }
   }
 
   render () {
