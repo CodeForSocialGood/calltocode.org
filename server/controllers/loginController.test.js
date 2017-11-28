@@ -2,6 +2,15 @@ import test from 'ava'
 import {mock} from 'sinon'
 import loginController from './loginController'
 
+let res
+test.beforeEach(() => {
+  res = {
+    sendStatus () {},
+    setHeader () {},
+    send () {}
+  }
+})
+
 test('login with email and password', t => {
   // setup
   const req = {
@@ -10,9 +19,7 @@ test('login with email and password', t => {
       password: 'any password'
     }
   }
-  const res = {
-    sendStatus () {}
-  }
+
   const UserModel = {
     findOne (query, fieldsToReturn, cb) {
       if (query.email === req.body.email && fieldsToReturn === 'email password opportunitiesAppliedFor') {

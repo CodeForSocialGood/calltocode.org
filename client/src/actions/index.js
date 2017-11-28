@@ -34,10 +34,8 @@ function signup ({ email, password }) {
   return async dispatch => {
     const response = await signupApiClient.signup({ email, password })
     if (response.status === 200) {
-      return response.json()
-        .then(user => {
-          dispatch(login(user))
-        })
+      const user = await response.json()
+      dispatch(login(user))
     }
     throw new SignupException()
   }
@@ -69,11 +67,10 @@ function getOppsAppliedFor (user) {
   return async dispatch => {
     const response = await oppsApiClient.getOppsAppliedFor(user.opportunitiesAppliedFor)
     if (response.status === 200) {
-      return response.json().then(opps => {
-        dispatch({
-          type: GET_OPPS_APPLIED_FOR,
-          payload: opps
-        })
+      const opps = await response.json()
+      dispatch({
+        type: GET_OPPS_APPLIED_FOR,
+        payload: opps
       })
     }
   }
