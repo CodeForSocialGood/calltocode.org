@@ -14,11 +14,10 @@ function login ({ user }) {
   return async dispatch => {
     const response = await oppsApiClient.getOppsAppliedFor(user.opportunitiesAppliedFor)
     if (response.status === 200) {
-      return response.json().then(opps => {
-        dispatch({
-          type: LOGIN,
-          payload: { user, opps }
-        })
+      const opps = await response.json()
+      dispatch({
+        type: LOGIN,
+        payload: { user, opps }
       })
     }
   }
@@ -44,7 +43,7 @@ function signup ({ email, password }) {
 function applyForProject (project, user) {
   const projectId = project._id
 
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     let updatedUser = { ...user }
 
     if (user.opportunitiesAppliedFor.indexOf(projectId) === -1) {
@@ -52,14 +51,13 @@ function applyForProject (project, user) {
       updatedUser = { ...user, opportunitiesAppliedFor }
     }
 
-    userApiClient.updateOppsAppliedFor(projectId, user.id).then(response => {
-      if (response.status === 200) {
-        dispatch({
-          type: UPDATE_USER,
-          payload: updatedUser
-        })
-      }
-    })
+    const response = await userApiClient.updateOppsAppliedFor(projectId, user.id)
+    if (response.status === 200) {
+      dispatch({
+        type: UPDATE_USER,
+        payload: updatedUser
+      })
+    }
   }
 }
 
@@ -80,11 +78,10 @@ function populateOpps () {
   return async dispatch => {
     const response = await oppsApiClient.getAllOpps()
     if (response.status === 200) {
-      return response.json().then(opps => {
-        dispatch({
-          type: POPULATE_OPPS,
-          payload: opps
-        })
+      const opps = await response.json()
+      dispatch({
+        type: POPULATE_OPPS,
+        payload: opps
       })
     }
   }
