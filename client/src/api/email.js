@@ -15,7 +15,7 @@ const emailApiClient = {
       })
     }
 
-    fetch('/email', options)
+    return fetch('/email', options)
   }
 }
 

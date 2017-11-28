@@ -16,10 +16,13 @@
     "start": "node server/",
     "client:watch": "webpack --watch",
     "server:watch": "nodemon --watch server/ --exec 'node server/'",
-    "start:dev": "npm-run-all --parallel client:watch server:watch",
+    "start:dev": "NODE_ENV=dev npm-run-all --parallel client:watch server:watch",
     "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
     "test": "ava",
-    "db": "./db/run.sh"
+    "db": "./db/run.sh",
+    "docker:stop": "docker stop c4sg",
+    "docker:clear": "docker rm c4sg",
+    "db:reset": "npm-run-all docker:stop docker:clear db"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",

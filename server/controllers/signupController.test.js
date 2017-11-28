@@ -2,6 +2,15 @@ import test from 'ava'
 import { stub, mock } from 'sinon'
 import signupController from './signupController'
 
+let res
+test.beforeEach(() => {
+  res = {
+    sendStatus () {},
+    setHeader () {},
+    send () {}
+  }
+})
+
 test('signup new user', t => {
   // setup
   const user = {
@@ -12,18 +21,15 @@ test('signup new user', t => {
       user: 'any user'
     }
   }
-  const res = {
-    sendStatus () {}
-  }
 
   // mock
   const stubUserModel = stub()
     .withArgs('any user')
     .returns(user)
   const mockRes = mock(res)
-    .expects('sendStatus')
+    .expects('send')
     .once()
-    .withExactArgs(200)
+    .withExactArgs(JSON.stringify({ savedUser: { email: 'user@email.com' } }))
 
   // execute
   signupController._init(stubUserModel)
