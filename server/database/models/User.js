@@ -28,6 +28,16 @@ const userSchema = mongoose.Schema({
   organization: mongoose.Schema.Types.ObjectId
 })
 
+userSchema.methods.toJSON = function() {
+  return {
+    _id: this._id,
+    usertype: this.usertype,
+    email: this.email,
+    opportunitiesAppliedFor: this.opportunitiesAppliedFor,
+    organization: this.organization
+  }
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
