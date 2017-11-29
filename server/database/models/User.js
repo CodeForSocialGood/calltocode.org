@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
   organization: mongoose.Schema.Types.ObjectId
 })
 
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   return {
     _id: this._id,
     usertype: this.usertype,

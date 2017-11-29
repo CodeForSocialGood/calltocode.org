@@ -132,6 +132,14 @@ function SignupForm (props) {
   )
 }
 
+function mapStateToProps (state) {
+  const selector = formValueSelector('SignupForm')
+
+  return {
+    isOrganization: selector(state, 'isOrganization')
+  }
+}
+
 EmailField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object
@@ -169,10 +177,5 @@ const SignupFormRedux = reduxForm({
   form: 'SignupForm',
   onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(SignupForm)
-
-const selector = formValueSelector('SignupForm')
-const mapStateToProps = state => {
-  return { isOrganization: selector(state, 'isOrganization') }
-}
 
 export default connect(mapStateToProps, { signup })(SignupFormRedux)
