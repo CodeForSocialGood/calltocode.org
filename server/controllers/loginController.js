@@ -8,6 +8,7 @@ const loginController = {
 
   login (req, res) {
     const {email, password} = req.body
+
     this.User.findOne({ email }, (error, user) => {
       if (error) {
         console.error(error)

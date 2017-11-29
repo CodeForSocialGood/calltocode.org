@@ -14,7 +14,6 @@ const signupController = {
         return res.sendStatus(500)
       }
 
-      console.log(`${savedUser.email} saved!`)
       res.setHeader('Content-Type', 'application/json')
       return res.send({ user: savedUser.toJSON() })
     })
