@@ -1,13 +1,13 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
-const router = require('./router')
 const connectToDatabase = require('./database')
+const routes = require('./routes')
 
 const app = express()
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
 app.use(bodyParser.json())
-app.use('/', router)
+app.use(routes)
 app.set('port', process.env.PORT || 3000)
 
 app.listen(app.get('port'), async () => {

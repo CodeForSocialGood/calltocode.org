@@ -18,6 +18,7 @@ test('login with email and password', t => {
       email: 'anyemail@email.com',
       password: 'any password',
       toJSON () {}
+      generateJWT () {}
     }
   }
 

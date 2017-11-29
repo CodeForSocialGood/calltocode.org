@@ -1,4 +1,4 @@
-const UserModel = require('../database/models/User')
+const UserModel = require('../../database/models/User')
 
 const loginController = {
   _init (User = UserModel) {
@@ -17,8 +17,9 @@ const loginController = {
 
       if (user && password === user.password) {
         res.setHeader('Content-Type', 'application/json')
-        return res.send({ user: user.toJSON() })
-      } else if (user && password !== user.password) {
+        user.token = user.generateJWT()
+        return res.send(user.toJSON())
+      } else if (password !== user.password) {
         res.statusMessage = 'Wrong Password'
       } else {
         res.statusMessage = 'Wrong Email'

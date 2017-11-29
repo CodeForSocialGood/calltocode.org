@@ -1,4 +1,4 @@
-const UserModel = require('../database/models/User')
+const UserModel = require('../../database/models/User')
 
 const userController = {
   _init (Users = UserModel) {
