@@ -19,7 +19,7 @@ function login (user) {
     if (response.status === 200) {
       const opps = await response.json()
 
-      return dispatch({
+      dispatch({
         type: LOGIN,
         payload: { user, opps }
       })
@@ -41,7 +41,7 @@ function signup ({ email, password, isOrganization }) {
     if (response.status === 200) {
       const { user } = await response.json()
 
-      return dispatch(login(user))
+      dispatch(login(user))
     }
     throw new SignupException()
   }

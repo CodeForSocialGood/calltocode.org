@@ -103,7 +103,9 @@ LoginForm.propTypes = {
 const LoginFormRedux = reduxForm({
   form: 'LoginForm',
   onSubmitSuccess: (result, dispatch) => {
-    return result === 'contact' ? dispatch(push('/profile')) : dispatch(push('/'))
+    result === 'contact'
+      ? dispatch(push('/profile'))
+      : dispatch(push('/'))
   }
 })(LoginForm)
 
