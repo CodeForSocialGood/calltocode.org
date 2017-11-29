@@ -17,6 +17,14 @@ const oppsApiClient = {
     }
 
     return fetch('/api/all-opps', options)
+  },
+
+  getOrganizationOpps (organization) {
+    const options = {
+      method: 'GET'
+    }
+
+    return fetch(`/api/org-opps?organization=${organization}`, options)
   }
 }
 

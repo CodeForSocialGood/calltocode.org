@@ -52,6 +52,18 @@ const opportunitiesController = {
       }
       return res.send(opps)
     })
+  },
+
+  getOrganizationOpps (req, res) {
+    const opps = this.opps
+
+    return opps.find({ organization: req.query.organization }, (err, opps) => {
+      if (err) {
+        console.error(err)
+        return res.sendStatus(500)
+      }
+      return res.send(opps)
+    })
   }
 }
 
