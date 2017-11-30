@@ -34,7 +34,7 @@ class LoginForm extends Component {
 
     const response = await loginApiClient.login(email, password)
     if (response.status === 200) {
-      const { user } = await response.json()
+      const user = await response.json()
       this.props.login(user)
       return user.usertype
     } else {
