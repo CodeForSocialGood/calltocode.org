@@ -1,0 +1,12 @@
+{
+	"_id": {
+		"$oid": "5a1658a0327c0286c39a1dea"
+	},
+	"email": "kevin@email.com",
+	"password": "kevin.password",
+	"opportunitiesAppliedFor": [
+		"5a165cb5202e8986f99ec5c1",
+		"5a165cb5202e8986f99ec5c3"
+	],
+	"__v": 0
+}

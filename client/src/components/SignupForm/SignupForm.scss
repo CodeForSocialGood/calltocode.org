@@ -1,0 +1,136 @@
+@import '../../scss/partials/partials';
+@import '../../scss/elements/form';
+
+.form {
+  @extend %form;
+}
+
+h1 {
+  @extend %formTitle;
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+
+input:focus {
+  outline: none;
+}
+
+.inputEmailContainer {
+  position: relative;
+  grid-column: 1 / 1;
+  grid-row: 2;
+  overflow-x: hidden;
+
+  .tick,
+  .cross {
+    position: absolute;
+    right: 0;
+    top: 12.5px;
+  }
+}
+
+.inputPasswordContainer {
+  position: relative;
+  grid-column: 1 / 1;
+  grid-row: 4;
+  overflow-x: hidden;
+}
+
+.inputEmail,
+.inputPassword {
+  @extend %fieldText;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+
+  &.error {
+    border-bottom: 1px solid $errorColor;
+  }
+  &.valid {
+    border-bottom: 1px solid $validInputColor;
+  }
+}
+
+.inputEmailError {
+  position: fixed;
+  margin-top: 5px;
+  color: $errorColor;
+  font-size: 12px;
+}
+
+.inputCheckboxContainer {
+  @extend %checkboxContainer;
+  grid-column: 1 / 1;
+  grid-row: 5;
+}
+
+.inputIsOrganization {
+  @extend %checkbox;
+}
+
+.inputOrganizationName {
+  @extend %fieldText;
+  grid-column: 1 / 1;
+  grid-row: 6;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+}
+
+.inputOrganizationURL {
+  @extend %fieldText;
+  grid-column: 1 / 1;
+  grid-row: 7;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+}
+
+.buttonSubmit {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 6;
+}
+
+.buttonSubmitMoved {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 9;
+}
+
+.tick:before {
+  content: "\2713 ";
+  color: $validInputColor;
+}
+
+.cross:before {
+  content: "\2717 ";
+  color: $errorColor;
+}
+
+.validationPopup {
+  @extend %boxShadowSmall;
+  z-index: 1;
+  position: fixed;
+  max-width: 25vw;
+  margin-left: 25%;
+  margin-top: 5px;
+  padding: 3%;
+  background-color: #fff;
+  font-size: .8em;
+  grid-area: 4 / 1 / span 4 / 1;
+
+  li {
+    margin-top: 3%;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.bold {
+  font-weight: bold;
+}

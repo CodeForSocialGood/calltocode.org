@@ -18,6 +18,7 @@
   color: white;
   background-color: $listColor;
   margin-bottom: 15px;
+  margin-right: 25px;
 }
 
 .listOrgLoggedIn {
@@ -27,4 +28,19 @@
 .listOrgLoggedIn:hover {
   @extend %hover;
   @extend %boxShadowSmall;
+}
+
+.listApply {
+  float: right;
+  margin-top: 15px;
+}
+
+.listApplyPass {
+  @extend .listApply;
+  color: green;
+}
+
+.listApplyFail {
+  @extend .listApply;
+  color: red;
 }

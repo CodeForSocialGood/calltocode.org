@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import styles from './ListOfProjects.scss'
-import projects from '../../data/projects.json'
-import emailApiClient from '../../api/email'
+import { applyForProject } from '../../actions'
+import Project from '../Project/Project'
 
-import { connect } from 'react-redux'
+import styles from './ListOfProjects.scss'
 
 class ListOfProjects extends Component {
   constructor (props) {
@@ -15,16 +15,13 @@ class ListOfProjects extends Component {
   }
 
   renderListOfProjects () {
-    const liClassName = this.props.loggedIn ? styles.listOrgLoggedIn : styles.listOrg
-
-    return projects.map((project, index) => {
+    return this.props.projects.map((project, index) => {
       return (
-        <li
+        <Project
           key={index}
-          className={liClassName}
-          onClick={this.props.loggedIn ? mailToOrganization(project) : null}>
-          Name:{project.name} Role:{project.role}
-        </li>
+          project={project}
+          loggedIn={this.props.loggedIn}
+          applyForProject={this.props.applyForProject} />
       )
     })
   }
@@ -32,7 +29,7 @@ class ListOfProjects extends Component {
   render () {
     return (
       <section className={styles.orgSection}>
-        <h1 className={styles.title}>Apply Below</h1>
+        <h1 className={styles.title}>{this.props.title}</h1>
         <ul>
           {this.renderListOfProjects()}
         </ul>
@@ -41,21 +38,17 @@ class ListOfProjects extends Component {
   }
 }
 
-function mailToOrganization (project) {
-  return () => {
-    const {email, name, role} = project
-    const projectInfo = {email, name, role}
-
-    emailApiClient.send(projectInfo)
+function mapStateToProps (state) {
+  return {
+    loggedIn: state.login.loggedIn
   }
 }
 
-function mapStateToProps (state) {
-  return { loggedIn: state.login.loggedIn }
-}
-
 ListOfProjects.propTypes = {
-  loggedIn: PropTypes.bool.isRequired
+  title: PropTypes.string,
+  loggedIn: PropTypes.bool.isRequired,
+  projects: PropTypes.array,
+  applyForProject: PropTypes.func
 }
 
-export default connect(mapStateToProps)(ListOfProjects)
+export default connect(mapStateToProps, { applyForProject })(ListOfProjects)

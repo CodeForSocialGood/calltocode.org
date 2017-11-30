@@ -31,22 +31,13 @@ class LoginForm extends Component {
 
   async validateEmailAndPassword (values) {
     const { email, password } = values
+
     const response = await loginApiClient.login(email, password)
-    const _error = 'Incorrect credentials, please try again!'
-    console.log(response)
-    if (response.status === 403) {
-      if (response.statusText === 'Wrong Email') {
-        throw new SubmissionError({ email: response.statusText,
-          _error })
-      } else if (response.statusText === 'Wrong Password') {
-        throw new SubmissionError({ password: response.statusText,
-          _error })
-      } else {
-        throw new SubmissionError({ email,
-          _error })
-      }
+    if (response.status === 200) {
+      const user = await response.json()
+      this.props.login(user)
     } else {
-      this.props.login({ email })
+      handleValidationRequestError(response, email, password)
     }
   }
 
@@ -64,7 +55,7 @@ class LoginForm extends Component {
           name="password"
           component={this.renderPassword} />
 
-        <button className={error ? styles.buttonError : styles.buttonSubmit} type="submit">
+        <button className={styles.buttonSubmit} type="submit">
           Submit
         </button>
         <div className={styles.errorContent}>
@@ -79,6 +70,26 @@ class LoginForm extends Component {
         </Link>
       </form>
     )
+  }
+}
+
+function handleValidationRequestError (response, email, password) {
+  const _error = 'Incorrect credentials, please try again!'
+
+  if (response.status === 403) {
+    if (response.statusText === 'Wrong Email') {
+      throw new SubmissionError({ email: response.statusText,
+        _error })
+    } else if (response.statusText === 'Wrong Password') {
+      throw new SubmissionError({ password: response.statusText,
+        _error })
+    } else {
+      throw new SubmissionError({ email,
+        _error: response.statusText })
+    }
+  } else {
+    throw new SubmissionError({ email,
+      _error: response.statusText })
   }
 }
 
