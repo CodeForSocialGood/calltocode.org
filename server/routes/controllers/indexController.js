@@ -2,7 +2,7 @@ const path = require('path')
 
 const indexController = {
   _init (pathResolver = path) {
-    this.indexFilePath = pathResolver.join(__dirname, '..', '..', 'client', 'dist', 'index.html')
+    this.indexFilePath = pathResolver.join(__dirname, '..', '..', '..', 'client', 'dist', 'index.html')
     return this
   },
 

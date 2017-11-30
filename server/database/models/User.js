@@ -44,7 +44,8 @@ UserSchema.methods.generateJWT = function () {
 
 UserSchema.methods.toJSON = function () {
   return {
-    _id: this._id,
+    token: this.generateJWT(),
+    id: this._id,
     usertype: this.usertype,
     email: this.email,
     opportunitiesAppliedFor: this.opportunitiesAppliedFor,

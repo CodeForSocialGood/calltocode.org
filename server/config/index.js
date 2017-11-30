@@ -1,3 +1,6 @@
 module.exports = {
-  secret: process.env.NODE_ENV === 'production' ? process.env.SECRET : 'secret'
+  // Secret for JWT signing and encryption
+  secret: process.env.SECRET || 'secret',
+  // Port for server
+  port: process.env.PORT || 3000
 }
