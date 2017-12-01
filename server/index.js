@@ -3,7 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 
 const connectToDatabase = require('./database')
-const port = require('./config').port
+const { serverPort } = require('./config')
 
 const app = express()
 
@@ -12,16 +12,16 @@ app.use(bodyParser.json())
 
 app.use(require('./routes'))
 
-app.set('port', port)
+app.set('port', serverPort)
 
-app.listen(port, async () => {
+app.listen(serverPort, async () => {
   try {
     await connectToDatabase()
     console.log('Database connected')
   } catch (error) {
     console.error('Database connection error', error)
   }
-  console.log(`App listening on port ${port}`)
+  console.log(`App listening on port ${serverPort}`)
 })
 
 module.exports = app

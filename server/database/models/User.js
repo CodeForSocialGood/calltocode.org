@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const secret = require('../../config').secret
+const jwtSigningKey = require('../../config').jwtSigningKey
 
 const UserSchema = mongoose.Schema({
   usertype: {
@@ -30,7 +30,7 @@ const UserSchema = mongoose.Schema({
   organization: mongoose.Schema.Types.ObjectId
 }, { timestamps: true })
 
-UserSchema.methods.generateJWT = function () {
+UserSchema.methods.generateSessionToken = function () {
   const today = new Date()
   const expiration = new Date(today)
   const expirationDays = 14
@@ -39,12 +39,12 @@ UserSchema.methods.generateJWT = function () {
   return jwt.sign({
     id: this._id,
     exp: parseInt(expiration.getTime() / 1000)
-  }, secret)
+  }, jwtSigningKey)
 }
 
 UserSchema.methods.toJSON = function () {
   return {
-    token: this.generateJWT(),
+    token: this.generateSessionToken(),
     id: this._id,
     usertype: this.usertype,
     email: this.email,

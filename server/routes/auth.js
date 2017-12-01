@@ -1,10 +1,12 @@
 const jwt = require('express-jwt')
-const secret = require('../config').secret
+const { jwtSigningKey } = require('../config')
 
 function getTokenFromHeader (req) {
-  if ((req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token') ||
-      (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')) {
-    return req.headers.authorization.split(' ')[1]
+  if (req.headers.authorization) {
+    const [preamble, token] = req.headers.authorization.split(' ')
+    if (preamble === 'Token' || preamble === 'Bearer') {
+      return token
+    }
   }
 
   return null
@@ -12,12 +14,12 @@ function getTokenFromHeader (req) {
 
 const auth = {
   required: jwt({
-    secret,
+    secret: jwtSigningKey,
     userProperty: 'payload',
     getToken: getTokenFromHeader
   }),
   optional: jwt({
-    secret,
+    secret: jwtSigningKey,
     userProperty: 'payload',
     credentialsRequired: false,
     getToken: getTokenFromHeader

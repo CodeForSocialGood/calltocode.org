@@ -38,13 +38,17 @@ function setHeaders () {
   }
 
   if (token) {
-    headers['authorization'] = `Token ${token}`
+    headers.authorization = `Token ${token}`
   }
 
   return headers
 }
 
+function setToken (_token) {
+  token = _token
+}
+
 export default {
   user,
-  setToken: _token => { token = _token }
+  setToken
 }

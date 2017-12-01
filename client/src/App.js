@@ -15,13 +15,14 @@ import api from './api'
 
 class App extends Component {
   componentWillMount () {
-    // Upon app load, load token from storage and save for use in api
+    this.loadExistingSessionAndUser()
+  }
+
+  loadExistingSessionAndUser () {
     const token = window.localStorage.getItem('jwt')
     if (token) {
       api.setToken(token)
     }
-
-    // Load current user from token, if it was loaded
     this.props.onLoad(token ? api.user.current() : null)
   }
 

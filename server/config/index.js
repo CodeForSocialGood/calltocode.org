@@ -1,6 +1,4 @@
 module.exports = {
-  // Secret for JWT signing and encryption
-  secret: process.env.SECRET || 'secret',
-  // Port for server
-  port: process.env.PORT || 3000
+  jwtSigningKey: process.env.JWT_SIGNING_KEY || 'secret',
+  serverPort: process.env.PORT || 3000
 }
