@@ -15,6 +15,7 @@
     "prestart": "./deploy/run.sh build",
     "start": "./deploy/run.sh start",
     "poststart": "cd deploy/ && docker-compose logs -f app",
+    "stop": "./deploy/run.sh stop",
     "client:watch": "webpack --watch",
     "server:watch": "nodemon --watch server/ --exec 'node server/'",
     "start:dev": "NODE_ENV=dev npm-run-all --parallel client:watch server:watch",

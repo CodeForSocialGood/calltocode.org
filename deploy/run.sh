@@ -26,17 +26,27 @@ start () {
   popd
 }
 
+stop () {
+  set -x
+  pushd deploy/
+    docker-compose stop
+    docker-compose rm -vf
+  popd
+}
+
 info () {
 cat <<EOF
   Usage: ./deploy/run.sh <target>
   Targets:
     build - bundles the client and server into a single distribution
     start - start the database and app with docker
+    stop - stop the database and app
 EOF
 }
 
 case $1 in
   build)        build         ;;
   start)        start         ;;
+  stop)         stop          ;;
   *)            info          ;;
 esac

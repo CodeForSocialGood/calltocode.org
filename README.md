@@ -14,6 +14,7 @@
 $ yarn                                # install dependencies (npm install)
 $ yarn start:dev                      # run in watch mode (npm run start:dev)
 $ yarn start                          # run the app through docker just like the test environment (npm start)
+$ yarn stop                           # stop and clean the app that was running through docker
 $ yarn build                          # generate client distribution (npm run build)
 $ yarn test                           # run tests (npm test)
 $ yarn db                             # start mongodb and seed db (npm run db)
