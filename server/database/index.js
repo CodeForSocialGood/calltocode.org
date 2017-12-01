@@ -1,8 +1,11 @@
-class Database {
-  constructor (url, client = require('mongoose')) {
+const mongoose = require('mongoose')
+
+const database = {
+  _init (url, client = mongoose) {
     this.url = url
     this.client = client
-  }
+    return this
+  },
 
   connect () {
     this.client.connect(this.url, {
@@ -17,4 +20,4 @@ class Database {
   }
 }
 
-module.exports = Database
+module.exports = database
