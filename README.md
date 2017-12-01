@@ -13,14 +13,11 @@
 ```bash
 $ yarn                                # install dependencies (npm install)
 $ yarn start:dev                      # run in watch mode (npm run start:dev)
-$ yarn start                          # run in normal mode (npm run start)
+$ yarn start                          # run the app through docker just like the test environment (npm start)
 $ yarn build                          # generate client distribution (npm run build)
 $ yarn test                           # run tests (npm test)
 $ yarn db                             # start mongodb and seed db (npm run db)
 $ yarn db:reset                       # return db to initial seeded state (npm run db:reset)
-$ docker-compose build                # build project's docker image
-$ docker-compose run app              # run the app in dev mode with docker
-$ docker-compose up -d db             # start mongodb with docker
 ```
 **Although yarn is recommended, you may use npm natively. The corresponding npm commands are in parenthesis above.*
 
