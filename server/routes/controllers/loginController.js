@@ -17,7 +17,6 @@ const loginController = {
 
       if (user && password === user.password) {
         res.setHeader('Content-Type', 'application/json')
-        user.token = user.generateJWT()
         return res.send(user.toJSON())
       } else if (password !== user.password) {
         res.statusMessage = 'Wrong Password'
