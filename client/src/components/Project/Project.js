@@ -63,7 +63,13 @@ class Project extends Component {
   }
 
   getAppliedStatus () {
-    return this.props.user.opportunitiesAppliedFor.indexOf(this.props.project._id) !== -1
+    return this.props.user.opportunitiesAppliedFor.includes(this.props.project._id)
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    user: state.login.user
   }
 }
 
@@ -72,12 +78,6 @@ Project.propTypes = {
   project: PropTypes.object.isRequired,
   user: PropTypes.object,
   applyForProject: PropTypes.func.isRequired
-}
-
-function mapStateToProps (state) {
-  return {
-    user: state.login.user
-  }
 }
 
 export default connect(mapStateToProps, null)(Project)

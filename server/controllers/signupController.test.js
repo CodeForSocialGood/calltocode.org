@@ -14,7 +14,11 @@ test.beforeEach(() => {
 test('signup new user', t => {
   // setup
   const user = {
-    save (cb) { cb(null, { email: 'user@email.com' }) }
+    email: 'user@email.com',
+    toJSON () {}
+  }
+  const UserModel = {
+    save (cb) { cb(null, user) }
   }
   const req = {
     body: {
@@ -22,14 +26,14 @@ test('signup new user', t => {
     }
   }
 
-  // mock
+  // mocks
   const stubUserModel = stub()
     .withArgs('any user')
-    .returns(user)
+    .returns(UserModel)
   const mockRes = mock(res)
     .expects('send')
     .once()
-    .withExactArgs(JSON.stringify({ savedUser: { email: 'user@email.com' } }))
+    .withExactArgs({ user: user.toJSON() })
 
   // execute
   signupController._init(stubUserModel)
@@ -50,9 +54,6 @@ test('do not signup new user when user already exists', t => {
     body: {
       user: 'any user'
     }
-  }
-  const res = {
-    sendStatus () {}
   }
 
   // mock

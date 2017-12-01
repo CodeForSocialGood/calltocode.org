@@ -1,8 +1,14 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
+  usertype: {
+    type: String,
+    enum: ['contact', 'volunteer'],
+    required: true
+  },
   email: {
     type: String,
+    required: true,
     validate: {
       validator (email, done) {
         User.find({ email }, (error, docs) => {
@@ -14,9 +20,23 @@ const userSchema = mongoose.Schema({
       message: 'User already exists!'
     }
   },
-  password: String,
-  opportunitiesAppliedFor: [mongoose.Schema.Types.ObjectId]
+  password: {
+    type: String,
+    required: true
+  },
+  opportunitiesAppliedFor: [mongoose.Schema.Types.ObjectId],
+  organization: mongoose.Schema.Types.ObjectId
 })
+
+userSchema.methods.toJSON = function () {
+  return {
+    _id: this._id,
+    usertype: this.usertype,
+    email: this.email,
+    opportunitiesAppliedFor: this.opportunitiesAppliedFor,
+    organization: this.organization
+  }
+}
 
 const User = mongoose.model('User', userSchema)
 
