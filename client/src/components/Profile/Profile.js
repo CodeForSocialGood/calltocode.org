@@ -1,11 +1,35 @@
-import React from 'react'
-import ListOfProjects from '../ListOfProjects/ListOfProjects'
-import projects from '../../data/profile-projects.json'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-function Profile () {
-  return (
-    <ListOfProjects projects={projects} />
-  )
+import { getOppsAppliedFor } from '../../actions'
+import ListOfProjects from '../ListOfProjects/ListOfProjects'
+
+class Profile extends Component {
+  componentDidMount () {
+    this.props.getOppsAppliedFor(this.props.user)
+  }
+
+  render () {
+    return (
+      <ListOfProjects
+        title={'Opportunities Applied For'}
+        projects={this.props.opps} />
+    )
+  }
 }
 
-export default Profile
+Profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  opps: PropTypes.array,
+  getOppsAppliedFor: PropTypes.func.isRequired
+}
+
+function mapStateToProps (state) {
+  return {
+    user: state.login.user,
+    opps: state.login.opps
+  }
+}
+
+export default connect(mapStateToProps, { getOppsAppliedFor })(Profile)

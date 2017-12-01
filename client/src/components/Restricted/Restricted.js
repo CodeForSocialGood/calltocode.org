@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 /**
- * 
+ *
  * Higher-order component (HOC) to wrap restricted pages
  */
 export default function (BaseComponent) {

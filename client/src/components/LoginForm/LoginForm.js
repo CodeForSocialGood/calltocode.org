@@ -31,27 +31,13 @@ class LoginForm extends Component {
 
   async validateEmailAndPassword (values) {
     const { email, password } = values
+
     const response = await loginApiClient.login(email, password)
-    const _error = 'Incorrect credentials, please try again!'
-    console.log(response)
     if (response.status === 200) {
-      this.props.login({ email })
+      const user = await response.json()
+      this.props.login(user)
     } else {
-      if (response.status === 403) {
-        if (response.statusText === 'Wrong Email') {
-          throw new SubmissionError({ email: response.statusText,
-            _error })
-        } else if (response.statusText === 'Wrong Password') {
-          throw new SubmissionError({ password: response.statusText,
-            _error })
-        } else {
-          throw new SubmissionError({ email,
-            _error: response.statusText })
-        }
-      } else {
-        throw new SubmissionError({ email,
-          _error: response.statusText })
-      }
+      handleValidationRequestError(response, email, password)
     }
   }
 
@@ -84,6 +70,26 @@ class LoginForm extends Component {
         </Link>
       </form>
     )
+  }
+}
+
+function handleValidationRequestError (response, email, password) {
+  const _error = 'Incorrect credentials, please try again!'
+
+  if (response.status === 403) {
+    if (response.statusText === 'Wrong Email') {
+      throw new SubmissionError({ email: response.statusText,
+        _error })
+    } else if (response.statusText === 'Wrong Password') {
+      throw new SubmissionError({ password: response.statusText,
+        _error })
+    } else {
+      throw new SubmissionError({ email,
+        _error: response.statusText })
+    }
+  } else {
+    throw new SubmissionError({ email,
+      _error: response.statusText })
   }
 }
 
