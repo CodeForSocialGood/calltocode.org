@@ -1,4 +1,4 @@
-const UserModel = require('../database/models/User')
+const UserModel = require('../../database/models/User')
 
 const signupController = {
   _init (User = UserModel) {

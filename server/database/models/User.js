@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const jwtSigningKey = require('../../config').jwtSigningKey
 
-const userSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   usertype: {
     type: String,
     enum: ['contact', 'volunteer'],
@@ -26,11 +28,24 @@ const userSchema = mongoose.Schema({
   },
   opportunitiesAppliedFor: [mongoose.Schema.Types.ObjectId],
   organization: mongoose.Schema.Types.ObjectId
-})
+}, { timestamps: true })
 
-userSchema.methods.toJSON = function () {
+UserSchema.methods.generateSessionToken = function () {
+  const today = new Date()
+  const expiration = new Date(today)
+  const expirationDays = 14
+  expiration.setDate(today.getDate() + expirationDays)
+
+  return jwt.sign({
+    id: this._id,
+    exp: parseInt(expiration.getTime() / 1000)
+  }, jwtSigningKey)
+}
+
+UserSchema.methods.toJSON = function () {
   return {
-    _id: this._id,
+    token: this.generateSessionToken(),
+    id: this._id,
     usertype: this.usertype,
     email: this.email,
     opportunitiesAppliedFor: this.opportunitiesAppliedFor,
@@ -38,6 +53,6 @@ userSchema.methods.toJSON = function () {
   }
 }
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', UserSchema)
 
 module.exports = User

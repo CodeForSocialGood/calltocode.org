@@ -6,6 +6,8 @@ const loginController = require('./controllers/loginController')._init()
 const userController = require('./controllers/userController')._init()
 const opportunitiesController = require('./controllers/opportunitiesController')._init()
 
+const auth = require('./auth')
+
 const router = express.Router()
 
 router.use(function routeLog (req, res, next) {
@@ -19,7 +21,7 @@ router.get('/api/org-opps', opportunitiesController.getOrganizationOpps.bind(opp
 router.post('/api/opps', opportunitiesController.getOpps.bind(opportunitiesController))
 router.get('/api/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
 router.get('/api/all-users', userController.getAllUsers.bind(userController))
-router.get('/api/user/:id', userController.getUser.bind(userController))
+router.get('/api/user', auth.required, userController.getUser.bind(userController))
 
 router.post('/login', loginController.login.bind(loginController))
 router.post('/email', emailController.sendEmailToOrganization.bind(emailController))

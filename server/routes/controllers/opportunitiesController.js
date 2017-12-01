@@ -1,4 +1,4 @@
-const OppsModel = require('../database/models/Opportunities')
+const OppsModel = require('../../database/models/Opportunities')
 
 const opportunitiesController = {
   _init (opps = OppsModel) {
