@@ -1,5 +1,5 @@
 const jwt = require('express-jwt')
-const { jwtSigningKey } = require('../config')
+const { authConfig } = require('../config')
 
 function getTokenFromHeader (req) {
   if (req.headers.authorization) {
@@ -14,12 +14,12 @@ function getTokenFromHeader (req) {
 
 const auth = {
   required: jwt({
-    secret: jwtSigningKey,
+    secret: authConfig.jwtSigningKey,
     userProperty: 'payload',
     getToken: getTokenFromHeader
   }),
   optional: jwt({
-    secret: jwtSigningKey,
+    secret: authConfig.jwtSigningKey,
     userProperty: 'payload',
     credentialsRequired: false,
     getToken: getTokenFromHeader

@@ -7,22 +7,22 @@
   "author": "c2c team",
   "private": true,
   "engines": {
-    "node": "8.6.0"
+    "node": "9.2.0"
   },
   "scripts": {
     "prebuild": "rm -rf client/dist/",
     "build": "webpack --bail",
-    "prestart": "yarn build",
-    "start": "node server/",
+    "prestart": "./deploy/run.sh build",
+    "start": "./deploy/run.sh start",
+    "poststart": "cd deploy/ && docker-compose logs -f app",
+    "stop": "./deploy/run.sh stop",
     "client:watch": "webpack --watch",
     "server:watch": "nodemon --watch server/ --exec 'node server/'",
     "start:dev": "NODE_ENV=dev npm-run-all --parallel client:watch server:watch",
     "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
     "test": "ava",
     "db": "./db/run.sh",
-    "docker:stop": "docker stop c4sg",
-    "docker:clear": "docker rm c4sg",
-    "db:reset": "npm-run-all docker:stop docker:clear db"
+    "db:reset": "./db/stop.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
