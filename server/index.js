@@ -1,15 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-const router = require('./router')
 const {databaseConfig, appConfig} = require('./config')
 const database = require('./database')._init(databaseConfig.url)
 
 const app = express()
 app.use(express.static(appConfig.clientDistDir))
 app.use(bodyParser.json())
-app.use('/', router)
-
+app.use('/', require('./routes'))
 app.listen(appConfig.port, run)
 
 async function run () {

@@ -11,7 +11,7 @@ build () {
   yarn build
   cp -R client/dist/. $DEPLOY_DIST_DIR/client/
   cp -R server/. $DEPLOY_DIST_DIR/
-  rm -r $DEPLOY_DIST_DIR/*.test.js $DEPLOY_DIST_DIR/**/*.test.js
+  rm -rf $DEPLOY_DIST_DIR/*.test.js $DEPLOY_DIST_DIR/**/*.test.js
 }
 
 start () {
