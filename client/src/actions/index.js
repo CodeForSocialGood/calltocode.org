@@ -58,11 +58,12 @@ function applyForProject (project, user) {
       updatedUser = { ...user, opportunitiesAppliedFor }
     }
 
-    const response = await userApiClient.updateOppsAppliedFor(projectId, user.id)
+    const response = await userApiClient.updateUser(updatedUser)
     if (response.status === 200) {
+      const newUser = await response.json()
       dispatch({
         type: UPDATE_USER,
-        payload: updatedUser
+        payload: newUser
       })
     }
   }
