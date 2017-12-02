@@ -10,11 +10,15 @@ import oppsApiClient from '../api/opportunities'
 import userApiClient from '../api/user'
 import SignupException from '../exceptions/SignupException'
 
-function login ({ user }) {
+function login (user) {
   return async dispatch => {
-    const response = await oppsApiClient.getOppsAppliedFor(user.opportunitiesAppliedFor)
+    const response = user.usertype === 'contact'
+      ? await oppsApiClient.getOrganizationOpps(user.organization)
+      : await oppsApiClient.getOppsAppliedFor(user.opportunitiesAppliedFor)
+
     if (response.status === 200) {
       const opps = await response.json()
+
       dispatch({
         type: LOGIN,
         payload: { user, opps }
@@ -29,11 +33,14 @@ function logout () {
   }
 }
 
-function signup ({ email, password }) {
+function signup ({ email, password, isOrganization }) {
+  const usertype = isOrganization ? 'contact' : 'volunteer'
+
   return async dispatch => {
-    const response = await signupApiClient.signup({ email, password })
+    const response = await signupApiClient.signup({ usertype, email, password })
     if (response.status === 200) {
-      const user = await response.json()
+      const { user } = await response.json()
+
       dispatch(login(user))
     }
     throw new SignupException()

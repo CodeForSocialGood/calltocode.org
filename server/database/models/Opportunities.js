@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
-const opportunitiesSchema = mongoose.Schema({
+const OpportunitiesSchema = mongoose.Schema({
   name: String,
   role: String,
   email: String
-})
+}, { timestamps: true })
 
-const Opportunities = mongoose.model('Opportunities', opportunitiesSchema)
+const Opportunities = mongoose.model('Opportunities', OpportunitiesSchema)
 
 module.exports = Opportunities

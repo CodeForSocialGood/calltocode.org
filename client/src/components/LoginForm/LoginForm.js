@@ -36,13 +36,14 @@ class LoginForm extends Component {
     if (response.status === 200) {
       const user = await response.json()
       this.props.login(user)
+      return user.usertype
     } else {
       handleValidationRequestError(response, email, password)
     }
   }
 
   render () {
-    const { handleSubmit, error } = this.props
+    const { error, handleSubmit } = this.props
 
     return (
       <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
@@ -101,7 +102,11 @@ LoginForm.propTypes = {
 
 const LoginFormRedux = reduxForm({
   form: 'LoginForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
+  onSubmitSuccess: (result, dispatch) => {
+    result === 'contact'
+      ? dispatch(push('/profile'))
+      : dispatch(push('/'))
+  }
 })(LoginForm)
 
 export default connect(null, { login })(LoginFormRedux)

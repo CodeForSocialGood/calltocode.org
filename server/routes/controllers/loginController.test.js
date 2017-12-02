@@ -16,13 +16,14 @@ test('login with email and password', t => {
   const req = {
     body: {
       email: 'anyemail@email.com',
-      password: 'any password'
+      password: 'any password',
+      toJSON () {}
     }
   }
 
   const UserModel = {
-    findOne (query, fieldsToReturn, cb) {
-      if (query.email === req.body.email && fieldsToReturn === 'email password opportunitiesAppliedFor') {
+    findOne (query, cb) {
+      if (query.email === req.body.email) {
         cb(null, req.body)
       }
     }
@@ -41,16 +42,14 @@ test('login with email and password', t => {
   t.pass()
 })
 
-test('return unathorized when login fails', t => {
+test('return unauthorized when login fails', t => {
   // setup
   const req = {
     body: {}
   }
-  const res = {
-    sendStatus () {}
-  }
+
   const UserModel = {
-    findOne (query, fieldsToReturn, cb) {
+    findOne (query, cb) {
       cb(new Error(null))
     }
   }

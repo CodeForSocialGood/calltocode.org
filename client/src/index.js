@@ -6,6 +6,9 @@ import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
+import { Route, Switch } from 'react-router-dom'
+import localStorageMiddleware from './middleware/localStorageMiddleware'
+import promiseMiddleware from './middleware/promiseMiddleware'
 
 import './index.css'
 import App from './App'
@@ -25,6 +28,8 @@ const store = createStore(
   applyMiddleware(
     navigationMiddleware,
     loggerMiddleware,
+    localStorageMiddleware,
+    promiseMiddleware,
     thunkMiddleware
   )
 )
@@ -32,7 +37,9 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={browserHistory}>
-      <App />
+      <Switch>
+        <Route path="/" component={App} />
+      </Switch>
     </ConnectedRouter>
   </Provider>,
   document.querySelector('main')

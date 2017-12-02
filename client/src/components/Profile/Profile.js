@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { getOppsAppliedFor } from '../../actions'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
 class Profile extends Component {
-  componentDidMount () {
-    this.props.getOppsAppliedFor(this.props.user)
-  }
-
   render () {
+    const title = this.props.user.usertype === 'contact'
+      ? 'Your Organization\'s Projects'
+      : 'Projects Applied For'
+
     return (
       <ListOfProjects
-        title={'Opportunities Applied For'}
+        title={title}
         projects={this.props.opps} />
     )
   }
@@ -21,8 +20,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
-  opps: PropTypes.array,
-  getOppsAppliedFor: PropTypes.func.isRequired
+  opps: PropTypes.array
 }
 
 function mapStateToProps (state) {
@@ -32,4 +30,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { getOppsAppliedFor })(Profile)
+export default connect(mapStateToProps)(Profile)

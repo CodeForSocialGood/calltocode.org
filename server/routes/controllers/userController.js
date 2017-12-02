@@ -1,9 +1,24 @@
-const UserModel = require('../database/models/User')
+const UserModel = require('../../database/models/User')
 
 const userController = {
   _init (Users = UserModel) {
     this.Users = Users
     return this
+  },
+
+  getUser (req, res) {
+    this.Users.findById(req.payload.id, (err, user) => {
+      if (err) {
+        console.error(err)
+        return res.sendStatus(500)
+      }
+
+      if (user) {
+        return res.status(200).send({ user: user.toJSON() })
+      }
+
+      return res.sendStatus(404)
+    })
   },
 
   getUserByEmail (req, res) {
@@ -21,22 +36,6 @@ const userController = {
       }
 
       res.sendStatus(404)
-    })
-  },
-
-  getUser (req, res) {
-    const users = this.Users
-
-    users.findById({ _id: req.params.id }, (err, user) => {
-      if (err) {
-        console.error(err)
-        return res.sendStatus(500)
-      }
-
-      if (user) {
-        return res.status(200).send(user)
-      }
-      return res.sendStatus(404)
     })
   },
 

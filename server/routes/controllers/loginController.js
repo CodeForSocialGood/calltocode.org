@@ -1,4 +1,4 @@
-const UserModel = require('../database/models/User')
+const UserModel = require('../../database/models/User')
 
 const loginController = {
   _init (User = UserModel) {
@@ -8,7 +8,8 @@ const loginController = {
 
   login (req, res) {
     const {email, password} = req.body
-    this.User.findOne({ email }, 'email password opportunitiesAppliedFor', (error, user) => {
+
+    this.User.findOne({ email }, (error, user) => {
       if (error) {
         console.error(error)
         return res.sendStatus(403)
@@ -16,12 +17,10 @@ const loginController = {
 
       if (user && password === user.password) {
         res.setHeader('Content-Type', 'application/json')
-        return res.send(JSON.stringify({ user }))
-      } else if (user && password !== user.password) {
+        return res.send(user.toJSON())
+      } else if (password !== user.password) {
         res.statusMessage = 'Wrong Password'
-      }
-
-      if (user === null) {
+      } else {
         res.statusMessage = 'Wrong Email'
       }
 

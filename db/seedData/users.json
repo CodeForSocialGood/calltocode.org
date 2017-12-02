@@ -1,7 +1,18 @@
 {
 	"_id": {
+		"$oid": "5a1658a0327c0286c39a1deb"
+	},
+	"usertype": "contact",
+	"email": "mary@email.com",
+	"password": "mary.password",
+	"organization": "5b165cb5202e8986f99ec5c0",
+	"__v": 0
+}
+{
+	"_id": {
 		"$oid": "5a1658a0327c0286c39a1dea"
 	},
+	"usertype": "volunteer",
 	"email": "kevin@email.com",
 	"password": "kevin.password",
 	"opportunitiesAppliedFor": [
