@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const jwtSigningKey = require('../../config').jwtSigningKey
+const {authConfig} = require('../../config')
 
 const UserSchema = mongoose.Schema({
   usertype: {
@@ -39,7 +39,7 @@ UserSchema.methods.generateSessionToken = function () {
   return jwt.sign({
     id: this._id,
     exp: parseInt(expiration.getTime() / 1000)
-  }, jwtSigningKey)
+  }, authConfig.jwtSigningKey)
 }
 
 UserSchema.methods.toJSON = function () {
