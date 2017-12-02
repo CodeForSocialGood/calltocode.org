@@ -9,6 +9,7 @@ import signupApiClient from '../api/signup'
 import oppsApiClient from '../api/opportunities'
 import userApiClient from '../api/user'
 import SignupException from '../exceptions/SignupException'
+import ApplyForProjectException from '../exceptions/ApplyForProjectException'
 
 function login (user) {
   return async dispatch => {
@@ -60,15 +61,16 @@ function applyForProject (project, user) {
 
     const userResponse = await userApiClient.updateUser(updatedUser)
     const oppResponse = await oppsApiClient.getOpp(projectId)
+
     if (userResponse.status === 200 && oppResponse.status === 200) {
-      
       const newUser = await userResponse.json()
       const oppAppliedFor = await oppResponse.json()
-      dispatch({
+      return dispatch({
         type: APPLY_FOR_PROJECT,
         payload: { newUser, oppAppliedFor }
       })
     }
+    throw new ApplyForProjectException(userResponse.status, oppResponse.status)
   }
 }
 
