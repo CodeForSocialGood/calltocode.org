@@ -3,7 +3,7 @@ import {
   LOGOUT,
   POPULATE_OPPS,
   GET_OPPS_APPLIED_FOR,
-  UPDATE_USER
+  APPLY_FOR_PROJECT
 } from './types'
 import signupApiClient from '../api/signup'
 import oppsApiClient from '../api/opportunities'
@@ -58,12 +58,15 @@ function applyForProject (project, user) {
       updatedUser = { ...user, opportunitiesAppliedFor }
     }
 
-    const response = await userApiClient.updateUser(updatedUser)
-    if (response.status === 200) {
-      const newUser = await response.json()
+    const userResponse = await userApiClient.updateUser(updatedUser)
+    const oppResponse = await oppsApiClient.getOpp(projectId)
+    if (userResponse.status === 200 && oppResponse.status === 200) {
+      
+      const newUser = await userResponse.json()
+      const oppAppliedFor = await oppResponse.json()
       dispatch({
-        type: UPDATE_USER,
-        payload: newUser
+        type: APPLY_FOR_PROJECT,
+        payload: { newUser, oppAppliedFor }
       })
     }
   }

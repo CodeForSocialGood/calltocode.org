@@ -61,7 +61,10 @@ const userController = {
         return res.sendStatus(500)
       }
 
-      res.json(newUser)
+      if (newUser) {
+        return res.json(newUser)
+      }
+      return res.sendStatus(404)
     })
   }
 }
