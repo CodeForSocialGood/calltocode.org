@@ -8,7 +8,7 @@ const oppsApiClient = {
       body: JSON.stringify({ opportunitiesAppliedFor })
     }
 
-    return fetch('/api/opps', options)
+    return fetch('/opps', options)
   },
 
   getAllOpps () {
@@ -16,7 +16,7 @@ const oppsApiClient = {
       method: 'GET'
     }
 
-    return fetch('/api/all-opps', options)
+    return fetch('/all-opps', options)
   },
 
   getOrganizationOpps (organization) {
@@ -24,7 +24,7 @@ const oppsApiClient = {
       method: 'GET'
     }
 
-    return fetch(`/api/org-opps?organization=${organization}`, options)
+    return fetch(`/org-opps?organization=${organization}`, options)
   }
 }
 

@@ -8,7 +8,7 @@ const userApiClient = {
       body: JSON.stringify({ oppId, userId })
     }
 
-    return fetch('/api/opps', options)
+    return fetch('/opps', options)
   }
 }
 

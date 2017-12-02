@@ -1,27 +1,23 @@
 const express = require('express')
-const path = require('path')
 const bodyParser = require('body-parser')
 
-const connectToDatabase = require('./database')
-const { serverPort } = require('./config')
+const {databaseConfig, appConfig} = require('./config')
+const database = require('./database')._init(databaseConfig.url)
 
 const app = express()
-
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
+app.use(express.static(appConfig.clientDistDir))
 app.use(bodyParser.json())
+app.use('/', require('./routes'))
+app.listen(appConfig.port, run)
 
-app.use(require('./routes'))
-
-app.set('port', serverPort)
-
-app.listen(serverPort, async () => {
+async function run () {
   try {
-    await connectToDatabase()
+    await database.connect()
     console.log('Database connected')
   } catch (error) {
     console.error('Database connection error', error)
   }
-  console.log(`App listening on port ${serverPort}`)
-})
+  console.log(`App listening on port ${appConfig.port}`)
+}
 
 module.exports = app
