@@ -1,13 +1,16 @@
-import {
-  POPULATE_OPPS
-} from '../actions/types'
+import { ALL_OPPS, PROFILE_OPPS } from '../actions/project/types'
 
-const defaultState = []
+const defaultState = {
+  projects: []
+}
 
-export default function (state = defaultState, { type, payload }) {
+export default function (state = defaultState, action) {
+  const { type, payload } = action
+
   switch (type) {
-    case POPULATE_OPPS:
-      return payload
+    case ALL_OPPS:
+    case PROFILE_OPPS:
+      return { ...state, projects: payload }
 
     default:
       return state
