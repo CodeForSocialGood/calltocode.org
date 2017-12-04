@@ -15,7 +15,7 @@ const signupController = {
       }
 
       res.setHeader('Content-Type', 'application/json')
-      return res.send({ user: savedUser.toJSON() })
+      return res.send(savedUser.toJSON())
     })
   }
 }
