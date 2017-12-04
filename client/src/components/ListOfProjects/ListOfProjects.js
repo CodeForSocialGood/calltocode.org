@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { applyForProject } from '../../actions'
+import UserActionCreator from '../../actions/user'
 import Project from '../Project/Project'
-
 import styles from './ListOfProjects.scss'
 
 class ListOfProjects extends Component {
@@ -20,7 +19,7 @@ class ListOfProjects extends Component {
         <Project
           key={index}
           project={project}
-          loggedIn={this.props.loggedIn}
+          authenticated={this.props.authenticated}
           applyForProject={this.props.applyForProject} />
       )
     })
@@ -40,15 +39,19 @@ class ListOfProjects extends Component {
 
 function mapStateToProps (state) {
   return {
-    loggedIn: state.login.loggedIn
+    authenticated: state.auth.authenticated
   }
 }
 
-ListOfProjects.propTypes = {
-  title: PropTypes.string,
-  loggedIn: PropTypes.bool.isRequired,
-  projects: PropTypes.array,
-  applyForProject: PropTypes.func
+const mapDispatchToProps = {
+  applyForProject: UserActionCreator.applyForProject
 }
 
-export default connect(mapStateToProps, { applyForProject })(ListOfProjects)
+ListOfProjects.propTypes = {
+  applyForProject: PropTypes.func,
+  authenticated: PropTypes.bool.isRequired,
+  projects: PropTypes.array,
+  title: PropTypes.string
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListOfProjects)
