@@ -1,14 +1,14 @@
 const userApiClient = {
-  updateUser (updatedUser) {
+  updateOppsAppliedFor (oppId, userId) {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ updatedUser })
+      body: JSON.stringify({ oppId, userId })
     }
 
-    return fetch('/user', options)
+    return fetch('/opps', options)
   }
 }
 

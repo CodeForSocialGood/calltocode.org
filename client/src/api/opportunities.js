@@ -11,14 +11,6 @@ const oppsApiClient = {
     return fetch('/opps', options)
   },
 
-  getOpp (oppId) {
-    const options = {
-      method: 'GET'
-    }
-
-    return fetch(`/opp/${oppId}`, options)
-  },
-
   getAllOpps () {
     const options = {
       method: 'GET'
