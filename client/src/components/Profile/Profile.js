@@ -7,7 +7,7 @@ import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
 class Profile extends Component {
   componentDidMount () {
-    this.props.getProfileOpps(this.props.user)
+    this.props.onLoad(this.props.user)
   }
 
   render () {
@@ -31,12 +31,12 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  getProfileOpps: ProjectActionCreator.getProfileOpps
+  onLoad: ProjectActionCreator.fetchProfileProjects
 }
 
 Profile.propTypes = {
+  onLoad: PropTypes.func,
   projects: PropTypes.array,
-  getProfileOpps: PropTypes.func,
   user: PropTypes.object
 }
 

@@ -7,7 +7,7 @@ import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
 class Home extends Component {
   componentDidMount () {
-    this.props.populateOpps()
+    this.props.onLoad()
   }
 
   render () {
@@ -26,12 +26,12 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  populateOpps: ProjectActionCreator.populateOpps
+  onLoad: ProjectActionCreator.fetchAllProjects
 }
 
 Home.propTypes = {
-  projects: PropTypes.array,
-  populateOpps: PropTypes.func
+  onLoad: PropTypes.func,
+  projects: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
