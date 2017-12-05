@@ -3,7 +3,7 @@ import {
   LOGIN,
   LOGOUT,
   GET_OPPS_APPLIED_FOR,
-  APPLY_FOR_PROJECT
+  UPDATE_USER
 } from '../actions/types'
 
 const defaultUser = {
@@ -29,9 +29,8 @@ export default function (state = defaultState, { type, payload }) {
     case LOGOUT:
       return {...defaultState, loggedIn: false}
 
-    case APPLY_FOR_PROJECT:
-      const newUserOpps = [ ...state.opps, payload.oppAppliedFor ]
-      return { ...state, user: payload.newUser, opps: newUserOpps }
+    case UPDATE_USER:
+      return {...state, user: payload}
 
     case GET_OPPS_APPLIED_FOR:
       return {...state, opps: payload}
