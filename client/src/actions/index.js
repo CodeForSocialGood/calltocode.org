@@ -3,12 +3,13 @@ import {
   LOGOUT,
   POPULATE_OPPS,
   GET_OPPS_APPLIED_FOR,
-  UPDATE_USER
+  APPLY_FOR_PROJECT
 } from './types'
 import signupApiClient from '../api/signup'
 import oppsApiClient from '../api/opportunities'
 import userApiClient from '../api/user'
 import SignupException from '../exceptions/SignupException'
+import ApplyForProjectException from '../exceptions/ApplyForProjectException'
 
 function login (user) {
   return async dispatch => {
@@ -58,13 +59,18 @@ function applyForProject (project, user) {
       updatedUser = { ...user, opportunitiesAppliedFor }
     }
 
-    const response = await userApiClient.updateOppsAppliedFor(projectId, user.id)
-    if (response.status === 200) {
-      dispatch({
-        type: UPDATE_USER,
-        payload: updatedUser
+    const userResponse = await userApiClient.updateUser(updatedUser)
+    const oppResponse = await oppsApiClient.getOpp(projectId)
+
+    if (userResponse.status === 200 && oppResponse.status === 200) {
+      const newUser = await userResponse.json()
+      const oppAppliedFor = await oppResponse.json()
+      return dispatch({
+        type: APPLY_FOR_PROJECT,
+        payload: { newUser, oppAppliedFor }
       })
     }
+    throw new ApplyForProjectException(userResponse.status, oppResponse.status)
   }
 }
 

@@ -16,6 +16,7 @@ router.post('/opps', opportunitiesController.getOpps.bind(opportunitiesControlle
 router.get('/opp/:id', opportunitiesController.getOpp.bind(opportunitiesController))
 router.get('/all-users', userController.getAllUsers.bind(userController))
 router.get('/user', auth.required, userController.getUser.bind(userController))
+router.post('/user', userController.updateUser.bind(userController))
 router.post('/login', loginController.login.bind(loginController))
 router.post('/email', emailController.sendEmailToOrganization.bind(emailController))
 router.post('/signup', signupController.signupNewUser.bind(signupController))
