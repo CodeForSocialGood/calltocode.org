@@ -1,43 +1,53 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
+import { sendValidationCode } from '../../actions'
 
 import styles from './ForgotPasswordForm.scss'
 
-class ForgotPasswordForm extends Component {
-  renderEmail (field) {
-    return (
-      <input
-        className={styles.inputEmail}
-        placeholder="Email"
-        {...field.input} />
-    )
-  }
+function EmailField ({input}) {
+  return (
+    <input
+      className={styles.inputEmail}
+      placeholder="Email"
+      {...input} />
+  )
+}
 
-  render () {
-    return (
-      <form
-        className={styles.form}>
+function ForgotPasswordForm (props) {
+  const { handleSubmit, sendValidationCode } = props
+  return (
+    <form onSubmit={ handleSubmit(sendValidationCode) }
+      className={styles.form}>
 
-        <h1
-          className={styles.title}>
+      <h1
+        className={styles.title}>
           Forgot Password?
-        </h1>
+      </h1>
 
-        <h3>{"Let's get you a new one!"}</h3>
+      <h3>{"Let's get you a new one!"}</h3>
 
-        <Field
-          name="email"
-          component={this.renderEmail}/>
+      <Field
+        name="email"
+        component={EmailField}/>
 
-        <button
-          className={styles.buttonSubmit}
-          type="submit">
+      <button
+        className={styles.buttonSubmit}
+        type="submit">
           Send Verification Code
-        </button>
-      </form>
-    )
-  }
+      </button>
+    </form>
+  )
+}
+
+EmailField.propTypes = {
+  input: PropTypes.object
+}
+ForgotPasswordForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  sendValidationCode: PropTypes.func
 }
 
 const ForgotPasswordFormRedux = reduxForm({
@@ -45,4 +55,4 @@ const ForgotPasswordFormRedux = reduxForm({
   onSubmitSuccess: (result, dispatch) => dispatch(push('/login'))
 })(ForgotPasswordForm)
 
-export default ForgotPasswordFormRedux
+export default connect(null, { sendValidationCode })(ForgotPasswordFormRedux)

@@ -3,12 +3,14 @@ import {
   LOGOUT,
   POPULATE_OPPS,
   GET_OPPS_APPLIED_FOR,
-  UPDATE_USER
+  UPDATE_USER,
+  FORGOT_PASSWORD
 } from './types'
 import signupApiClient from '../api/signup'
 import oppsApiClient from '../api/opportunities'
 import userApiClient from '../api/user'
 import SignupException from '../exceptions/SignupException'
+import forgotPasswordApiClient from '../api/forgotPassword'
 
 function login (user) {
   return async dispatch => {
@@ -94,11 +96,24 @@ function populateOpps () {
   }
 }
 
+function sendValidationCode ({email}) {
+  return async dispatch => {
+    const response = await forgotPasswordApiClient.sendValidationCode(email)
+    if (response.status === 200) {
+      dispatch({
+        type: FORGOT_PASSWORD
+      })
+    }
+    throw new SignupException()
+  }
+}
+
 export {
   login,
   logout,
   signup,
   populateOpps,
   applyForProject,
-  getOppsAppliedFor
+  getOppsAppliedFor,
+  sendValidationCode
 }
