@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
-import { sendValidationCode } from '../../actions'
+import AuthActionCreator from '../../actions/auth'
 
 import styles from './ForgotPasswordForm.scss'
 
@@ -50,9 +50,13 @@ ForgotPasswordForm.propTypes = {
   sendValidationCode: PropTypes.func
 }
 
+const mapDispatchToProps = {
+  sendValidationCode: AuthActionCreator.sendValidationCode
+}
+
 const ForgotPasswordFormRedux = reduxForm({
   form: 'ForgotPasswordForm',
   onSubmitSuccess: (result, dispatch) => dispatch(push('/login'))
 })(ForgotPasswordForm)
 
-export default connect(null, { sendValidationCode })(ForgotPasswordFormRedux)
+export default connect(null, mapDispatchToProps)(ForgotPasswordFormRedux)
