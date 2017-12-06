@@ -53,18 +53,18 @@ const userController = {
 
   updateUser (req, res) {
     const users = this.Users
-    const { oppId, userId } = req.body
+    const { updatedUser } = req.body
 
-    users.update({ id: userId }, (err, user) => {
+    users.findOneAndUpdate({ _id: updatedUser.id }, updatedUser, { new: true }, (err, newUser) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
       }
 
-      if (user.opportunitiesAppliedFor.indexOf(oppId) === -1) {
-        user.opportunitiesAppliedFor = [...user.opportunitiesAppliedFor, oppId]
+      if (newUser) {
+        return res.json(newUser)
       }
-      res.json(user)
+      return res.sendStatus(404)
     })
   }
 }
