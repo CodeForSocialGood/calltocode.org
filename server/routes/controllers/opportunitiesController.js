@@ -9,7 +9,7 @@ const opportunitiesController = {
   getOpp (req, res) {
     const opps = this.opps
 
-    opps.findById({ _id: req.params.id }, (err, opp) => {
+    return opps.findById({ _id: req.params.id }, (err, opp) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)
@@ -24,12 +24,8 @@ const opportunitiesController = {
 
   getOpps (req, res) {
     const opps = this.opps
-    const { opportunitiesAppliedFor } = req.body
 
-    opps.find({
-      '_id': {
-        $in: opportunitiesAppliedFor
-      }}, (err, docs) => {
+    return opps.find({ _id: { $in: req.body.projects } }, (err, docs) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)

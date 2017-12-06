@@ -1,9 +1,9 @@
-import { LOGIN, LOGOUT } from '../actions/types'
+import { LOGIN, LOGOUT } from '../actions/auth/types'
 
-function localStorageMiddleware (store) {
+export default function localStorageMiddleware (store) {
   return next => action => {
     if (action.type === LOGIN && !action.error) {
-      localStorage.setItem('jwt', action.payload.user.token)
+      localStorage.setItem('jwt', action.payload.token)
     } else if (action.type === LOGOUT) {
       localStorage.removeItem('jwt')
     }
@@ -11,5 +11,3 @@ function localStorageMiddleware (store) {
     next(action)
   }
 }
-
-export default localStorageMiddleware

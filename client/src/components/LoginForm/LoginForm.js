@@ -5,9 +5,9 @@ import { push } from 'react-router-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import styles from './LoginForm.scss'
-import { login } from '../../actions'
+import AuthActionCreator from '../../actions/auth'
 import loginApiClient from '../../api/login'
+import styles from './LoginForm.scss'
 
 class LoginForm extends Component {
   renderEmail (field) {
@@ -31,7 +31,7 @@ class LoginForm extends Component {
 
   async validateEmailAndPassword (values) {
     const { email, password } = values
-
+    console.log(values)
     const response = await loginApiClient.login(email, password)
     if (response.status === 200) {
       const user = await response.json()
@@ -94,10 +94,14 @@ function handleValidationRequestError (response, email, password) {
   }
 }
 
+const mapDispatchToProps = {
+  login: AuthActionCreator.login
+}
+
 LoginForm.propTypes = {
-  login: PropTypes.func,
+  error: PropTypes.string,
   handleSubmit: PropTypes.func,
-  error: PropTypes.string
+  login: PropTypes.func
 }
 
 const LoginFormRedux = reduxForm({
@@ -109,4 +113,4 @@ const LoginFormRedux = reduxForm({
   }
 })(LoginForm)
 
-export default connect(null, { login })(LoginFormRedux)
+export default connect(null, mapDispatchToProps)(LoginFormRedux)

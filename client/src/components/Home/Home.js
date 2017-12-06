@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { populateOpps } from '../../actions'
+import ProjectActionCreator from '../../actions/project'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
 class Home extends Component {
   componentDidMount () {
-    if (this.props.projects.length === 0) {
-      this.props.populateOpps()
-    }
+    this.props.onLoad()
   }
 
   render () {
@@ -23,13 +21,17 @@ class Home extends Component {
 
 function mapStateToProps (state) {
   return {
-    projects: state.projects
+    projects: state.project.projects
   }
 }
 
-Home.propTypes = {
-  projects: PropTypes.array,
-  populateOpps: PropTypes.func
+const mapDispatchToProps = {
+  onLoad: ProjectActionCreator.fetchAllProjects
 }
 
-export default connect(mapStateToProps, { populateOpps })(Home)
+Home.propTypes = {
+  onLoad: PropTypes.func,
+  projects: PropTypes.array
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

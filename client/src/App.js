@@ -3,30 +3,22 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { APP_LOAD } from './actions/types'
-import Header from './components/Header/Header'
-import LoginForm from './components/LoginForm/LoginForm'
-import SignupForm from './components/SignupForm/SignupForm'
+import AuthActionCreator from './actions/auth'
+
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
+import Header from './components/Header/Header'
 import Home from './components/Home/Home'
+import LoginForm from './components/LoginForm/LoginForm'
 import Profile from './components/Profile/Profile'
 import restricted from './components/Restricted/Restricted'
-import api from './api'
+import SignupForm from './components/SignupForm/SignupForm'
 
 class App extends Component {
-  componentWillMount () {
-    this.loadExistingSessionAndUser()
+  componentDidMount () {
+    this.props.appLoad()
   }
 
-  loadExistingSessionAndUser () {
-    const token = window.localStorage.getItem('jwt')
-    if (token) {
-      api.setToken(token)
-    }
-    this.props.onLoad(token ? api.user.current() : null)
-  }
-
-  render () {
+  renderAppLoaded () {
     return (
       <div>
         <Header />
@@ -40,17 +32,33 @@ class App extends Component {
       </div>
     )
   }
-}
 
-function mapDispatchToProps (dispatch) {
-  return {
-    onLoad: (payload) =>
-      dispatch({ type: APP_LOAD, payload })
+  renderAppNotLoaded () {
+    return (
+      <Header />
+    )
+  }
+
+  render () {
+    return this.props.appLoaded
+      ? this.renderAppLoaded()
+      : this.renderAppNotLoaded()
   }
 }
 
-App.propTypes = {
-  onLoad: PropTypes.func
+function mapStateToProps (state) {
+  return {
+    appLoaded: state.common.appLoaded
+  }
 }
 
-export default connect(null, mapDispatchToProps)(App)
+const mapDispatchToProps = {
+  appLoad: AuthActionCreator.appLoad
+}
+
+App.propTypes = {
+  appLoad: PropTypes.func,
+  appLoaded: PropTypes.bool
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

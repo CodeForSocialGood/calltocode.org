@@ -14,7 +14,7 @@ const userController = {
       }
 
       if (user) {
-        return res.status(200).send({ user: user.toJSON() })
+        return res.status(200).send(user.toJSON())
       }
 
       return res.sendStatus(404)

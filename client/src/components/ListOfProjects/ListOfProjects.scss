@@ -21,11 +21,11 @@
   margin-right: 25px;
 }
 
-.listOrgLoggedIn {
+.listOrgAuthenticated {
   @extend .listOrg;
 }
 
-.listOrgLoggedIn:hover {
+.listOrgAuthenticated:hover {
   @extend %hover;
   @extend %boxShadowSmall;
 }
