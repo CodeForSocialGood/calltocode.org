@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { Field, formValueSelector, reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
-import SignupValidator from './SignupValidator'
 
+import AuthActionCreator from '../../actions/auth'
+import SignupValidator from './SignupValidator'
 import styles from './SignupForm.scss'
-import { signup } from '../../actions'
 
 function EmailField ({ input, meta: { dirty, error } }) {
   const emailClasses = `${styles.inputEmail} ${getValidationClass(dirty, error)}`
@@ -140,6 +140,10 @@ function mapStateToProps (state) {
   }
 }
 
+const mapDispatchToProps = {
+  signup: AuthActionCreator.signup
+}
+
 EmailField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object
@@ -178,4 +182,4 @@ const SignupFormRedux = reduxForm({
   onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
 })(SignupForm)
 
-export default connect(mapStateToProps, { signup })(SignupFormRedux)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupFormRedux)

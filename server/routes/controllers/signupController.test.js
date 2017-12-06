@@ -33,7 +33,7 @@ test('signup new user', t => {
   const mockRes = mock(res)
     .expects('send')
     .once()
-    .withExactArgs({ user: user.toJSON() })
+    .withExactArgs(user.toJSON())
 
   // execute
   signupController._init(stubUserModel)

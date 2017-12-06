@@ -1,9 +1,13 @@
+import authReducer from './authReducer'
+import commonReducer from './commonReducer'
 import { reducer as formReducer } from 'redux-form'
-import loginReducer from './loginReducer'
 import projectReducer from './projectReducer'
+import userReducer from './userReducer'
 
 export default {
+  auth: authReducer,
+  common: commonReducer,
   form: formReducer,
-  login: loginReducer,
-  projects: projectReducer
+  project: projectReducer,
+  user: userReducer
 }

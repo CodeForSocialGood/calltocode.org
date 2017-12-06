@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import styles from '../ListOfProjects/ListOfProjects.scss'
 import emailApiClient from '../../api/email'
+import styles from '../ListOfProjects/ListOfProjects.scss'
 
 class Project extends Component {
   constructor (props) {
@@ -17,7 +17,7 @@ class Project extends Component {
 
   handleClick () {
     const applied = this.getAppliedStatus()
-    if (this.props.loggedIn && !applied) {
+    if (this.props.authenticated && !applied) {
       return this.mailToOrganization(this.props.project)
     }
   }
@@ -45,10 +45,17 @@ class Project extends Component {
     }
   }
 
+  getAppliedStatus () {
+    return (
+      this.props.user.opportunitiesAppliedFor &&
+      this.props.user.opportunitiesAppliedFor.includes(this.props.project._id)
+    )
+  }
+
   render () {
     const applied = this.getAppliedStatus()
-    const liClassName = this.props.loggedIn && !applied
-      ? styles.listOrgLoggedIn
+    const liClassName = this.props.authenticated && !applied
+      ? styles.listOrgAuthenticated
       : styles.listOrg
 
     return (
@@ -61,23 +68,19 @@ class Project extends Component {
       </li>
     )
   }
-
-  getAppliedStatus () {
-    return this.props.user.opportunitiesAppliedFor.includes(this.props.project._id)
-  }
 }
 
 function mapStateToProps (state) {
   return {
-    user: state.login.user
+    user: state.user
   }
 }
 
 Project.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
+  applyForProject: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired,
   project: PropTypes.object.isRequired,
-  user: PropTypes.object,
-  applyForProject: PropTypes.func.isRequired
+  user: PropTypes.object
 }
 
 export default connect(mapStateToProps, null)(Project)

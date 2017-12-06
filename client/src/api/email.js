@@ -10,7 +10,7 @@ const emailApiClient = {
       body: JSON.stringify({
         project: projectInfo,
         user: {
-          email: store.getState().login.email
+          email: store.getState().user.email
         }
       })
     }

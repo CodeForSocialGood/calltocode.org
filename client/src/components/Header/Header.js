@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { logout } from '../../actions'
+import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
 
 class Header extends Component {
@@ -14,7 +14,7 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    if (this.props.loggedIn) {
+    if (this.props.authenticated) {
       return ([
         <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
         <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>
@@ -41,13 +41,19 @@ class Header extends Component {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    authenticated: state.auth.authenticated
+  }
+}
+
+const mapDispatchToProps = {
+  logout: AuthActionCreator.logout
+}
+
 Header.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired
 }
 
-function mapStateToProps (state) {
-  return { loggedIn: state.login.loggedIn }
-}
-
-export default connect(mapStateToProps, { logout })(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
