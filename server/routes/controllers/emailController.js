@@ -7,7 +7,7 @@ const emailController = {
     return this
   },
 
-  sendEmailToOrganization (req, res) {
+  sendToOrg (req, res) {
     const {email, name, role} = req.body.project
     const text = `I am interested in the role ${role}!`
     const message = {

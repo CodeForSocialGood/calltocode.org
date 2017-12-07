@@ -14,15 +14,15 @@ function getTokenFromHeader (req) {
 
 const auth = {
   required: jwt({
+    getToken: getTokenFromHeader,
     secret: authConfig.jwtSigningKey,
-    userProperty: 'payload',
-    getToken: getTokenFromHeader
+    userProperty: 'payload'
   }),
   optional: jwt({
-    secret: authConfig.jwtSigningKey,
-    userProperty: 'payload',
     credentialsRequired: false,
-    getToken: getTokenFromHeader
+    getToken: getTokenFromHeader,
+    secret: authConfig.jwtSigningKey,
+    userProperty: 'payload'
   })
 }
 
