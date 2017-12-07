@@ -7,7 +7,7 @@ const usersController = {
   },
 
   preloadUser (req, res, next, id) {
-    this.Users.findById(id, (err, user) => {
+    this.Users.findById(id).exec((err, user) => {
       if (err) {
         return res.sendStatus(500)
       }
@@ -23,7 +23,7 @@ const usersController = {
   },
 
   getUsers (req, res) {
-    return this.Users.find({}, (err, users) => {
+    return this.Users.find().exec((err, users) => {
       if (err) {
         return res.sendStatus(500)
       }
@@ -37,9 +37,9 @@ const usersController = {
   },
 
   signup (req, res) {
-    const user = new this.User(req.body.user)
+    const newUser = new this.Users(req.body.user)
 
-    return user.save(err => {
+    return newUser.save((err, user) => {
       if (err) {
         return res.sendStatus(500)
       }
@@ -52,7 +52,7 @@ const usersController = {
   login (req, res) {
     const { email, password } = req.body
 
-    this.Users.findOne({ email }, (err, user) => {
+    this.Users.findOne({ email }).exec((err, user) => {
       if (err) {
         return res.sendStatus(403)
       }
@@ -66,7 +66,7 @@ const usersController = {
         res.statusMessage = 'Wrong Email'
       }
 
-      res.sendStatus(403)
+      return res.sendStatus(403)
     })
   },
 
@@ -75,7 +75,7 @@ const usersController = {
   getUserByEmail (req, res) {
     const { email } = req.body
 
-    this.Users.findOne({ email }, (err, user) => {
+    this.Users.findOne({ email }).exec((err, user) => {
       if (err) {
         console.error(err)
         return res.sendStatus(500)

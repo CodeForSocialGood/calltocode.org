@@ -23,16 +23,16 @@ test('login with email and password', t => {
   }
 
   const UserModel = {
-    findOne (query, cb) {
-      if (query.email === req.body.email) {
-        cb(null, req.body)
-      }
+    findOne (query) { return this },
+    exec (cb) {
+      cb(null, req.body)
     }
   }
 
   // mocks
   const resMock = mock(res)
-    .expects('send').once()
+    .expects('send')
+    .once()
 
   // action
   usersController._init(UserModel)
@@ -46,11 +46,14 @@ test('login with email and password', t => {
 test('return unauthorized when login fails', t => {
   // setup
   const req = {
-    body: {}
+    body: {
+      toJSON () {}
+    }
   }
 
   const UserModel = {
-    findOne (query, cb) {
+    findOne (query) { return this },
+    exec (cb) {
       cb(new Error(null))
     }
   }

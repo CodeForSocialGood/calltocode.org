@@ -31,7 +31,7 @@ const projectsController = {
     const { projectsAppliedFor, organization } = req.query
 
     if (typeof projectsAppliedFor !== 'undefined') {
-      query._id = { $in: projectsAppliedFor.split(',').filter(v => v) }
+      query._id = { $in: projectsAppliedFor.split(',').filter(v => !!v) }
     }
 
     if (typeof organization !== 'undefined') {

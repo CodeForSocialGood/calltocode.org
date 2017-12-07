@@ -25,13 +25,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  projectsAppliedFor: {
-    type: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Project'
-    }],
-    default: void 0
-  },
+  projectsAppliedFor: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project'
+  }],
   organization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Organization'
