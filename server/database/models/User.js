@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const {authConfig} = require('../../config')
+const { authConfig } = require('../../config')
 
 const UserSchema = mongoose.Schema({
   usertype: {
@@ -12,11 +12,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator (email, done) {
+      validator (email) {
         User.find({ email }, (error, docs) => {
           if (error) return console.error(error)
-          const userDoesNotExist = docs.length === 0
-          done(userDoesNotExist)
+          return docs.length === 0
         })
       },
       message: 'User already exists!'
@@ -26,8 +25,17 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  opportunitiesAppliedFor: [mongoose.Schema.Types.ObjectId],
-  organization: mongoose.Schema.Types.ObjectId
+  projectsAppliedFor: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Project'
+    }],
+    default: void 0
+  },
+  organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Organization'
+  }
 }, { timestamps: true })
 
 UserSchema.methods.generateSessionToken = function () {
@@ -48,7 +56,7 @@ UserSchema.methods.toJSON = function () {
     id: this._id,
     usertype: this.usertype,
     email: this.email,
-    opportunitiesAppliedFor: this.opportunitiesAppliedFor,
+    projectsAppliedFor: this.projectsAppliedFor,
     organization: this.organization
   }
 }

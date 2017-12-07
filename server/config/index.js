@@ -1,5 +1,5 @@
 module.exports = {
-  databaseConfig: require('./database'),
   appConfig: require('./app'),
-  authConfig: require('./auth')
+  authConfig: require('./auth'),
+  databaseConfig: require('./database')
 }
