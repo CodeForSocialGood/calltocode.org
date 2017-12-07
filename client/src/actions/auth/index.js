@@ -1,8 +1,8 @@
 import { APP_LOAD, LOGIN, LOGOUT } from './types'
 
-import api from '../../api'
-import signupApiClient from '../../api/signup'
-import SignupException from '../../exceptions/SignupException'
+import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
+import usersApiClient from '../../api/users'
+// import SignupException from '../../exceptions/SignupException'
 
 export const appLoad = { type: APP_LOAD }
 export const login = { type: LOGIN }
@@ -12,8 +12,8 @@ export default class AuthActionCreator {
   static appLoad () {
     return async dispatch => {
       const token = window.localStorage.getItem('jwt')
-      api.setToken(token)
-      const user = token ? api.user.current() : {}
+      const apiOptions = { token }
+      const user = token ? usersApiClient.current(apiOptions) : {}
 
       dispatch({
         ...appLoad,
@@ -38,16 +38,22 @@ export default class AuthActionCreator {
   static signup ({ email, password, isOrganization }) {
     const usertype = isOrganization ? 'contact' : 'volunteer'
 
-    return async dispatch => {
-      const response = await signupApiClient.signup({ usertype, email, password })
+    return async (dispatch, getState) => {
+      const state = getState()
+      const apiOptions = apiOptionsFromState(state)
+      const user = usersApiClient.signup(apiOptions, { usertype, email, password })
 
-      if (response.status === 200) {
-        const user = await response.json()
+      dispatch(AuthActionCreator.login(user))
 
-        dispatch(this.login(user))
-      }
-
-      throw new SignupException()
+      // const response = await signupApiClient.signup({ usertype, email, password })
+      //
+      // if (response.status === 200) {
+      //   const user = await response.json()
+      //
+      //   dispatch(this.login(user))
+      // }
+      //
+      // throw new SignupException()
     }
   }
 }

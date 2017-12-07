@@ -1,28 +1,37 @@
 import { UPDATE_USER } from './types'
 
-import userApiClient from '../../api/user'
+import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
+import emailApiClient from '../../api/email'
+import usersApiClient from '../../api/users'
 
 export const updateUser = { type: UPDATE_USER }
 
 export default class UserActionCreator {
-  static applyForProject (project, user) {
-    const projectId = project._id
+  static updating () {}
 
+  static updated () {}
+
+  static failed () {}
+
+  static applyForProject (project, user) {
     return async (dispatch, getState) => {
+      const projectId = project.id
       let updatedUser = { ...user }
 
-      if (!user.opportunitiesAppliedFor.includes(projectId)) {
-        const opportunitiesAppliedFor = [...user.opportunitiesAppliedFor, projectId]
-        updatedUser = { ...user, opportunitiesAppliedFor }
+      if (!user.projectsAppliedFor.includes(projectId)) {
+        const projectsAppliedFor = [...user.projectsAppliedFor, projectId]
+        updatedUser = { ...user, projectsAppliedFor }
       }
 
-      const response = await userApiClient.updateOppsAppliedFor(projectId, user.id)
-      if (response.status === 200) {
-        dispatch({
-          ...updateUser,
-          payload: updatedUser
-        })
-      }
+      const state = getState()
+      const apiOptions = apiOptionsFromState(state)
+      const receivedUser = usersApiClient.update(apiOptions, updatedUser)
+      emailApiClient.send(apiOptions, project, user.email)
+
+      dispatch({
+        ...updateUser,
+        payload: receivedUser
+      })
     }
   }
 }

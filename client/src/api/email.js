@@ -1,21 +1,10 @@
-import store from '..'
+import apiRequest from './lib/apiRequest'
 
 const emailApiClient = {
-  send (projectInfo) {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        project: projectInfo,
-        user: {
-          email: store.getState().user.email
-        }
-      })
-    }
-
-    return fetch('/email', options)
+  send (apiOptions, project, email) {
+    // TODO: fix this by supplying server emailController the sendgrid api key
+    const body = { project, user: { email } }
+    return apiRequest.post('/email', apiOptions, body)
   }
 }
 

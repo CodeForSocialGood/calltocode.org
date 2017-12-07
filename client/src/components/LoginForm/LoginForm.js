@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
-import loginApiClient from '../../api/login'
+import usersApiClient from '../../api/users'
 import styles from './LoginForm.scss'
 
 class LoginForm extends Component {
@@ -32,7 +32,7 @@ class LoginForm extends Component {
   async validateEmailAndPassword (values) {
     const { email, password } = values
     console.log(values)
-    const response = await loginApiClient.login(email, password)
+    const response = await usersApiClient.login(email, password)
     if (response.status === 200) {
       const user = await response.json()
       this.props.login(user)

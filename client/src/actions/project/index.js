@@ -4,7 +4,8 @@ import {
   FAILED_PROJECTS
 } from './types'
 
-import api from '../../api'
+import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
+import projectsApiClient from '../../api/projects'
 
 export const fetching = { type: FETCHING_PROJECTS }
 export const received = { type: RECEIVED_PROJECTS }
@@ -31,30 +32,34 @@ export default class ProjectActionCreator {
   }
 
   static fetchAllProjects () {
-    return dispatch => {
+    return (dispatch, getState) => {
       dispatch(ProjectActionCreator.fetching())
 
       try {
-        const projects = api.project.all()
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const projects = projectsApiClient.all(apiOptions)
         dispatch(ProjectActionCreator.received(projects))
       } catch (e) {
-        console.log(e)
+        console.trace(e)
         dispatch(ProjectActionCreator.failed(e))
       }
     }
   }
 
   static fetchProfileProjects (user) {
-    return dispatch => {
+    return (dispatch, getState) => {
       dispatch(ProjectActionCreator.fetching())
 
       try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
         const projects = user.usertype === 'contact'
-          ? api.project.organization(user.organization)
-          : api.project.applied(user.opportunitiesAppliedFor)
+          ? projectsApiClient.organization(apiOptions, user.organization)
+          : projectsApiClient.applied(apiOptions, user.projectsAppliedFor)
         dispatch(ProjectActionCreator.received(projects))
       } catch (e) {
-        console.log(e)
+        console.trace(e)
         dispatch(ProjectActionCreator.failed(e))
       }
     }

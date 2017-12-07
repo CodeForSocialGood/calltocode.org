@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import emailApiClient from '../../api/email'
 import styles from '../ListOfProjects/ListOfProjects.scss'
 
 class Project extends Component {
@@ -10,7 +9,6 @@ class Project extends Component {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
-    this.mailToOrganization = this.mailToOrganization.bind(this)
     this.renderProjectApplicationResult = this.renderProjectApplicationResult.bind(this)
     this.getAppliedStatus = this.getAppliedStatus.bind(this)
   }
@@ -18,14 +16,8 @@ class Project extends Component {
   handleClick () {
     const applied = this.getAppliedStatus()
     if (this.props.authenticated && !applied) {
-      return this.mailToOrganization(this.props.project)
+      return this.props.applyForProject(this.props.project, this.props.user)
     }
-  }
-
-  mailToOrganization (project) {
-    return emailApiClient.send(project).then(response => {
-      this.props.applyForProject(project, this.props.user)
-    })
   }
 
   renderProjectApplicationResult (project) {
@@ -47,8 +39,8 @@ class Project extends Component {
 
   getAppliedStatus () {
     return (
-      this.props.user.opportunitiesAppliedFor &&
-      this.props.user.opportunitiesAppliedFor.includes(this.props.project._id)
+      this.props.user.projectsAppliedFor &&
+      this.props.user.projectsAppliedFor.includes(this.props.project.id)
     )
   }
 
