@@ -21,7 +21,7 @@ start () {
     docker-compose rm -vf
     docker-compose up -d db
     docker-compose exec db mongoimport --db admin --collection users --file /seedData/users.json
-    docker-compose exec db mongoimport --db admin --collection opportunities --file /seedData/opportunities.json
+    docker-compose exec db mongoimport --db admin --collection projects --file /seedData/projects.json
     docker-compose up -d app
   popd
 }
