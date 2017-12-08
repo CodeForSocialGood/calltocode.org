@@ -14,9 +14,11 @@ class Project extends Component {
   }
 
   handleClick () {
+    const { authenticated, project, user } = this.props
     const applied = this.getAppliedStatus()
-    if (this.props.authenticated && !applied) {
-      return this.props.applyForProject(this.props.project, this.props.user)
+
+    if (!applied && authenticated && user.usertype === 'volunteer') {
+      return this.props.applyForProject(project, user)
     }
   }
 
