@@ -3,9 +3,12 @@ const router = require('express').Router()
 const auth = require('../auth')
 const projectsController = require('../controllers/projectsController')._init()
 
-router.param('project', projectsController.preloadProject.bind(projectsController))
+router.param('project', projectsController.preloadProject)
 
-router.get('/', auth.optional, projectsController.getProjects.bind(projectsController))
-router.get('/:project', auth.optional, projectsController.getProject.bind(projectsController))
+router.route('/')
+  .get(auth.optional, projectsController.getProjects)
+
+router.route('/:project')
+  .get(auth.optional, projectsController.getProject)
 
 module.exports = router

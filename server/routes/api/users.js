@@ -3,14 +3,17 @@ const router = require('express').Router()
 const auth = require('../auth')
 const usersController = require('../controllers/usersController')._init()
 
-router.param('user', usersController.preloadUser.bind(usersController))
+router.param('user', usersController.preloadUser)
 
-router.get('/', auth.optional, usersController.getUsers.bind(usersController))
-router.get('/:user', auth.optional, usersController.getUser.bind(usersController))
+router.route('/')
+  .get(auth.required, usersController.getUsers)
+  .post(usersController.signup)
 
-router.post('/', usersController.signup.bind(usersController))
-router.post('/login', usersController.login.bind(usersController))
+router.route('/:user')
+  .get(auth.required, usersController.getUser)
+  .put(auth.required, usersController.putUser)
 
-router.put('/:user', auth.required, usersController.updateUser.bind(usersController))
+router.route('/login')
+  .post(usersController.login)
 
 module.exports = router

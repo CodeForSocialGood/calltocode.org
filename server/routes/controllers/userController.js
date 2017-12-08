@@ -1,8 +1,11 @@
 const UserModel = require('../../database/models/User')
 
-const usersController = {
+const userController = {
   _init (Users = UserModel) {
     this.Users = Users
+
+    this.getCurrent = this.getCurrent.bind(this)
+    this.putCurrent = this.putCurrent.bind(this)
     return this
   },
 
@@ -47,4 +50,4 @@ const usersController = {
   }
 }
 
-module.exports = usersController
+module.exports = userController

@@ -3,6 +3,10 @@ const ProjectModel = require('../../database/models/Project')
 const projectsController = {
   _init (Projects = ProjectModel) {
     this.Projects = Projects
+
+    this.preloadProject = this.preloadProject.bind(this)
+    this.getProjects = this.getProjects.bind(this)
+    this.getProject = this.getProject.bind(this)
     return this
   },
 
