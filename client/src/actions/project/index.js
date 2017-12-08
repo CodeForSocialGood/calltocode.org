@@ -38,7 +38,7 @@ export default class ProjectActionCreator {
       try {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
-        const projects = projectsApiClient.all(apiOptions)
+        const projects = projectsApiClient.getAllProjects(apiOptions)
         dispatch(ProjectActionCreator.received(projects))
       } catch (e) {
         console.trace(e)
@@ -55,8 +55,8 @@ export default class ProjectActionCreator {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
         const projects = user.usertype === 'contact'
-          ? projectsApiClient.organization(apiOptions, user.organization)
-          : projectsApiClient.applied(apiOptions, user.projectsAppliedFor)
+          ? projectsApiClient.getOrgProjects(apiOptions, user.organization)
+          : projectsApiClient.getAppliedProjects(apiOptions, user.projectsAppliedFor)
         dispatch(ProjectActionCreator.received(projects))
       } catch (e) {
         console.trace(e)

@@ -11,15 +11,7 @@ const UserSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
-    validate: {
-      validator (email) {
-        User.find({ email }, (error, docs) => {
-          if (error) return console.error(error)
-          return docs.length === 0
-        })
-      },
-      message: 'User already exists!'
-    }
+    unique: true
   },
   password: {
     type: String,

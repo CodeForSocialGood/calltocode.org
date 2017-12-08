@@ -1,16 +1,16 @@
 import apiRequest from './lib/apiRequest'
 
 const projectsApiClient = {
-  all (apiOptions) {
+  getAllProjects (apiOptions) {
     return apiRequest.get('/projects', apiOptions)
   },
 
-  applied (apiOptions, projectsAppliedFor) {
+  getAppliedProjects (apiOptions, projectsAppliedFor) {
     const query = { projectsAppliedFor }
     return apiRequest.get('/projects', apiOptions, query)
   },
 
-  organization (apiOptions, id) {
+  getOrgProjects (apiOptions, id) {
     const query = { organization: id }
     return apiRequest.get('/projects', apiOptions, query)
   }

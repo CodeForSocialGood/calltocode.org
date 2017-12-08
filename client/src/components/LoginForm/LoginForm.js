@@ -31,7 +31,6 @@ class LoginForm extends Component {
 
   async validateEmailAndPassword (values) {
     const { email, password } = values
-    console.log(values)
     const response = await usersApiClient.login(email, password)
     if (response.status === 200) {
       const user = await response.json()

@@ -1,4 +1,11 @@
-export const defaultApiOptions = {}
+export const defaultApiOptions = {
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  origin: '/api',
+  token: ''
+}
 
 export default function apiOptionsFromState (state) {
   if (!state) {

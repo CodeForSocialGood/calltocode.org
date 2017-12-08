@@ -5,7 +5,7 @@ const usersApiClient = {
     return apiRequest.get('/user', apiOptions)
   },
 
-  // TODO: add apiOptions
+  // TODO: add apiOptions and use apiRequest
   login (email, password) {
     const options = {
       method: 'POST',
@@ -17,9 +17,6 @@ const usersApiClient = {
     }
 
     return fetch('/api/users/login', options)
-
-    // const body = { email, password }
-    // return apiRequest.post('/users/login', body)
   },
 
   signup (apiOptions, user) {

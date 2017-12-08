@@ -2,7 +2,7 @@ import { APP_LOAD, LOGIN, LOGOUT } from './types'
 
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import usersApiClient from '../../api/users'
-// import SignupException from '../../exceptions/SignupException'
+import SignupException from '../../exceptions/SignupException'
 
 export const appLoad = { type: APP_LOAD }
 export const login = { type: LOGIN }
@@ -10,20 +10,25 @@ export const logout = { type: LOGOUT }
 
 export default class AuthActionCreator {
   static appLoad () {
-    return async dispatch => {
-      const token = window.localStorage.getItem('jwt')
-      const apiOptions = { token }
-      const user = token ? usersApiClient.current(apiOptions) : {}
+    return async (dispatch, getState) => {
+      try {
+        const state = getState()
+        const token = window.localStorage.getItem('jwt')
+        const apiOptions = { ...apiOptionsFromState(state), token }
 
-      dispatch({
-        ...appLoad,
-        payload: user
-      })
+        const user = token ? await usersApiClient.current(apiOptions) : {}
+        dispatch({
+          ...appLoad,
+          payload: user
+        })
+      } catch (e) {
+        console.trace(e)
+      }
     }
   }
 
   static login (user) {
-    return async dispatch => {
+    return dispatch => {
       dispatch({
         ...login,
         payload: user
@@ -36,24 +41,18 @@ export default class AuthActionCreator {
   }
 
   static signup ({ email, password, isOrganization }) {
-    const usertype = isOrganization ? 'contact' : 'volunteer'
-
     return async (dispatch, getState) => {
-      const state = getState()
-      const apiOptions = apiOptionsFromState(state)
-      const user = usersApiClient.signup(apiOptions, { usertype, email, password })
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const usertype = isOrganization ? 'contact' : 'volunteer'
 
-      dispatch(AuthActionCreator.login(user))
-
-      // const response = await signupApiClient.signup({ usertype, email, password })
-      //
-      // if (response.status === 200) {
-      //   const user = await response.json()
-      //
-      //   dispatch(this.login(user))
-      // }
-      //
-      // throw new SignupException()
+        const user = await usersApiClient.signup(apiOptions, { usertype, email, password })
+        dispatch(AuthActionCreator.login(user))
+      } catch (e) {
+        console.trace(e)
+        throw new SignupException()
+      }
     }
   }
 }

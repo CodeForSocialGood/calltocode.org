@@ -17,6 +17,7 @@ const emailController = {
       html: `<strong>${text}</strong>`,
       text
     }
+    // TODO: Need SENDGRID_API_KEY in process.env for this to not error
     this.emailClient.send(message)
     res.sendStatus(200)
   }

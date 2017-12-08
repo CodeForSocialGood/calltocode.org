@@ -1,19 +1,25 @@
-const API_ROOT_URL = '/api'
-
 async function apiRequest (apiOptions, options) {
-  const { token } = apiOptions
+  const { headers, origin, token } = apiOptions
   const { url, method, body, query } = options
 
-  const _query = getQueryString(query)
-  const _url = `${API_ROOT_URL}${url}${_query}`
+  const qs = getQueryString(query)
+  const _url = `${origin}${url}${qs}`
   const _method = method.toUpperCase()
-  const _headers = getHeaders(token)
+  const _headers = token
+    ? { ...headers, Authorization: `Token ${token}` }
+    : headers
   const _body = ['POST', 'PUT'].includes(_method)
     ? JSON.stringify(body)
     : undefined
 
-  const result = await fetch(_url, { method: _method, headers: _headers, body: _body })
-  return result.json()
+  const res = await fetch(_url, { method: _method, headers: _headers, body: _body })
+
+  if (!res.ok) {
+    // TODO: possibly handle errors here. could throw a ResponseError
+    console.log('fetch errored.')
+  }
+
+  return res.json()
 }
 
 function getQueryString (query = {}) {
@@ -23,19 +29,6 @@ function getQueryString (query = {}) {
   return keys.length > 0
     ? '?' + keys.map(k => encode(k) + '=' + encode(query[k])).join('&')
     : ''
-}
-
-function getHeaders (token) {
-  const headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-
-  if (token) {
-    headers.Authorization = `Token ${token}`
-  }
-
-  return headers
 }
 
 export default {
