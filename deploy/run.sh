@@ -34,6 +34,14 @@ stop () {
   popd
 }
 
+deploy_to_test () {
+  set -x
+  git checkout .
+  git checkout master
+  git pull origin master
+  start
+}
+
 info () {
 cat <<EOF
   Usage: ./deploy/run.sh <target>
