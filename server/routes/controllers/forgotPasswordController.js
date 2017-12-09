@@ -9,10 +9,8 @@ const forgotPasswordController = {
     return this
   },
 
-  _saveIntoDatabase (email, code) {
-    const expireDate = new Date()
-    expireDate.setHours(expireDate.getHours() + 1)
-    const forgot = new this.ForgotPass({email, code, expireDate})
+  _saveIntoDatabase (email, code) {    
+    const forgot = new this.ForgotPass({email, code})
     return forgot.save()
   },
 
