@@ -14,7 +14,13 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    if (this.props.authenticated) {
+    if (this.props.authenticated && this.props.user.usertype === 'contact') {
+      return ([
+        <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
+        <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>,
+        <Link key="create-project" to='/create-project' className={styles.button}>CREATE PROJECT</Link>
+      ])
+    } else if (this.props.authenticated) {
       return ([
         <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
         <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>
@@ -43,7 +49,8 @@ class Header extends Component {
 
 function mapStateToProps (state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    user: state.user
   }
 }
 

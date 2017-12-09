@@ -1,0 +1,26 @@
+@import '../../scss/partials/partials';
+@import '../../scss/elements/form';
+
+.form {
+  @extend %form;
+}
+
+h1 {
+  @extend %formTitle;
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+
+.inputProjectName {
+  @extend %fieldText;
+  border: none;
+  border-bottom: 1px solid $inputsBorderColor;
+  grid-column: 1 / 1;
+  grid-row: 2;
+}
+
+.buttonSubmit {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 5;
+}

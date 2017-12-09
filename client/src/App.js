@@ -12,6 +12,7 @@ import LoginForm from './components/LoginForm/LoginForm'
 import Profile from './components/Profile/Profile'
 import restricted from './components/Restricted/Restricted'
 import SignupForm from './components/SignupForm/SignupForm'
+import CreateProjectForm from './components/CreateProjectForm/CreateProjectForm'
 
 class App extends Component {
   componentDidMount () {
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path='/signup' component={SignupForm}/>
           <Route path='/profile' component={restricted(Profile)}/>
           <Route path='/forgot-password' component={ForgotPasswordForm}/>
+          <Route path='/create-project' component={CreateProjectForm}/>
         </Switch>
       </div>
     )
