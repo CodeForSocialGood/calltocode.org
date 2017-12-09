@@ -2,20 +2,11 @@ version: '3'
 
 services:
   app:
+    image: blueberrymozart/test-c2c
     build:
       context: .
-    volumes:
-    - ./dist:/home/dist
-    - ../package.json:/home/package.json
-    - ../yarn.lock:/home/yarn.lock
     ports:
     - 3000:3000
-    environment:
-    - DB_USER=user
-    - DB_PASS=pass
-    - NODE_ENV=test
-    - DB_URL=127.0.0.1
-    command: bash -c 'yarn --production && node dist/'
 
   db:
     image: mongo:3.4-jessie
