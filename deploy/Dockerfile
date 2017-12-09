@@ -22,4 +22,4 @@ COPY deploy/dist ${WORKDIR}/
 
 WORKDIR $WORKDIR
 EXPOSE 3000
-CMD [ "node", "dist/" ]
+CMD [ "node", "." ]
