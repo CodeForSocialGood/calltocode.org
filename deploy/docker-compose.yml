@@ -4,7 +4,8 @@ services:
   app:
     image: blueberrymozart/test-c2c
     build:
-      context: .
+      context: ..
+      dockerfile: deploy/Dockerfile
     ports:
     - 3000:3000
 
