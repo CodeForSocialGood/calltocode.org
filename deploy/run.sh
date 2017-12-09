@@ -40,7 +40,8 @@ ci_deploy_to_test () {
   docker build -t blueberrymozart/test-c2c -f deploy/Dockerfile .
   docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   docker push blueberrymozart/test-c2c
-ssh test-c2c <<EOF
+  apt-get install sshpass
+sshpass -p "$TEST_PASSWORD" ssh "$TEST_HOST"@"$TEST_HOSTNAME" <<EOF
   cd ~/workspace/calltocode.org &&
   git checkout . &&
   git checkout master &&
