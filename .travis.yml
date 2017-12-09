@@ -21,9 +21,7 @@ script:
 after_script: greenkeeper-lockfile-upload
 
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ]; then
-    $TRAVIS_BUILD_DIR/deploy/run.sh ci_deploy_to_test
-  fi
+- if [ "$TRAVIS_BRANCH" == "master" ]; then ./deploy/run.sh ci_deploy_to_test; fi
 
 cache:
   directories:
