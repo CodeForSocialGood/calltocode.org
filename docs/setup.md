@@ -48,7 +48,7 @@ $ echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
 
 ```bash
 $ cd ~/workspace/calltocode.org
-$ nvm install
+$ npm install
 $ direnv allow
 ```
 
