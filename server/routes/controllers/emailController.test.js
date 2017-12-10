@@ -45,7 +45,7 @@ test('send email to organization', t => {
 
   // execute
   emailController._init(emailClient)
-  emailController.sendEmailToOrganization(req, res)
+  emailController.sendToOrg(req, res)
 
   // verify
   mockEmailClient.verify()

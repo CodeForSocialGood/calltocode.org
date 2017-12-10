@@ -1,18 +1,9 @@
-const forgotPasswordApiClient = {
-  sendValidationCode (email) {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        data: {
-          email: email
-        }
-      })
-    }
+import apiRequest from './lib/apiRequest'
 
-    return fetch('/forgot-password', options)
+const forgotPasswordApiClient = {
+  sendValidationCode (apiOptions, email) {    
+    const body = { email: email }
+    return apiRequest.post('/forgot-password', apiOptions, body)            
   }
 }
 

@@ -2,12 +2,14 @@ const sendgrid = require('@sendgrid/mail')
 
 const emailController = {
   _init (emailClient = sendgrid) {
-    emailClient.setApiKey(process.env.SENDGRID_API_KEY)
     this.emailClient = emailClient
+    this.emailClient.setApiKey(process.env.SENDGRID_API_KEY)
+
+    this.sendToOrg = this.sendToOrg.bind(this)
     return this
   },
 
-  sendEmailToOrganization (req, res) {
+  sendToOrg (req, res) {
     const {email, name, role} = req.body.project
     const text = `I am interested in the role ${role}!`
     const message = {
@@ -17,6 +19,7 @@ const emailController = {
       html: `<strong>${text}</strong>`,
       text
     }
+    // TODO: Need SENDGRID_API_KEY in process.env for this to not error
     this.emailClient.send(message)
     res.sendStatus(200)
   }
