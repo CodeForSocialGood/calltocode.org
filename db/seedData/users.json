@@ -15,9 +15,19 @@
 	"usertype": "volunteer",
 	"email": "kevin@email.com",
 	"password": "kevin.password",
-	"opportunitiesAppliedFor": [
+	"projectsAppliedFor": [
 		"5a165cb5202e8986f99ec5c1",
 		"5a165cb5202e8986f99ec5c3"
 	],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "5a1658a0327c0286c39a1dec"
+	},
+	"usertype": "volunteer",
+	"email": "kevin2@email.com",
+	"password": "kevin2.password",
+	"projectsAppliedFor": [],
 	"__v": 0
 }

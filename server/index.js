@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-const {databaseConfig, appConfig} = require('./config')
+const {appConfig, databaseConfig} = require('./config')
 const database = require('./database')._init(databaseConfig.url)
 
 const app = express()
