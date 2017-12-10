@@ -12,7 +12,7 @@ export const logout = { type: LOGOUT }
 export const forgotPass = { type: FORGOT_PASSWORD }
 
 export default class AuthActionCreator {
-  static appLoad () {
+  static appLoad() {
     return async (dispatch, getState) => {
       try {
         const state = getState()
@@ -30,7 +30,7 @@ export default class AuthActionCreator {
     }
   }
 
-  static login (user) {
+  static login(user) {
     return dispatch => {
       dispatch({
         ...login,
@@ -39,11 +39,11 @@ export default class AuthActionCreator {
     }
   }
 
-  static logout () {
+  static logout() {
     return logout
   }
 
-  static signup ({ email, password, isOrganization }) {
+  static signup({ email, password, isOrganization }) {
     return async (dispatch, getState) => {
       try {
         const state = getState()
@@ -59,13 +59,19 @@ export default class AuthActionCreator {
     }
   }
 
-  static sendValidationCode ({email}) {
-    return async dispatch => {
-      const response = await forgotPasswordApiClient.sendValidationCode(email)
-      if (response.status === 200) {
-        dispatch({...forgotPass})
+  static sendValidationCode({ email }) {
+    return async (dispatch, getState) => {
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
+        dispatch({
+          ...forgotPass
+        })
+      } catch (e) {
+        console.trace(e)
+        throw new ForgotPasswordException()
       }
-      throw new ForgotPasswordException()
     }
   }
 }
