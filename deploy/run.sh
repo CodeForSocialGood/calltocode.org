@@ -19,6 +19,7 @@ start () {
   pushd deploy/
     docker-compose stop
     docker-compose rm -vf
+    docker-compose pull
     docker-compose up -d db
     docker-compose exec db mongoimport --db admin --collection users --file /seedData/users.json
     docker-compose exec db mongoimport --db admin --collection projects --file /seedData/projects.json
@@ -34,6 +35,22 @@ stop () {
   popd
 }
 
+ci_deploy_to_test () {
+  build
+  set -x
+  docker build -t blueberrymozart/test-c2c -f deploy/Dockerfile .
+  docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  docker push blueberrymozart/test-c2c
+  apt-get install sshpass
+sshpass -p "$TEST_PASSWORD" ssh "$TEST_HOST"@"$TEST_HOSTNAME" <<EOF
+  cd ~/workspace/calltocode.org &&
+  git checkout . &&
+  git checkout master &&
+  git pull origin master &&
+  ./deploy/run.sh start
+EOF
+}
+
 info () {
 cat <<EOF
   Usage: ./deploy/run.sh <target>
@@ -45,8 +62,9 @@ EOF
 }
 
 case $1 in
-  build)        build         ;;
-  start)        start         ;;
-  stop)         stop          ;;
-  *)            info          ;;
+  build)                build               ;;
+  start)                start               ;;
+  stop)                 stop                ;;
+  ci_deploy_to_test)    ci_deploy_to_test   ;;
+  *)                    info                ;;
 esac

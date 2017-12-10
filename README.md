@@ -3,6 +3,7 @@
 ![nonprofit][nonprofit]
 [![travis][travis]][travis-url]
 [![test][test]][test-url]
+[![prod][prod]][prod-url]
 
 ![logo][logo]
 
@@ -33,7 +34,10 @@ $ yarn db:reset                       # return db to initial seeded state (npm r
 [travis]: https://travis-ci.org/CodeForSocialGood/calltocode.org.svg
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
 
-[test]: https://img.shields.io/badge/test-calltocode.herokuapp.com-orange.svg
-[test-url]: https://calltocode.herokuapp.com/
+[test]: https://img.shields.io/badge/test-test.calltocode.org-orange.svg
+[test-url]: http://test.calltocode.org/
+
+[prod]: https://img.shields.io/badge/prod-calltocode.org-orange.svg
+[prod-url]: http://calltocode.org/
 
 [logo]: /docs/media/logo.png
