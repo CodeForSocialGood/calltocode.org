@@ -1,0 +1,11 @@
+[Unit]
+Description=test.calltocode.org startup script
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+ExecStart=cd /root/workspace/calltocode.org/deploy/run.sh start
+ExecStop=cd /root/workspace/calltocode.org/deploy/run.sh stop
+Type=oneshot
+RemainAfterExit=yes
