@@ -1,12 +1,15 @@
-import { APP_LOAD, LOGIN, LOGOUT } from './types'
+import { APP_LOAD, LOGIN, LOGOUT, FORGOT_PASSWORD } from './types'
 
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import usersApiClient from '../../api/users'
 import SignupException from '../../exceptions/SignupException'
+import ForgotPasswordException from '../../exceptions/ForgotPasswordException'
+import forgotPasswordApiClient from '../../api/forgotPassword'
 
 export const appLoad = { type: APP_LOAD }
 export const login = { type: LOGIN }
 export const logout = { type: LOGOUT }
+export const forgotPass = { type: FORGOT_PASSWORD }
 
 export default class AuthActionCreator {
   static appLoad () {
@@ -52,6 +55,24 @@ export default class AuthActionCreator {
       } catch (e) {
         console.trace(e)
         throw new SignupException()
+      }
+    }
+  }
+
+  static sendValidationCode ({ email }) {
+    return async (dispatch, getState) => {
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)      
+        if (response.status === 200) {
+          dispatch({
+            ...forgotPass
+          })
+        }
+      } catch (e) {
+        console.trace(e)
+        throw new ForgotPasswordException()
       }
     }
   }
