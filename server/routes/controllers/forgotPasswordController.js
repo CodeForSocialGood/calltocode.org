@@ -2,7 +2,7 @@ const sendgrid = require('@sendgrid/mail')
 const ForgotPasswordModel = require('../../database/models/ForgotPassword')
 
 const forgotPasswordController = {
-  _init(emailClient = sendgrid, ForgotPass = ForgotPasswordModel) {
+  _init (emailClient = sendgrid, ForgotPass = ForgotPasswordModel) {
     emailClient.setApiKey(process.env.SENDGRID_API_KEY)
     this.emailClient = emailClient
     this.ForgotPass = ForgotPass
@@ -11,16 +11,16 @@ const forgotPasswordController = {
     return this
   },
 
-  _saveIntoDatabase(email, code) {
+  _saveIntoDatabase (email, code) {
     const forgot = new this.ForgotPass({ email, code })
     return forgot.save()
   },
 
-  _generateCode() {
+  _generateCode () {
     return Math.floor(Math.random() * 900000) + 100000 // generate a 6 digit code
   },
 
-  sendVerificationCodeEmail(req, res) {
+  sendVerificationCodeEmail (req, res) {
     const email = req.body.email
     const code = this._generateCode()
     this._saveIntoDatabase(email, code)
@@ -34,9 +34,9 @@ const forgotPasswordController = {
           text
         }
         this.emailClient.send(message)
-        return res.status(200).send({ code: 200 });
+        return res.status(200).send({ status: 200 })
       })
-      .catch(error => { if (error) return res.status(500).send({ code: 500 }) })
+      .catch(error => { if (error) return res.status(500).send({ status: 500 }) })
   }
 }
 
