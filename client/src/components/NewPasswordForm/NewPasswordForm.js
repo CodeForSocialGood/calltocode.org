@@ -15,16 +15,16 @@ class NewPasswordForm extends Component {
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
     return (
       <div className={ styles.inputPasswordContainer }>
-      <input
-        className={ passClasses }
-        placeholder="New Password"
-        type="password"
-        {...field.input} />
-      <Field
-        name="popup"
-        component={ValidationPopup}
-        active={field.meta.active}
-        error={field.meta.error} />
+        <input
+          className={ passClasses }
+          placeholder="New Password"
+          type="password"
+          {...field.input} />
+        <Field
+          name="popup"
+          component={ValidationPopup}
+          active={field.meta.active}
+          error={field.meta.error} />
       </div>
     )
   }

@@ -65,7 +65,7 @@ export default class AuthActionCreator {
       try {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
-        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)      
+        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
         if (response.status === 200) {
           dispatch({
             ...forgotPass
@@ -77,7 +77,7 @@ export default class AuthActionCreator {
       }
     }
   }
-  
+
   static changePassword ({ email, password }) {
     return async dispatch => {
       const response = await usersApiClient.changePassword(email, password)
