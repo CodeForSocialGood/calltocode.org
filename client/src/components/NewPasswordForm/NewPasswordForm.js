@@ -13,20 +13,20 @@ class NewPasswordForm extends Component {
   renderPassword (field) {
     const passClasses = `${styles.inputPassword} 
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
-    return [
+    return (
+      <div className={ styles.inputPasswordContainer }>
       <input
-        key="field"
-        className={passClasses}
+        className={ passClasses }
         placeholder="New Password"
         type="password"
-        {...field.input} />,
+        {...field.input} />
       <Field
-        key="popup"
         name="popup"
         component={ValidationPopup}
         active={field.meta.active}
         error={field.meta.error} />
-    ]
+      </div>
+    )
   }
 
   customSubmit (values) {

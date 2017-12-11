@@ -5,7 +5,7 @@ import styles from './SignupForm.scss'
 
 const ValidationPopup = ({ error, active }) => {
   return (
-    <div className={`${styles.validpopup} ${active ? styles.show : styles.hide}` }>
+    <div className={`${styles.validationPopup} ${active ? styles.show : styles.hide}` }>
       <p className={styles.bold}>Password must have</p>
       <ul>
         <li className={ error == null || error.upperCase ? styles.tick : styles.cross }> at least 1 UpperCase Character </li>
