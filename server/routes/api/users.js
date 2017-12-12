@@ -16,4 +16,7 @@ router.route('/:user')
 router.route('/login')
   .post(usersController.login)
 
+router.route('/new-password')
+  .post(usersController.changePassword)
+
 module.exports = router
