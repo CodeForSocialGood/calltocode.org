@@ -5,6 +5,7 @@ import usersApiClient from '../../api/users'
 import SignupException from '../../exceptions/SignupException'
 import ForgotPasswordException from '../../exceptions/ForgotPasswordException'
 import forgotPasswordApiClient from '../../api/forgotPassword'
+import NewPasswordException from '../../exceptions/NewPasswordException'
 
 export const appLoad = { type: APP_LOAD }
 export const login = { type: LOGIN }
@@ -64,7 +65,7 @@ export default class AuthActionCreator {
       try {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
-        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)      
+        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
         if (response.status === 200) {
           dispatch({
             ...forgotPass
@@ -73,6 +74,19 @@ export default class AuthActionCreator {
       } catch (e) {
         console.trace(e)
         throw new ForgotPasswordException()
+      }
+    }
+  }
+
+  static changePassword ({ email, password }) {
+    return async dispatch => {
+      const response = await usersApiClient.changePassword(email, password)
+      if (response.status === 200) {
+        const user = await response.json()
+        dispatch(AuthActionCreator.login(user))
+      } else {
+        console.error(response.statusText)
+        throw new NewPasswordException()
       }
     }
   }

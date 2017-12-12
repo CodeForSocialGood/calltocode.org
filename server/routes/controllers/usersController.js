@@ -10,6 +10,7 @@ const usersController = {
     this.getUser = this.getUser.bind(this)
     this.putUser = this.putUser.bind(this)
     this.login = this.login.bind(this)
+    this.changePassword = this.changePassword.bind(this)
     return this
   },
 
@@ -66,18 +67,55 @@ const usersController = {
         return res.sendStatus(403)
       }
 
-      if (user && password === user.password) {
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(200).send(user.toJSON())
-      } else if (password !== user.password) {
-        res.statusMessage = 'Wrong Password'
+      if (user) {
+        if (password === user.password) {
+          res.setHeader('Content-Type', 'application/json')
+          return res.status(200).send(user.toJSON())
+        } else {
+          res.statusMessage = 'Wrong Password'
+          return res.sendStatus(403)
+        }
       } else {
         res.statusMessage = 'Wrong Email'
+        return res.sendStatus(403)
       }
-
-      return res.sendStatus(403)
     })
+  },
+
+  changePassword (req, res) {
+    const users = this.Users
+    const {email, password} = req.body
+
+    users.update({'email': email},
+      {$set: {'password': password}}, (error, r) => {
+        if (error) {
+          console.error(error)
+          return res.sendStatus(500)
+        }
+        if (r) {
+          if (r.n === 0) {
+            console.error(`Email doesn't exist`)
+            res.statusMessage = `Email doesn't exist`
+            return res.sendStatus(500)
+          } else {
+            if (r.nModified === 1) {
+              console.log(`New password for ${email} saved successfully!`)
+            }
+            users.findOne({ email }, (err, user) => {
+              if (err) {
+                console.error(err)
+                return res.sendStatus(500)
+              }
+
+              if (user) {
+                return res.send(user.toJSON())
+              }
+            })
+          }
+        }
+      })
   }
+
 }
 
 module.exports = usersController

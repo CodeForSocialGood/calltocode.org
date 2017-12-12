@@ -24,6 +24,18 @@ const usersApiClient = {
     return apiRequest.post('/users', apiOptions, body)
   },
 
+  changePassword (email, password) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    }
+
+    return fetch('/api/users/new-password', options)
+  },
+
   update (apiOptions, user) {
     const body = { user }
     return apiRequest.put('/user', apiOptions, body)
