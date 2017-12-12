@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs'
+
 import apiRequest from './lib/apiRequest'
 
 const usersApiClient = {
@@ -5,22 +7,25 @@ const usersApiClient = {
     return apiRequest.get('/user', apiOptions)
   },
 
-  // TODO: add apiOptions and use apiRequest
-  login (email, password) {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    }
+  // TODO: get apiOptions through params (calling of usersApiClient.login
+  // needs to be moved to AuthActionCreator)
+  async login (email, password) {
+    const apiOptions = { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, origin: '/api', token: '' }
 
-    return fetch('/api/users/login', options)
+    const query = { email }
+    const { salt } = await apiRequest.get('/users/getSalt', apiOptions, query)
+    const hash = bcrypt.hashSync(password, salt)
+
+    const body = { email, hash }
+    return apiRequest.post('/users/login', apiOptions, body)
   },
 
   signup (apiOptions, user) {
-    const body = { user }
+    const saltRounds = 10
+    const salt = bcrypt.genSaltSync(saltRounds)
+    const hash = bcrypt.hashSync(user.password, salt)
+
+    const body = { user: { ...user, salt, hash } }
     return apiRequest.post('/users', apiOptions, body)
   },
 

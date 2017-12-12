@@ -77,19 +77,15 @@ function handleValidationRequestError (response, email, password) {
   const _error = 'Incorrect credentials, please try again!'
 
   if (response.status === 403) {
-    if (response.statusText === 'Wrong Email') {
-      throw new SubmissionError({ email: response.statusText,
-        _error })
-    } else if (response.statusText === 'Wrong Password') {
-      throw new SubmissionError({ password: response.statusText,
-        _error })
+    if (response.statusText === 'Wrong email') {
+      throw new SubmissionError({ email: response.statusText, _error })
+    } else if (response.statusText === 'Wrong password') {
+      throw new SubmissionError({ password: response.statusText, _error })
     } else {
-      throw new SubmissionError({ email,
-        _error: response.statusText })
+      throw new SubmissionError({ email, _error: response.statusText })
     }
   } else {
-    throw new SubmissionError({ email,
-      _error: response.statusText })
+    throw new SubmissionError({ email, _error: response.statusText })
   }
 }
 
