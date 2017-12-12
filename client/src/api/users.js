@@ -7,8 +7,8 @@ const usersApiClient = {
     return apiRequest.get('/user', apiOptions)
   },
 
-  // TODO: get apiOptions through params (calling of usersApiClient.login
-  // needs to be moved to AuthActionCreator)
+  // TODO: use apiRequest and get apiOptions through params (calling of
+  // usersApiClient.login needs to be moved to AuthActionCreator)
   async login (email, password) {
     const apiOptions = { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, origin: '/api', token: '' }
 
@@ -17,7 +17,15 @@ const usersApiClient = {
     const hash = bcrypt.hashSync(password, salt)
 
     const body = { email, hash }
-    return apiRequest.post('/users/login', apiOptions, body)
+    // return apiRequest.post('/users/login', apiOptions, body)
+
+    const options = {
+      method: 'POST',
+      headers: apiOptions.headers,
+      body: JSON.stringify(body)
+    }
+
+    return fetch('/api/users/login', options)
   },
 
   signup (apiOptions, user) {
