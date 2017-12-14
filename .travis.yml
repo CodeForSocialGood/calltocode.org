@@ -10,7 +10,7 @@ branches:
   - master
   - /^greenkeeper/.*$/
 
-before_install: yarn global add greenkeeper-lockfile@1
+before_install: npm install --global greenkeeper-lockfile@1
 
 before_script: greenkeeper-lockfile-update
 
