@@ -21,7 +21,8 @@
   margin-right: 25px;
 }
 
-.listOrgAuthenticated {
+.listOrgAuthenticated,
+.listOrgAuthenticatedContact {
   @extend .listOrg;
 }
 
