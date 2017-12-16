@@ -9,6 +9,7 @@ const usersController = {
     this.signup = this.signup.bind(this)
     this.getUser = this.getUser.bind(this)
     this.putUser = this.putUser.bind(this)
+    this.getSalt = this.getSalt.bind(this)
     this.login = this.login.bind(this)
     this.changePassword = this.changePassword.bind(this)
     return this
@@ -36,7 +37,7 @@ const usersController = {
         return res.sendStatus(500)
       }
 
-      return res.status(200).send(users.map(user => user.toJSON()))
+      return res.status(200).json(users.map(user => user.toJSON()))
     })
   },
 
@@ -49,36 +50,49 @@ const usersController = {
       }
 
       res.setHeader('Content-Type', 'application/json')
-      return res.status(200).send(user.toJSON())
+      return res.status(200).json(user.toJSON())
     })
   },
 
   getUser (req, res) {
-    return res.status(200).send(req.user.toJSON())
+    return res.status(200).json(req.user.toJSON())
   },
 
   putUser (req, res) {},
 
+  getSalt (req, res) {
+    const { email } = req.query
+    this.Users.findOne({ email }).exec((err, user) => {
+      if (err) {
+        return res.status(500).json({ error: '500' })
+      }
+
+      if (!user) {
+        return res.status(401).json({ error: '401' })
+      }
+
+      const { salt } = user
+      return res.status(200).json({ salt })
+    })
+  },
+
   login (req, res) {
-    const { email, password } = req.body
+    const { email, hash } = req.body
 
     this.Users.findOne({ email }).exec((err, user) => {
       if (err) {
         return res.sendStatus(403)
       }
-
-      if (user) {
-        if (password === user.password) {
-          res.setHeader('Content-Type', 'application/json')
-          return res.status(200).send(user.toJSON())
-        } else {
-          res.statusMessage = 'Wrong Password'
-          return res.sendStatus(403)
-        }
-      } else {
-        res.statusMessage = 'Wrong Email'
-        return res.sendStatus(403)
+      
+      if (!user) {
+        res.statusMessage = 'Wrong email'
+        return res.status(403).json({ error: 'Invalid email' })
+      } else if (hash !== user.hash) {
+        res.statusMessage = 'Wrong password'
+        return res.status(403).json({ error: 'Invalid password' })
       }
+
+      return res.status(200).json(user.toJSON())
     })
   },
 
