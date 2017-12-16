@@ -8,6 +8,7 @@ services:
       dockerfile: deploy/Dockerfile
     ports:
     - 3000:3000
+    restart: on-failure
 
   db:
     image: mongo:3.4-jessie

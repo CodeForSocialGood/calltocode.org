@@ -11,6 +11,7 @@ const usersController = {
     this.putUser = this.putUser.bind(this)
     this.getSalt = this.getSalt.bind(this)
     this.login = this.login.bind(this)
+    this.changePassword = this.changePassword.bind(this)
     return this
   },
 
@@ -82,7 +83,7 @@ const usersController = {
       if (err) {
         return res.sendStatus(403)
       }
-
+      
       if (!user) {
         res.statusMessage = 'Wrong email'
         return res.status(403).json({ error: 'Invalid email' })
@@ -93,7 +94,42 @@ const usersController = {
 
       return res.status(200).json(user.toJSON())
     })
+  },
+
+  changePassword (req, res) {
+    const users = this.Users
+    const {email, password} = req.body
+
+    users.update({'email': email},
+      {$set: {'password': password}}, (error, r) => {
+        if (error) {
+          console.error(error)
+          return res.sendStatus(500)
+        }
+        if (r) {
+          if (r.n === 0) {
+            console.error(`Email doesn't exist`)
+            res.statusMessage = `Email doesn't exist`
+            return res.sendStatus(500)
+          } else {
+            if (r.nModified === 1) {
+              console.log(`New password for ${email} saved successfully!`)
+            }
+            users.findOne({ email }, (err, user) => {
+              if (err) {
+                console.error(err)
+                return res.sendStatus(500)
+              }
+
+              if (user) {
+                return res.send(user.toJSON())
+              }
+            })
+          }
+        }
+      })
   }
+
 }
 
 module.exports = usersController
