@@ -7,7 +7,7 @@ test.beforeEach(() => {
   res = {
     sendStatus () {},
     setHeader () {},
-    send () {},
+    json () {},
     status () { return this }
   }
 })
@@ -31,7 +31,7 @@ test('login with email and password', t => {
 
   // mocks
   const resMock = mock(res)
-    .expects('send')
+    .expects('json')
     .once()
 
   // action
@@ -93,7 +93,7 @@ test('signup new user', t => {
     .withArgs('any user')
     .returns(UserModel)
   const mockRes = mock(res)
-    .expects('send')
+    .expects('json')
     .once()
     .withExactArgs(user.toJSON())
 

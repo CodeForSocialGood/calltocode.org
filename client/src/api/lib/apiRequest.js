@@ -17,6 +17,7 @@ async function apiRequest (apiOptions, options) {
   if (!res.ok) {
     // TODO: possibly handle errors here. could throw a ResponseError
     console.log('fetch errored.')
+    console.log(res)
   }
 
   return res.json()
