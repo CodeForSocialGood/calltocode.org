@@ -2,7 +2,8 @@
 
 set -e
 
-DEPLOY_DIST_DIR=deploy/dist
+DEPLOY_DIR=${DEPLOY_DIR:=deploy}
+DEPLOY_DIST_DIR=$DEPLOY_DIR/dist
 
 build () {
   set -x
@@ -16,7 +17,7 @@ build () {
 
 start () {
   set -x
-  pushd deploy/
+  pushd $DEPLOY_DIR
     docker-compose stop
     docker-compose rm -vf
     docker-compose pull
@@ -29,7 +30,7 @@ start () {
 
 stop () {
   set -x
-  pushd deploy/
+  pushd $DEPLOY_DIR
     docker-compose stop
     docker-compose rm -vf
   popd
@@ -38,7 +39,7 @@ stop () {
 ci_deploy_to_test () {
   build
   set -x
-  docker build -t blueberrymozart/test-c2c -f deploy/Dockerfile .
+  docker build -t blueberrymozart/test-c2c -f $DEPLOY_DIR/Dockerfile .
   docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   docker push blueberrymozart/test-c2c
   apt-get install sshpass
