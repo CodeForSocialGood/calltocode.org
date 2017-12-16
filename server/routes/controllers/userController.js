@@ -33,7 +33,11 @@ const userController = {
         return res.sendStatus(404)
       }
 
-      const { projectsAppliedFor } = req.body.user
+      const { email, projectsAppliedFor } = req.body.user
+
+      if (typeof email !== 'undefined') {
+        user.email = email
+      }
 
       if (typeof projectsAppliedFor !== 'undefined') {
         user.projectsAppliedFor = projectsAppliedFor
