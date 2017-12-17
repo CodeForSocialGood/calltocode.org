@@ -24,13 +24,14 @@ class Project extends Component {
 
   renderProjectApplicationResult (project) {
     const applied = this.getAppliedStatus()
-    if (applied && (this.props.user.usertype !== 'contact')) {
+    const isContact = this.isUserTypeContact()
+    if (applied && !isContact) {
       return (
         <span className={styles.listApplyPass}>
           &#10004;
         </span>
       )
-    } else if (this.props.user.usertype !== 'contact') {
+    } else if (!isContact) {
       return (
         <span className={styles.listApplyFail}>
           &#10007;
@@ -46,19 +47,19 @@ class Project extends Component {
     )
   }
 
-  getUserTypeContact () {
+  isUserTypeContact () {
     return this.props.user.usertype === 'contact'
   }
 
   render () {
     const applied = this.getAppliedStatus()
-    const contact = this.getUserTypeContact()
-    const liClassName =
-    this.props.authenticated && !applied && !contact
-      ? styles.listOrgAuthenticated
-      : this.props.authenticated && !applied
-        ? styles.listOrgAuthenticatedContact
-        : styles.listOrg
+    const isContact = this.isUserTypeContact()
+    let liClassName = styles.listOrg
+    if (this.props.authenticated && !applied && !isContact) {
+      liClassName = styles.listOrgAuthenticated
+    } else if (this.props.authenticated && !applied) {
+      liClassName = styles.listOrgAuthenticatedContact
+    }
 
     return (
       <li
