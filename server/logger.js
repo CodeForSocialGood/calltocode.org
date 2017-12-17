@@ -1,17 +1,47 @@
 const Rollbar = require('rollbar')
 
 const { rollbarConfig } = require('./config')
+const { enabled, verbose } = rollbarConfig
 const rollbar = new Rollbar(rollbarConfig)
 
 const logger = {
-  // Forward these errors to rollbar, verbose option decides to log locally
-  critical (error) { rollbar.critical(error) },
-  error (error) { rollbar.error(error) },
-  warn (warning) { rollbar.warning(warning) },
-  // These will never report to rollbar, manually check verbose option
-  info (...args) { if (rollbarConfig.verbose) { console.info.apply(console, args) } },
-  debug (...args) { if (rollbarConfig.verbose) { console.log.apply(console, args) } },
-  log (...args) { this.debug.apply(this.debug, args) }
+  critical (error) {
+    if (enabled) {
+      rollbar.critical(error)
+    } else if (verbose) {
+      console.error.apply(console, arguments)
+    }
+  },
+  error (error) {
+    if (enabled) {
+      rollbar.error(error)
+    } else if (verbose) {
+      console.error.apply(console, arguments)
+    }
+  },
+  warn (warning) {
+    if (enabled) {
+      rollbar.warning(warning)
+    } else if (verbose) {
+      console.warn.apply(console, arguments)
+    }
+  },
+  info (message) {
+    if (enabled) {
+      rollbar.info(message)
+    } else if (verbose) {
+      console.info.apply(console, arguments)
+    }
+  },
+  debug (message) {
+    if (enabled) {
+      rollbar.debug(message)
+    } else if (verbose) {
+      console.log.apply(console, arguments)
+    }
+  },
+  warning () { this.warn.apply(this.warn, arguments) },
+  log () { this.debug.apply(this.debug, arguments) }
 }
 
 module.exports = logger
