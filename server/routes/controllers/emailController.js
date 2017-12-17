@@ -1,9 +1,10 @@
 const sendgrid = require('@sendgrid/mail')
+const { emailConfig } = require('../../config')
 
 const emailController = {
   _init (emailClient = sendgrid) {
     this.emailClient = emailClient
-    this.emailClient.setApiKey(process.env.SENDGRID_API_KEY)
+    this.emailClient.setApiKey(emailConfig.sendgridApiKey)
 
     this.sendToOrg = this.sendToOrg.bind(this)
     return this
@@ -19,7 +20,6 @@ const emailController = {
       html: `<strong>${text}</strong>`,
       text
     }
-    // TODO: Need SENDGRID_API_KEY in process.env for this to not error
     this.emailClient.send(message)
     res.sendStatus(200)
   }
