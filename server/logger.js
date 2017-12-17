@@ -1,47 +1,25 @@
 const Rollbar = require('rollbar')
 
 const { rollbarConfig } = require('./config')
-const { enabled, verbose } = rollbarConfig
 const rollbar = new Rollbar(rollbarConfig)
 
 const logger = {
-  critical (error) {
-    if (enabled) {
-      rollbar.critical(error)
-    } else if (verbose) {
-      console.error.apply(console, arguments)
+  critical: handleLog('critical', 'error'),
+  error: handleLog('error'),
+  warn: handleLog('warn'),
+  info: handleLog('info'),
+  debug: handleLog('debug'),
+  log: handleLog('log')
+}
+
+function handleLog (rollbarLevel, localLevel = rollbarLevel) {
+  return function (message) {
+    if (rollbarConfig.enabled) {
+      rollbar[rollbarLevel](message)
+    } else if (rollbarConfig.verbose) {
+      console[localLevel](...arguments)
     }
-  },
-  error (error) {
-    if (enabled) {
-      rollbar.error(error)
-    } else if (verbose) {
-      console.error.apply(console, arguments)
-    }
-  },
-  warn (warning) {
-    if (enabled) {
-      rollbar.warning(warning)
-    } else if (verbose) {
-      console.warn.apply(console, arguments)
-    }
-  },
-  info (message) {
-    if (enabled) {
-      rollbar.info(message)
-    } else if (verbose) {
-      console.info.apply(console, arguments)
-    }
-  },
-  debug (message) {
-    if (enabled) {
-      rollbar.debug(message)
-    } else if (verbose) {
-      console.log.apply(console, arguments)
-    }
-  },
-  warning () { this.warn.apply(this.warn, arguments) },
-  log () { this.debug.apply(this.debug, arguments) }
+  }
 }
 
 module.exports = logger
