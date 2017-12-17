@@ -2,5 +2,6 @@ module.exports = {
   appConfig: require('./app'),
   authConfig: require('./auth'),
   databaseConfig: require('./database'),
-  rollbarConfig: require('./rollbar')
+  rollbarConfig: require('./rollbar'),
+  emailConfig: require('./email')
 }
