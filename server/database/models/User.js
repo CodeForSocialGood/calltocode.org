@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+
 const { authConfig } = require('../../config')
 
 const UserSchema = mongoose.Schema({

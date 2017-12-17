@@ -1,14 +1,10 @@
 const router = require('express').Router()
 
+const routeLogger = require('../middleware/routeLogger')
 const indexController = require('./controllers/indexController')._init()
 
-router.use(logger)
+router.use(routeLogger)
 router.use('/api', require('./api'))
 router.get('*', indexController.getIndexPage.bind(indexController))
-
-function logger (req, res, next) {
-  console.log(`${req.method} ${req.originalUrl} on ${new Date()}`)
-  next()
-}
 
 module.exports = router
