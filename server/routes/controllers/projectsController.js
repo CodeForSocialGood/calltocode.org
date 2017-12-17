@@ -26,7 +26,7 @@ const projectsController = {
     })
   },
 
-  getProjects (req, res) {
+  getProjects (req, res, next) {
     const query = {}
     const limit = Number(req.query.limit) || 20
     const offset = Number(req.query.offset) || 0
@@ -42,13 +42,9 @@ const projectsController = {
       query.organization = organization
     }
 
-    this.Projects.find(query).limit(limit).skip(offset).sort(sort).exec((err, projects) => {
-      if (err) {
-        return res.sendStatus(500)
-      }
-
-      return res.status(200).send(projects.map(project => project.toJSON()))
-    })
+    this.Projects.find(query).limit(limit).skip(offset).sort(sort).then(projects => {
+      return res.status(200).json(projects.map(project => project.toJSON()))
+    }).catch(next)
   },
 
   getProject (req, res) {
