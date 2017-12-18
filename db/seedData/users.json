@@ -4,7 +4,8 @@
 	},
 	"usertype": "contact",
 	"email": "mary@email.com",
-	"password": "mary.password",
+	"salt" : "$2a$10$Wf/vK558w2vQm29SrH.xxO",
+  "hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
 	"organization": "5b165cb5202e8986f99ec5c0",
 	"__v": 0
 }
@@ -14,20 +15,11 @@
 	},
 	"usertype": "volunteer",
 	"email": "kevin@email.com",
-	"password": "kevin.password",
+	"salt" : "$2a$10$Uul1BtyDlBKWvtYabzZ4L.",
+  "hash" : "$2a$10$Uul1BtyDlBKWvtYabzZ4L.qLVuY7di8A0.Tlo2r7U2xvGpIkKmCPy",
 	"projectsAppliedFor": [
 		"5a165cb5202e8986f99ec5c1",
 		"5a165cb5202e8986f99ec5c3"
 	],
-	"__v": 0
-}
-{
-	"_id": {
-		"$oid": "5a1658a0327c0286c39a1dec"
-	},
-	"usertype": "volunteer",
-	"email": "kevin2@email.com",
-	"password": "kevin2.password",
-	"projectsAppliedFor": [],
 	"__v": 0
 }
