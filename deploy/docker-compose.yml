@@ -9,6 +9,9 @@ services:
     ports:
     - 3000:3000
     restart: on-failure
+    environment:
+    - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+    - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
 
   db:
     image: mongo:3.4-jessie

@@ -21,8 +21,7 @@
     "start:dev": "NODE_ENV=dev npm-run-all --parallel client:watch server:watch",
     "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
     "test": "ava",
-    "db": "./db/run.sh",
-    "db:reset": "./db/stop.sh"
+    "db": "./db/run.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
@@ -54,6 +53,7 @@
     "redux-form": "^7.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "rollbar": "^2.3.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
