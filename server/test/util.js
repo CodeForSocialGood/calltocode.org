@@ -1,7 +1,7 @@
 const MongodbMemoryServer = require('mongodb-memory-server').default
 const mongoose = require('mongoose')
 
-const app = require('./app')
+const app = require('../app')
 const Project = require('../database/models/Project')
 const User = require('../database/models/User')
 const seedProjects = require('../../db/seedData/projects.json')

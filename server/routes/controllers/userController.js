@@ -9,28 +9,24 @@ const userController = {
     return this
   },
 
-  getCurrent (req, res) {
-    this.Users.findById(req.payload.id).exec((err, user) => {
-      if (err) {
-        return res.sendStatus(500)
-      }
+  getCurrent (req, res, next) {
+    const id = req.payload.id
 
+    this.Users.findById(id).then(user => {
       if (!user) {
-        return res.sendStatus(404)
+        return res.status(404).json({ error: 'User not found' })
       }
 
-      return res.status(200).send(user.toJSON())
-    })
+      return res.status(200).json(user.toJSON())
+    }).catch(next)
   },
 
-  putCurrent (req, res) {
-    this.Users.findById(req.payload.id).exec((err, user) => {
-      if (err) {
-        return res.sendStatus(500)
-      }
+  putCurrent (req, res, next) {
+    const id = req.payload.id
 
+    this.Users.findById(id).then(user => {
       if (!user) {
-        return res.sendStatus(404)
+        return res.status(404).json({ error: 'User not found' })
       }
 
       const { email, projectsAppliedFor } = req.body.user
@@ -43,14 +39,10 @@ const userController = {
         user.projectsAppliedFor = projectsAppliedFor
       }
 
-      return user.save(err => {
-        if (err) {
-          return res.sendStatus(500)
-        }
-
+      user.save().then(() => {
         return res.status(200).send(user.toJSON())
       })
-    })
+    }).catch(next)
   }
 }
 

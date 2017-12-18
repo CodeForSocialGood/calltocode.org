@@ -30,20 +30,16 @@ const projectsController = {
     }).catch(next)
   },
 
-  getProject (req, res) {
+  getProject (req, res, next) {
     const id = req.params.project
 
-    this.Projects.findById(id).exec((err, project) => {
-      if (err) {
-        return res.sendStatus(500)
-      }
-
+    this.Projects.findById(id).then(project => {
       if (!project) {
-        return res.sendStatus(404)
+        return res.status(404).json({ error: 'Project not found' })
       }
 
-      return res.status(200).send(project.toJSON())
-    })
+      return res.status(200).json(project.toJSON())
+    }).catch(next)
   }
 }
 

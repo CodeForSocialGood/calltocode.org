@@ -74,6 +74,16 @@ test.serial('getProject with a valid id', async t => {
   t.deepEqual(res.body, toJSON.call(project))
 })
 
+test.serial('getProject with a valid unused id should return project not found', async t => {
+  const { app } = t.context
+  const organizationId = '5b165cb5202e8986f99ec5c0'
+  const res = await request(app)
+    .get(`/api/projects/${organizationId}`)
+
+  t.is(res.status, 404)
+  t.deepEqual(res.body, { error: 'Project not found' })
+})
+
 test.serial('getProject with an invalid id should error', async t => {
   const { app } = t.context
   const res = await request(app)
