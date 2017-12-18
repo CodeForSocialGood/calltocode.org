@@ -12,10 +12,10 @@ const logger = {
   log: handleLog('log')
 }
 
-function handleLog (rollbarLevel, localLevel = rollbarLevel) {
-  return function (message) {
+function handleLog (rollbarLevel = 'debug', localLevel = rollbarLevel) {
+  return function () {
     if (rollbarConfig.enabled) {
-      rollbar[rollbarLevel](message)
+      rollbar[rollbarLevel](...arguments)
     } else if (rollbarConfig.verbose) {
       console[localLevel](...arguments)
     }
