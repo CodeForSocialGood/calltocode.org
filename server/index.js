@@ -1,5 +1,4 @@
 const app = require('./app')
-
 const { appConfig, databaseConfig } = require('./config')
 const database = require('./database')._init(databaseConfig.url)
 const logger = require('./logger')
