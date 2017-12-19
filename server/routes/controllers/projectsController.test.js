@@ -1,7 +1,7 @@
 import test from 'ava'
 import request from 'supertest'
 
-import { before, beforeEach, afterEach, after } from '../../test/util'
+import { before, beforeEach, afterEach, after, formatData } from '../../test/util'
 import seedProjects from '../../../db/seedData/projects.json'
 import Project from '../../database/models/Project'
 
@@ -66,7 +66,7 @@ test.serial('getProjects, contact with invalid organization should error', async
 
 test.serial('getProject with a valid id', async t => {
   const { app } = t.context
-  const project = seedProjects[0]
+  const project = formatData(seedProjects[0])
   const res = await request(app)
     .get(`/api/projects/${project._id}`)
 

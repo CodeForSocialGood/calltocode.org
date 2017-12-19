@@ -18,12 +18,12 @@ async function before (t) {
 
 async function beforeEach (t) {
   for (const seedProject of seedProjects) {
-    const project = new Project(fix(seedProject))
+    const project = new Project(formatData(seedProject))
     await project.save()
   }
 
   for (const seedUser of seedUsers) {
-    const user = new User(fix(seedUser))
+    const user = new User(formatData(seedUser))
     await user.save()
   }
 
@@ -40,9 +40,8 @@ async function after (t) {
   mongod.stop()
 }
 
-function fix (data) {
-  if (data['_id']['$oid']) data['_id'] = data['_id']['$oid']
-  return data
+function formatData (data) {
+  return { ...data, _id: data['_id']['$oid'] }
 }
 
-module.exports = { before, beforeEach, afterEach, after }
+module.exports = { before, beforeEach, afterEach, after, formatData }

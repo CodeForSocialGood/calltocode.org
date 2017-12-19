@@ -1,7 +1,7 @@
 import test from 'ava'
 import request from 'supertest'
 
-import { before, beforeEach, afterEach, after } from '../../test/util'
+import { before, beforeEach, afterEach, after, formatData } from '../../test/util'
 import seedUsers from '../../../db/seedData/users.json'
 import User from '../../database/models/User'
 
@@ -14,7 +14,7 @@ test.after.always(after)
 
 test.serial('getCurrent, valid token', async t => {
   const { app } = t.context
-  const user = seedUsers[0]
+  const user = formatData(seedUsers[0])
   const token = generateSessionToken.call(user)
   const res = await request(app)
     .get('/api/user')
@@ -35,7 +35,7 @@ test.serial('getCurrent, invalid token should error unauthorized', async t => {
 
 test.serial('putCurrent, valid token', async t => {
   const { app } = t.context
-  const user = seedUsers[0]
+  const user = formatData(seedUsers[0])
   const token = generateSessionToken.call(user)
   const updatedEmail = 'updatedEmail@email.com'
   const res = await request(app)

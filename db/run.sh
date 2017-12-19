@@ -12,10 +12,10 @@ set -e
 echo 'Starting new docker container with MongoDB..'
 docker run --name $CONTAINER_NAME -d -p 27017:27017 -p 28017:28017 mongo
 
-echo "Copying seed data to docker container.."
+echo 'Copying seed data to docker container..'
 docker cp ./db/seedData/users.json $CONTAINER_NAME:users.json
 docker cp ./db/seedData/projects.json $CONTAINER_NAME:projects.json
 
-echo "Adding seed data to MongoDB.."
+echo 'Adding seed data to MongoDB..'
 docker exec $CONTAINER_NAME mongoimport --db admin --collection users --file users.json --type json --jsonArray
 docker exec $CONTAINER_NAME mongoimport --db admin --collection projects --file projects.json --type json --jsonArray
