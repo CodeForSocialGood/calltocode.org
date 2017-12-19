@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import emailApiClient from '../../api/email'
 import styles from '../ListOfProjects/ListOfProjects.scss'
 
 class Project extends Component {
@@ -10,35 +9,29 @@ class Project extends Component {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
-    this.mailToOrganization = this.mailToOrganization.bind(this)
     this.renderProjectApplicationResult = this.renderProjectApplicationResult.bind(this)
     this.getAppliedStatus = this.getAppliedStatus.bind(this)
   }
 
   handleClick () {
-    const { authenticated, user: { usertype } } = this.props
+    const { authenticated, project, user } = this.props
     const applied = this.getAppliedStatus()
 
-    if (authenticated && usertype === 'volunteer' && !applied) {
-      return this.mailToOrganization(this.props.project)
+    if (!applied && authenticated && user.usertype === 'volunteer') {
+      return this.props.applyForProject(project, user)
     }
-  }
-
-  mailToOrganization (project) {
-    return emailApiClient.send(project).then(response => {
-      this.props.applyForProject(project, this.props.user)
-    })
   }
 
   renderProjectApplicationResult (project) {
     const applied = this.getAppliedStatus()
-    if (applied) {
+    const isContact = this.isUserTypeContact()
+    if (applied && !isContact) {
       return (
         <span className={styles.listApplyPass}>
           &#10004;
         </span>
       )
-    } else {
+    } else if (!isContact) {
       return (
         <span className={styles.listApplyFail}>
           &#10007;
@@ -49,16 +42,24 @@ class Project extends Component {
 
   getAppliedStatus () {
     return (
-      this.props.user.opportunitiesAppliedFor &&
-      this.props.user.opportunitiesAppliedFor.includes(this.props.project._id)
+      this.props.user.projectsAppliedFor &&
+      this.props.user.projectsAppliedFor.includes(this.props.project.id)
     )
+  }
+
+  isUserTypeContact () {
+    return this.props.user.usertype === 'contact'
   }
 
   render () {
     const applied = this.getAppliedStatus()
-    const liClassName = this.props.authenticated && !applied
-      ? styles.listOrgAuthenticated
-      : styles.listOrg
+    const isContact = this.isUserTypeContact()
+    let liClassName = styles.listOrg
+    if (this.props.authenticated && !applied && !isContact) {
+      liClassName = styles.listOrgAuthenticated
+    } else if (this.props.authenticated && !applied) {
+      liClassName = styles.listOrgAuthenticatedContact
+    }
 
     return (
       <li

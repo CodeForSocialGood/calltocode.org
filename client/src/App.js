@@ -4,15 +4,15 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from './actions/auth'
-
+import CreateProjectForm from './components/CreateProjectForm/CreateProjectForm'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import LoginForm from './components/LoginForm/LoginForm'
+import NewPasswordForm from './components/NewPasswordForm/NewPasswordForm'
 import Profile from './components/Profile/Profile'
 import restricted from './components/Restricted/Restricted'
 import SignupForm from './components/SignupForm/SignupForm'
-import CreateProjectForm from './components/CreateProjectForm/CreateProjectForm'
 
 class App extends Component {
   componentDidMount () {
@@ -25,11 +25,12 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/login' component={LoginForm}/>
-          <Route path='/signup' component={SignupForm}/>
-          <Route path='/profile' component={restricted(Profile)}/>
-          <Route path='/forgot-password' component={ForgotPasswordForm}/>
           <Route path='/create-project' component={CreateProjectForm}/>
+          <Route path='/forgot-password' component={ForgotPasswordForm}/>
+          <Route path='/login' component={LoginForm}/>
+          <Route path='/new-password' component={NewPasswordForm} />
+          <Route path='/profile' component={restricted(Profile)}/>
+          <Route path='/signup' component={SignupForm}/>
         </Switch>
       </div>
     )

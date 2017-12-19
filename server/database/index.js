@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+//  mongoose.Promise = Promise
 
 const database = {
   _init (url, client = mongoose) {

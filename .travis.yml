@@ -1,26 +1,36 @@
+sudo: required
+
 language: node_js
-before_install: yarn global add greenkeeper-lockfile@1
-before_script: greenkeeper-lockfile-update
-script:
-- yarn build
-- yarn test
-after_script: greenkeeper-lockfile-upload
-cache:
-  directories:
-  - node_modules
-  yarn: true
-notifications:
-  email: false
+
+services:
+- docker
+
 branches:
   only:
   - master
   - /^greenkeeper/.*$/
+
+before_install: npm install --global greenkeeper-lockfile@1
+
+before_script: greenkeeper-lockfile-update
+
+script:
+- yarn build
+- yarn test
+
+after_script: greenkeeper-lockfile-upload
+
+after_success:
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./deploy/run.sh ci_deploy_to_test; fi
+
+cache:
+  directories:
+  - node_modules
+  yarn: true
+
+notifications:
+  email: false
+
 notifications:
   slack:
     secure: "$SLACK_TOKEN"
-deploy:
-  provider: heroku
-  api_key:
-    secure: "$HEROKU_API_KEY"
-  app:
-    master: calltocode
