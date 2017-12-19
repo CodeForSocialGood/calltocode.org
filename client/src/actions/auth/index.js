@@ -68,7 +68,8 @@ export default class AuthActionCreator {
         const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
         if (response.status === 200) {
           dispatch({
-            ...forgotPass
+            ...forgotPass,
+            payload: email
           })
         }
       } catch (e) {

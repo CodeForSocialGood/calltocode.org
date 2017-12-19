@@ -1,13 +1,61 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import React, { Component } from 'react'
+import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import AuthActionCreator from '../../actions/auth'
+import SendVerificationCodeForm from './SendVerificationCodeForm'
+import ValidateVerificationCode from './ValidateVerificationCodeForm'
 
-import styles from './ForgotPasswordForm.scss'
+class ForgotPasswordForm extends Component {
+  constructor (props) {
+    super(props)
+    this.nextPage = this.nextPage.bind(this)
+    this.state = {
+      page: 1
+    }
+  }
 
-function EmailField ({input}) {
+  nextPage ({email}) {
+    this.setState({page: this.state.page + 1})
+    console.log('AAAAA', email)
+    this.props.sendValidationCode(email)
+  }
+
+  render () {
+    const {page} = this.state
+    return (
+      <div>
+        {page === 1 && <SendVerificationCodeForm onSubmit={this.nextPage} />}
+        {page === 2 &&
+          <ValidateVerificationCode
+          />}
+      </div>
+    )
+  }
+}
+
+ForgotPasswordForm.propTypes = {
+  sendValidationCode: PropTypes.func
+}
+
+const mapDispatchToProps = {
+  sendValidationCode: AuthActionCreator.sendValidationCode
+}
+
+function mapStateToProps (state) {
+  return {
+    email: state.forgotPass.email
+  }
+}
+
+const ForgotPasswordFormRedux = reduxForm({
+  form: 'ForgotPasswordForm'
+})(ForgotPasswordForm)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux)
+
+/* function EmailField ({ input }) {
   return (
     <input
       className={styles.inputEmail}
@@ -17,28 +65,54 @@ function EmailField ({input}) {
 }
 
 function ForgotPasswordForm (props) {
-  const { handleSubmit, sendValidationCode } = props
+  const { handleSubmit, sendValidationCode, email } = props
   return (
-    <form onSubmit={ handleSubmit(sendValidationCode) }
-      className={styles.form}>
+    <div>
+      {!email &&
+        <form onSubmit={handleSubmit(sendValidationCode)}
+          className={styles.form}>
 
-      <h1
-        className={styles.title}>
-          Forgot Password?
-      </h1>
+          <h1
+            className={styles.title}>
+            Forgot Password?
+          </h1>
 
-      <h3>{"Let's get you a new one!"}</h3>
+          <h3>{"Let's get you a new one!"}</h3>
 
-      <Field
-        name="email"
-        component={EmailField}/>
+          <Field
+            name="email"
+            component={EmailField} />
 
-      <button
-        className={styles.buttonSubmit}
-        type="submit">
-          Send Verification Code
-      </button>
-    </form>
+          <button
+            className={styles.buttonSubmit}
+            type="submit">
+            Send Verification Code
+          </button>
+        </form>
+      }
+      {email &&
+        <form onSubmit={handleSubmit(sendValidationCode)}
+          className={styles.form}>
+
+          <h1
+            className={styles.title}>
+            Forgot Password?
+          </h1>
+
+          <h3>{"Let's get you a new one!"}</h3>
+
+          <Field
+            name="email"
+            component={EmailField} />
+
+          <button
+            className={styles.buttonSubmit}
+            type="submit">
+            Validate code
+          </button>
+        </form>
+      }
+    </div>
   )
 }
 
@@ -47,16 +121,23 @@ EmailField.propTypes = {
 }
 ForgotPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
-  sendValidationCode: PropTypes.func
+  sendValidationCode: PropTypes.func,
+  email: PropTypes.string
 }
 
 const mapDispatchToProps = {
   sendValidationCode: AuthActionCreator.sendValidationCode
 }
 
+function mapStateToProps (state) {
+  return {
+    email: state.forgotPass.email
+  }
+}
+
 const ForgotPasswordFormRedux = reduxForm({
   form: 'ForgotPasswordForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/login'))
+  onSubmitSuccess: (result, dispatch) => dispatch(push('/forgot-password'))
 })(ForgotPasswordForm)
 
-export default connect(null, mapDispatchToProps)(ForgotPasswordFormRedux)
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux) */
