@@ -1,26 +1,37 @@
 @import '../../scss/partials/partials';
 
 .header {
-  padding: 0 60px;
-  margin-top: 60px;
+  padding: 20px 60px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 84px;
+    left: 0;
+    height: 2px;
+    background: #F9F9F9;
+  }
 }
 
 .button {
-  @extend %button;
   padding: 10px;
   margin-left: 10px;
+  color: dimgray;
 
-  &:hover {
-    @extend %hover;
+  &:active {
+    color: royalblue;
   }
 }
 
 .buttons {
   text-align: right;
+  align-self: center;
 }
 
 .logo {
   height: 42px;
+  align-self: center;
 }
