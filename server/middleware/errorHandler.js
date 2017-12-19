@@ -7,7 +7,7 @@ function errorHandler () {
     const error = { name: err.name, message: err.message, stack: err.stack }
     for (const prop in err) error[prop] = err[prop]
 
-    res.status(err.status || 500).json({ error })
+    return res.status(err.status || 500).json({ error })
   }
 }
 
