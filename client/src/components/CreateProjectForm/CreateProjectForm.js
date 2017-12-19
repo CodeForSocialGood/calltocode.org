@@ -31,7 +31,7 @@ class CreateProjectForm extends Component {
 
 const CreateProjectFormRedux = reduxForm({
   form: 'CreateProjectForm',
-  onSubmitSuccess:(result, dispatch) => {
+  onSubmitSuccess: (result, dispatch) => {
 
   }
 })(CreateProjectForm)
