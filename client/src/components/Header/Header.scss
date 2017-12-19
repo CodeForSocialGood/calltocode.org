@@ -1,7 +1,7 @@
 @import '../../scss/partials/partials';
 
 .header {
-  padding: 20px 60px;
+  padding: 10px 60px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
@@ -9,7 +9,7 @@
     content: '';
     position: absolute;
     width: 100%;
-    top: 84px;
+    top: 64px;
     left: 0;
     height: 2px;
     background: #F9F9F9;
