@@ -7,6 +7,15 @@ This document contains potential solutions to common problems and errors. If you
 
 ## <a name="errors"></a> Errors
 
+**Problem**: `Error: address already in use`
+
+**Solution**:
+```bash
+lsof -ti tcp:3000,27017,28017 | xargs kill -9 --no-run-if-empty
+```
+
+---
+
 **Problem (1)**: I pulled the latest changes from master and I am now getting an error.
 
 **Problem (2)**: I installed a new dependency with `npm install` and I am now getting an error.
