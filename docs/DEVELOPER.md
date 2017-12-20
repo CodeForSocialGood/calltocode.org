@@ -1,6 +1,6 @@
-# Developer Environment Setup
+# Development Environment Setup
 
-This document contains general guidelines for setting up a developer environment sufficient for getting started with
+This document contains general guidelines for setting up a development environment sufficient for getting started with
 contributing to this project:
 
 - [Mac OS Setup](#mac)
@@ -52,7 +52,13 @@ $ nvm install
 $ direnv allow
 ```
 
-### 7. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
+### 7. Install [docker](https://docs.docker.com/engine/installation/#supported-platforms)
+
+### 8. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
+
+### 9. (Optional) Download [Robo 3T](https://robomongo.org/)
+
+Robo 3T (formerly known as Robomongo) is a MongoDB management tool with a GUI, making it easy to view the database.
 
 ## <a name="linux"></a> Linux Setup
 
