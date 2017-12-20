@@ -15,10 +15,18 @@ class Header extends Component {
 
   renderHeaderButtons () {
     if (this.props.authenticated) {
-      return ([
+      const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
         <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>
-      ])
+      ]
+      if (this.props.user.usertype === 'contact') {
+        return [
+          <Link key="create-project" to='/create-project' className={styles.button}>CREATE PROJECT</Link>,
+          ...authButtons
+        ]
+      } else {
+        return authButtons
+      }
     } else {
       return ([
         <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
@@ -43,7 +51,8 @@ class Header extends Component {
 
 function mapStateToProps (state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    user: state.user
   }
 }
 
@@ -53,7 +62,8 @@ const mapDispatchToProps = {
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
