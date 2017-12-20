@@ -1,6 +1,6 @@
 # Contributing to calltocode.org
 
-This document contains general guidelines for contributing to calltocode:
+This document contains general guidelines for contributing to this project:
 
 - [Prerequisites](#prerequisites)
 - [Getting the Project Source](#source)
@@ -158,14 +158,14 @@ $ git push --set-upstream origin <branch-name>
 You can now create a pull request using the Github web interface. Please format the PR as follows:
 
 - Pull Request Title: `<story type>/<story id> - <story name>`
-  - <story type> is required and one of the following:
+  - `<story type>` is required and one of the following:
     - **Feature** - a feature story
     - **Fix** - a bug story
     - **Chore** - a chore story
-  - <story id> is required:
-    - For example: #153541038
-  - <story name> is required:
-    - For example: Expand contributing guide
+  - `<story id>` is required:
+    - For example: `#153541038`
+  - `<story name>` is required:
+    - For example: `Expand contributing guide`
   - Full Example: `Chore/#153541038 - Expand contributing guide`
 - Pull Request Body: no requirements
 

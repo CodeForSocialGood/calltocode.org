@@ -7,6 +7,8 @@ contributing to this project:
 - [Linux Setup](#linux)
 - [Windows 10 Setup](#windows10)
 
+See the [contribution guidelines](./CONTRIBUTING.md) to start contributing.
+
 ## <a name="mac"></a> Mac OS Setup
 
 ### 1. Install Homebrew
@@ -52,7 +54,7 @@ $ nvm install
 $ direnv allow
 ```
 
-### 7. Install [docker](https://docs.docker.com/engine/installation/#supported-platforms)
+### 7. Install [Docker](https://docs.docker.com/engine/installation/#supported-platforms)
 
 ### 8. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
 
