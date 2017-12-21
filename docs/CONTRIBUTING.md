@@ -1,4 +1,4 @@
-# Contributing to calltocode.org
+# Contributing to Call to Code
 
 This document contains general guidelines for contributing to this project:
 
@@ -11,7 +11,7 @@ This document contains general guidelines for contributing to this project:
 
 ## <a name="prerequisites"></a> Prerequisites
 
-Make sure your development environment is properly setup by following the [development environment setup](docs/DEVELOPER.md) guide.
+Make sure your development environment is properly setup by following the [development environment setup](./DEVELOPER.md) guide.
 
 ## <a name="source"></a> Getting the Project Source
 
@@ -138,7 +138,7 @@ $ git solo <initials>                   # if you are working solo
 $ git duet <initials-1> <initials-2>    # if you are pairing with someone
 ```
 
-*For more details, go to [Developer Environment Setup](./DEVELOPER.md#rest).*
+*For more details, go to [developer environment setup](./DEVELOPER.md#rest).*
 
 ### Commit Message
 
