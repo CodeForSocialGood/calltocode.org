@@ -1,4 +1,5 @@
 const jwt = require('express-jwt')
+
 const { authConfig } = require('../config')
 
 function getTokenFromHeader (req) {

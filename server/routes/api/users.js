@@ -1,9 +1,7 @@
 const router = require('express').Router()
 
-const auth = require('../auth')
+const auth = require('../../middleware/auth')
 const usersController = require('../controllers/usersController')._init()
-
-// router.param('user', usersController.preloadUser)
 
 router.route('/')
   .get(auth.optional, usersController.getUsers)
