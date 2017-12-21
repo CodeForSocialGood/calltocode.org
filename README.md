@@ -1,9 +1,9 @@
-# calltocode.org
+# Call to Code
 
-![nonprofit][nonprofit]
 [![travis][travis]][travis-url]
 [![test][test]][test-url]
 [![prod][prod]][prod-url]
+![nonprofit][nonprofit]
 
 ![logo][logo]
 
@@ -34,8 +34,6 @@ $ yarn build                      # generate client distribution (npm run build)
 ```
 *Although yarn is recommended, you may also use npm natively. The corresponding npm commands are in parenthesis above.*
 
-[nonprofit]: https://img.shields.io/badge/project-nonprofit-ff69b4.svg
-
 [travis]: https://travis-ci.org/CodeForSocialGood/calltocode.org.svg
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
 
@@ -44,5 +42,7 @@ $ yarn build                      # generate client distribution (npm run build)
 
 [prod]: https://img.shields.io/badge/prod-calltocode.org-orange.svg
 [prod-url]: http://calltocode.org/
+
+[nonprofit]: https://img.shields.io/badge/project-nonprofit-ff69b4.svg
 
 [logo]: /docs/media/logo.png
