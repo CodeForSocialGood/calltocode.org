@@ -1,12 +1,23 @@
+const http = require('http')
+const https = require('https')
+
 const app = require('./app')
 const { appConfig, databaseConfig } = require('./config')
 const database = require('./database')._init(databaseConfig.url)
 const logger = require('./logger')
 
-app.listen(appConfig.port, run)
+getServer().listen(appConfig.port, runServer)
 
-async function run () {
-  logger.log(`App listening on port ${appConfig.port}`)
+function getServer () {
+  switch (process.env.NODE_ENV) {
+    case 'prod':
+    case 'test': return https.createServer(appConfig.httpsOptions, app)
+    default: return http.createServer(app)
+  }
+}
+
+async function runServer () {
+  logger.log(`App listening on port ${this.address().port}`)
 
   try {
     await database.connect()
