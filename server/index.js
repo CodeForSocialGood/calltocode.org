@@ -1,4 +1,3 @@
-const fs = require('fs')
 const http = require('http')
 const https = require('https')
 
@@ -12,13 +11,8 @@ getServer().listen(appConfig.port, runServer)
 function getServer () {
   switch (process.env.NODE_ENV) {
     case 'prod':
-    case 'test':
-      return https.createServer({
-        key: fs.readFileSync('./deploy/test/privateKey.key'),
-        cert: fs.readFileSync('./deploy/test/certificate.crt')
-      }, app)
-    default:
-      return http.createServer(app)
+    case 'test': return https.createServer(appConfig.httpsOptions, app)
+    default: return http.createServer(app)
   }
 }
 
