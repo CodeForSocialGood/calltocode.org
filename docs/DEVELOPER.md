@@ -60,7 +60,7 @@ $ direnv allow
 
 ### 9. (Optional) Download [Robo 3T](https://robomongo.org/)
 
-Robo 3T (formerly known as Robomongo) is a MongoDB management tool with a GUI, making it easy to view the database.
+Robo 3T (formerly known as Robomongo) is a MongoDB management tool with a GUI, making it easy to view and manage the database.
 
 ## <a name="linux"></a> Linux Setup
 

@@ -11,7 +11,7 @@ This document contains general guidelines for contributing to this project:
 
 ## <a name="prerequisites"></a> Prerequisites
 
-Make sure your development environment is properly setup by following the [Development Environment Setup](docs/DEVELOPER.md) guide.
+Make sure your development environment is properly setup by following the [development environment setup](docs/DEVELOPER.md) guide.
 
 ## <a name="source"></a> Getting the Project Source
 
@@ -23,6 +23,7 @@ Make sure your development environment is properly setup by following the [Devel
 $ cd ~
 $ mkdir -p workspace && cd workspace
 $ git clone git@github.com:CodeForSocialGood/calltocode.org
+$ cd calltocode.org/
 ```
 
 ### Alternatively, you can fork and clone the repository
@@ -31,13 +32,14 @@ $ git clone git@github.com:CodeForSocialGood/calltocode.org
 2. Fork the [main calltocode.org repository](https://github.com/CodeForSocialGood/calltocode.org).
 3. Clone your fork of the repository and define an upstream remote pointing back to the main calltocode.org repository that you forked in the first place:
 ```bash
-git clone git@github.com:<github username>/calltocode.org
-cd calltocode.org/
-git remote add upstream https://github.com/CodeForSocialGood/calltocode.org
+$ cd ~
+$ mkdir -p workspace && cd workspace
+$ git clone git@github.com:<github username>/calltocode.org
+$ cd calltocode.org/
+$ git remote add upstream https://github.com/CodeForSocialGood/calltocode.org
 ```
 
 ## <a name="running"></a> Get the App Running
-
 
 ### Install Dependencies
 
@@ -63,6 +65,8 @@ $ yarn start
 $ yarn stop
 ```
 
+*Note: ports 3000, 27017, and 28017 will need to be available on your machine to run the app. If you run into a problem here, checkout our [database troubleshooting](./PROBLEMS.md#database).*
+
 ### Run tests locally:
 
 ```bash
@@ -73,8 +77,10 @@ $ yarn test
 
 We use [Pivotal Tracker](https://www.pivotaltracker.com) to track our user stories.
 
+- Each story has a **story type**, **story id** and **story name** which will be used in your git workflow
 - There are three different **story types**: **feature**, **bug**, and **chore**
-- Each story has a **story id**: for example `#153541038`
+- The **story id** looks like `#153540677`
+- The **story name** looks like `Encrypt password`
 
 Stories in the backlog that say `Start` are available for starting.
 
@@ -93,19 +99,39 @@ Stories in the backlog that say `Start` are available for starting.
 
 ## <a name="git"></a> Git Workflow
 
-### Branching
+For a detailed example (with screenshots) of our git workflow focused on contributing through a **fork**, see our [detailed contributing guidelines](./CONTRIBUTING_DETAILED.md).
 
-When you start new work, always create a new branch:
+### Stay updated with the master branch
+
+If you have a branch on the main repository's upstream:
 
 ```bash
+$ git checkout master
+$ git pull -r
+```
+
+If you have your own fork and want to update your master:
+
+```bash
+$ git checkout master
+$ git pull -r upstream master
+$ git push origin master
+```
+
+### Branching
+
+When you start new work, always create a new branch off of the master branch, using the corresponding pivotal tracker **story type** and **story id**:
+
+```bash
+$ git checkout master
 $ git checkout -b <story type>/<story id>
 ```
 
-*See [Pivotal Tracker Workflow](#pivotal) for more information about **story type** and **story id**.*
+*Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story type** and **story id**.*
 
 ### Pairing
 
-Always pair when you work:
+Always pair when you start a new branch:
 
 ```bash
 $ git solo <initials>                   # if you are working solo
@@ -129,27 +155,17 @@ chore: add something
 ---
 ```
 
-*See [Pivotal Tracker Workflow](#pivotal) for more information about **story id**.*
+*Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story id**.*
 
-## Staying Updated With Master
+### Pull Request
 
-If you have your own fork and want to update your master:
-
-```bash
-$ git checkout master
-$ git pull -r upstream master
-```
-
-Or if you have a branch on the main repository's upstream:
+Once you are finished with the story, run the tests to make sure your changes are linted and haven't broken any tests:
 
 ```bash
-$ git checkout master
-$ git pull -r
+$ yarn test
 ```
 
-## Pull Request
-
-Once you are finished with the story, push your branch to the repository before creating a pull request:
+Then, push your branch to the repository before creating a pull request:
 
 ```bash
 $ git push --set-upstream origin <branch-name>
@@ -163,11 +179,13 @@ You can now create a pull request using the Github web interface. Please format 
     - **Fix** - a bug story
     - **Chore** - a chore story
   - `<story id>` is required:
-    - For example: `#153541038`
+    - For example: `#153540677`
   - `<story name>` is required:
-    - For example: `Expand contributing guide`
-  - Full Example: `Chore/#153541038 - Expand contributing guide`
+    - For example: `Encrypt password`
+  - Full Example: `Feature/#153540677 - Encrypt password`
 - Pull Request Body: no requirements
+
+*Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story type**, **story id** and **story name**.*
 
 ## <a name="questions"></a> Questions or Problems?
 
