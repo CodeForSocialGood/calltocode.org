@@ -2,9 +2,9 @@ const http = require('http')
 const https = require('https')
 
 const app = require('./app')
+const { appConfig, databaseConfig } = require('./config')
 const database = require('./database')._init(databaseConfig.url)
 const logger = require('./logger')
-const { appConfig, databaseConfig } = require('./config')
 
 getServer().listen(appConfig.port, runServer)
 
