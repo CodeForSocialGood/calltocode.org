@@ -134,8 +134,11 @@ $ git checkout -b <story type>/<story id>
 Always pair when you start a new branch:
 
 ```bash
-$ git solo <initials>                   # if you are working solo
-$ git duet <initials-1> <initials-2>    # if you are pairing with someone
+# If you are working solo
+$ git solo <initials>
+
+# If you are pairing with someone
+$ git duet <initials-1> <initials-2>
 ```
 
 *For more details, go to [developer environment setup](./DEVELOPER.md#rest).*
@@ -147,7 +150,7 @@ Reference the pivotal tracker **story id** for the story you are working on:
 ```bash
 $ git commit
 
-# below, the commit message is between the ---'s
+# Below, the commit message is between the ---'s
 ---
 chore: add something
 
