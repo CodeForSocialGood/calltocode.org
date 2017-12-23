@@ -60,7 +60,7 @@ export default class AuthActionCreator {
     }
   }
 
-  static sendValidationCode ({ email }) {
+  static sendValidationCode (email) {
     return async (dispatch, getState) => {
       try {
         const state = getState()
@@ -74,7 +74,26 @@ export default class AuthActionCreator {
         }
       } catch (e) {
         console.trace(e)
-        throw new ForgotPasswordException()
+        throw new ForgotPasswordException('send email failed!')
+      }
+    }
+  }
+
+  static validateCode (email, code) {
+    return async (dispatch, getState) => {
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const response = await forgotPasswordApiClient.validateCode(apiOptions, email, code)
+        
+        if (response.status === 200) {
+          dispatch({
+            ...forgotPass
+          })
+        }
+      } catch (e) {
+        console.trace(e)
+        throw new ForgotPasswordException('code or email not found!')
       }
     }
   }

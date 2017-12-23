@@ -11,6 +11,7 @@ class ForgotPasswordForm extends Component {
   constructor (props) {
     super(props)
     this.nextPage = this.nextPage.bind(this)
+    this.validate = this.validate.bind(this)
     this.state = {
       page: 1
     }
@@ -22,13 +23,18 @@ class ForgotPasswordForm extends Component {
     this.props.sendValidationCode(email)
   }
 
+  validate ({code}) {
+    this.props.validateCode(this.props.email, code)
+  }
+
   render () {
     const {page} = this.state
+    const {handleSubmit} = this.props
     return (
       <div>
         {page === 1 && <SendVerificationCodeForm onSubmit={this.nextPage} />}
         {page === 2 &&
-          <ValidateVerificationCode
+          <ValidateVerificationCode onSubmit={handleSubmit(this.validate)}
           />}
       </div>
     )
@@ -36,11 +42,15 @@ class ForgotPasswordForm extends Component {
 }
 
 ForgotPasswordForm.propTypes = {
-  sendValidationCode: PropTypes.func
+  sendValidationCode: PropTypes.func,
+  validateCode: PropTypes.func,
+  email: PropTypes.string,
+  handleSubmit: PropTypes.func
 }
 
 const mapDispatchToProps = {
-  sendValidationCode: AuthActionCreator.sendValidationCode
+  sendValidationCode: AuthActionCreator.sendValidationCode,
+  validateCode: AuthActionCreator.validateCode
 }
 
 function mapStateToProps (state) {
@@ -50,7 +60,12 @@ function mapStateToProps (state) {
 }
 
 const ForgotPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm'
+  form: 'ForgotPasswordForm',
+  onSubmitSuccess: (result, dispatch) => {
+    result
+      ? dispatch(push('/new-password'))
+      : dispatch(push('/forgot-password'))
+  }
 })(ForgotPasswordForm)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux)

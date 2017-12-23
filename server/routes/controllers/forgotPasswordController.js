@@ -7,6 +7,7 @@ const forgotPasswordController = {
     this.emailClient = emailClient
     this.ForgotPass = ForgotPass
     this.sendVerificationCodeEmail = this.sendVerificationCodeEmail.bind(this)
+    this.validateCode = this.validateCode.bind(this)
 
     return this
   },
@@ -37,6 +38,21 @@ const forgotPasswordController = {
         return res.status(200).send({ status: 200 })
       })
       .catch(error => { if (error) return res.status(500).send({ status: 500 }) })
+  },
+
+  validateCode (req, res) {
+    const {email, code} = req.body
+    this.ForgotPass.findOne({email: email, code: code}).exec((err, forgot) => {
+      if (err) {
+        return res.status(404).json({error: 'Invalid code or email'})
+      } else {
+        if (forgot) {
+          return res.status(200).json({status: 200})
+        } else {
+          return res.status(404).json({error: 'Invalid code or email'})
+        }
+      }
+    })
   }
 }
 
