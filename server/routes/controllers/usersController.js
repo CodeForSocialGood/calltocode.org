@@ -4,7 +4,6 @@ const usersController = {
   _init (Users = UserModel) {
     this.Users = Users
 
-    this.preloadUser = this.preloadUser.bind(this)
     this.getUsers = this.getUsers.bind(this)
     this.signup = this.signup.bind(this)
     this.getUser = this.getUser.bind(this)
@@ -13,22 +12,6 @@ const usersController = {
     this.login = this.login.bind(this)
     this.changePassword = this.changePassword.bind(this)
     return this
-  },
-
-  preloadUser (req, res, next, id) {
-    this.Users.findById(id).exec((err, user) => {
-      if (err) {
-        return res.sendStatus(500)
-      }
-
-      if (!user) {
-        return res.sendStatus(404)
-      }
-
-      req.user = user
-
-      return next()
-    })
   },
 
   getUsers (req, res) {
@@ -55,7 +38,19 @@ const usersController = {
   },
 
   getUser (req, res) {
-    return res.status(200).json(req.user.toJSON())
+    const id = req.params.id
+
+    this.Users.findById(id).exec((err, user) => {
+      if (err) {
+        return res.sendStatus(500)
+      }
+
+      if (!user) {
+        return res.sendStatus(404)
+      }
+
+      return res.status(200).json(req.user.toJSON())
+    })
   },
 
   putUser (req, res) {},
@@ -83,7 +78,7 @@ const usersController = {
       if (err) {
         return res.sendStatus(403)
       }
-      
+
       if (!user) {
         res.statusMessage = 'Wrong email'
         return res.status(403).json({ error: 'Invalid email' })

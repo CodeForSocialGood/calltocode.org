@@ -1,27 +1,29 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+const http = require('http')
+const https = require('https')
 
+const app = require('./app')
 const { appConfig, databaseConfig } = require('./config')
 const database = require('./database')._init(databaseConfig.url)
-const errorHandler = require('./middleware/errorHandler')
+const logger = require('./logger')
 
-const app = express()
+getServer().listen(appConfig.port, runServer)
 
-app.use(express.static(appConfig.clientDistDir))
-app.use(bodyParser.json())
-app.use('/', require('./routes'))
-app.use(errorHandler())
+function getServer () {
+  switch (process.env.NODE_ENV) {
+    case 'prod':
+    case 'test': return https.createServer(appConfig.httpsOptions, app)
+    default: return http.createServer(app)
+  }
+}
 
-app.listen(appConfig.port, run)
-
-async function run () {
-  console.log(`App listening on port ${appConfig.port}`)
+async function runServer () {
+  logger.log(`App listening on port ${this.address().port}`)
 
   try {
     await database.connect()
-    console.log('Database connected')
+    logger.log('Database connected')
   } catch (error) {
-    console.error('Database connection error', error)
+    logger.error('Database connection error', error)
   }
 }
 

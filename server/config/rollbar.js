@@ -11,7 +11,7 @@ function envConfig () {
   switch (process.env.NODE_ENV) {
     case 'prod': return { environment: 'prod', reportLevel: 'error', verbose: false }
     case 'test': return { environment: 'test', reportLevel: 'warning' }
-    default: return { environment: 'dev', enabled: false }
+    default: return { enabled: false, captureUncaught: false, captureUnhandledRejections: false }
   }
 }
 

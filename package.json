@@ -69,6 +69,7 @@
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "ignore-styles": "^5.0.1",
+    "mongodb-memory-server": "^1.6.3",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
     "sinon": "^4.0.0",
