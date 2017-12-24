@@ -47,6 +47,7 @@ const forgotPasswordController = {
         return res.status(404).json({error: 'Invalid code or email'})
       } else {
         if (forgot) {
+          forgot.remove()
           return res.status(200).json({status: 200})
         } else {
           return res.status(404).json({error: 'Invalid code or email'})

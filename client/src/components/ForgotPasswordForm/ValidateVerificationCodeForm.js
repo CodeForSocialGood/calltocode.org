@@ -43,7 +43,8 @@ CodeField.propTypes = {
   input: PropTypes.object
 }
 ValidateVerificationCodeForm.propTypes = {
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  error: PropTypes.string
 }
 
 export default reduxForm({

@@ -79,25 +79,6 @@ export default class AuthActionCreator {
     }
   }
 
-  static validateCode (email, code) {
-    return async (dispatch, getState) => {
-      try {
-        const state = getState()
-        const apiOptions = apiOptionsFromState(state)
-        const response = await forgotPasswordApiClient.validateCode(apiOptions, email, code)
-        
-        if (response.status === 200) {
-          dispatch({
-            ...forgotPass
-          })
-        }
-      } catch (e) {
-        console.trace(e)
-        throw new ForgotPasswordException('code or email not found!')
-      }
-    }
-  }
-
   static changePassword ({ email, password }) {
     return async dispatch => {
       const response = await usersApiClient.changePassword(email, password)

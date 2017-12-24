@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { reduxForm } from 'redux-form'
+import { reduxForm, SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import AuthActionCreator from '../../actions/auth'
 import SendVerificationCodeForm from './SendVerificationCodeForm'
 import ValidateVerificationCode from './ValidateVerificationCodeForm'
+import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
+import forgotPasswordApiClient from '../../api/forgotPassword'
+import styles from './ForgotPasswordForm.scss'
 
 class ForgotPasswordForm extends Component {
   constructor (props) {
@@ -19,24 +22,36 @@ class ForgotPasswordForm extends Component {
 
   nextPage ({email}) {
     this.setState({page: this.state.page + 1})
-    console.log('AAAAA', email)
     this.props.sendValidationCode(email)
   }
 
-  validate ({code}) {
-    this.props.validateCode(this.props.email, code)
+  async validate (values, dispatch) {
+    const _error = 'Incorrect code, please try again!'
+    const apiOptions = apiOptionsFromState()
+    const response = await forgotPasswordApiClient.validateCode(apiOptions, this.props.email, values.code)
+    if (response.status === 200) {
+      return dispatch(push('/new-password'))
+    } else {
+      throw new SubmissionError({ code: response.statusText, _error })
+    }
   }
 
   render () {
     const {page} = this.state
-    const {handleSubmit} = this.props
+    const {error} = this.props
+    console.log('error', error)
     return (
       <div>
         {page === 1 && <SendVerificationCodeForm onSubmit={this.nextPage} />}
         {page === 2 &&
-          <ValidateVerificationCode onSubmit={handleSubmit(this.validate)}
-          />}
+        <div>
+          <ValidateVerificationCode onSubmit={this.validate}/>
+        </div>}
+        <div className={styles.errorContent}>
+          {error}
+        </div>
       </div>
+
     )
   }
 }
@@ -45,12 +60,12 @@ ForgotPasswordForm.propTypes = {
   sendValidationCode: PropTypes.func,
   validateCode: PropTypes.func,
   email: PropTypes.string,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  error: PropTypes.any
 }
 
 const mapDispatchToProps = {
-  sendValidationCode: AuthActionCreator.sendValidationCode,
-  validateCode: AuthActionCreator.validateCode
+  sendValidationCode: AuthActionCreator.sendValidationCode
 }
 
 function mapStateToProps (state) {
@@ -60,12 +75,7 @@ function mapStateToProps (state) {
 }
 
 const ForgotPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm',
-  onSubmitSuccess: (result, dispatch) => {
-    result
-      ? dispatch(push('/new-password'))
-      : dispatch(push('/forgot-password'))
-  }
+  form: 'ForgotPasswordForm'
 })(ForgotPasswordForm)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux)
