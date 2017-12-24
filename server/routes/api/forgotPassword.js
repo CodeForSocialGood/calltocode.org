@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const auth = require('../auth')
+const auth = require('../../middleware/auth')
 const forgotPasswordController = require('../controllers/forgotPasswordController')._init()
 
 router.route('/')

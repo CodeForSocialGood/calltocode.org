@@ -1,11 +1,13 @@
-# Developer Environment Setup
+# Development Environment Setup
 
-This document contains general guidelines for setting up a developer environment sufficient for getting started with
+This document contains general guidelines for setting up a development environment sufficient for getting started with
 contributing to this project:
 
 - [Mac OS Setup](#mac)
 - [Linux Setup](#linux)
 - [Windows 10 Setup](#windows10)
+
+See the [contribution guidelines](./CONTRIBUTING.md) to start contributing.
 
 ## <a name="mac"></a> Mac OS Setup
 
@@ -14,6 +16,7 @@ contributing to this project:
 ```bash
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
+
 *For more details, go to [Homebrew](https://brew.sh/).*
 
 ### <a name="rest"></a> 2. Install [Git Duet](https://github.com/git-duet/git-duet/#installation)
@@ -35,6 +38,7 @@ $ brew install yarn --without-node
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
 $ nvm install
 ```
+
 *If you are on a Mac and having trouble, make sure to run `touch ~/.bash_profile` before running the above command.*
 
 ### 5. Install [Direnv](https://github.com/direnv/direnv#install)
@@ -44,6 +48,29 @@ $ brew install direnv
 $ echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
 ```
 
+Note: In order for the above to work on MacOS, your .bash_profile needs to be setup to read your .bashrc by containing the following:
+
+```bash
+# Either this
+[[ -r ~/.bashrc ]] && . ~/.bashrc
+
+# Or this
+if [ -f $HOME/.bashrc ]; then
+  source $HOME/.bashrc
+fi
+```
+
+You can check your .bash_profile with:
+
+```bash
+$ open ~/.bash_profile
+
+# If it doesn't contain either of the above
+$ echo '[[ -r ~/.bashrc ]] && . ~/.bashrc' >> ~/.bash_profile
+```
+
+*After doing this, anything in your .bash_profile other than the configuration above can now be moved to your .bashrc*
+
 ### 6. Restart the terminal and then run the following
 
 ```bash
@@ -52,7 +79,13 @@ $ nvm install
 $ direnv allow
 ```
 
-### 7. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
+### 7. Install [Docker](https://docs.docker.com/engine/installation/#supported-platforms)
+
+### 8. Make sure your IDE supports [editorconfig](http://editorconfig.org/)
+
+### 9. (Optional) Download [Robo 3T](https://robomongo.org/)
+
+Robo 3T (formerly known as Robomongo) is a MongoDB management tool with a GUI, making it easy to view and manage the database.
 
 ## <a name="linux"></a> Linux Setup
 
@@ -81,6 +114,7 @@ $ test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:$PA
 $ test -r ~/.bash_profile && echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.bash_profile
 $ echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.bash_profile
 ```
+
 *For more details, go to [Linuxbrew](http://linuxbrew.sh/).*
 
 ### 3. Follow Mac OS Setup starting from [section 2](#rest)
@@ -89,7 +123,7 @@ $ echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.bash_profile
 
 > It is recommended that you use a mac or linux, but if you only have a pc, follow these steps to setup ubuntu bash.
 
-### 1. Shell Setup
+### Shell Setup
 
 1. Update your Windows 10 to the latest build.
 2. Run powershell as administrator and execute the following.
