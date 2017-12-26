@@ -25,13 +25,15 @@ Below is a cheatsheet for the scripts that can be found in `package.json`:
 
 ```bash
 $ yarn                            # Install dependencies (npm install)
-$ yarn db                         # Restart a docker container with mongodb and add seed data (npm run db)
-$ yarn start:dev                  # Run the app locally in watch mode (npm run start:dev)
-$ yarn start                      # Run the app through docker just like the test environment (npm start)
-$ yarn stop                       # Stop and clean the app that was running through docker (npm stop)
+$ yarn db                         # Restart docker container with mongodb and add seed data (npm run db)
+$ yarn db:stop                    # Stop docker container with mongodb (npm run db:stop)
+$ yarn start:dev                  # Run app locally in watch mode (npm run start:dev)
+$ yarn start                      # Run app through docker just like the test environment (npm start)
+$ yarn stop                       # Stop and clean app that was running through docker (npm stop)
 $ yarn test                       # Run tests (npm test)
 $ yarn build                      # Generate client distribution (npm run build)
 ```
+
 *Although yarn is recommended, you may also use npm natively. The corresponding npm commands are in parenthesis above.*
 
 [travis]: https://travis-ci.org/CodeForSocialGood/calltocode.org.svg
