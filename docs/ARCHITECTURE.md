@@ -1,6 +1,6 @@
 # Architecture Guide
 
-This document serves as a guide to get familiar with this project's architecture & codebase:
+Joining in on an existing project such as this can feel daunting due to the learning curve and the sheer amount of code that there is. This document serves as a guide to get familiar with this project's architecture & codebase:
 
 - [Technology Stack](#stack)
 - [Project Structure](#structure)
@@ -59,7 +59,7 @@ The back-end consists of everything in the `server` folder.
 
 ## <a name="database"></a> Database Guides
 
-This project uses MongoDB. On top of Mongo we use Mongoose, allowing us to define schemas/models for data. The relevant files are in the `server/database/` and `db/` folders. Making any changes to the database typically means making changes to the schemas located in `server/database/models/`.
+This project uses MongoDB. On top of Mongo we use Mongoose, allowing us to define schemas/models for data. The relevant files are in the `server/database/` folder. Making any changes to the database typically means making changes to the schemas located in `server/database/models/`.
 
 - [MongoDB documentation](https://docs.mongodb.com/)
 - [Mongoose documentation](http://mongoosejs.com/docs/guide.html)
