@@ -9,6 +9,8 @@ This document contains general guidelines for contributing to this project:
 - [Git Workflow](#git)
 - [Questions or Problems?](#questions)
 
+Please note that this project is released with a [contributor code of conduct](./CODE_OF_CONDUCT.md). By contributing to this project you are also agreeing to abide by its terms.
+
 ## <a name="prerequisites"></a> Prerequisites
 
 Make sure your development environment is properly setup by following the [development environment setup](./DEVELOPER.md) guide.
@@ -73,7 +75,7 @@ We use [Pivotal Tracker](https://www.pivotaltracker.com) to track our user stori
 - The **story id** looks like `#153540677`
 - The **story name** looks like `Encrypt password`
 
-Stories in the backlog that say `Start` are available for starting.
+Stories in the backlog that say `Start` are available for starting. They are prioritized top-down, but can really be done in any order.
 
 ### For feature & bug stories, hit...
 
