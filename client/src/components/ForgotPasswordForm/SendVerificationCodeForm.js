@@ -15,7 +15,6 @@ function EmailField ({ input }) {
 const SendVerificationCodeForm = props => {
   const {handleSubmit} = props
   return (
-
     <form onSubmit={handleSubmit}
       className={styles.form}>
 

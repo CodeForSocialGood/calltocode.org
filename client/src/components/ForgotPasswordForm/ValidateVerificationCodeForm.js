@@ -15,7 +15,6 @@ function CodeField ({ input }) {
 const ValidateVerificationCodeForm = props => {
   const {handleSubmit} = props
   return (
-
     <form onSubmit={handleSubmit}
       className={styles.form}>
 
