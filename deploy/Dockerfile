@@ -19,6 +19,7 @@ COPY package.json yarn.lock $WORKDIR/
 RUN cd $WORKDIR && \
     yarn --production
 COPY deploy/dist ${WORKDIR}/
+COPY deploy/test ${WORKDIR}/deploy/test
 
 WORKDIR $WORKDIR
 EXPOSE 3000
