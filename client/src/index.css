@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
 :global(.defaults) {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -27,7 +27,7 @@ time, mark, audio, video {
 }
 
 h1 {
-	font-family: 'Roboto Slab', serif;
+	font-family: 'Roboto Slab', sans-serif;
 }
 
 article, aside, details, figcaption, figure,
