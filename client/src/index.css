@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
 :global(.defaults) {
   font-family: 'Roboto', sans-serif;
@@ -23,6 +24,10 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+}
+
+h1 {
+	font-family: 'Roboto Slab', sans-serif;
 }
 
 article, aside, details, figcaption, figure,
