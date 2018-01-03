@@ -1,18 +1,11 @@
+const bindFunctions = require('../../bindFunctions')
 const UserModel = require('../../database/models/User')
 
 const usersController = {
   _init (Users = UserModel) {
-    this.Users = Users
+    bindFunctions(this)
 
-    this.getCurrent = this.getCurrent.bind(this)
-    this.putCurrent = this.putCurrent.bind(this)
-    this.getUsers = this.getUsers.bind(this)
-    this.signup = this.signup.bind(this)
-    this.getUser = this.getUser.bind(this)
-    this.putUser = this.putUser.bind(this)
-    this.getSalt = this.getSalt.bind(this)
-    this.login = this.login.bind(this)
-    this.changePassword = this.changePassword.bind(this)
+    this.Users = Users
     return this
   },
 
