@@ -1,6 +1,7 @@
-import test from 'ava'
-import { mock, match } from 'sinon'
-import indexController from './indexController'
+const test = require('ava')
+const { mock, match } = require('sinon')
+
+const indexController = require('./indexController')
 
 test('get index page', t => {
   // setup

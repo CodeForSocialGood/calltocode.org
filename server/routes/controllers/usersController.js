@@ -76,7 +76,7 @@ const usersController = {
   },
 
   getUser (req, res) {
-    const id = req.params.id
+    const id = req.params.user
 
     this.Users.findById(id).exec((err, user) => {
       if (err) {
@@ -87,7 +87,7 @@ const usersController = {
         return res.sendStatus(404)
       }
 
-      return res.status(200).json(req.user.toJSON())
+      return res.status(200).json(user.toJSON())
     })
   },
 
