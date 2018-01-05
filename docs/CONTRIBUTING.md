@@ -56,6 +56,8 @@ $ yarn db
 $ yarn start:dev
 ```
 
+The app can then be viewed at `localhost:3000/`
+
 Use this for simulating the test environment through Docker:
 
 ```bash
@@ -64,6 +66,8 @@ $ yarn start
 # When finished, stop the app
 $ yarn stop
 ```
+
+The app can then be viewed at `https://localhost:3000/`
 
 *Note: ports 3000, 27017, and 28017 will need to be available on your machine to run the app. If you run into a problem here, checkout our [database troubleshooting](./PROBLEMS.md#database).*
 
