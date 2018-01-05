@@ -1,7 +1,7 @@
-import test from 'ava'
-import request from 'supertest'
+const test = require('ava')
+const request = require('supertest')
 
-import { before, beforeEach, afterEach, after } from '../../test/util'
+const { before, beforeEach, afterEach, after } = require('../util')
 
 test.before(before)
 test.beforeEach(beforeEach)
