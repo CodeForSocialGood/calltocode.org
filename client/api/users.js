@@ -4,7 +4,7 @@ import apiRequest from './lib/apiRequest'
 
 const usersApiClient = {
   current (apiOptions) {
-    return apiRequest.get('/user', apiOptions)
+    return apiRequest.get('/users/current', apiOptions)
   },
 
   // TODO: use apiRequest and get apiOptions through params (calling of

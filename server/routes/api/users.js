@@ -3,6 +3,10 @@ const router = require('express').Router()
 const auth = require('../../middleware/auth')
 const usersController = require('../controllers/usersController')._init()
 
+router.route('/current')
+  .get(auth.required, usersController.getCurrent)
+  .put(auth.required, usersController.putCurrent)
+
 router.route('/')
   .get(auth.optional, usersController.getUsers)
   .post(usersController.signup)
