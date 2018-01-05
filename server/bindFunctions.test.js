@@ -2,7 +2,9 @@ const test = require('ava')
 
 const bindFunctions = require('./bindFunctions')
 
-const testMessage = 'test message'
+test.beforeEach(t => {
+  t.context.testMessage = 'test message'
+})
 
 test('bindFunctions works with objects', t => {
   const controller = {
@@ -18,6 +20,7 @@ test('bindFunctions works with objects', t => {
     }
   }
 
+  const { testMessage } = t.context
   const ctrl = controller._init(testMessage)
   const sendMessage = ctrl.sendMessage
 
@@ -37,6 +40,7 @@ test('bindFunctions works with classes', t => {
     }
   }
 
+  const { testMessage } = t.context
   const ctrl = new Controller(testMessage)
   const sendMessage = ctrl.sendMessage
 
