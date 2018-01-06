@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import SignupValidator from '../SignupForm/SignupValidator'
 import ValidationPopup from '../SignupForm/ValidationPopup'
-import styles from './NewPasswordForm.scss'
-import AuthActionCreator from '../../actions/auth'
+import styles from './ForgotPasswordForm.scss'
 
 class NewPasswordForm extends Component {
   renderPassword (field) {
@@ -29,22 +27,11 @@ class NewPasswordForm extends Component {
     )
   }
 
-  customSubmit (values) {
-    const { password } = values
-
-    // hardcoded the email, will be changed after the implementation of Forgot Password verification page
-    // const { email } = this.props
-    let { email } = this.props
-    if (!email) email = 'kevin@email.com'
-
-    this.props.changePassword({ email, password })
-  }
-
   render () {
     const { handleSubmit } = this.props
 
     return (
-      <form className={styles.form} onSubmit={handleSubmit(this.customSubmit.bind(this))}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h1 className={styles.title}>New Password</h1>
 
         <Field
@@ -59,25 +46,15 @@ class NewPasswordForm extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  changePassword: AuthActionCreator.changePassword
-}
-
-function mapStateToProps (state) {
-  return {
-    email: state.email
-  }
-}
-
 NewPasswordForm.propTypes = {
   changePassword: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  email: PropTypes.object
+  handleSubmit: PropTypes.func
 }
 
 const NewPasswordFormRedux = reduxForm({
-  form: 'NewPasswordForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
+  form: 'ForgotPasswordForm', // <------ same form name
+  destroyOnUnmount: false, // <------ preserve form data
+  forceUnregisterOnUnmount: true // <------ unregister fields on unmount
 })(NewPasswordForm)
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPasswordFormRedux)
+export default connect(null)(NewPasswordFormRedux)

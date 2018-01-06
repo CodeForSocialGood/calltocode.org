@@ -71,6 +71,8 @@ export default class AuthActionCreator {
             ...forgotPass,
             payload: email
           })
+        } else {
+          throw new ForgotPasswordException('send email failed!')
         }
       } catch (e) {
         console.trace(e)
@@ -79,7 +81,7 @@ export default class AuthActionCreator {
     }
   }
 
-  static changePassword ({ email, password }) {
+  static changePassword (email, password) {
     return async dispatch => {
       const response = await usersApiClient.changePassword(email, password)
       if (response.status === 200) {

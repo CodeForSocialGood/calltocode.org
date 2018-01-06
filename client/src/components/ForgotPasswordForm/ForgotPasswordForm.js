@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 import AuthActionCreator from '../../actions/auth'
 import SendVerificationCodeForm from './SendVerificationCodeForm'
 import ValidateVerificationCode from './ValidateVerificationCodeForm'
+import NewPasswordForm from './NewPasswordForm'
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import forgotPasswordApiClient from '../../api/forgotPassword'
 import styles from './ForgotPasswordForm.scss'
@@ -15,14 +16,16 @@ class ForgotPasswordForm extends Component {
     super(props)
     this.nextPage = this.nextPage.bind(this)
     this.validate = this.validate.bind(this)
+    this.changePass = this.changePass.bind(this)
     this.state = {
       page: 1
     }
   }
 
   nextPage ({email}) {
-    this.setState({page: this.state.page + 1})
-    this.props.sendValidationCode(email)
+    return this.props.sendValidationCode(email).then(() => {
+      this.setState({page: this.state.page + 1})
+    }).catch((error) => { throw new SubmissionError({ code: error.name, _error: error.message }) })
   }
 
   async validate (values, dispatch) {
@@ -30,10 +33,18 @@ class ForgotPasswordForm extends Component {
     const apiOptions = apiOptionsFromState()
     const response = await forgotPasswordApiClient.validateCode(apiOptions, this.props.email, values.code)
     if (response.status === 200) {
-      return dispatch(push('/new-password'))
+      this.setState({page: this.state.page + 1})
     } else {
       throw new SubmissionError({ code: response.statusText, _error })
     }
+  }
+
+  changePass (values, dispatch) {
+    return this.props.changePassword(this.props.email, values.password).then(() => {
+      dispatch(push('/'))
+    }).catch(error => {
+      throw new SubmissionError({code: error.name, _error: error.message})
+    })
   }
 
   render () {
@@ -46,6 +57,10 @@ class ForgotPasswordForm extends Component {
         {page === 2 &&
         <div>
           <ValidateVerificationCode onSubmit={this.validate}/>
+        </div>}
+        {page === 3 &&
+        <div>
+          <NewPasswordForm email={this.props.email} onSubmit={this.changePass}/>
         </div>}
         <div className={styles.errorContent}>
           {error}
@@ -61,11 +76,13 @@ ForgotPasswordForm.propTypes = {
   validateCode: PropTypes.func,
   email: PropTypes.string,
   handleSubmit: PropTypes.func,
-  error: PropTypes.any
+  error: PropTypes.any,
+  changePassword: PropTypes.func
 }
 
 const mapDispatchToProps = {
-  sendValidationCode: AuthActionCreator.sendValidationCode
+  sendValidationCode: AuthActionCreator.sendValidationCode,
+  changePassword: AuthActionCreator.changePassword
 }
 
 function mapStateToProps (state) {
@@ -75,7 +92,10 @@ function mapStateToProps (state) {
 }
 
 const ForgotPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm'
+  form: 'ForgotPasswordForm',
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(push('/'))
+  }
 })(ForgotPasswordForm)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux)

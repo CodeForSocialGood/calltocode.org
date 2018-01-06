@@ -92,37 +92,18 @@ const usersController = {
   },
 
   changePassword (req, res) {
-    const users = this.Users
     const {email, password} = req.body
+    console.log(email)
+    console.log(password)
 
-    users.update({'email': email},
-      {$set: {'password': password}}, (error, r) => {
-        if (error) {
-          console.error(error)
-          return res.sendStatus(500)
-        }
-        if (r) {
-          if (r.n === 0) {
-            console.error(`Email doesn't exist`)
-            res.statusMessage = `Email doesn't exist`
-            return res.sendStatus(500)
-          } else {
-            if (r.nModified === 1) {
-              console.log(`New password for ${email} saved successfully!`)
-            }
-            users.findOne({ email }, (err, user) => {
-              if (err) {
-                console.error(err)
-                return res.sendStatus(500)
-              }
-
-              if (user) {
-                return res.send(user.toJSON())
-              }
-            })
-          }
-        }
-      })
+    var query = {'email': email}
+    this.Users.findOneAndUpdate(query, {$set: { password: password }}, {}, function (err, doc) {
+      console.log(JSON.stringify(err))
+      console.log('-----------....--------....-----')
+      console.log(JSON.stringify(doc))
+      if (err || doc === null) return res.send(500, { error: err })
+      return res.send(doc.toJSON())
+    })
   }
 
 }
