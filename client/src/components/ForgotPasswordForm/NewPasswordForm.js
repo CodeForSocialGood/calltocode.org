@@ -33,7 +33,7 @@ class NewPasswordForm extends Component {
     return (
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1 className={styles.title}>New Password</h1>
-
+        <h3>Set your new password</h3>
         <Field
           name="password"
           component={this.renderPassword}
