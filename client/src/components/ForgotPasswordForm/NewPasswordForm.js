@@ -36,9 +36,11 @@ class NewPasswordForm extends Component {
         <h3>Set your new password</h3>
         <Field
           name="password"
+          value={this.props.password}
+          onChange={this.props.onChangePassword}
           component={this.renderPassword}
           validate={SignupValidator.validatePassword} />
-        <button className={styles.buttonSubmit} type="submit">
+        <button className={styles.buttonSubmit} disabled={this.props.password.length === 0} type="submit">
           Change Password
         </button>
       </form>
@@ -47,8 +49,9 @@ class NewPasswordForm extends Component {
 }
 
 NewPasswordForm.propTypes = {
-  changePassword: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  onChangePassword: PropTypes.func.isRequired,
+  password: PropTypes.string.isRequired
 }
 
 const NewPasswordFormRedux = reduxForm({

@@ -93,15 +93,15 @@ const usersController = {
 
   changePassword (req, res) {
     const {email, password} = req.body
-    console.log(email)
-    console.log(password)
 
     var query = {'email': email}
     this.Users.findOneAndUpdate(query, {$set: { password: password }}, {}, function (err, doc) {
-      console.log(JSON.stringify(err))
-      console.log('-----------....--------....-----')
-      console.log(JSON.stringify(doc))
-      if (err || doc === null) return res.send(500, { error: err })
+      if (err) {
+        return res.send(500, { error: err })
+      }
+      if (doc === null && err === null) {
+        return res.send(404, { error: 'No user found. No password updated' })
+      }
       return res.send(doc.toJSON())
     })
   }

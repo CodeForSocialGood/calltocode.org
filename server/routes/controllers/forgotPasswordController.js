@@ -37,6 +37,7 @@ const forgotPasswordController = {
     const email = req.body.email
 
     this._getUser(email).then((exists) => {
+      // if the user does not exist, do not generate code and send email. It's expected that the user inserts a valid email.
       if (!exists) {
         return res.status(200).send({ status: 200 })
       }

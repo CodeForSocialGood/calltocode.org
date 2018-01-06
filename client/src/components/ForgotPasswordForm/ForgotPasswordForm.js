@@ -17,9 +17,17 @@ class ForgotPasswordForm extends Component {
     this.nextPage = this.nextPage.bind(this)
     this.validate = this.validate.bind(this)
     this.changePass = this.changePass.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.state = {
-      page: 1
+      page: 1,
+      email: '',
+      code: '',
+      password: ''
     }
+  }
+
+  onChange (event) {
+    this.setState({[event.target.name]: event.target.value})
   }
 
   nextPage ({email}) {
@@ -50,17 +58,16 @@ class ForgotPasswordForm extends Component {
   render () {
     const {page} = this.state
     const {error} = this.props
-    console.log('error', error)
     return (
       <div>
-        {page === 1 && <SendVerificationCodeForm onSubmit={this.nextPage} />}
+        {page === 1 && <SendVerificationCodeForm email={this.state.email} onChangeEmail={this.onChange} onSubmit={this.nextPage} />}
         {page === 2 &&
         <div>
-          <ValidateVerificationCode onSubmit={this.validate}/>
+          <ValidateVerificationCode code={this.state.code} onChangeCode={this.onChange} onSubmit={this.validate}/>
         </div>}
         {page === 3 &&
         <div>
-          <NewPasswordForm email={this.props.email} onSubmit={this.changePass}/>
+          <NewPasswordForm password={this.state.password} onChangePassword={this.onChange} onSubmit={this.changePass}/>
         </div>}
         <div className={styles.errorContent}>
           {error}

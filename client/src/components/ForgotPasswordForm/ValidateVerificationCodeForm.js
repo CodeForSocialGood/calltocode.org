@@ -26,10 +26,12 @@ const ValidateVerificationCodeForm = props => {
       <h3>{"Let's validate your code!"}</h3>
 
       <Field
+        value={props.code}
+        onChange={props.onChangeCode}
         name="code"
         component={CodeField} />
 
-      <button
+      <button disabled={props.code.length === 0}
         className={styles.buttonSubmit}
         type="submit">
       Validate code
@@ -43,7 +45,9 @@ CodeField.propTypes = {
 }
 ValidateVerificationCodeForm.propTypes = {
   handleSubmit: PropTypes.func,
-  error: PropTypes.string
+  error: PropTypes.string,
+  onChangeCode: PropTypes.func.isRequired,
+  code: PropTypes.string.isRequired
 }
 
 export default reduxForm({
