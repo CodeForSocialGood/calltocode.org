@@ -13,6 +13,7 @@ import NewPasswordForm from './components/NewPasswordForm/NewPasswordForm'
 import Profile from './components/Profile/Profile'
 import restricted from './components/Restricted/Restricted'
 import SignupForm from './components/SignupForm/SignupForm'
+import Version from './components/Version/Version'
 
 class App extends Component {
   componentDidMount () {
@@ -23,6 +24,7 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Version />
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/create-project' component={CreateProjectForm}/>

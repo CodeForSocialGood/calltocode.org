@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HardSourcePlugin = require('hard-source-webpack-plugin')
-const env = require('./.setup/client/env')
 
+const env = require('./.setup/client/env')
 const clientDir = path.join(__dirname, 'client')
 
 const config = {
