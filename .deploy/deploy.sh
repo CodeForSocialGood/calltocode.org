@@ -8,7 +8,7 @@ sed "s/<TAG>/$TRAVIS_COMMIT/" < .deploy/Dockerrun.aws.json.template > $DOCKER_AW
 
 # create new aws elastic beanstalk app version and update to it
 EB_BUCKET=calltocode-elasticbeanstalk
-pip install awscli
+pip install --user awscli
 aws s3 cp $DOCKER_AWS_FILE s3://$EB_BUCKET/$DOCKER_AWS_FILE
 aws elasticbeanstalk create-application-version --application-name test-calltocode \
   --version-label $TRAVIS_COMMIT \

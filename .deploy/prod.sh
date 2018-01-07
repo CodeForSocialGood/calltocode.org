@@ -31,7 +31,7 @@ aws_deploy () {
   DOCKER_AWS_FILE=$PROD_VERSION-Dockerrun.aws.json
   sed "s/<TAG>/$PROD_VERSION/" < .deploy/Dockerrun.aws.json.template > $DOCKER_AWS_FILE
   EB_BUCKET=calltocode-elasticbeanstalk
-  pip install awscli
+  pip install --user awscli
   aws s3 cp $DOCKER_AWS_FILE s3://$EB_BUCKET/$DOCKER_AWS_FILE
   aws elasticbeanstalk create-application-version --application-name calltocode \
     --version-label $PROD_VERSION \
