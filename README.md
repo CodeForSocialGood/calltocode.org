@@ -25,13 +25,11 @@ Below is a cheatsheet for the scripts that can be found in `package.json`:
 
 ```bash
 $ yarn                            # Install dependencies (npm install)
-$ yarn db                         # Restart docker container with mongodb and add seed data (npm run db)
-$ yarn db:stop                    # Stop docker container with mongodb (npm run db:stop)
-$ yarn start:dev                  # Run app locally in watch mode (npm run start:dev)
-$ yarn start                      # Run app through docker just like the test environment (npm start)
-$ yarn stop                       # Stop and clean app that was running through docker (npm stop)
+$ yarn db start                   # Restart docker container with mongodb and add seed data (npm run db -- start)
+$ yarn db stop                    # Stop docker container with mongodb (npm run db -- stop)
+$ yarn start                      # Run app locally on port 3000 and in watch mode on port 3001 via https
 $ yarn test                       # Run tests (npm test)
-$ yarn build                      # Generate client distribution (npm run build)
+$ yarn build                      # Generate distribution
 ```
 
 *Although yarn is recommended, you may also use npm natively. The corresponding npm commands are in parenthesis above.*
@@ -40,10 +38,10 @@ $ yarn build                      # Generate client distribution (npm run build)
 [travis-url]: https://travis-ci.org/CodeForSocialGood/calltocode.org
 
 [test]: https://img.shields.io/badge/test-test.calltocode.org-orange.svg
-[test-url]: http://test.calltocode.org/
+[test-url]: https://test.calltocode.org
 
 [prod]: https://img.shields.io/badge/prod-calltocode.org-orange.svg
-[prod-url]: http://calltocode.org/
+[prod-url]: https://calltocode.org
 
 [nonprofit]: https://img.shields.io/badge/project-nonprofit-ff69b4.svg
 

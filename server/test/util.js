@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const app = require('../app')
 const Project = require('../database/models/Project')
 const User = require('../database/models/User')
-const seedProjects = require('../../db/seedData/projects.json')
-const seedUsers = require('../../db/seedData/users.json')
+const seedProjects = require('../../.setup/db/seedData/projects.json')
+const seedUsers = require('../../.setup/db/seedData/users.json')
 
 const mongod = new MongodbMemoryServer()
 

@@ -1,19 +1,23 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const HardSourcePlugin = require('hard-source-webpack-plugin')
 
-const srcDir = path.join(__dirname, 'client', 'src')
+const env = require('./.setup/client/env')
+const clientDir = path.join(__dirname, 'client')
 
 const config = {
-  context: srcDir,
+  context: clientDir,
 
   entry: {
     index: './index.js'
   },
 
   output: {
-    path: path.join(__dirname, 'client', 'dist'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'server', 'public'),
+    filename: 'client.js'
   },
 
   module: {
@@ -29,7 +33,7 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader?sourceMap',
           use: 'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"'
-        }),
+        })
       },
       {
         test: /\.scss$/,
@@ -39,7 +43,7 @@ const config = {
           use: [
             'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"',
             'sass-loader?sourceMap'
-          ],
+          ]
         })
       },
       {
@@ -56,12 +60,24 @@ const config = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(srcDir, 'index.html')
+      template: path.join(clientDir, 'index.html')
     }),
+
     new ExtractTextPlugin({
-      filename: 'app.css',
-      allChunks: true
+      filename: 'client.css'
     }),
+
+    new webpack.DefinePlugin({
+      $_ENV: JSON.stringify(env)
+    }),
+
+    new CopyPlugin([
+      {from: path.join(clientDir, 'robots.txt')}
+    ]),
+
+    new HardSourcePlugin({
+      cacheDirectory: path.join('..', '..', 'node_modules', '.cache', 'hard-source', '[confighash]')
+    })
   ],
 
   devtool: 'source-map'

@@ -39,7 +39,7 @@ class Header extends Component {
     return (
       <header className={styles.header}>
         <Link to='/'>
-          <img className={styles.logo} src={require('../../../images/logo.png')} />
+          <img className={styles.logo} src={require('../../images/logo.png')} />
         </Link>
         <div className={styles.buttons}>
           {this.renderHeaderButtons()}
