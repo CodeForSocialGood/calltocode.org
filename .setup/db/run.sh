@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
-set +x -eu -o pipefail
+set +x -e -o pipefail
 
 DB=mongo
-NAME=c4sg
+NAME=calltocode-db
 ID_FROM_DB=$(docker ps -aq -f ancestor=$DB)
 ID_FROM_NAME=$(docker ps -aq -f name=$NAME)
+IMAGE_VERSION=3.6
 
 start () {
+  set -u
   # Make sure a container isn't already running
   if [[ -z "$ID_FROM_DB" && -z "$ID_FROM_NAME" ]] ; then
     echo "Starting new docker container with MongoDB.."
-    docker run --name $NAME -d -p 27017:27017 -p 28017:28017 $DB | xargs echo "Started container"
+    docker run --name $NAME -d -p 27017:27017 -p 28017:28017 $DB:$IMAGE_VERSION | xargs echo "Started container"
 
     echo "Copying seed data to docker container.."
-    docker cp ./db/seedData/users.json $NAME:users.json
-    docker cp ./db/seedData/projects.json $NAME:projects.json
+    docker cp ./.setup/db/seedData/users.json $NAME:users.json
+    docker cp ./.setup/db/seedData/projects.json $NAME:projects.json
 
     echo "Adding seed data to MongoDB.."
     docker exec $NAME mongoimport --db admin --collection users --file users.json --type json --jsonArray
@@ -27,6 +29,7 @@ start () {
 }
 
 stop () {
+  set -u
   # Make sure there's a container to stop
   if [[ ! -z "$ID_FROM_DB" ]] ; then
     ID=$ID_FROM_DB
@@ -42,17 +45,32 @@ stop () {
   docker rm $ID | xargs echo "Removed container"
 }
 
+init_test () {
+  set -u
+  MONGO_HOST="calltocode-shard-00-00-romiu.mongodb.net:27017,calltocode-shard-00-01-romiu.mongodb.net:27017,calltocode-shard-00-02-romiu.mongodb.net:27017"
+  mongoimport --collection users --db test \
+    -h $MONGO_HOST \
+    --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+    --file ./.setup/db/seedData/users.json --type json --jsonArray
+  mongoimport --collection projects --db test \
+    -h $MONGO_HOST \
+    --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+    --file ./.setup/db/seedData/projects.json --type json --jsonArray
+}
+
 info () {
 cat <<EOF
   Usage: ./db/run.sh <target>
   Targets:
     start - start a docker container with seeded MongoDB
     stop - stop and remove the docker container
+    init_test - populate cloud mongodb for test environment
 EOF
 }
 
 case $1 in
-  start)    start    ;;
-  stop)     stop     ;;
-  *)        info     ;;
+  start)        start         ;;
+  stop)         stop          ;;
+  init_test)    init_test     ;;
+  *)            info          ;;
 esac
