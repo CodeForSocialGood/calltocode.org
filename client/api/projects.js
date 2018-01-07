@@ -13,6 +13,20 @@ const projectsApiClient = {
   getOrgProjects (apiOptions, id) {
     const query = { organization: id }
     return apiRequest.get('/projects', apiOptions, query)
+  },
+
+  async createProject(name){
+    console.log("In Client api")
+    console.log("Name :"+name);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    }
+
+    return await fetch('/api/projects/createproject', options)
   }
 }
 
