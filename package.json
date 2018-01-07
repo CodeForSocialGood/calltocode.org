@@ -10,20 +10,14 @@
     "node": "9.2.0"
   },
   "scripts": {
-    "prebuild": "rm -rf client/dist/",
-    "build": "webpack --bail",
-    "prestart": "npm run --silent db:stop; ./deploy/run.sh build",
-    "start": "./deploy/run.sh start",
-    "poststart": "cd deploy/ && docker-compose logs -f app",
-    "stop": "./deploy/run.sh stop",
     "client:watch": "webpack --watch",
-    "server:watch": "nodemon --watch server/ --exec 'node server/'",
-    "start:dev": "NODE_ENV=dev npm-run-all --parallel client:watch server:watch",
-    "pretest": "eslint --ignore-pattern client/dist/**/* --fix client/ server/",
+    "server:watch": "nodemon --watch server/ --ignore server/public/ --exec 'node server/'",
+    "sync": "browser-sync start --proxy localhost:3000 --files server/**/* --port 3001 --ws --no-open --https",
+    "start": "npm-run-all --parallel client:watch server:watch sync",
+    "pretest": "eslint --ignore-pattern server/public/**/*.js client/**/*.js server/**/*.js && yarn build",
     "test": "ava",
-    "predb": "npm run --silent db:stop",
-    "db": "./db/run.sh start",
-    "db:stop": "./db/run.sh stop"
+    "build": "webpack --bail",
+    "db": "./.setup/db/run.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
@@ -35,14 +29,17 @@
     "babel-preset-stage-0": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.7",
     "express": "^4.16.1",
     "express-jwt": "^5.3.0",
     "extract-text-webpack-plugin": "^3.0.1",
+    "hard-source-webpack-plugin": "^0.5.14",
     "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.12.1",
+    "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -63,6 +60,7 @@
   },
   "devDependencies": {
     "ava": "^0.24.0",
+    "browser-sync": "^2.23.3",
     "eslint": "^4.8.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
@@ -78,14 +76,17 @@
     "supertest": "^3.0.0"
   },
   "ava": {
-    "babel": "inherit",
+    "files": [
+      "client/src/**/*.test.js",
+      "server/**/*.test.js"
+    ],
     "require": [
       "babel-register",
       "ignore-styles"
     ],
-    "files": [
-      "client/src/**/*.test.js",
-      "server/**/*.test.js"
-    ]
+    "babel": "inherit",
+    "failFast": false,
+    "failWithoutAssertion": false,
+    "verbose": true
   }
 }

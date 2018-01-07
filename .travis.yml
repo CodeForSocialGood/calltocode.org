@@ -15,17 +15,17 @@ before_install: npm install --global greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 
 script:
-- yarn build
 - yarn test
 
 after_script: greenkeeper-lockfile-upload
 
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./deploy/run.sh ci_deploy_to_test; fi
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./.deploy/build.sh && ./.deploy/deploy.sh; fi
 
 cache:
   directories:
   - node_modules
+  - ~/.mongodb-binaries
   yarn: true
 
 notifications:

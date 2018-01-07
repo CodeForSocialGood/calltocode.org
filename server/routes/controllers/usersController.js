@@ -4,6 +4,8 @@ const usersController = {
   _init (Users = UserModel) {
     this.Users = Users
 
+    this.getCurrent = this.getCurrent.bind(this)
+    this.putCurrent = this.putCurrent.bind(this)
     this.getUsers = this.getUsers.bind(this)
     this.signup = this.signup.bind(this)
     this.getUser = this.getUser.bind(this)
@@ -12,6 +14,42 @@ const usersController = {
     this.login = this.login.bind(this)
     this.changePassword = this.changePassword.bind(this)
     return this
+  },
+
+  getCurrent (req, res, next) {
+    const id = req.payload.id
+
+    this.Users.findById(id).then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      return res.status(200).json(user.toJSON())
+    }).catch(next)
+  },
+
+  putCurrent (req, res, next) {
+    const id = req.payload.id
+
+    this.Users.findById(id).then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      const { email, projectsAppliedFor } = req.body.user
+
+      if (typeof email !== 'undefined') {
+        user.email = email
+      }
+
+      if (typeof projectsAppliedFor !== 'undefined') {
+        user.projectsAppliedFor = projectsAppliedFor
+      }
+
+      user.save().then(() => {
+        return res.status(200).send(user.toJSON())
+      })
+    }).catch(next)
   },
 
   getUsers (req, res) {
@@ -38,7 +76,7 @@ const usersController = {
   },
 
   getUser (req, res) {
-    const id = req.params.id
+    const id = req.params.user
 
     this.Users.findById(id).exec((err, user) => {
       if (err) {
@@ -49,7 +87,7 @@ const usersController = {
         return res.sendStatus(404)
       }
 
-      return res.status(200).json(req.user.toJSON())
+      return res.status(200).json(user.toJSON())
     })
   },
 

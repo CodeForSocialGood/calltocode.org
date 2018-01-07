@@ -35,7 +35,7 @@ General troubleshooting steps:
 
 **Problem**:
 ```bash
-$ yarn db
+$ yarn db start
 Starting new docker container with MongoDB..
 Started container 38ee6b4af0c4481a137209c70bb64784afbd33f4ab5bbb37735aa9d2ca945bf7
 Copying seed data to docker container..
@@ -46,7 +46,7 @@ error Command failed with exit code 1.
 
 **Solution**:
 ```bash
-$ yarn db:stop
+$ yarn db stop
 $ docker system prune
 $ docker volume rm $(docker volume ls -qf dangling=true)
 ```
