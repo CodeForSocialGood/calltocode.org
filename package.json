@@ -17,7 +17,7 @@
     "pretest": "eslint --ignore-pattern server/public/**/*.js client/**/*.js server/**/*.js && yarn build",
     "test": "ava",
     "build": "webpack --bail",
-    "db": "./db/run.sh"
+    "db": "./.setup/db/run.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
