@@ -4,8 +4,11 @@ const ProjectModel = require('../../database/models/Project')
 const projectsController = {
   _init (Projects = ProjectModel) {
     bindFunctions(this)
-
+    
     this.Projects = Projects
+    this.getProjects = this.getProjects.bind(this)
+    this.getProject = this.getProject.bind(this)
+    this.createProject=this.createProject.bind(this)
     return this
   },
 
@@ -40,6 +43,17 @@ const projectsController = {
 
       return res.status(200).json(project.toJSON())
     }).catch(next)
+  },
+
+  createProject(req,res,next){
+    const newProject = new this.Projects(req.body)
+    return newProject.save((err, project) => {
+      if (err) {
+        return res.status(500).json({ error: 'Internal server error' })
+      }
+      res.setHeader('Content-Type', 'application/json')
+      return res.status(200).json('SUCCESS');
+    })
   }
 }
 

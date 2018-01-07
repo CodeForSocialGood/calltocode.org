@@ -9,4 +9,7 @@ router.route('/')
 router.route('/:project')
   .get(auth.optional, projectsController.getProject)
 
+router.route('/createproject')
+  .post(projectsController.createProject)
+
 module.exports = router
