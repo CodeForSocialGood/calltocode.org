@@ -47,7 +47,7 @@ stop () {
 
 init_test () {
   set -u
-  MONGO_HOST="calltocode-shard-00-00-romiu.mongodb.net:27017,calltocode-shard-00-01-romiu.mongodb.net:27017,calltocode-shard-00-02-romiu.mongodb.net:27017"
+  MONGO_HOST="$DB_REPLICA_SET/$DB_HOST"
   mongoimport --collection users --db test \
     -h $MONGO_HOST \
     --ssl -u admin -p $DB_PASS --authenticationDatabase admin \

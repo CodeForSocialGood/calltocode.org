@@ -7,13 +7,15 @@ PROD_VERSION=prod-$VERSION
 docker_push () {
   set -u
   docker build \
-  --build-arg DB_PASS=$DB_PASS \
-  --build-arg COMMIT_HASH=$COMMIT_HASH \
-  --build-arg JWT_SIGNING_KEY=$JWT_SIGNING_KEY \
-  --build-arg SENDGRID_API_KEY=$SENDGRID_API_KEY \
-  --build-arg ROLLBAR_API_KEY=$ROLLBAR_API_KEY \
-  --build-arg HOST_DOMAIN=$HOST_DOMAIN \
-  -t $DOCKER_IMAGE:$PROD_VERSION .
+    --build-arg DB_PASS=$DB_PASS \
+    --build-arg COMMIT_HASH=$COMMIT_HASH \
+    --build-arg JWT_SIGNING_KEY=$JWT_SIGNING_KEY \
+    --build-arg SENDGRID_API_KEY=$SENDGRID_API_KEY \
+    --build-arg ROLLBAR_API_KEY=$ROLLBAR_API_KEY \
+    --build-arg HOST_DOMAIN=$HOST_DOMAIN \
+    --build-arg DB_HOST=$DB_HOST \
+    --build-arg DB_REPLICA_SET=$DB_REPLICA_SET \
+    -t $DOCKER_IMAGE:$PROD_VERSION .
   docker login -u $DOCKER_USER -p $DOCKER_PASS
   docker push $DOCKER_IMAGE:$PROD_VERSION
 }
