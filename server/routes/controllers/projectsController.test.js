@@ -2,7 +2,7 @@ import test from 'ava'
 import request from 'supertest'
 
 import { before, beforeEach, afterEach, after, formatData } from '../../test/util'
-import seedProjects from '../../../db/seedData/projects.json'
+import seedProjects from '../../../.setup/db/seedData/projects.json'
 import Project from '../../database/models/Project'
 
 const toJSON = Project.schema.methods.toJSON

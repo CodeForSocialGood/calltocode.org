@@ -2,7 +2,7 @@ import test from 'ava'
 import request from 'supertest'
 
 import { before, beforeEach, afterEach, after, formatData } from '../../test/util'
-import seedUsers from '../../../db/seedData/users.json'
+import seedUsers from '../../../.setup/db/seedData/users.json'
 import User from '../../database/models/User'
 
 const generateSessionToken = User.schema.methods.generateSessionToken
