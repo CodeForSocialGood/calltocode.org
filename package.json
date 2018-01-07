@@ -76,14 +76,17 @@
     "supertest": "^3.0.0"
   },
   "ava": {
-    "babel": "inherit",
+    "files": [
+      "client/src/**/*.test.js",
+      "server/**/*.test.js"
+    ],
     "require": [
       "babel-register",
       "ignore-styles"
     ],
-    "files": [
-      "client/src/**/*.test.js",
-      "server/**/*.test.js"
-    ]
+    "babel": "inherit",
+    "failFast": false,
+    "failWithoutAssertion": false,
+    "verbose": true
   }
 }

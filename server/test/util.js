@@ -17,15 +17,13 @@ async function before (t) {
 }
 
 async function beforeEach (t) {
-  for (const seedProject of seedProjects) {
-    const project = new Project(formatData(seedProject))
-    await project.save()
-  }
+  const projects = seedProjects.map(formatData)
+  await saveData(projects, Project)
+  t.context.projects = projects
 
-  for (const seedUser of seedUsers) {
-    const user = new User(formatData(seedUser))
-    await user.save()
-  }
+  const users = seedUsers.map(formatData)
+  await saveData(users, User)
+  t.context.users = users
 
   t.context.app = app
 }
@@ -41,7 +39,16 @@ async function after (t) {
 }
 
 function formatData (data) {
-  return { ...data, _id: data['_id']['$oid'] }
+  return data['_id']['$oid']
+    ? { ...data, _id: data['_id']['$oid'] }
+    : { ...data }
 }
 
-module.exports = { before, beforeEach, afterEach, after, formatData }
+async function saveData (dataArr, Model) {
+  for (const data of dataArr) {
+    const entity = new Model(data)
+    await entity.save()
+  }
+}
+
+module.exports = { before, beforeEach, afterEach, after }

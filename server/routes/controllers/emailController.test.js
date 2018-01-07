@@ -1,6 +1,7 @@
-import test from 'ava'
-import { mock, match } from 'sinon'
-import emailController from './emailController'
+const test = require('ava')
+const { mock, match } = require('sinon')
+
+const emailController = require('./emailController')
 
 test('send email to organization', t => {
   // setup
