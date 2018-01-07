@@ -1,13 +1,15 @@
 const sendgrid = require('@sendgrid/mail')
+
+const bindFunctions = require('../../bindFunctions')
 const ForgotPasswordModel = require('../../database/models/ForgotPassword')
 
 const forgotPasswordController = {
   _init (emailClient = sendgrid, ForgotPass = ForgotPasswordModel) {
+    bindFunctions(this)
+
     emailClient.setApiKey(process.env.SENDGRID_API_KEY)
     this.emailClient = emailClient
     this.ForgotPass = ForgotPass
-    this.sendVerificationCodeEmail = this.sendVerificationCodeEmail.bind(this)
-
     return this
   },
 
