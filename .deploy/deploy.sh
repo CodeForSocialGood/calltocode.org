@@ -10,7 +10,7 @@ sed "s/<TAG>/$TRAVIS_COMMIT/" < .deploy/Dockerrun.aws.json.template > $DOCKER_AW
 EB_BUCKET=calltocode-elasticbeanstalk
 pip install --user awscli
 aws s3 cp $DOCKER_AWS_FILE s3://$EB_BUCKET/$DOCKER_AWS_FILE
-aws elasticbeanstalk create-application-version --application-name test-calltocode \
+aws elasticbeanstalk create-application-version --application-name calltocode \
   --version-label $TRAVIS_COMMIT \
   --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKER_AWS_FILE \
   --region us-east-2
