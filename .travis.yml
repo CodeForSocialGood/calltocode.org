@@ -20,7 +20,7 @@ script:
 after_script: greenkeeper-lockfile-upload
 
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./deploy/build.sh && ./deploy/deploy.sh; fi
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./.deploy/build.sh && ./.deploy/deploy.sh; fi
 
 cache:
   directories:
