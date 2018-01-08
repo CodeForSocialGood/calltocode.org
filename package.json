@@ -72,12 +72,13 @@
     "mongodb-memory-server": "^1.6.3",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
+    "react-test-renderer": "^16.2.0",
     "sinon": "^4.0.0",
     "supertest": "^3.0.0"
   },
   "ava": {
     "files": [
-      "client/src/**/*.test.js",
+      "client/components/**/*.test.js",
       "server/**/*.test.js"
     ],
     "require": [
