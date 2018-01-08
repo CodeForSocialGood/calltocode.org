@@ -24,12 +24,8 @@ const forgotPasswordController = {
   },
 
   _getUser (email) {
-    return this.Users.findOne({email: email}).exec((err, forgot) => {
-      if (err) {
-        return false
-      } else {
-        return true
-      }
+    return this.Users.findOne({email}).exec((err, forgot) => {
+      return !!err
     })
   },
 
@@ -61,17 +57,15 @@ const forgotPasswordController = {
 
   validateCode (req, res) {
     const {email, code} = req.body
-    this.ForgotPass.findOne({email: email, code: code}).exec((err, forgot) => {
+    this.ForgotPass.findOne({email, code}).exec((err, forgot) => {
       if (err) {
         return res.status(404).json({error: 'Invalid code or email'})
-      } else {
-        if (forgot) {
-          forgot.remove()
-          return res.status(200).json({status: 200})
-        } else {
-          return res.status(404).json({error: 'Invalid code or email'})
-        }
       }
+      if (forgot) {
+        forgot.remove()
+        return res.status(200).json({status: 200})
+      }
+      return res.status(404).json({error: 'Invalid code or email'})
     })
   }
 }
