@@ -14,6 +14,8 @@ const logger = {
 
 function handleLog (rollbarLevel = 'debug', localLevel = rollbarLevel) {
   return function () {
+    if (process.env.SILENT) return
+
     if (rollbarConfig.enabled) {
       rollbar[rollbarLevel](...arguments)
     } else if (rollbarConfig.verbose) {

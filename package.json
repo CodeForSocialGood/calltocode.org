@@ -14,9 +14,9 @@
     "server:watch": "nodemon --watch server/ --ignore server/public/ --exec 'node server/'",
     "sync": "browser-sync start --proxy localhost:3000 --files server/**/* --port 3001 --ws --no-open --https",
     "start": "npm-run-all --parallel client:watch server:watch sync",
-    "pretest": "eslint --ignore-pattern server/public/**/*.js client/**/*.js server/**/*.js && yarn build",
-    "test": "ava",
-    "build": "webpack --bail",
+    "pretest": "eslint . && yarn build",
+    "test": "SILENT=true ava --verbose",
+    "build": "webpack --bail --display errors-only",
     "db": "./.setup/db/run.sh"
   },
   "dependencies": {
@@ -84,9 +84,6 @@
       "babel-register",
       "ignore-styles"
     ],
-    "babel": "inherit",
-    "failFast": false,
-    "failWithoutAssertion": false,
-    "verbose": true
+    "babel": "inherit"
   }
 }
