@@ -1,11 +1,11 @@
+const bindFunctions = require('../../bindFunctions')
 const ProjectModel = require('../../database/models/Project')
 
 const projectsController = {
   _init (Projects = ProjectModel) {
-    this.Projects = Projects
+    bindFunctions(this)
 
-    this.getProjects = this.getProjects.bind(this)
-    this.getProject = this.getProject.bind(this)
+    this.Projects = Projects
     return this
   },
 

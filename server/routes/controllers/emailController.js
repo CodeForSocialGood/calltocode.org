@@ -1,12 +1,14 @@
 const sendgrid = require('@sendgrid/mail')
+
+const bindFunctions = require('../../bindFunctions')
 const { emailConfig } = require('../../config')
 
 const emailController = {
   _init (emailClient = sendgrid) {
+    bindFunctions(this)
+
     this.emailClient = emailClient
     this.emailClient.setApiKey(emailConfig.sendgridApiKey)
-
-    this.sendToOrg = this.sendToOrg.bind(this)
     return this
   },
 
