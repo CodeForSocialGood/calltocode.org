@@ -27,9 +27,9 @@ Below is a cheatsheet for the scripts that can be found in `package.json`:
 $ yarn                            # Install dependencies (npm install)
 $ yarn db start                   # Restart docker container with mongodb and add seed data (npm run db -- start)
 $ yarn db stop                    # Stop docker container with mongodb (npm run db -- stop)
-$ yarn start                      # Run app locally on port 3000 and in watch mode on port 3001 via https
+$ yarn start                      # Run app locally on port 3000 and in watch mode on port 3001 via https (npm start)
 $ yarn test                       # Run tests (npm test)
-$ yarn build                      # Generate distribution
+$ yarn build                      # Generate distribution (npm run build)
 ```
 
 *Although yarn is recommended, you may also use npm natively. The corresponding npm commands are in parenthesis above.*
