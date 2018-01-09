@@ -60,27 +60,6 @@ export default class AuthActionCreator {
     }
   }
 
-  static sendValidationCode (email) {
-    return async (dispatch, getState) => {
-      try {
-        const state = getState()
-        const apiOptions = apiOptionsFromState(state)
-        const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
-        if (response.status === 200) {
-          dispatch({
-            ...forgotPass,
-            payload: email
-          })
-        } else {
-          throw new ForgotPasswordException('send email failed!')
-        }
-      } catch (e) {
-        console.trace(e)
-        throw new ForgotPasswordException('send email failed!')
-      }
-    }
-  }
-
   static changePassword (email, password) {
     return async dispatch => {
       const response = await usersApiClient.changePassword(email, password)

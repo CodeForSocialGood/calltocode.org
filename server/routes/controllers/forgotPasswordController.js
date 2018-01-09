@@ -17,8 +17,9 @@ const forgotPasswordController = {
   },
 
   _saveIntoDatabase (email, code) {
-    const forgot = new this.ForgotPass({ email, code })
-    return forgot.save()
+    const query = {'email': email}
+    // upsert is to insert or update the record. this way, only one code per email is in DB
+    return this.ForgotPass.findOneAndUpdate(query, {$set: { email, code }}, {upsert: true, 'new': true}).exec()
   },
 
   _generateCode () {

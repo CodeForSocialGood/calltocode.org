@@ -30,16 +30,20 @@ class ForgotPasswordForm extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  nextPage ({email}) {
-    return this.props.sendValidationCode(email).then(() => {
+  async nextPage ({email}) {
+    const apiOptions = apiOptionsFromState()
+    const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, email)
+    if (response.status === 200) {
       this.setState({page: this.state.page + 1})
-    }).catch((error) => { throw new SubmissionError({ code: error.name, _error: error.message }) })
+    } else {
+      throw new SubmissionError({code: 'send email failed!', _error: 'send email failed!'})
+    }
   }
 
   async validate (values, dispatch) {
     const _error = 'Incorrect code, please try again!'
     const apiOptions = apiOptionsFromState()
-    const response = await forgotPasswordApiClient.validateCode(apiOptions, this.props.email, values.code)
+    const response = await forgotPasswordApiClient.validateCode(apiOptions, this.state.email, values.code)
     if (response.status === 200) {
       this.setState({page: this.state.page + 1})
     } else {
@@ -48,7 +52,7 @@ class ForgotPasswordForm extends Component {
   }
 
   changePass (values, dispatch) {
-    return this.props.changePassword(this.props.email, values.password).then(() => {
+    return this.props.changePassword(this.state.email, values.password).then(() => {
       dispatch(push('/'))
     }).catch(error => {
       throw new SubmissionError({code: error.name, _error: error.message})
@@ -88,14 +92,7 @@ ForgotPasswordForm.propTypes = {
 }
 
 const mapDispatchToProps = {
-  sendValidationCode: AuthActionCreator.sendValidationCode,
   changePassword: AuthActionCreator.changePassword
-}
-
-function mapStateToProps (state) {
-  return {
-    email: state.forgotPass.email
-  }
 }
 
 const ForgotPasswordFormRedux = reduxForm({
@@ -105,4 +102,4 @@ const ForgotPasswordFormRedux = reduxForm({
   }
 })(ForgotPasswordForm)
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordFormRedux)
+export default connect(null, mapDispatchToProps)(ForgotPasswordFormRedux)
