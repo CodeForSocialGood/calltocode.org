@@ -3,8 +3,6 @@ import { APP_LOAD, LOGIN, LOGOUT, FORGOT_PASSWORD } from './types'
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import usersApiClient from '../../api/users'
 import SignupException from '../../exceptions/SignupException'
-import ForgotPasswordException from '../../exceptions/ForgotPasswordException'
-import forgotPasswordApiClient from '../../api/forgotPassword'
 import NewPasswordException from '../../exceptions/NewPasswordException'
 
 export const appLoad = { type: APP_LOAD }
