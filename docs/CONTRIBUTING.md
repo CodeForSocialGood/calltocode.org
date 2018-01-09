@@ -153,7 +153,7 @@ chore: add something
 
 *Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story id**.*
 
-### Pull Request
+### <a name="pr"></a> Pull Request
 
 Once you are finished with the story, run the tests to make sure your changes are linted and haven't broken any tests:
 
@@ -181,7 +181,29 @@ You can now create a pull request using the Github web interface. Please format 
   - Full Example: `Feature/#153540677 - Encrypt password`
 - Pull Request Body: no requirements
 
+Once you have submitted your pull request (PR), it needs to be approved and updated with the `master` branch's latest changes with all conflicts resolved before it can be merged. See the section below on how to deal with this.
+
 *Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story type**, **story id** and **story name**.*
+
+### Branch Updating and Conflicts
+
+If you need to update your branch with the latest changes from master after you've already made changes, or after you've submitted a pull request, it is best to do the following:
+
+```bash
+$ git checkout master
+$ git pull -r
+$ git checkout <your branch>
+$ git rebase master
+
+# Resolve conflicts (if there are any)
+$ git status
+$ git rebase --continue
+
+# Repeat the above step until no more conflicts, then
+$ git push -f
+```
+
+This will rebase your branch's changes on top of the latest changes on the `master` branch, avoiding any ugly merge commits.
 
 ## <a name="questions"></a> Questions or Problems?
 
