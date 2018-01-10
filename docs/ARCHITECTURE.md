@@ -41,21 +41,19 @@ Here is a breakdown of the project's structure:
 
 The front-end consists of everything in the `client` folder.
 
-*These need links:*
-- Getting started with React
-- Getting started with Redux
-- React with Redux
-- SCSS documentation
-- SCSS guide
+- [Getting started with React](https://reactjs.org/tutorial/tutorial.html)
+- [Getting started with Redux](https://egghead.io/series/getting-started-with-redux)
+- [React with Redux](https://medium.com/@miguelsaddress/a-basic-react-redux-introductory-tutorial-adcc681eeb5e)
+- [SCSS documentation](http://sass-lang.com/documentation/)
+- [SCSS guide](http://sass-lang.com/guide)
 
 ## <a name="back-end"></a> Back-end Guides
 
 The back-end consists of everything in the `server` folder.
 
-*These need links:*
-- Getting started with Node w/ Express
-- Node/Express/Mongoose guide
-- REST API guidelines
+- [Getting started with Node w/ Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
+- [Node/Express/Mongoose guide](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)
+- [REST API guidelines](https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9)
 
 ## <a name="database"></a> Database Guides
 
