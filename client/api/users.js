@@ -38,12 +38,13 @@ const usersApiClient = {
   },
 
   changePassword (email, password) {
+    const { salt, hash } = getSaltHash(password)
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, salt, hash })
     }
 
     return fetch('/api/users/new-password', options)
@@ -53,6 +54,13 @@ const usersApiClient = {
     const body = { user }
     return apiRequest.put('/user', apiOptions, body)
   }
+}
+
+function getSaltHash (password) {
+  const saltRounds = 10
+  const salt = bcrypt.genSaltSync(saltRounds)
+  const hash = bcrypt.hashSync(password, salt)
+  return { salt, hash }
 }
 
 export default usersApiClient

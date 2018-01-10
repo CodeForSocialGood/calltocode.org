@@ -28,9 +28,9 @@ const store = createStore(
   applyMiddleware(
     navigationMiddleware,
     loggerMiddleware,
-    localStorageMiddleware,
     promiseMiddleware,
-    thunkMiddleware
+    thunkMiddleware,
+    localStorageMiddleware
   )
 )
 
