@@ -83,7 +83,7 @@
     ],
     "require": [
       "babel-register",
-      "ignore-styles"
+      "./ignore-utils.js"
     ],
     "babel": "inherit",
     "failFast": false,
