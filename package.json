@@ -88,6 +88,7 @@
     "babel": "inherit",
     "failFast": false,
     "failWithoutAssertion": false,
-    "verbose": true
+    "verbose": true,
+    "snapshotDir": "./client/component-snapshots"
   }
 }
