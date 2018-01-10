@@ -10,12 +10,13 @@
     "node": "9.2.0"
   },
   "scripts": {
-    "client:watch": "webpack --watch",
+    "client:watch": "webpack --watch --hide-modules",
     "server:watch": "nodemon --watch server/ --ignore server/public/ --exec 'node server/'",
     "sync": "browser-sync start --proxy localhost:3000 --files server/**/* --port 3001 --ws --no-open --https",
     "start": "npm-run-all --parallel client:watch server:watch sync",
-    "pretest": "eslint . && yarn build",
+    "pretest": "yarn lint && yarn build",
     "test": "SILENT=true ava --verbose",
+    "lint": "eslint --ignore-pattern server/public/ client/ server/",
     "build": "webpack --bail --display errors-only",
     "db": "./.setup/db/run.sh"
   },
@@ -38,6 +39,7 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "jsonwebtoken": "^8.1.0",
+    "material-ui": "^0.20.0",
     "mongoose": "^4.12.1",
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
