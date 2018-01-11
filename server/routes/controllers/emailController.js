@@ -1,19 +1,17 @@
-const sendgrid = require('@sendgrid/mail')
-
 const bindFunctions = require('../../bindFunctions')
 const { emailConfig } = require('../../config')
 
 const emailController = {
-  _init (emailClient = sendgrid) {
+  _init () {
     bindFunctions(this)
-
-    this.emailClient = emailClient
-    this.emailClient.setApiKey(emailConfig.sendgridApiKey)
+    this.emailClient = {
+      send: emailConfig.getSend
+    }
     return this
   },
 
   sendToOrg (req, res) {
-    const {email, name, role} = req.body.project
+    const { email, name, role } = req.body.project
     const text = `I am interested in the role ${role}!`
     const message = {
       from: req.body.user.email,
