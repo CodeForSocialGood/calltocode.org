@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import createHistory from 'history/createBrowserHistory'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
-import thunkMiddleware from 'redux-thunk'
 import { Route, Switch } from 'react-router-dom'
+import thunkMiddleware from 'redux-thunk'
+
 import localStorageMiddleware from './middleware/localStorageMiddleware'
 import promiseMiddleware from './middleware/promiseMiddleware'
 
@@ -37,9 +39,11 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={browserHistory}>
-      <Switch>
-        <Route path="/" component={App} />
-      </Switch>
+      <MuiThemeProvider>
+        <Switch>
+          <Route path="/" component={App} />
+        </Switch>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.querySelector('main')
