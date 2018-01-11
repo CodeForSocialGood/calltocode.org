@@ -18,7 +18,8 @@
     "test": "SILENT=true ava --verbose",
     "lint": "eslint --ignore-pattern server/public/ client/ server/",
     "build": "webpack --bail --display errors-only",
-    "db": "./.setup/db/run.sh"
+    "db": "./.setup/db/run.sh",
+    "email": "./.setup/email/run.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",

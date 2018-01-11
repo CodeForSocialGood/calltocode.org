@@ -10,7 +10,7 @@ const config = {
         return mail.send
       default:
         mail = require('sendmail')({
-          devPort: 1025, // Default: False 
+          devPort: 1025, // Default: False
           devHost: 'localhost' // Default: localhost
         })
         return mail
