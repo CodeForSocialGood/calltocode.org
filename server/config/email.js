@@ -3,11 +3,11 @@ const config = {
   getSend () {
     let mail
     switch (process.env.NODE_ENV) {
-      case 'test':
+      case 'dev':
       case 'prod':
         mail = require('@sendgrid/mail')
         mail.setApiKey(process.env.SENDGRID_API_KEY)
-        return mail.send
+        return mail.send.bind(mail)
       default:
         mail = require('sendmail')({
           devPort: 1025, // Default: False
