@@ -64,8 +64,4 @@ export default class ProjectActionCreator {
       }
     }
   }
-
-  static createProject(){
-    console.log("In Project Action creator create project")
-  }
 }
