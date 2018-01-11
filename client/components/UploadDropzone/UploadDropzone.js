@@ -85,8 +85,8 @@ class UploadDropzone extends Component {
 }
 
 UploadDropzone.propTypes = {
-  saveFile: PropTypes.func,
-  file: PropTypes.obj,
+  saveFile: PropTypes.func.isRequired,
+  file: PropTypes.object,
   sizeLimit: PropTypes.number,
   types: PropTypes.array
 }

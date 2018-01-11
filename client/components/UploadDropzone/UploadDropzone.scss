@@ -5,14 +5,14 @@
   width: 200px;
   height: 200px;
   border: 2px dashed #C8C8C8;
-  border-radius: 5px;
+  @include border-radius(5px);
 }
 
 .dropzoneInterior {
   position: relative;
   top: 50%;
   text-align: center;
-  transform: translate(0%, -50%);
+  @include transform(translate(0%, -50%));
 }
 
 .image {
