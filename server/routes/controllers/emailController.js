@@ -5,7 +5,7 @@ const emailController = {
   _init () {
     bindFunctions(this)
     this.emailClient = {
-      send: emailConfig.getSend
+      send: emailConfig.getSend()
     }
     return this
   },
