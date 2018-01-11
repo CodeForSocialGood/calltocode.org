@@ -3,7 +3,7 @@ const config = {
   getSend () {
     let mail
     switch (process.env.NODE_ENV) {
-      case 'dev':
+      case 'test':
       case 'prod':
         mail = require('@sendgrid/mail')
         mail.setApiKey(process.env.SENDGRID_API_KEY)
