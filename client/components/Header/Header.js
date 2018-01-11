@@ -11,17 +11,18 @@ class Header extends Component {
     super(props)
 
     this.renderHeaderButtons = this.renderHeaderButtons.bind(this)
+    this.getLinkStyles = this.getLinkStyles.bind(this)
   }
 
   renderHeaderButtons () {
     if (this.props.authenticated) {
       const authButtons = [
-        <Link key="logout" to='/' onClick={this.props.logout} className={styles.button}>LOG OUT</Link>,
-        <Link key="profile" to='/profile' className={styles.button}>PROFILE</Link>
+        <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
+        <Link key="profile" to='/profile' className={this.getLinkStyles('profile')}>PROFILE</Link>
       ]
       if (this.props.user.usertype === 'contact') {
         return [
-          <Link key="create-project" to='/create-project' className={styles.button}>CREATE PROJECT</Link>,
+          <Link key="create-project" to='/create-project' className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
           ...authButtons
         ]
       } else {
@@ -29,10 +30,16 @@ class Header extends Component {
       }
     } else {
       return ([
-        <Link key='signup' to='/signup' className={styles.button}>SIGN UP</Link>,
-        <Link key='login' to='/login' className={styles.button}>LOGIN</Link>
+        <Link key='signup' to='/signup' className={this.getLinkStyles('signup')}>SIGN UP</Link>,
+        <Link key='login' to='/login' className={this.getLinkStyles('login')}>LOGIN</Link>
       ])
     }
+  }
+
+  getLinkStyles (page) {
+    return this.props.currentPage.includes(page)
+      ? `${styles.button} ${styles.active}`
+      : `${styles.button}`
   }
 
   render () {
@@ -52,6 +59,7 @@ class Header extends Component {
 function mapStateToProps (state) {
   return {
     authenticated: state.auth.authenticated,
+    currentPage: state.routing.location.pathname,
     user: state.user
   }
 }
@@ -62,8 +70,9 @@ const mapDispatchToProps = {
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
+  currentPage: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired
+  user: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

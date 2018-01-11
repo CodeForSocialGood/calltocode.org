@@ -1,11 +1,13 @@
-// @extend %x; to inherit properties from %x
-
 %button {
   color: white;
   background-color: $primaryColor;
   font-size: 100%;
   border: 0;
   border-radius: 5px;
+}
+
+%buttonActive {
+  color: $primaryColor;
 }
 
 %button:hover {
