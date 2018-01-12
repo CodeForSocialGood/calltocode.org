@@ -4,15 +4,12 @@ const UserModel = require('../../database/models/User')
 const { emailConfig } = require('../../config')
 
 const forgotPasswordController = {
-  _init (ForgotPass = ForgotPasswordModel, Users = UserModel) {
+  _init (ForgotPass = ForgotPasswordModel, Users = UserModel, emailClient = emailConfig) {
     bindFunctions(this)
 
-    this.emailClient = {
-      send: emailConfig.getSend()
-    }
+    this.emailClient = emailClient
     this.ForgotPass = ForgotPass
     this.Users = Users
-    this.validateCode = this.validateCode.bind(this)
     return this
   },
 

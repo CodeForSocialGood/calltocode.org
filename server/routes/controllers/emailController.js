@@ -2,11 +2,9 @@ const bindFunctions = require('../../bindFunctions')
 const { emailConfig } = require('../../config')
 
 const emailController = {
-  _init () {
+  _init (emailClient = emailConfig) {
     bindFunctions(this)
-    this.emailClient = {
-      send: emailConfig.getSend()
-    }
+    this.emailClient = emailClient
     return this
   },
 
