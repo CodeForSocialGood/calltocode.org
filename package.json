@@ -61,6 +61,9 @@
   "devDependencies": {
     "ava": "^0.24.0",
     "browser-sync": "^2.23.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "eslint": "^4.8.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
@@ -72,14 +75,12 @@
     "mongodb-memory-server": "^1.6.3",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
-    "react-test-renderer": "^16.2.0",
     "sinon": "^4.0.0",
     "supertest": "^3.0.0"
   },
   "ava": {
     "files": [
-      "client/components/**/*.test.js",
-      "server/**/*.test.js"
+      "client/components/**/*.test.js"
     ],
     "require": [
       "babel-register",

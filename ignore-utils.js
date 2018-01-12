@@ -1,4 +1,7 @@
 import register from 'ignore-styles'
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
 register(undefined, (module, filename) => {
   module.exports = new Proxy({}, {
     get: function(target, property, receiver) {
@@ -11,3 +14,5 @@ register(undefined, (module, filename) => {
     }
   });
 })
+
+configure({ adapter: new Adapter() });
