@@ -21,10 +21,7 @@ class UploadDropzone extends Component {
     }
   }
   isImage (file) {
-    const name = file.name || file.path
-    const suffix = name.split('.').reverse()[0].toLowerCase()
-
-    return suffix === 'jpg' || suffix === 'jpeg' || suffix === 'bmp' || suffix === 'png'
+    return file.type && this.state.types.includes(file.type)
   }
   onDropAccepted (files) {
     const [file] = files
