@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { GridTile } from 'material-ui/GridList'
 
-import styles from '../ListOfProjects/ListOfProjects.scss'
+import styles from './Project.scss'
 
 class Project extends Component {
   constructor (props) {
@@ -27,15 +28,11 @@ class Project extends Component {
     const isContact = this.isUserTypeContact()
     if (applied && !isContact) {
       return (
-        <span className={styles.listApplyPass}>
-          &#10004;
-        </span>
+        <span className={styles.projectApplyPass}>&#10004;</span>
       )
     } else if (!isContact) {
       return (
-        <span className={styles.listApplyFail}>
-          &#10007;
-        </span>
+        <span className={styles.projectApplyFail}>&#10007;</span>
       )
     }
   }
@@ -52,23 +49,25 @@ class Project extends Component {
   }
 
   render () {
+    const { project } = this.props
+
     const applied = this.getAppliedStatus()
     const isContact = this.isUserTypeContact()
-    let liClassName = styles.listOrg
+    let projectClasses = styles.project
     if (this.props.authenticated && !applied && !isContact) {
-      liClassName = styles.listOrgAuthenticated
+      projectClasses = styles.projectAuthenticated
     } else if (this.props.authenticated && !applied) {
-      liClassName = styles.listOrgAuthenticatedContact
+      projectClasses = styles.projectAuthenticatedContact
     }
 
     return (
-      <li
-        onClick={this.handleClick.bind(this)}>
-        {this.renderProjectApplicationResult(this.props.project)}
-        <div className={liClassName}>
-          Name:{this.props.project.name} Role:{this.props.project.role}
-        </div>
-      </li>
+      <GridTile className={projectClasses}
+        onClick={this.handleClick.bind(this)}
+        title={project.name}
+        subtitle={project.organization.name || 'Organization Name'}
+        actionIcon={this.renderProjectApplicationResult(project)}>
+        <img src={project.image || 'logo.png'} />
+      </GridTile>
     )
   }
 }
