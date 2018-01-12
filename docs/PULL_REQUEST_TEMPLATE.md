@@ -1,8 +1,4 @@
-<!-- Pull Request Template -->
-
-<!-- IMPORTANT: review the links below for detailed contributing and pull request guidelines -->
-<!-- Contributing guidelines: https://github.com/CodeForSocialGood/calltocode.org/blob/master/docs/CONTRIBUTING.md -->
-<!-- Pull requests: https://github.com/CodeForSocialGood/calltocode.org/blob/master/docs/CONTRIBUTING.md#pr -->
+<!-- IMPORTANT: review the links at the bottom for contributing and pull request guidelines -->
 
 #### Pre-Submission Checklist:
 <!-- After creating the pull request, tick the boxes below that are completed -->
@@ -10,8 +6,8 @@
 
 - [ ] Your pull request targets the `master` branch of calltocode.org
 - [ ] Your branch is updated with the latest changes on `master`
-- [ ] Your branch passes linting and all new and existing tests with command `yarn test`
-- [ ] Below, reference the ID of the story that this branch addresses
+- [ ] Your branch passes linting, building and all new and existing tests with command `yarn test`
+- [ ] The ID of the story that this branch address is referenced below
 
 #### Post-Submission Checklist:
 <!-- After creating the pull request, tick the boxes below that are completed -->
@@ -24,4 +20,10 @@
 <!-- Replace the `XXXXXXXXX` in the line above with the story's ID -->
 
 #### Description:
-<!-- Put a description of your changes here (if necessary) -->
+<!-- Put a description of your changes here -->
+
+<!-- LINKS:
+Contributing guidelines: https://github.com/CodeForSocialGood/calltocode.org/blob/master/docs/CONTRIBUTING.md
+
+Pull requests: https://github.com/CodeForSocialGood/calltocode.org/blob/master/docs/CONTRIBUTING.md#pr
+-->

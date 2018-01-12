@@ -92,7 +92,7 @@ Stories in the backlog that say `Start` are available for starting. They are pri
 
 ## <a name="git"></a> Git Workflow
 
-For a detailed example (with screenshots) of our git workflow focused on contributing through a **fork**, see our [detailed contributing guidelines](./CONTRIBUTING_DETAILED.md).
+**If you're working through a fork**: see our [detailed contributing guidelines](./CONTRIBUTING_DETAILED.md) which outlines our git workflow (and has screenshots), focused on contributing through a fork.
 
 ### Stay updated with the master branch
 
@@ -189,21 +189,33 @@ Once you have submitted your pull request (PR), it needs to be approved and upda
 
 If you need to update your branch with the latest changes from master after you've already made changes, or after you've submitted a pull request, it is best to do the following:
 
+#### Update master
+
 ```bash
 $ git checkout master
 $ git pull -r
 $ git checkout <your branch>
 $ git rebase master
+```
 
-# Resolve conflicts (if there are any)
+#### Resolve conflicts (if there are any)
+
+```bash
+# Repeat this step until there are no more conflicts
 $ git status
+# Follow instructions printed by git, then
 $ git rebase --continue
+```
 
-# Repeat the above step until no more conflicts, then
+#### Re-push your changes
+
+```bash
 $ git push -f
 ```
 
-This will rebase your branch's changes on top of the latest changes on the `master` branch, avoiding any ugly merge commits.
+This is a good practice because it will rebase your branch's changes on top of the latest changes on the `master` branch, avoiding any ugly/noisy merge commits on your branch.
+
+*In some cases you can update your branch using the "Update branch" button inside of your open pull request. This is available when there are no (complex) conflicts between your branch and master, and will always create an "ugly" merge commit on your branch. In our case, this doesn't really matter because we squash the commits in our PRs into one commit when we merge into master, but the above workflow is necessary when conflicts are too complex to be resolved through the browser.*
 
 ## <a name="questions"></a> Questions or Problems?
 
