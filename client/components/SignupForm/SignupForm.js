@@ -81,6 +81,7 @@ function getValidationClass (dirty, error) {
 }
 
 export function SignupForm (props) {
+  // TODO: could bind signup to handleSubmit so we don't have to pass in both
   const { handleSubmit, isOrganization, signup } = props
 
   return (
