@@ -80,7 +80,7 @@ function getValidationClass (dirty, error) {
   return ''
 }
 
-function SignupForm (props) {
+export function SignupForm (props) {
   const { handleSubmit, isOrganization, signup } = props
 
   return (
