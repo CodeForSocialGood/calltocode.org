@@ -1,17 +1,18 @@
 import React from 'react'
 import test from 'ava'
-import render from 'react-test-renderer'
+import {shallow} from 'enzyme'
+import toJson from 'enzyme-to-json'
 
 import ValidationPopup from './ValidationPopup'
 
 test('not active, errors all null', t => {
-  const popup = render.create(<ValidationPopup error={null} active={false}/>).toJSON()
-	t.snapshot(popup)
+  const wrapper = shallow(<ValidationPopup error={null} active={false}/>)
+	t.snapshot(toJson(wrapper))
 })
 
-test.only('active, errors all null', t => {
-  const popup = render.create(<ValidationPopup error={null} active={true}/>).toJSON()
-	t.snapshot(popup)
+test('active, errors all null', t => {
+  const wrapper = shallow(<ValidationPopup error={null} active={true}/>)
+	t.snapshot(toJson(wrapper))
 })
 
 test('active, errors all engaged', t => {
@@ -25,8 +26,8 @@ test('active, errors all engaged', t => {
     noIdenticalChars: true
   }
 
-  const popup = render.create(<ValidationPopup error={errors} active={true}/>).toJSON()
-	t.snapshot(popup)
+  const wrapper = shallow(<ValidationPopup error={errors} active={true}/>)
+	t.snapshot(toJson(wrapper))
 })
 
 test('active, some errors engaged', t => {
@@ -40,6 +41,6 @@ test('active, some errors engaged', t => {
     noIdenticalChars: true
   }
 
-  const popup = render.create(<ValidationPopup error={errors} active={true}/>).toJSON()
-	t.snapshot(popup)
+  const wrapper = shallow(<ValidationPopup error={errors} active={true}/>)
+	t.snapshot(toJson(wrapper))
 })
