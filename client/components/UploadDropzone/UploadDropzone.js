@@ -63,7 +63,7 @@ class UploadDropzone extends Component {
             <div className={styles.dropzoneInterior}>
               <CloudUploadIcon className={styles.uploadIcon} />
               <p className={styles.uploadText}>
-                Drag and drop an image file here, or click.
+                Drag and drop an image file here, or click
               </p>
             </div>
           }
