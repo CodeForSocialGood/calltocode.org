@@ -3,7 +3,9 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c0"
 		},
-		"organization": "5b165cb5202e8986f99ec5c0",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c0"
+		},
 		"name": "Mary_Organization",
 		"role": "Mary Org Role 1",
 		"email": "mary@email.com",
@@ -13,7 +15,9 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c1"
 		},
-		"organization": "5b165cb5202e8986f99ec5c0",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c0"
+		},
 		"name": "Mary_Organization",
 		"role": "Mary Org Role 2",
 		"email": "mary@email.com",
@@ -23,7 +27,9 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c2"
 		},
-		"organization": "5b165cb5202e8986f99ec5c1",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c1"
+		},
 		"name": "Organization1",
 		"role": "Role1",
 		"email": "1@email.com",
@@ -33,7 +39,9 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c3"
 		},
-		"organization": "5b165cb5202e8986f99ec5c2",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c2"
+		},
 		"name": "Organization2",
 		"role": "Role2",
 		"email": "2@email.com",
@@ -43,7 +51,9 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c4"
 		},
-		"organization": "5b165cb5202e8986f99ec5c3",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c3"
+		},
 		"name": "Organization3",
 		"role": "Role3",
 		"email": "3@email.com",
