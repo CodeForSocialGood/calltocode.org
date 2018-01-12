@@ -16,8 +16,6 @@ const projectsApiClient = {
   },
 
   async createProject (name) {
-    console.log('In Client api')
-    console.log('Name :' + name)
     const options = {
       method: 'POST',
       headers: {
@@ -25,8 +23,7 @@ const projectsApiClient = {
       },
       body: JSON.stringify({ name })
     }
-
-    return fetch('/api/projects/createproject', options)
+    return fetch('/api/projects/', options)
   }
 }
 
