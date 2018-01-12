@@ -66,7 +66,7 @@ class Project extends Component {
         title={project.name}
         subtitle={project.organization.name || 'Organization Name'}
         actionIcon={this.renderProjectApplicationResult(project)}>
-        <img src={project.image || 'logo.png'} />
+        <img src={project.image || require('../../images/logo.png')} />
       </GridTile>
     )
   }
