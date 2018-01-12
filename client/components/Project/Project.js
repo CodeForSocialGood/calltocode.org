@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import styles from '../ListOfProjects/ListOfProjects.scss'
 
-class Project extends Component {
+export class Project extends Component {
   constructor (props) {
     super(props)
 
