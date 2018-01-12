@@ -6,7 +6,7 @@ import Snackbar from 'material-ui/Snackbar'
 
 import styles from './UploadDropzone.scss'
 
-const defaultTypes = ['image/jpeg', 'image/png', 'image/bmp']
+const imageTypes = ['image/jpeg', 'image/png', 'image/bmp']
 
 class UploadDropzone extends Component {
   constructor (props) {
@@ -15,13 +15,10 @@ class UploadDropzone extends Component {
     this.state = {
       file: this.props.file || null,
       sizeLimit: this.props.sizeLimit || 3000000,
-      types: this.props.types || defaultTypes,
+      types: this.props.types || imageTypes,
       error: false,
       errorMessage: ''
     }
-  }
-  isImage (file) {
-    return file.type && this.state.types.includes(file.type)
   }
   onDropAccepted (files) {
     const [file] = files
@@ -34,7 +31,7 @@ class UploadDropzone extends Component {
     const { size, type } = file
     const { sizeLimit, types } = this.state
 
-    let message = 'There was an error while uploading this file, please try again'
+    let message = 'Something went wrong, please try again'
 
     if (!types.includes(type)) {
       message = `File type is invalid, supported type are ${types.join(', ')}`
@@ -59,7 +56,7 @@ class UploadDropzone extends Component {
           maxSize={sizeLimit}
           onDropAccepted={this.onDropAccepted.bind(this)}
           onDropRejected={this.onDropRejected.bind(this)}>
-          { file && this.isImage(file) &&
+          { file &&
             <img className={styles.image} src={file.preview || file.path} alt="Image Preview" />
           }
           { !file &&
