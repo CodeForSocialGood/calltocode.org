@@ -11,7 +11,7 @@
 
 #### Post-Submission Checklist:
 <!-- After creating the pull request, tick the boxes below that are completed -->
-<!-- Make sure you keep up with your pull request after submission, until it is merged: -->
+<!-- Make sure you keep up with your pull request after submission until it is merged: -->
 
 - [ ] Address any reviews on your pull request, as it will not get merged until it is approved
 - [ ] Make sure your branch is up to date and has no conflicts with `master`
