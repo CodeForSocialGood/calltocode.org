@@ -5,9 +5,6 @@ const projectsController = {
   _init (Projects = ProjectModel) {
     bindFunctions(this)
     this.Projects = Projects
-    this.getProjects = this.getProjects.bind(this)
-    this.getProject = this.getProject.bind(this)
-    this.createProject = this.createProject.bind(this)
     return this
   },
 

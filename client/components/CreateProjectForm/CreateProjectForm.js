@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { Field, reduxForm, SubmissionError } from 'redux-form'
 import PropTypes from 'prop-types'
 import styles from './CreateProjectForm.scss'
-
-import ProjectActionCreator from '../../actions/project'
 import projectsApiClient from '../../api/projects'
 
 class CreateProjectForm extends Component {
@@ -43,10 +41,6 @@ class CreateProjectForm extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  createProject: ProjectActionCreator.createProject
-}
-
 CreateProjectForm.propTypes = {
   error: PropTypes.string,
   handleSubmit: PropTypes.func,
@@ -60,4 +54,4 @@ const CreateProjectFormRedux = reduxForm({
   }
 })(CreateProjectForm)
 
-export default connect(null, mapDispatchToProps)(CreateProjectFormRedux)
+export default connect(null, null)(CreateProjectFormRedux)
