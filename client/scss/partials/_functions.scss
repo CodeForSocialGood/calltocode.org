@@ -1,0 +1,61 @@
+@mixin border-radius($radius: 3px) {
+  border-radius: #{$radius};
+  -moz-border-radius: #{$radius};
+  -webkit-border-radius: #{$radius};
+}
+
+@mixin opacity($value) {
+  filter:alpha(opacity=$value*100); /* msie */
+  -moz-opacity: $value; /* firefox 1.0 */
+  -khtml-opacity: $value; /* webkit */
+  opacity: $value; /* css 3 */
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+@mixin transform($value...) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -o-transform: $value;
+  transform: $value;
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  transition: $args;
+}
+
+@mixin transition-property($args...) {
+  -webkit-transition-property: $args;
+  -moz-transition-property: $args;
+  transition-property: $args;
+}
+
+@mixin animation($name...) {
+  -webkit-animation: $name;
+  -moz-animation: $name;
+  -ms-animation: $name;
+  animation: $name;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
