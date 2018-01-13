@@ -1,10 +1,7 @@
+import initialState from './initialState'
 import { APP_LOAD, LOGIN, LOGOUT } from '../actions/auth/types'
 
-const defaultState = {
-  authenticated: false
-}
-
-export default function (state = defaultState, action) {
+export default function (state = initialState.auth, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -13,7 +10,7 @@ export default function (state = defaultState, action) {
       return { ...state, authenticated: !!payload.token }
 
     case LOGOUT:
-      return defaultState
+      return initialState
 
     default:
       return state
