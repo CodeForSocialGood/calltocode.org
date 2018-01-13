@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm, SubmissionError } from 'redux-form'
+import { Field, reduxForm, SubmissionError, formValueSelector} from 'redux-form'
 import { push } from 'react-router-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -42,7 +42,8 @@ class LoginForm extends Component {
   }
 
   render () {
-    const { error, handleSubmit } = this.props
+    const { error, handleSubmit, email, password } = this.props;
+
 
     return (
       <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
@@ -58,6 +59,7 @@ class LoginForm extends Component {
         <button className={styles.buttonSubmit} type="submit">
           Submit
         </button>
+
         <div className={styles.errorContent}>
           {error}
         </div>
@@ -106,6 +108,12 @@ const LoginFormRedux = reduxForm({
       ? dispatch(push('/profile'))
       : dispatch(push('/'))
   }
-})(LoginForm)
+})(LoginForm);
 
-export default connect(null, mapDispatchToProps)(LoginFormRedux)
+
+const selector=formValueSelector('LoginForm');
+export default connect(state=> ({
+  email: selector(state, "email"),
+  password: selector(state, "password"),
+
+}), mapDispatchToProps)(LoginFormRedux)

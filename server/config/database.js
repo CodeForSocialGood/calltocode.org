@@ -1,9 +1,10 @@
 const config = {
   get url () {
     switch (process.env.NODE_ENV) {
-      case 'test':
-      case 'prod': return `mongodb://admin:${process.env.DB_PASS}@${process.env.DB_HOST}/test?ssl=true&replicaSet=${process.env.DB_REPLICA_SET}&authSource=admin`
-      default: return `mongodb://admin@127.0.0.1:27017/admin`
+      case 'prod': return `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds117495.mlab.com:17495/c2c`
+      case 'test': return 'mongodb://admin@db:27017/admin'
+      case 'dev':  return 'mongodb://admin@localhost:27017/admin'
+      default: return `mongodb://admin@${process.env.DB_URL}:27017/admin`
     }
   }
 }
