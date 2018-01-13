@@ -7,7 +7,9 @@
 		"email": "mary@email.com",
 		"salt" : "$2a$10$Wf/vK558w2vQm29SrH.xxO",
 	  "hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
-		"organization": "5b165cb5202e8986f99ec5c0",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c0"
+		},
 		"__v": 0
 	},
 	{
