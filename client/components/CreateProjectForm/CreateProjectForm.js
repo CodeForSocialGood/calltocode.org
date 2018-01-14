@@ -17,7 +17,7 @@ class CreateProjectForm extends Component {
 
   async createProject (values) {
     const {projectname} = values
-    const response = await projectsApiClient.createProject(projectname,this.props.user.organization)
+    const response = await projectsApiClient.createProject(projectname, this.props.user.organization)
     if (response.status === 500) {
       throw new SubmissionError({ projectname, _error: response.statusText })
     }
