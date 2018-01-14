@@ -25,7 +25,7 @@ class CreateProjectForm extends Component {
 
   async createProject (values) {
     const {projectname} = values
-    const response = await projectsApiClient.createProject(projectname)
+    const response = await projectsApiClient.createProject(projectname,this.props.user.organization)
     if (response.status === 500) {
       throw new SubmissionError({ projectname, _error: response.statusText })
     }
@@ -52,10 +52,18 @@ class CreateProjectForm extends Component {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    projects: state.project.projects,
+    user: state.user
+  }
+}
+
 CreateProjectForm.propTypes = {
   error: PropTypes.string,
   handleSubmit: PropTypes.func,
-  createProject: PropTypes.func
+  createProject: PropTypes.func,
+  user: PropTypes.object
 }
 
 const CreateProjectFormRedux = reduxForm({
@@ -65,4 +73,4 @@ const CreateProjectFormRedux = reduxForm({
   }
 })(CreateProjectForm)
 
-export default connect(null, null)(CreateProjectFormRedux)
+export default connect(mapStateToProps, null)(CreateProjectFormRedux)
