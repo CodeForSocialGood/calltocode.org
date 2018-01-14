@@ -45,32 +45,17 @@ stop () {
   docker rm $ID | xargs echo "--- Removed container"
 }
 
-init_test () {
-  set -u
-  MONGO_HOST="$DB_REPLICA_SET/$DB_HOST"
-  mongoimport --collection users --db test \
-    -h $MONGO_HOST \
-    --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
-    --file ./.setup/db/seedData/users.json --type json --jsonArray
-  mongoimport --collection projects --db test \
-    -h $MONGO_HOST \
-    --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
-    --file ./.setup/db/seedData/projects.json --type json --jsonArray
-}
-
 info () {
 cat <<EOF
   Usage: ./db/run.sh <target>
   Targets:
     start - start a docker container with seeded MongoDB
     stop - stop and remove the docker container
-    init_test - populate cloud mongodb for test environment
 EOF
 }
 
 case $1 in
   start)        start         ;;
   stop)         stop          ;;
-  init_test)    init_test     ;;
   *)            info          ;;
 esac
