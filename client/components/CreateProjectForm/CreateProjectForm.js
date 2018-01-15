@@ -8,7 +8,6 @@ import projectsApiClient from '../../api/projects'
 
 class CreateProjectForm extends Component {
   renderImageUpload (field) {
-    console.log(field)
     return (
       <UploadDropzone className={styles.inputImageUpload}
         saveFile={file => field.input.onChange(file)}

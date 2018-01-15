@@ -10,7 +10,7 @@ require('nightwatch-cucumber')({
     '--require', 'client/test/e2e/hooks.js',
     '--require', 'client/test/e2e/step_definitions',
     '--format', 'node_modules/cucumber-pretty',
-    'client/test/e2e/features'
+    'client/test/e2e'
   ]
 })
 
