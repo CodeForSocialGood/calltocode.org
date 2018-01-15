@@ -4,19 +4,18 @@ const chromedriver = require('chromedriver')
 const geckodriver = require('geckodriver')
 
 require('nightwatch-cucumber')({
-  nightwatchOutput: true,
+  nightwatchOutput: false,
   cucumberArgs: [
     '--compiler', 'js:babel-core/register',
     '--require', 'client/test/e2e/hooks.js',
     '--require', 'client/test/e2e/step_definitions',
     '--format', 'node_modules/cucumber-pretty',
-    '--format', 'json:client/test/e2e/reports/cucumber.json',
-    'client/test/e2e'
+    'client/test/e2e/features'
   ]
 })
 
 module.exports = {
-  output_folder: 'client/test/e2e/reports',
+  output_folder: 'reports',
   custom_assertions_path: '',
   page_objects_path: 'client/test/e2e/page_objects',
   live_output: false,
