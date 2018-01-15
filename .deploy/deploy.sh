@@ -25,3 +25,13 @@ mongo "mongodb://$DB_HOST/test?replicaSet=$DB_REPLICA_SET" \
   -u admin \
   -p $DB_PASS \
   --eval 'db.users.drop(); db.projects.drop()'
+
+MONGO_HOST="$DB_REPLICA_SET/$DB_HOST"
+mongoimport --collection users --db test \
+  -h $MONGO_HOST \
+  --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+  --file ../.setup/db/seedData/users.json --type json --jsonArray
+mongoimport --collection projects --db test \
+  -h $MONGO_HOST \
+  --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+  --file ../.setup/db/seedData/projects.json --type json --jsonArray
