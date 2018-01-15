@@ -45,6 +45,11 @@ defineSupportCode(({ Given, Then, When }) => {
     await createProject.submitForm('@createProjectForm')
   })
 
+  Then(/^I do not see the project with the project details (.*?)$/, async name => {
+    const createProject = client.page.createProject()
+    await createProject.expect.element('@body').text.to.not.contain(name)
+  })
+
   Then(/^I see the project with the project details (.*?)$/, async name => {
     const createProject = client.page.createProject()
     await createProject.expect.element('@body').text.to.contain(name)

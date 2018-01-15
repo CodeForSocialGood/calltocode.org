@@ -2,18 +2,24 @@ Feature: Smoke Tests
   To verify that basic functionality works
   As a users of different types
 
-  Scenario: Mary Smoke Test
+  Scenario Outline: Mary Smoke Test
     Given I open the "home" page
-    And I am logged out
     Then I am on the "home" page
+    And I am logged out
     When I click the "login" header link
     Then I am on the "login" page
-    When I login with the login details mary@email.com mary.password
+    When I login with the login details <email> <password>
     Then I am logged in
     When I click the "profile" header link
     Then I am on the "profile" page
+    And I do not see the project with the project details <name>
     When I click the "createProject" header link
     Then I am on the "createProject" page
-    When I create a project with the project details test-name
+    When I create a project with the project details <name>
     And I click the "profile" header link
-    Then I see the project with the project details test-name
+    Then I am on the "profile" page
+    And I see the project with the project details <name>
+
+    Examples:
+    |     email      |    password   |    name   |
+    | mary@email.com | mary.password | test-name |
