@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createHistory from 'history/createBrowserHistory'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
@@ -36,10 +36,12 @@ const store = createStore(
   )
 )
 
+const theme = createMuiTheme()
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={browserHistory}>
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <Switch>
           <Route path="/" component={App} />
         </Switch>
