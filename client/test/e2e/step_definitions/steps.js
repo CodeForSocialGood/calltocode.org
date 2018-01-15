@@ -40,13 +40,13 @@ defineSupportCode(({ Given, Then, When }) => {
   })
 
   When(/^I create a project with the project details (.*?)$/, async name => {
-    const createProject = client.page['createProject']()
+    const createProject = client.page.createProject()
     createProject.setValue('@nameField', name)
     await createProject.submitForm('@createProjectForm')
   })
 
-  When(/^I see the project with the project details (.*?)$/, async name => {
-    const createProject = client.page['createProject']()
+  Then(/^I see the project with the project details (.*?)$/, async name => {
+    const createProject = client.page.createProject()
     await createProject.expect.element('@body').text.to.contain(name)
   })
 })

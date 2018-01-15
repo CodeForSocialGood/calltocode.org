@@ -4,6 +4,6 @@ module.exports = {
     body: 'body',
     createProjectForm: 'form#createProjectForm',
     imageField: 'input[name="image"]',
-    nameField: 'input[name="project-name"]'
+    nameField: 'input[name="projectname"]'
   }
 }

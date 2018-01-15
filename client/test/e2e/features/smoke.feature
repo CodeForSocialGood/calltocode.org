@@ -14,6 +14,6 @@ Feature: Smoke Tests
     Then I am on the "profile" page
     When I click the "createProject" header link
     Then I am on the "createProject" page
-    # When I create a project with the project details test-name
-    # And I click the "profile" header link
-    # Then I see the project with the project details test-name
+    When I create a project with the project details test-name
+    And I click the "profile" header link
+    Then I see the project with the project details test-name
