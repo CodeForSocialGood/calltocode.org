@@ -17,7 +17,7 @@
 
 - **:pencil2: Contribute**: Once you're set up, you're ready to become a contributor. Make sure you read our [contributing guidelines](docs/CONTRIBUTING.md) before you start working on a story so that you can learn our workflows.
 
-- **:european_castle: Project Architecture**: Joining in on an existing project can feel daunting so we've put together an [architecture guide](docs/ARCHITECTURE.md) to serve as a reference and help reduce the time it takes to familiarize yourself with this project.
+- **:european_castle: Project Architecture**: We've put together an [architecture guide](docs/ARCHITECTURE.md) to serve as a reference and help reduce the time it takes to familiarize yourself with this project's architecture and codebase.
 
 - **:raising_hand: Questions & Problems**: If you're stuck on something, don't be afraid to ask around in [Slack](http://join-our-slack.code4socialgood.org/)! You can also check out our list of [common problems](docs/PROBLEMS.md) to see if your issue is addressed there.
 

@@ -23,25 +23,30 @@ Call to Code is built with the following technologies:
 
 ## <a name="structure"></a> Project Structure
 
-Here is a breakdown of the project's structure:
+Here is a breakdown of the project's structure (links are to more information in the sections below):
 
-- `.deploy/` - deployment files
-- `.setup/` - setup files
+- `.deploy/` - deployment files (scripts)
+- `.setup/` - setup files (scripts, seed data)
 - `client/` - front-end files
-  - `actions/` -
-  - `api/` -
-  - `components/` -
-  - `middleware/` -
-  - `reducers/` -
-- `docs/` - documentation
+  - `actions/` - [redux types, actions, and action creators](#reduxActions)
+  - `api/` - handling client-side HTTP requests (connects us to our back-end REST API)
+  - `components/` - components used throughout the site's pages
+  - `middleware/` - [redux middleware](#reduxMiddleware),
+  - `reducers/` - [redux reducers](#reduxReducers)
+  - `test/` - client tests (excluding unit tests)
+  - `App.js` - root component, where all other components are nested under
+  - `index.*` - entry points
+- `docs/` - documentation (setup, contributing, guides, etc.)
 - `server/` - back-end files
-  - `config/` -
-  - `database/` -
-  - `middleware/` -
-  - `routes/` -
-  - `test/` -
-  - `app.js`
-  - `index.js`
+  - `config/` - configuration files for anything on the server
+  - `database/` - mongoose models and setup
+  - `middleware/` - custom express middleware (user authentication, errorHandler)
+  - `routes/` - routing to the REST API
+    - `api/` - API definitions
+    - `controllers/` - API implementations
+  - `test/` - server tests (excluding unit tests)
+  - `app.js` - express app setup (global middleware, error handling, routes, etc.)
+  - `index.js` - entry point
 
 ## <a name="client"></a> Client Architecture
 
@@ -123,7 +128,7 @@ Imports: `reducer.js`, `middleware.js`
 Fairly simple store setup, applies `promiseMiddleware` before
 `localStorageMiddleware`, logger only on development.
 
-#### Middleware
+#### <a name="reduxMiddleware"></a> Middleware
 
 File: `middleware.js`
 
@@ -146,7 +151,15 @@ Runs after `promiseMiddleware`. Intercepts `REGISTER | LOGIN` and either
   - a. sets token into localstorage and `agent.setToken(token)`
   - b. sets token in localstorage to `''` and does `agent.setToken(null)`
 
-#### Reducers
+#### <a name="reduxActions"></a> Actions
+
+##### Types
+
+##### Actions
+
+##### Action Creators
+
+#### <a name="reduxReducers"></a> Reducers
 
 File: `reducer.js`
 
