@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
-import CloudUploadIcon from 'material-ui/svg-icons/file/cloud-upload'
+import CloudUpload from 'material-ui-icons/CloudUpload'
 import Snackbar from 'material-ui/Snackbar'
 
 import styles from './UploadDropzone.scss'
@@ -61,7 +61,7 @@ class UploadDropzone extends Component {
           }
           { !file &&
             <div className={styles.dropzoneInterior}>
-              <CloudUploadIcon className={styles.uploadIcon} />
+              <CloudUpload className={styles.uploadIcon} />
               <p className={styles.uploadText}>
                 Drag and drop an image file here, or click
               </p>
