@@ -10,7 +10,8 @@ class CreateProjectForm extends Component {
   renderImageUpload (field) {
     return (
       <UploadDropzone className={styles.inputImageUpload}
-        saveFile={file => field.input.onChange(file)} />
+        saveFile={file => field.input.onChange(file)}
+        {...field.input} />
     )
   }
 
@@ -34,7 +35,7 @@ class CreateProjectForm extends Component {
   render () {
     const { handleSubmit } = this.props
     return (
-      <form className={styles.form} onSubmit={handleSubmit(this.createProject.bind(this))}>
+      <form id="createProjectForm" className={styles.form} onSubmit={handleSubmit(this.createProject.bind(this))}>
         <h1 className={styles.title}>Create New Project</h1>
 
         <Field name="image"
