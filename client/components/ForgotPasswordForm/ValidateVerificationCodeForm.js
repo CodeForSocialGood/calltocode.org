@@ -15,15 +15,9 @@ function CodeField ({ input }) {
 const ValidateVerificationCodeForm = props => {
   const {handleSubmit} = props
   return (
-    <form onSubmit={handleSubmit}
-      className={styles.form}>
-
-      <h1
-        className={styles.title}>
-      Forgot Password?
-      </h1>
-
-      <h3>{"Let's validate your code!"}</h3>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <h1>Forgot Password?</h1>
+      <h3>Let's validate your code!</h3>
 
       <Field
         value={props.code}
