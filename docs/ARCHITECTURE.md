@@ -2,16 +2,25 @@
 
 Joining in on an existing project such as this can feel daunting due to the learning curve and the sheer amount of code that there is. This document serves as a guide to get familiar with this project's architecture & codebase:
 
+- [Introduction](#intro)
 - [Technology Stack](#stack)
 - [Project Structure](#structure)
 - [Client Architecture](#client)
 - [Server Architecture](#server)
 
-We've also gathered together some guides that we found were helpful. You may not need to dive into these right away, but these are here as a reference for when you face challenges during coding:
+Reference for guides:
 
 - [Front-end Guides](#front-end)
 - [Back-end Guides](#back-end)
 - [Database Guides](#database)
+
+## <a name="intro"></a> Introduction
+
+This guide is long; we recommend a few things:
+
+- If you don't have much React/other framework or Node experience, start with learning either the front-end or the back-end. It can be a lot to tackle everything at once (even if you do have experience).
+- At the bottom we've gathered together some guides that we found were helpful. You may not need to dive into these right away, but these are here as a reference for when you face challenges during coding.
+- Have fun learning!
 
 ## <a name="stack"></a> Technology Stack
 
@@ -494,6 +503,10 @@ Imports: `app.js`, `database/index.js`
 Runs the server using the express app and connects to the database:
 
 ```js
+const app = require('./app')
+const { appConfig, databaseConfig } = require('./config')
+const database = require('./database')._init(databaseConfig.url)
+
 app.listen(appConfig.port, runServer)
 
 async function runServer () {
