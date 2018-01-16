@@ -52,7 +52,7 @@ class Header extends Component {
         <AppBar position="static" color="inherit" elevation={0}>
           <Toolbar>
             <Typography type="title" color="inherit" className={styles.flex}>
-              <Link to="/">calltocode</Link>
+              <Link to="/" className={styles.button}>calltocode</Link>
             </Typography>
             {this.renderHeaderButtons()}
           </Toolbar>
