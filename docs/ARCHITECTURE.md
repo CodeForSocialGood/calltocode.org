@@ -50,8 +50,6 @@ Here is a breakdown of the project's structure (links are to more information in
 
 ## <a name="client"></a> Client Architecture
 
-*This section is based on the architecture guide found [here](https://github.com/gothinkster/react-redux-realworld-example-app/wiki).*
-
 ### Entry Point
 
 File: `index.js`
@@ -487,7 +485,335 @@ Other components can be understood by following the patterns described above.
 
 ## <a name="server"></a> Server Architecture
 
-*Todo*.
+### Entry Point
+
+File: `index.js`
+
+Imports: `app.js`, `database/index.js`
+
+Runs the server using the express app and connects to the database:
+
+```js
+app.listen(appConfig.port, runServer)
+
+async function runServer () {
+  logger.log(`App listening on port ${this.address().port}`)
+
+  try {
+    await database.connect()
+    logger.log('Database connected')
+  } catch (error) {
+    logger.error('Database connection error', error)
+  }
+}
+```
+
+### Express App
+
+File: `app.js`
+
+Imports: `express`, `middleware`, `routes/index.js`
+
+Sets up and exports the express app, adding middleware and routes:
+
+```js
+const app = express()
+
+app.use(express.static(appConfig.publicDir))
+app.use(bodyParser.json())
+app.use(morgan('dev'))
+app.use('/', require('./routes'))
+app.use(errorHandler())
+
+module.exports = app
+```
+
+### Database
+
+File: `database/index.js`
+
+Imports: `mongoose`
+
+Exports an object which has an `_init () {}` for setting itself up, and a `connect () {}` for connecting to the MongoDB through mongoose:
+
+```js
+const database = {
+  _init (url, client = mongoose) {
+    this.url = url
+    this.client = client
+    return this
+  },
+
+  connect () {
+    this.client.connect(this.url, { useMongoClient: true })
+
+    const db = this.client.connection
+    return new Promise((resolve, reject) => {
+      db.on('error', reject)
+      db.once('open', resolve)
+    })
+  }
+}
+
+module.exports = database
+```
+
+Files: `database/models/*.js`
+
+Imports: `mongoose`, `jsonwebtoken`\*, `config/authConfig.js`\*
+
+\*: *Only the User model*
+
+These files set up the mongoose models which tell us how to format the data we put in our MongoDB:
+
+```js
+const UserSchema = mongoose.Schema({
+  usertype: {
+    type: String,
+    enum: ['contact', 'volunteer'],
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  // ...
+}, { timestamps: true })
+
+const User = mongoose.model('User', UserSchema)
+```
+
+This model says that our users are going to have a required `usertype` whose value is required, can only be a string, and with value 'contact' or 'volunteer'. We also tell the model to automatically add timestamps, which gives our data auto-populated `createdAt` and `updatedAt` fields. We then register the model with `mongoose.model()`.
+
+We can also define functions on the model which can be called on the data that we retrieve/create using this model (more on this below):
+
+```js
+const jwt = require('jsonwebtoken')
+const { authConfig } = require('../../config')
+
+UserSchema.methods.generateSessionToken = function () {
+  const today = new Date()
+  const expiration = new Date(today)
+  const expirationDays = 14
+  expiration.setDate(today.getDate() + expirationDays)
+
+  return jwt.sign({
+    id: this._id,
+    exp: parseInt(expiration.getTime() / 1000)
+  }, authConfig.jwtSigningKey)
+}
+```
+
+This function allows us to easily generate a token for a user when they login or signup. This token is used to authenticate them when they make requests to the server, and is signed with an `id` and `exp` property (more on this below).
+
+### Custom Middleware
+
+Files: `middleware/*.js`
+
+Middleware are functions that we can pass server requests through. You can use this to set up logging (`morgan` does this), authenticate a user before you finish a request (`auth.js`) or add error handling to the end of the request (`errorHandler.js`).
+
+#### Auth Middleware
+
+File: `middleware/auth.js`
+
+Imports: `express-jwt`, `config/authConfig.js`
+
+This middleware is something you can place in front of any api endpoint in order to check for the user's authentication token:
+
+```js
+function getTokenFromHeader (req) {
+  if (req.headers.authorization) {
+    const [preamble, token] = req.headers.authorization.split(' ')
+    if (preamble === 'Token' || preamble === 'Bearer') {
+      return token
+    }
+  }
+
+  return null
+}
+```
+
+The authentication itself happens internally in the `express-jwt` module, but we define two types of user authentication:
+
+```js
+const auth = {
+  required: jwt({
+    getToken: getTokenFromHeader,
+    secret: authConfig.jwtSigningKey,
+    userProperty: 'payload'
+  }),
+  optional: jwt({
+    credentialsRequired: false,
+    getToken: getTokenFromHeader,
+    secret: authConfig.jwtSigningKey,
+    userProperty: 'payload'
+  })
+}
+
+module.exports = auth
+```
+
+- `auth.required` will require the user to be authenticated (logged in) for the request to succeed. If a user does not pass this authentication, the request will error with a 401 (unauthorized) status code.
+- `auth.optional` does not require the user to be authenticated (logged in) for the request to succeed, but is instead used to potentially enhance the data being returned.
+
+*Note: notice how `auth.required` and `auth.optional` both define a `userProperty: 'payload'`. This says that when the user is successfully authenticated, that the token will be parsed and any data that was signed into the token (user _id: `id`, and token expiration: `exp` in our case) will be added to the request object on its `payload` property. This will be explained more below.*
+
+#### Error Handler Middleware
+
+File: `middleware/errorHandler.js`
+
+Imports: `logger.js`
+
+This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the routes to `next()` which is then caught by this middleware. An `err` parameter is added:
+
+```js
+function errorHandler () {
+  return function (err, req, res, next) {
+    logger.error(err)
+
+    const error = { name: err.name, message: err.message, stack: err.stack }
+    for (const prop in err) error[prop] = err[prop]
+
+    return res.status(err.status || 500).json({ error })
+  }
+}
+```
+
+### Routes
+
+Files: `routes/*.js`
+
+The server's routes are where the API endpoints are defined.
+
+#### Entry Point
+
+File: `routes/index.js`
+
+Imports: `express`
+
+This file uses express router to define our endpoint base (`/api`), which says that all of our endpoints begin with that base:
+
+```js
+const router = require('express').Router()
+
+router.use('/api', require('./api'))
+
+module.exports = router
+```
+
+This points the request to:
+
+File: `routes/api/index.js`
+
+Imports: `express`
+
+The file uses express router to further define our api endpoints:
+
+```js
+const router = require('express').Router()
+
+router.use('/email', require('./email'))
+router.use('/projects', require('./projects'))
+router.use('/users', require('./users'))
+router.use('/forgot-password', require('./forgotPassword'))
+
+module.exports = router
+```
+
+For example, the users endpoints are now accessible at `/api/users`, and are further defined in `routes/api/users.js` (example continues below).
+
+#### API
+
+Files: `routes/api/*.js`
+
+Imports: `express`
+
+These files also use express router in order to once again further define our api endpoints and handle requests differently on each, for example in `routes/api/users.js`:
+
+```js
+const router = require('express').Router()
+
+const auth = require('../../middleware/auth')
+const usersController = require('../controllers/usersController')._init()
+
+router.route('/current')
+  .get(auth.required, usersController.getCurrent)
+  .put(auth.required, usersController.putCurrent)
+
+module.exports = router
+```
+
+This is the end of the endpoint definition:
+
+- A `GET` request on `/api/users/current` will end up here, pass through our `auth.required` token authentication, and if successful, use our usersController `getCurrent` property to interact with the database.
+- A `PUT` request on `/api/users/current` will do the same thing, except use the usersController `putCurrent` property.
+
+These properties are functions.
+
+#### Controllers
+
+Files: `routes/controllers/*.js`
+
+Imports: `database/models/*.js`
+
+##### \_init
+
+You may have noticed that when we were importing the usersController above, that we also called `._init()` on it:
+
+```js
+const usersController = require('../controllers/usersController')._init()
+```
+
+This function is used to bind the controller's model and own functions to itself:
+
+```js
+const usersController = {
+  _init (Users = UserModel) {
+    bindFunctions(this)
+
+    this.Users = Users
+    return this
+  },
+  // ...
+}
+```
+
+This pattern allows us to easily mock the model in our controller unit tests.
+
+##### Controller Implementations
+
+The controller function implementations are where we interact with the database:
+
+```js
+const usersController = {
+  // ...
+  getCurrent (req, res, next) {
+    const id = req.payload.id
+
+    this.Users.findById(id).then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      return res.status(200).json(user.toJSON())
+    }).catch(next)
+  },
+  // ...
+}
+```
+
+Recall how the `req.payload` is populated with the parsing of the authentication token, explained in the Auth Middleware section above. We then use the parsed `id` to `findById()` the user and return the data back to the client with `return res.status(200).json(user.toJSON())`.
+
+Also recall how we are calling `user.toJSON()`. We can do this because the `toJSON ()` function is defined on the mongoose User model in the same way that `generateSessionToken ()` was.
+
+Lastly recall how we are using `.catch(next)` to catch any errors and forward them to `next` which passes everything to the error handler, as was mentioned above.
+
+### Public files
+
+Files: `public/*.*`
+
+These files are the actual built and served files for the app. These are not meant to be touched or used for development.
 
 ## <a name="front-end"></a> Front-end Guides
 
