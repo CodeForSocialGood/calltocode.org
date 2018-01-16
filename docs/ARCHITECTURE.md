@@ -31,7 +31,7 @@ Here is a breakdown of the project's structure (links are to more information in
   - `actions/` - [redux types, actions, and action creators](#reduxActions)
   - `api/` - handling client-side HTTP requests (connects us to our back-end REST API)
   - `components/` - components used throughout the site's pages
-  - `middleware/` - [redux middleware](#reduxMiddleware),
+  - `middleware/` - [redux middleware](#reduxMiddleware)
   - `reducers/` - [redux reducers](#reduxReducers)
   - `test/` - client tests (excluding unit tests)
   - `App.js` - root component, where all other components are nested under
@@ -42,11 +42,11 @@ Here is a breakdown of the project's structure (links are to more information in
   - `database/` - mongoose models and setup
   - `middleware/` - custom express middleware (user authentication, errorHandler)
   - `routes/` - routing to the REST API
-    - `api/` - API definitions
-    - `controllers/` - API implementations
+    - `api/` - API endpoints (for example: POST `/project`)
+    - `controllers/` - API implementations (for example: `createProject()`)
   - `test/` - server tests (excluding unit tests)
   - `app.js` - express app setup (global middleware, error handling, routes, etc.)
-  - `index.js` - entry point
+  - `index.js` - entry point (server creation)
 
 ## <a name="client"></a> Client Architecture
 
@@ -56,291 +56,434 @@ Here is a breakdown of the project's structure (links are to more information in
 
 File: `index.js`
 
-Imports: `agent.js`, `store.js`, `./components/*`
+Imports: `App.js`
+
+Renders the root component:
+
+```html
+<Provider store={store}>
+  <ConnectedRouter history={browserHistory}>
+    <MuiThemeProvider>
+      <Switch>
+        <Route path="/" component={App} />
+      </Switch>
+    </MuiThemeProvider>
+  </ConnectedRouter>
+</Provider>
+```
+
+File: `App.js`
+
+Imports: `components/*.js`
 
 Renders routes pointing to their associated components:
 
 ```html
-<Provider store={store}>
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home} />
-      <Route path="login" component={Login} />
-      <Route path="register" component={Register} />
-      <Route path="editor" component={Editor} />
-      <Route path="editor/:slug" component={Editor} />
-      <Route path="article/:id" component={Article} />
-      <Route path="settings" component={Settings} />
-      <Route path="@:username" component={Profile} />
-      <Route path="@:username/favorites" component={ProfileFavorites} />
-    </Route>
-  </Router>
-</Provider>
+<Header />
+<Version />
+<Switch>
+  <Route exact path='/' component={Home} />
+  <Route path='/create-project' component={CreateProjectForm} />
+  <Route path='/forgot-password' component={ForgotPasswordForm} />
+  <Route path='/login' component={LoginForm} />
+  <Route path='/profile' component={restricted(Profile)} />
+  <Route path='/signup' component={SignupForm} />
+</Switch>
 ```
 
-### Agent
+### API
 
-File: `agent.js`
+Files: `api/*.js`
 
-Exports an object where each key is a "service" and a service has
-methods that internally run a request:
+Imports: `./lib/apiRequest.js`
 
-- `get`
-- `put`
-- `post`
-- `delete`
+These files handle our client-side HTTP requests and connect us to our back-end REST API. Imports an object where each key handles creating a request with its corresponding http method.
 
-For example, `Auth`:
+- `DELETE`: `del (url, apiOptions, query) { .. }`
+- `GET`: `get (url, apiOptions, query) { .. }`
+- `POST`: `post (url, apiOptions, body) { .. }`
+- `PUT`: `put (url, apiOptions, body) { .. }`
 
-```javascript
-const Auth = {
-  current: () =>
-    requests.get('/user'),
-  login: (email, password) =>
-    requests.post('/users/login', { user: { email, password } }),
-  register: (username, email, password) =>
-    requests.post('/users', { user: { username, email, password } }),
-  save: user =>
-    requests.put('/user', { user })
-};
-```
-
-Thus, these services essentially take some options, map to a request, and
-return the promise of that request. The general type could be:
+For example, in `api/projects.js`:
 
 ```javascript
-type Service = {
-    [key: string]: (opts: any) => Promise<T>
+const projectsApiClient = {
+  getAllProjects (apiOptions) {
+    return apiRequest.get('/projects', apiOptions)
+  },
+
+  getAppliedProjects (apiOptions, projectsAppliedFor) {
+    const query = { projectsAppliedFor }
+    return apiRequest.get('/projects', apiOptions, query)
+  },
+
+  getOrgProjects (apiOptions, id) {
+    const query = { organization: id }
+    return apiRequest.get('/projects', apiOptions, query)
+  }
 }
 ```
-
-As well, `agent.js` locally stores a token which can be set via the exported
-`setToken`. As some config there is `API_ROOT`.
 
 ### Redux
 
 #### Store
 
-File: `store.js`
+File: `index.js`
 
-Imports: `reducer.js`, `middleware.js`
+Imports: `reducers/*.js`, `middleware/*.js`
 
-Fairly simple store setup, applies `promiseMiddleware` before
-`localStorageMiddleware`, logger only on development.
-
-#### <a name="reduxMiddleware"></a> Middleware
-
-File: `middleware.js`
-
-Imports: `agent.js`
-
-##### promiseMiddleware
-
-Intercepts all actions where `action.payload` is a Promise. In which case it:
-
-1. `store.dispatch({ type: 'ASYNC_START', subtype: action.type })`
-2. `action.payload.then`
-    - success: `store.dispatch({ type: 'ASYNC_END', promise: res })`
-    - error: sets `action.error = true`, `store.dispatch({ type: 'ASYNC_END', promise: action.payload })`
-3. Then, for success and error, using the modified `action` object: `store.dispatch(action)`
-
-##### localStorageMiddleware
-
-Runs after `promiseMiddleware`. Intercepts `REGISTER | LOGIN` and either
-
-  - a. sets token into localstorage and `agent.setToken(token)`
-  - b. sets token in localstorage to `''` and does `agent.setToken(null)`
+Fairly simple store setup, applies `promiseMiddleware`, then `thunkMiddleware`, then `localStorageMiddleware`, in that order. The ordering is described below. Also applies a loggerMiddleware in development.
 
 #### <a name="reduxActions"></a> Actions
 
-##### Types
+Files: `actions/**/*.js`
 
 ##### Actions
 
+Actions are payloads of information that send data from the application to the redux store. They are the *only* source of information for the store. You `dispatch()` an action to send it to the store.
+
+For example, in `actions/projects/index.js`:
+
+```js
+export const fetching = { type: FETCHING_PROJECTS }
+
+store.dispatch(fetching)
+```
+
+The action itself is the `fetching` object. Notice how it only has a type. Actions must always have at least a `type` property. As a best practice, it is good to limit the properties of an action to `type`, `payload`, `error`, and `meta`.
+
+##### Types
+
+Types are unique string constants used as identifiers for actions. Each type corresponds to exactly one action. Action types are used in redux reducers in order to identify the action and update the store appropriately.
+
+For example, in `actions/projects/types.js`:
+
+```js
+export const FETCHING_PROJECTS = 'FETCHING_PROJECTS'
+export const RECEIVED_PROJECTS = 'RECEIVED_PROJECTS'
+export const FAILED_PROJECTS = 'FAILED_PROJECTS'
+````
+
 ##### Action Creators
+
+Action creators return a *function* that can *dispatch* an action. This allows us to do asynchronous work such as call an API endpoint and wait for the results, and then dispatch an action when it finishes.
+
+For example, in `actions/projects/index.js`:
+
+```js
+static fetchAllProjects () {
+  return (dispatch, getState) => {
+    dispatch(ProjectActionCreator.fetching())
+
+    try {
+      const state = getState()
+      const apiOptions = apiOptionsFromState(state)
+      const projects = projectsApiClient.getAllProjects(apiOptions)
+      dispatch(ProjectActionCreator.received(projects))
+    } catch (e) {
+      console.trace(e)
+      dispatch(ProjectActionCreator.failed(e))
+    }
+  }
+}
+```
+
+#### <a name="reduxMiddleware"></a> Middleware
+
+Files: `middleware/*.js`
+
+All dispatched actions are passed through all of the redux middleware.
+
+##### promiseMiddleware
+
+Intercepts all actions where `action.payload` is a Promise. In which case it extracts the value or error out of the promise and re-dispatches it as a non-promise:
+
+```js
+return isPromise(action.payload)
+  ? action.payload.then(
+    result => store.dispatch({ ...action, payload: result }),
+    error => store.dispatch({ ...action, payload: error, error: true })
+  )
+  : next(action)
+```
+
+##### thunkMiddleware
+
+Intercepts all action creators and waits to dispatch an action until a certain condition is met.
+
+For example, in `actions/auth/index.js`:
+
+```js
+static signup ({ email, password, isOrganization }) {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const apiOptions = apiOptionsFromState(state)
+      const usertype = isOrganization ? 'contact' : 'volunteer'
+
+      const user = await usersApiClient.signup(apiOptions, { usertype, email, password })
+      dispatch(AuthActionCreator.login(user))
+    } catch (e) {
+      console.trace(e)
+      throw new SignupException()
+    }
+  }
+}
+```
+
+This action creator returns a function that allows us to do asynchronous work such as `await usersApiClient.signup(apiOptions, { usertype, email, password })`, and then dispatch an action when it finishes receiving that data with `dispatch(AuthActionCreator.login(user))`.
+
+##### localStorageMiddleware
+
+Runs after `promiseMiddleware` and `thunkMiddleware`. This ordering is important because `localStorageMiddleware` we want to make sure that we parse action creators and promises into action objects.
+
+Intercepts actions with type:
+
+- `LOGIN`: sets the user's token into localStorage with `localStorage.setItem('jwt', action.payload.token)`
+- `LOGOUT`: removes the user's token from localStorage with `localStorage.removeItem('jwt')`
 
 #### <a name="reduxReducers"></a> Reducers
 
-File: `reducer.js`
+File: `reducers/index.js`
 
-Imports: `./reducers/*.js`
+Imports: `reducers/*.js`
 
-Uses `combineReducers` to export a reducer where each key is the reducer
-of the file with the same key.
+Exports all reducers in a single object so that `combineReducers` can be easily used to combine them in the store.
 
 ##### General Reducer Patterns
 
 - map payload into piece of state
-- toggle loading states by casing on `ASYNC_START` and `action.subtype`
+- toggle loading states by casing on `FETCHING_*` and `RECEIVED_*`:
 
 ```javascript
-case 'ASYNC_START':
-  if (action.subtype === 'LOGIN' || action.subtype === 'REGISTER') {
-    return { ...state, inProgress: true };
-  }
+case FETCHING_PROJECTS:
+  return { ...state, fetching: true }
+
+case RECEIVED_PROJECTS:
+  return { ...state, fetching: false, projects: payload }
 ```
 
-- toggle errors by taking `action.errors` if it is there (see middleware)
+- toggle error states by checking `action.error` if it is there (see promiseMiddleware)
 
 ```javascript
-case 'REGISTER':
-  return {
-    ...state,
-    inProgress: false,
-    errors: action.error ? action.payload.errors : null
-  };
-```
+const { payload, error } = action
 
-- set state keys to null if they did not come in payload (Flow type issues?)
+...
 
-```javascript
-case 'REGISTER':
-  return {
-    ...state,
-    inProgress: false,
-    errors: action.error ? action.payload.errors : null
-  };
-```
-
-- handle redirections (will be triggered by `componentWillReceiveProps` somewhere)
-
-```javascript
-case 'REDIRECT':
-  return { ...state, redirectTo: null };
-case 'LOGOUT':
-  return { ...state, redirectTo: '/', token: null, currentUser: null };
-case 'ARTICLE_SUBMITTED':
-  const redirectUrl = `article/${action.payload.article.slug}`;
-  return { ...state, redirectTo: redirectUrl };
+case FAILED_PROJECTS:
+  return { ...state, fetching: false, hasError: error, error: payload }
 ```
 
 ### Components
 
-Most `mapStateToProps` won't be mentionned, as there are fairly simple. Take
-some objects, use them in render.
+Accessing store state in components:
 
-`mapDispatchToProps` will be referred to as "handlers". Some will emerge as
-common ones. Dispatching some specific handlers on some specific lifecylce
-methods will also emerge as a pattern.
-
-Handlers:
-
-- `onLoad`
-- `onUnload`
-- `onSubmit`
-- `onClick`
-- `onX`
-
-`onLoad` seems to be the most common one, used for any components that need ajax in
-data into store into props into their render method (which is basically everything on
-an SPA lol).
-
-Patterns
-
-- `onLoad` handlers pass a Promise or multiple promises via `Promise.all`
- - sending multiple leads to magic `payload[0]` and `payload[1]` in reducer (see `reducers/article.js`)
-
-- pass a handler, e.g. `onClickTag` as a prop to a child component. child
-  component then calls it with agent: `props.onClickTag(tag,
-  agent.Articles.byTag(tag))`. (does this only ever happen with a connected `index.jsx` inside a folder?)
-
-- to render or not to render:
-
-```javascript
-if (!this.props.data) {
-  component = <Loading /> // or perhaps null like in Header.js, ListErrors, EditProfileSettings in Profile
-} else {
-  component = <Thing data={this.props.data} />
-}
-```
-
-- similary, if you cannot call handlers yet since props are not ready:
-
-```javascript
-componentWillMount() {
-  if (this.props.params.slug) {
-    return this.props.onLoad(agent.Articles.get(this.props.params.slug));
-  }
-  this.props.onLoad(null);
-}
-```
-
-- use `componentWillReceiveProps` to call handlers if necessary, e.g. in `Editor.js`:
-
-```javascript
-componentWillReceiveProps(nextProps) {
-  if (this.props.params.slug !== nextProps.params.slug) {
-    if (nextProps.params.slug) {
-      this.props.onUnload();
-      return this.props.onLoad(agent.Articles.get(this.props.params.slug));
-    }
-    this.props.onLoad(null);
+```js
+function mapStateToProps (state) {
+  return {
+    authenticated: state.auth.authenticated,
+    currentPage: state.routing.location.pathname,
+    user: state.user
   }
 }
 ```
+
+Accessing action creators in components:
+
+```js
+import AuthActionCreator from '../../actions/auth'
+
+const mapDispatchToProps = {
+  logout: AuthActionCreator.logout
+}
+```
+
+This allows us to dispatch actions inside of components.
+
+*Notice how `mapStateToProps` and `mapDispatchToProps` end in `ToProps`. These properties get bound to the component's props, and are accessible with `this.props.<state/dispatch property>`.*
 
 #### Root Component - "/"
 
-Imported components: `Header`
+*Mentioned above, but now we are building on our redux knowledge.*
 
-Handlers
+File: `App.js`
 
-- `onLoad: (payload, token) => dispatch({ type: 'APP_LOAD', payload, token, skipTracking: true })`
-- `onRedirect: () => dispatch({ type: 'REDIRECT' })`
+Imports: `components/*.js`, `actions/auth/index.js`
 
-Lifecycle
+Renders routes pointing to their associated components:
+
+```html
+<Header />
+<Version />
+<Switch>
+  <Route exact path='/' component={Home} />
+  <Route path='/create-project' component={CreateProjectForm} />
+  <Route path='/forgot-password' component={ForgotPasswordForm} />
+  <Route path='/login' component={LoginForm} />
+  <Route path='/profile' component={restricted(Profile)} />
+  <Route path='/signup' component={SignupForm} />
+</Switch>
+```
+
+##### Mapping store to component props
+
+Maps state to props to use in component:
+
+```js
+function mapStateToProps (state) {
+  return {
+    appLoaded: state.common.appLoaded
+  }
+}
+```
+
+Maps action creators to props to use in component:
+
+```js
+import AuthActionCreator from 'actions/auth'
+
+const mapDispatchToProps = {
+  appLoad: AuthActionCreator.appLoad
+}
+```
+
+##### Lifecycle
+
+We then trigger the `appLoad` action creator in the component's `componentDidMount` lifecycle. This triggers during component creation.
 
 ```javascript
-componentWillMount() {
-  const token = window.localStorage.getItem('jwt');
-  if (token) {
-    agent.setToken(token);
-  }
+componentDidMount () {
+  this.props.appLoad()
+}
+```
 
-  this.props.onLoad(token ? agent.Auth.current() : null, token);
+In this situation `appLoad()` updates the `appLoaded` state for us which can be seen in `reducers/commonReducer.js`:
+
+```js
+case APP_LOAD:
+  return { ...state, appLoaded: true }
+```
+
+This update is automatically passed to the component's bound `appLoaded` prop, which allows us to conditionally load the app's components based on that loaded state:
+
+```js
+// Conditionally calls two different functions
+render () {
+  return this.props.appLoaded
+    ? this.renderAppLoaded()
+    : this.renderAppNotLoaded()
 }
 
-componentWillReceiveProps(nextProps) {
-  if (nextProps.redirectTo) {
-    this.context.router.replace(nextProps.redirectTo);
-    this.props.onRedirect();
-  }
+// When the app has been loaded:
+renderAppLoaded () {
+  return (
+    <div>
+      <Header />
+      <Version />
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/create-project' component={CreateProjectForm}/>
+        <Route path='/forgot-password' component={ForgotPasswordForm}/>
+        <Route path='/login' component={LoginForm}/>
+        <Route path='/profile' component={restricted(Profile)}/>
+        <Route path='/signup' component={SignupForm}/>
+      </Switch>
+    </div>
+  )
+}
+
+// When the app isn't loaded yet:
+renderAppNotLoaded () {
+  return (
+    <Header />
+  )
 }
 ```
 
 #### Home Component - "/"
 
-(`<IndexRoute>` on "/")
+File: `components/Home/Home.js`
 
-Handlers
+Imports: `actions/project/index.js`, `components/ListOfProjects/ListOfProjects.js`
 
-```javascript
-onClickTag: (tag, payload) => dispatch({ type: 'APPLY_TAG_FILTER', tag, payload }),
-onLoad: (tab, payload) => dispatch({ type: 'HOME_PAGE_LOADED', tab, payload }),
-onUnload: () => dispatch({  type: 'HOME_PAGE_UNLOADED' })
-```
+Render's the home page which is a list of projects:
 
-Lifecycle
-
-```javascript
-componentWillMount() {
-  const tab = this.props.token ? 'feed' : 'all';
-  const articlesPromise = this.props.token ?
-    agent.Articles.feed() :
-    agent.Articles.all();
-
-  this.props.onLoad(tab, Promise.all([agent.Tags.getAll(), articlesPromise]));
-}
-
-componentWillUnmount() {
-  this.props.onUnload();
+```js
+render () {
+  return (
+    <ListOfProjects
+      title={'Click To Apply'}
+      projects={this.props.projects} />
+  )
 }
 ```
+
+##### Mapping store to component props
+
+Maps state to props to use in component:
+
+```js
+function mapStateToProps (state) {
+  return {
+    projects: state.project.projects
+  }
+}
+```
+
+Maps action creators to props to use in component:
+
+```js
+import ProjectActionCreator from 'actions/project'
+
+const mapDispatchToProps = {
+  onLoad: ProjectActionCreator.fetchAllProjects
+}
+```
+
+##### Lifecycle
+
+We then trigger the `onLoad` action creator in the component's `componentDidMount` lifecycle. This triggers during component creation.
+
+```javascript
+componentDidMount () {
+  this.props.onLoad()
+}
+```
+
+In this situation `onLoad()` is bound to the `fetchAllProjects` action creator:
+
+```js
+static fetchAllProjects () {
+  return (dispatch, getState) => {
+    dispatch(ProjectActionCreator.fetching())
+
+    try {
+      const state = getState()
+      const apiOptions = apiOptionsFromState(state)
+      const projects = projectsApiClient.getAllProjects(apiOptions)
+      dispatch(ProjectActionCreator.received(projects))
+    } catch (e) {
+      console.trace(e)
+      dispatch(ProjectActionCreator.failed(e))
+    }
+  }
+}
+```
+
+This action creator starts by dispatching an action telling the store that it is starting to fetch projects. Then it asks the back-end for the projects, and dispatches another action (`received()`), telling the store that it received the projects. If anything fails along the way, the action (`failed()`) is dispatched instead.
+
+Once the projects are received, the `projectReducer` updates the store appropriately:
+
+```js
+case RECEIVED_PROJECTS:
+  return { ...state, fetching: false, projects: payload }
+```
+
+And the `projects` prop on the Home component is updated, passing the new value to `ListOfProjects`, which renders the projects accordingly.
 
 #### Other Components
 
-Should be self explanatory, follow patterns described above, it was just the home
-and index components are somewhat unique due to handling of routing.
+Other components can be understood by following the patterns described above.
 
 ## <a name="server"></a> Server Architecture
 
