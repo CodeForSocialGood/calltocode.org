@@ -62,16 +62,6 @@ class Header extends Component {
   }
 }
 
-
-      // <header className={styles.header}>
-      //   <Link to='/'>
-      //     <img className={styles.logo} src={require('../../images/logo.png')} />
-      //   </Link>
-      //   <div className={styles.buttons}>
-      //     {this.renderHeaderButtons()}
-      //   </div>
-      // </header>
-
 function mapStateToProps (state) {
   return {
     authenticated: state.auth.authenticated,
