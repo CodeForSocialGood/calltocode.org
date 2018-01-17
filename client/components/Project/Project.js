@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { GridTile } from 'material-ui/GridList'
+import { GridListTile, GridListTileBar } from 'material-ui/GridList'
 
 import styles from './Project.scss'
 
@@ -61,13 +61,14 @@ class Project extends Component {
     }
 
     return (
-      <GridTile className={projectClasses}
-        onClick={this.handleClick.bind(this)}
-        title={project.name}
-        subtitle={project.organization.name || 'Organization Name'}
-        actionIcon={this.renderProjectApplicationResult(project)}>
+      <GridListTile className={styles.project}
+        onClick={this.handleClick.bind(this)}>
         <img src={project.image || require('../../images/logo.png')} />
-      </GridTile>
+        <GridListTileBar title={project.name}
+          subtitle={project.organization.name || 'Organization Name'}
+          actionIcon={this.renderProjectApplicationResult(project)}>
+        </GridListTileBar>
+      </GridListTile>
     )
   }
 }
