@@ -11,9 +11,8 @@ const mongod = new MongodbMemoryServer()
 
 async function before (t) {
   const mongoUri = await mongod.getConnectionString()
-  const options = { useMongoClient: true }
   mongoose.Promise = global.Promise
-  mongoose.connect(mongoUri, options)
+  mongoose.connect(mongoUri)
 }
 
 async function beforeEach (t) {
