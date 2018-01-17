@@ -61,7 +61,7 @@ class Project extends Component {
     }
 
     return (
-      <GridListTile className={styles.project}
+      <GridListTile className={projectClasses}
         onClick={this.handleClick.bind(this)}>
         <img src={project.image || require('../../images/logo.png')} />
         <GridListTileBar title={project.name}
