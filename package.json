@@ -97,6 +97,7 @@
     "snapshotDir": "./client/component-snapshots"
   },
   "jest": {
-    "rootDir": "./client/components"
+    "rootDir": "./client/components",
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }
