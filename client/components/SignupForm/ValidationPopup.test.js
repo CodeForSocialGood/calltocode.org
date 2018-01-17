@@ -27,7 +27,7 @@ describe('<ValidationPopup />', () => {
 
     describe('active is falsey', () => {
       beforeEach(() => { mockProps.active = false })
-      g
+
       test('component renders correctly', () => {
         const component = shallow(<ValidationPopup {...mockProps} />)
         expect(component).toMatchSnapshot()
