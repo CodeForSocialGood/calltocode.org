@@ -21,8 +21,12 @@
   margin-left: 10px;
   color: dimgray;
 
-  &:active {
-    color: royalblue;
+  &.active {
+    @extend %buttonActive;
+  }
+
+  &:hover {
+    @extend %hover;
   }
 }
 

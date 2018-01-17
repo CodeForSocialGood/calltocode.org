@@ -7,6 +7,11 @@ const usersApiClient = {
     return apiRequest.get('/users/current', apiOptions)
   },
 
+  update (apiOptions, user) {
+    const body = { user }
+    return apiRequest.put('/users/current', apiOptions, body)
+  },
+
   // TODO: use apiRequest and get apiOptions through params (calling of
   // usersApiClient.login needs to be moved to AuthActionCreator)
   async login (email, password) {
@@ -38,21 +43,24 @@ const usersApiClient = {
   },
 
   changePassword (email, password) {
+    const { salt, hash } = getSaltHash(password)
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, salt, hash })
     }
 
     return fetch('/api/users/new-password', options)
-  },
-
-  update (apiOptions, user) {
-    const body = { user }
-    return apiRequest.put('/user', apiOptions, body)
   }
+}
+
+function getSaltHash (password) {
+  const saltRounds = 10
+  const salt = bcrypt.genSaltSync(saltRounds)
+  const hash = bcrypt.hashSync(password, salt)
+  return { salt, hash }
 }
 
 export default usersApiClient

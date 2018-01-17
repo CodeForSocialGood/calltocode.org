@@ -6,4 +6,7 @@ const forgotPasswordController = require('../controllers/forgotPasswordControlle
 router.route('/')
   .post(auth.optional, forgotPasswordController.sendVerificationCodeEmail)
 
+router.route('/code')
+  .post(forgotPasswordController.validateCode)
+
 module.exports = router

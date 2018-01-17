@@ -1,6 +1,6 @@
-function ForgotPasswordException () {
+function ForgotPasswordException (message) {
   this.name = 'ForgotPasswordException'
-  this.message = 'send email failed!'
+  this.message = message
 }
 
 export default ForgotPasswordException

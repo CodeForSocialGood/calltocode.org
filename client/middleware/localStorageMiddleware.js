@@ -8,6 +8,6 @@ export default function localStorageMiddleware (store) {
       localStorage.removeItem('jwt')
     }
 
-    next(action)
+    return next(action)
   }
 }

@@ -45,7 +45,7 @@ class LoginForm extends Component {
     const { error, handleSubmit } = this.props
 
     return (
-      <form className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
+      <form id="loginForm" className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
         <h1 className={styles.title}>Login</h1>
 
         <Field

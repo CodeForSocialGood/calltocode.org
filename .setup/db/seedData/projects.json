@@ -3,8 +3,10 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c0"
 		},
-		"organization": "5b165cb5202e8986f99ec5c0",
-		"name": "Mary_Organization",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c0"
+		},
+		"name": "Example Project #1",
 		"role": "Mary Org Role 1",
 		"email": "mary@email.com",
 		"__v": 0
@@ -13,8 +15,10 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c1"
 		},
-		"organization": "5b165cb5202e8986f99ec5c0",
-		"name": "Mary_Organization",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c0"
+		},
+		"name": "Example Project #2",
 		"role": "Mary Org Role 2",
 		"email": "mary@email.com",
 		"__v": 0
@@ -23,8 +27,10 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c2"
 		},
-		"organization": "5b165cb5202e8986f99ec5c1",
-		"name": "Organization1",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c1"
+		},
+		"name": "Example Project #3",
 		"role": "Role1",
 		"email": "1@email.com",
 		"__v": 0
@@ -33,8 +39,10 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c3"
 		},
-		"organization": "5b165cb5202e8986f99ec5c2",
-		"name": "Organization2",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c2"
+		},
+		"name": "Example Project #4",
 		"role": "Role2",
 		"email": "2@email.com",
 		"__v": 0
@@ -43,10 +51,48 @@
 		"_id": {
 			"$oid": "5a165cb5202e8986f99ec5c4"
 		},
-		"organization": "5b165cb5202e8986f99ec5c3",
-		"name": "Organization3",
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c3"
+		},
+		"name": "Example Project #5",
 		"role": "Role3",
 		"email": "3@email.com",
+		"__v": 0
+	},
+	{
+		"_id": {
+			"$oid": "5a165cb5202e8986f99ec5c5"
+		},
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c4"
+		},
+		"name": "Example Project #6",
+		"role": "Role4",
+		"email": "4@email.com",
+		"__v": 0
+	},
+	{
+		"_id": {
+			"$oid": "5a165cb5202e8986f99ec5c6"
+		},
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c5"
+		},
+		"name": "Example Project #7",
+		"role": "Role5",
+		"email": "5@email.com",
+		"__v": 0
+	},
+	{
+		"_id": {
+			"$oid": "5a165cb5202e8986f99ec5c7"
+		},
+		"organization": {
+			"$oid": "5b165cb5202e8986f99ec5c6"
+		},
+		"name": "Example Project #8",
+		"role": "Role6",
+		"email": "6@email.com",
 		"__v": 0
 	}
 ]

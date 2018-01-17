@@ -17,3 +17,21 @@ aws elasticbeanstalk create-application-version --application-name calltocode \
 aws elasticbeanstalk update-environment --environment-name test-calltocode \
   --version-label $TRAVIS_COMMIT \
   --region us-east-2
+
+# reset mongodb
+mongo "mongodb://$DB_HOST/test?replicaSet=$DB_REPLICA_SET" \
+  --ssl \
+  --authenticationDatabase admin \
+  -u admin \
+  -p $DB_PASS \
+  --eval 'db.users.drop(); db.projects.drop()'
+
+MONGO_HOST="$DB_REPLICA_SET/$DB_HOST"
+mongoimport --collection users --db test \
+  -h $MONGO_HOST \
+  --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+  --file .setup/db/seedData/users.json --type json --jsonArray
+mongoimport --collection projects --db test \
+  -h $MONGO_HOST \
+  --ssl -u admin -p $DB_PASS --authenticationDatabase admin \
+  --file .setup/db/seedData/projects.json --type json --jsonArray
