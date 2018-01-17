@@ -1,6 +1,7 @@
 export default {
   auth: {
-    authenticated: false
+    authenticated: false,
+    error: ''
   },
   common: {
     appLoaded: false,
