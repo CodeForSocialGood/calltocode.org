@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ValidationPopup /> error is an object all errors truthy active is truthy component renders correctly 1`] = `
+<div
+  className="validationPopup show"
+>
+  <p
+    className="bold"
+  >
+    Password must have
+  </p>
+  <ul>
+    <li
+      className="tick"
+    >
+       at least 1 UpperCase Character 
+    </li>
+    <li
+      className="tick"
+    >
+       at least 1 LowerCase Character 
+    </li>
+    <li
+      className="tick"
+    >
+       at least 1 Number 
+    </li>
+    <li
+      className="tick"
+    >
+       at least 1 Special Character 
+    </li>
+    <li
+      className="tick"
+    >
+       at least 10 Characters 
+    </li>
+    <li
+      className="tick"
+    >
+       at most 128 Characters 
+    </li>
+    <li
+      className="tick"
+    >
+       not more than 2 identical characters in a row 
+    </li>
+  </ul>
+</div>
+`;

@@ -1,5 +1,7 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+import {shallow, configure} from 'enzyme'
+configure({adapter: new Adapter()})
 
 import ValidationPopup from './ValidationPopup'
 let mockProps
@@ -42,6 +44,11 @@ describe('<ValidationPopup />', () => {
 
       describe('active is truthy', () => {
         beforeEach(() => { mockProps.active = true })
+
+        test('component renders correctly', () => {
+          const component = shallow(<ValidationPopup {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       }) 
 
       describe('active is falsey', () => {
