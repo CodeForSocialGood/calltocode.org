@@ -1,5 +1,5 @@
 import React from 'react'
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from 'enzyme-adapter-react-16'
 import {shallow, configure} from 'enzyme'
 configure({adapter: new Adapter()})
 
@@ -53,6 +53,11 @@ describe('<ValidationPopup />', () => {
 
       describe('active is falsey', () => {
         beforeEach(() => { mockProps.active = false })
+
+        test('component renders correctly', () => {
+          const component = shallow(<ValidationPopup {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       }) 
     })
 
@@ -71,10 +76,20 @@ describe('<ValidationPopup />', () => {
 
       describe('active is truthy', () => {
         beforeEach(() => { mockProps.active = true })
+
+        test('component renders correctly', () => {
+          const component = shallow(<ValidationPopup {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       }) 
 
       describe('active is falsey', () => {
         beforeEach(() => { mockProps.active = false })
+
+        test('component renders correctly', () => {
+          const component = shallow(<ValidationPopup {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       }) 
     })
   })
