@@ -18,11 +18,21 @@ describe('<ValidationPopup />', () => {
 
     describe('active is truthy', () => {
       beforeEach(() => { mockProps.active = true })
-    }) 
+
+      test('component renders correctly', () => {
+        const component = shallow(<ValidationPopup {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
+    })
 
     describe('active is falsey', () => {
       beforeEach(() => { mockProps.active = false })
-    }) 
+      g
+      test('component renders correctly', () => {
+        const component = shallow(<ValidationPopup {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
+    })
   })
 
   describe('error is an object', () => {
@@ -48,7 +58,7 @@ describe('<ValidationPopup />', () => {
           const component = shallow(<ValidationPopup {...mockProps} />)
           expect(component).toMatchSnapshot()
         })
-      }) 
+      })
 
       describe('active is falsey', () => {
         beforeEach(() => { mockProps.active = false })
@@ -57,7 +67,7 @@ describe('<ValidationPopup />', () => {
           const component = shallow(<ValidationPopup {...mockProps} />)
           expect(component).toMatchSnapshot()
         })
-      }) 
+      })
     })
 
     describe('all errors falsey', () => {
@@ -80,7 +90,7 @@ describe('<ValidationPopup />', () => {
           const component = shallow(<ValidationPopup {...mockProps} />)
           expect(component).toMatchSnapshot()
         })
-      }) 
+      })
 
       describe('active is falsey', () => {
         beforeEach(() => { mockProps.active = false })
@@ -89,7 +99,7 @@ describe('<ValidationPopup />', () => {
           const component = shallow(<ValidationPopup {...mockProps} />)
           expect(component).toMatchSnapshot()
         })
-      }) 
+      })
     })
   })
 })
