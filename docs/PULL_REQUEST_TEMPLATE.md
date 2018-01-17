@@ -10,16 +10,16 @@
 - [ ] Your pull request targets the `master` branch of calltocode.org
 - [ ] Your branch is updated with the latest changes on `master`
 - [ ] Your branch passes linting, building and all new and existing tests with command `yarn test`
-- [ ] The ID of the story that this branch address is referenced above
+- [ ] The story that this pull request addresses is referenced above by ID
 
 #### Post-Submission Checklist:
 <!-- After creating the pull request, tick the boxes below that are completed -->
 <!-- Make sure you keep up with your pull request after submission until it is merged: -->
 
-- [ ] Address any reviews on your pull request, as it will not get merged until it is approved
-- [ ] Make sure your branch is up to date and has no conflicts with `master`
+- [ ] Address any reviews on your pull request, as it will not be merged until it is approved
+- [ ] Your branch has no conflicts with `master` (find this out at the bottom of your pull request)
 
-#### Description:
+#### Description of Changes:
 <!-- Put a description of your changes here -->
 
 <!-- LINKS:
