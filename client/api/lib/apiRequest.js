@@ -20,7 +20,11 @@ async function apiRequest (apiOptions, options) {
     console.log(res)
   }
 
-  return res.json()
+  const contentType = res.headers.get('Content-Type')
+  if (contentType && contentType.indexOf('application/json') !== -1) {
+    return res.json()
+  }
+  return res
 }
 
 function getQueryString (query = {}) {
