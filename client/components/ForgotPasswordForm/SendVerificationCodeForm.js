@@ -48,7 +48,7 @@ SendVerificationCodeForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'ForgotPasswordForm', // <------ same form name
-  destroyOnUnmount: false, // <------ preserve form data
-  forceUnregisterOnUnmount: true // <------ unregister fields on unmount
+  form: 'ForgotPasswordForm',
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true
 })(SendVerificationCodeForm)
