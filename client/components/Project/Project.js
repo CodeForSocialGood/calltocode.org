@@ -49,10 +49,12 @@ class Project extends Component {
   }
 
   render () {
-    const { project } = this.props
+    const { currentPage, project } = this.props
 
     const applied = this.getAppliedStatus()
     const isContact = this.isUserTypeContact()
+    const isProfile = currentPage.includes('profile')
+
     let projectClasses = styles.project
     if (this.props.authenticated && !applied && !isContact) {
       projectClasses = styles.projectAuthenticated
@@ -65,7 +67,7 @@ class Project extends Component {
         onClick={this.handleClick.bind(this)}>
         <img src={project.image || require('../../images/logo.png')} />
         <GridListTileBar title={project.name}
-          subtitle={project.organization.name || 'Organization Name'}
+          subtitle={isContact && isProfile ? null : project.organization.name || 'Organization Name'}
           actionIcon={this.renderProjectApplicationResult(project)}>
         </GridListTileBar>
       </GridListTile>
@@ -75,6 +77,7 @@ class Project extends Component {
 
 function mapStateToProps (state) {
   return {
+    currentPage: state.routing.location.pathname,
     user: state.user
   }
 }
@@ -82,6 +85,7 @@ function mapStateToProps (state) {
 Project.propTypes = {
   applyForProject: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  currentPage: PropTypes.string.isRequired,
   project: PropTypes.object.isRequired,
   user: PropTypes.object
 }
