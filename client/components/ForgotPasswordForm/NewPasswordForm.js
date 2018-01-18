@@ -55,9 +55,9 @@ NewPasswordForm.propTypes = {
 }
 
 const NewPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm', // <------ same form name
-  destroyOnUnmount: false, // <------ preserve form data
-  forceUnregisterOnUnmount: true // <------ unregister fields on unmount
+  form: 'ForgotPasswordForm',
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true
 })(NewPasswordForm)
 
 export default connect(null)(NewPasswordFormRedux)

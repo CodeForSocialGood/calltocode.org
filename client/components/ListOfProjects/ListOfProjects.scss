@@ -11,11 +11,12 @@
 }
 
 .listContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
 }
 
 .list {
-  width: 100%;
+  width: 100% !important;
 }

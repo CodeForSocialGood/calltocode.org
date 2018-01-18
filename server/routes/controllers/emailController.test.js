@@ -1,14 +1,14 @@
 const test = require('ava')
-const { mock, match } = require('sinon')
+const { mock } = require('sinon')
 
 const emailController = require('./emailController')
 
 test('send email to organization', t => {
   // setup
   const emailClient = {
-    setApiKey () {},
-    send () {}
+    send () { }
   }
+
   const req = {
     body: {
       project: {
@@ -22,14 +22,11 @@ test('send email to organization', t => {
     }
   }
   const res = {
-    sendStatus () {}
+    sendStatus () { }
   }
 
   // mock
   const mockEmailClient = mock(emailClient)
-  mockEmailClient.expects('setApiKey')
-    .once()
-    .withExactArgs(match.any)
   mockEmailClient.expects('send')
     .once()
     .withExactArgs({
