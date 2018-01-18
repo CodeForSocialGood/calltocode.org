@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('<ValidateVerificationCodeForm />', () => {
   describe('with props.code length 0', () => {
-    beforeEach(() => { mockProps.code = [] })
+    beforeEach(() => { mockProps.code = '' })
 
     test('component renders correctly', () => {
       const component = shallow(<ValidateVerificationCodeForm {...mockProps} />)
@@ -24,7 +24,7 @@ describe('<ValidateVerificationCodeForm />', () => {
   })
 
   describe('with props.code length not 0', () => {
-    beforeEach(() => { mockProps.code = ['some code'] })
+    beforeEach(() => { mockProps.code = 'some code' })
 
     test('component renders correctly', () => {
       const component = shallow(<ValidateVerificationCodeForm {...mockProps} />)

@@ -2,7 +2,7 @@
 
 exports[`<ValidateVerificationCodeForm /> with props.code length 0 component renders correctly 1`] = `
 <Connect(Form(ValidateVerificationCodeForm))
-  code={Array []}
+  code=""
   destroyOnUnmount={false}
   enableReinitialize={false}
   forceUnregisterOnUnmount={true}
@@ -25,11 +25,7 @@ exports[`<ValidateVerificationCodeForm /> with props.code length 0 component ren
 
 exports[`<ValidateVerificationCodeForm /> with props.code length not 0 component renders correctly 1`] = `
 <Connect(Form(ValidateVerificationCodeForm))
-  code={
-    Array [
-      "some code",
-    ]
-  }
+  code="some code"
   destroyOnUnmount={false}
   enableReinitialize={false}
   forceUnregisterOnUnmount={true}

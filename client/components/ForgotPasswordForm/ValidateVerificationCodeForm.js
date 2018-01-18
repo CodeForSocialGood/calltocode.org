@@ -12,7 +12,7 @@ function CodeField ({ input }) {
   )
 }
 
-const ValidateVerificationCodeForm = props => {
+export const ValidateVerificationCodeForm = props => {
   const {handleSubmit} = props
   return (
     <form onSubmit={handleSubmit}
