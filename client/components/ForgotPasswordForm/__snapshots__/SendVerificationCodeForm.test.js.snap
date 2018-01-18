@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SendVerificationCodeForm /> email is length 0 component renders correctly 1`] = `
+<form
+  className="form"
+  onSubmit={[Function]}
+>
+  <h1
+    className="title"
+  >
+    Forgot Password?
+  </h1>
+  <h3>
+    Let's get you a new one!
+  </h3>
+  <Field
+    component={[Function]}
+    name="email"
+    onChange={[Function]}
+    value=""
+  />
+  <button
+    className="buttonSubmit"
+    disabled={true}
+    type="submit"
+  >
+    Send Verification Code
+  </button>
+</form>
+`;
+
+exports[`<SendVerificationCodeForm /> email is not length 0 component renders correctly 1`] = `
+<form
+  className="form"
+  onSubmit={[Function]}
+>
+  <h1
+    className="title"
+  >
+    Forgot Password?
+  </h1>
+  <h3>
+    Let's get you a new one!
+  </h3>
+  <Field
+    component={[Function]}
+    name="email"
+    onChange={[Function]}
+    value="some@email.com"
+  />
+  <button
+    className="buttonSubmit"
+    disabled={false}
+    type="submit"
+  >
+    Send Verification Code
+  </button>
+</form>
+`;

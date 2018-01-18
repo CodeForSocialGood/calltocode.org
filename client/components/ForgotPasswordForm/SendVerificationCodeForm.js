@@ -11,7 +11,7 @@ function EmailField ({ input }) {
   )
 }
 
-const SendVerificationCodeForm = props => {
+export const SendVerificationCodeForm = props => {
   const {handleSubmit} = props
   return (
     <form onSubmit={handleSubmit}
