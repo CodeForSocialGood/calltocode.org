@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import styles from './CreateProjectForm.scss'
 import projectsApiClient from '../../api/projects'
 
-class CreateProjectForm extends Component {
+export class CreateProjectForm extends Component {
   renderImageUpload (field) {
     return (
       <UploadDropzone className={styles.inputImageUpload}

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateProjectForm /> with valid user organization component renders correctly 1`] = `
+<form
+  className="form"
+  id="createProjectForm"
+>
+  <h1
+    className="title"
+  >
+    Create New Project
+  </h1>
+  <Field
+    component={[Function]}
+    name="image"
+  />
+  <Field
+    component={[Function]}
+    name="projectname"
+  />
+  <button
+    className="buttonSubmit"
+    type="submit"
+  >
+    Create Project
+  </button>
+</form>
+`;
