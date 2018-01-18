@@ -17,6 +17,7 @@
     "pretest": "yarn lint && yarn build",
     "test": "SILENT=true ava --verbose",
     "test-client": "jest",
+    "update-snapshots": "jest --updateSnapshot",
     "e2e": "nightwatch",
     "lint": "eslint --ignore-pattern server/public/ client/ server/",
     "build": "webpack --bail --display errors-only",
