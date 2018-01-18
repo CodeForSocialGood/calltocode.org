@@ -1,3 +1,4 @@
+@login
 Feature: Login Page
   To verify login page works as expected
   As a user who wants to login
