@@ -9,7 +9,7 @@ import styles from './ForgotPasswordForm.scss'
 
 class NewPasswordForm extends Component {
   renderPassword (field) {
-    const passClasses = `${styles.inputPassword} 
+    const passClasses = `${styles.inputPassword}
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
     return (
       <div className={ styles.inputPasswordContainer }>
@@ -32,7 +32,7 @@ class NewPasswordForm extends Component {
 
     return (
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1 className={styles.title}>New Password</h1>
+        <h1>New Password</h1>
         <h3>Set your new password</h3>
         <Field
           name="password"

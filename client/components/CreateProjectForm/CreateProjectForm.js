@@ -36,7 +36,7 @@ class CreateProjectForm extends Component {
     const { handleSubmit } = this.props
     return (
       <form id="createProjectForm" className={styles.form} onSubmit={handleSubmit(this.createProject.bind(this))}>
-        <h1 className={styles.title}>Create New Project</h1>
+        <h1>Create New Project</h1>
 
         <Field name="image"
           component={this.renderImageUpload} />
