@@ -187,7 +187,7 @@ Once you have submitted your pull request (PR), it needs to be approved and upda
 
 ### Branch Updating and Conflicts
 
-If you need to update your branch with the latest changes from master after you've already made changes, or after you've submitted a pull request, it is best to do the following:
+If you need to resolve conflicts with master or update your branch with the latest changes from master after you've already pushed changes and possibly after you've submitted a pull request, it is best to do the following:
 
 #### Update master
 
