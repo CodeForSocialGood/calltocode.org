@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ValidateVerificationCodeForm /> with props.code length 0 component renders correctly 1`] = `
+<Connect(Form(ValidateVerificationCodeForm))
+  code={Array []}
+  destroyOnUnmount={false}
+  enableReinitialize={false}
+  forceUnregisterOnUnmount={true}
+  form="ForgotPasswordForm"
+  getFormState={[Function]}
+  handleSubmit={[Function]}
+  keepDirtyOnReinitialize={false}
+  onChangeCode={[Function]}
+  persistentSubmitErrors={false}
+  pure={true}
+  shouldAsyncValidate={[Function]}
+  shouldError={[Function]}
+  shouldValidate={[Function]}
+  shouldWarn={[Function]}
+  touchOnBlur={true}
+  touchOnChange={false}
+  updateUnregisteredFields={false}
+/>
+`;
+
+exports[`<ValidateVerificationCodeForm /> with props.code length not 0 component renders correctly 1`] = `
+<Connect(Form(ValidateVerificationCodeForm))
+  code={
+    Array [
+      "some code",
+    ]
+  }
+  destroyOnUnmount={false}
+  enableReinitialize={false}
+  forceUnregisterOnUnmount={true}
+  form="ForgotPasswordForm"
+  getFormState={[Function]}
+  handleSubmit={[Function]}
+  keepDirtyOnReinitialize={false}
+  onChangeCode={[Function]}
+  persistentSubmitErrors={false}
+  pure={true}
+  shouldAsyncValidate={[Function]}
+  shouldError={[Function]}
+  shouldValidate={[Function]}
+  shouldWarn={[Function]}
+  touchOnBlur={true}
+  touchOnChange={false}
+  updateUnregisteredFields={false}
+/>
+`;
