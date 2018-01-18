@@ -17,7 +17,7 @@ const ValidateVerificationCodeForm = props => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h1>Forgot Password?</h1>
-      <h3>Let's validate your code!</h3>
+      <h3>{"Let's validate your code!"}</h3>
 
       <Field
         value={props.code}

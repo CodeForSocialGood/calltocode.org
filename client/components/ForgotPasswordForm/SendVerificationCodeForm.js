@@ -16,7 +16,7 @@ const SendVerificationCodeForm = props => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h1>Forgot Password?</h1>
-      <h3>Let's get you a new one!</h3>
+      <h3>{"Let's get you a new one!"}</h3>
 
       <Field value={props.email}
         name="email"
