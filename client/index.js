@@ -12,7 +12,7 @@ import thunkMiddleware from 'redux-thunk'
 import localStorageMiddleware from './middleware/localStorageMiddleware'
 import promiseMiddleware from './middleware/promiseMiddleware'
 
-import './index.css'
+import './scss/main.scss'
 import App from './App'
 import reducers from './reducers'
 
