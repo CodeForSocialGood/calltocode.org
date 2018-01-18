@@ -32,7 +32,9 @@ const forgotPasswordController = {
     const email = req.body.email
 
     try {
-      await this._checkIfUserExists(email)
+      const user = await this._checkIfUserExists(email)
+      if (!user) return res.sendStatus(200)
+
       const code = this._generateSixDigitCode()
       await this._insertOrUpdateVerificationCode(email, code)
 
@@ -46,9 +48,9 @@ const forgotPasswordController = {
       }
       this.emailClient.send(message)
 
-      res.status(200).send({ status: 200 })
+      res.sendStatus(200)
     } catch (error) {
-      res.status(500).send({ status: 500 })
+      res.sendStatus(500)
     }
   },
 
@@ -59,7 +61,7 @@ const forgotPasswordController = {
       .then(user => {
         if (user) {
           user.remove()
-          return res.status(200).json({status: 200})
+          return res.sendStatus(200)
         }
         res.status(404).json({error: 'Invalid code or email'})
       })
