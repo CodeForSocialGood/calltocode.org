@@ -8,7 +8,7 @@ let mockProps
 beforeEach(() => {
   mockProps = {
     applyForProject: () => {},
-    authenticated: null,
+    authenticated: false,
     project: {
       name: '',
       organization: {name: ''},
@@ -50,8 +50,10 @@ describe('<Project />', () => {
       describe('user\'s usertype is "volunteer"', () => {
         beforeEach(() => { mockProps.user.usertype = 'volunteer' })
 
-        const component = shallow(<Project {...mockProps} />)
-        expect(component).toMatchSnapshot()
+        test('component renders correclty', () => {
+          const component = shallow(<Project {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       })
     })
 
@@ -66,14 +68,19 @@ describe('<Project />', () => {
       describe('user\'s usertype is "volunteer"', () => {
         beforeEach(() => { mockProps.user.usertype = 'volunteer' })
         // component for applyForProject renders
-        const component = shallow(<Project {...mockProps} />)
-        expect(component).toMatchSnapshot()
+        test('component renders correclty', () => {
+          const component = shallow(<Project {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       })
+
       describe('user\'s usertype is "contact"', () => {
         beforeEach(() => { mockProps.user.usertype = 'contact' })
 
-        const component = shallow(<Project {...mockProps} />)
-        expect(component).toMatchSnapshot()
+        test('component renders correclty', () => {
+          const component = shallow(<Project {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       })
     })
   })
