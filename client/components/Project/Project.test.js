@@ -9,9 +9,15 @@ beforeEach(() => {
   mockProps = {
     applyForProject: () => {},
     authenticated: null,
-    project: {},
+    project: {
+      name: '',
+      organization: {name: ''},
+      image: '',
+      id: null
+    },
     user: {
-      usertype: null
+      usertype: null,
+      projectsAppliedFor: []
     }
   }
 })
@@ -19,22 +25,47 @@ beforeEach(() => {
 describe('<Project />', () => {
   describe('authenticated is truthy', () => {
     beforeEach(() => { mockProps.autheticated = true })
+
     describe('user has applied for project', () => {
+      beforeEach(() => {
+        mockProps.project = {
+          name: '',
+          organization: {name: ''},
+          image: '',
+          id: 1
+        }
+        mockProps.user = {
+          usertype: null,
+          projectsAppliedFor: [1]
+        }
+      })
+
       describe('user\'s usertype is "contact"', () => {
+        beforeEach(() => { mockProps.user.usertype = 'contact' })
 
       })
+
       describe('user\'s usertype is "volunteer"', () => {
-        describe('user\'s applied status could be true or false', () => {
-          // render correct <span>
-        })
+        beforeEach(() => { mockProps.user.usertype = 'volunteer' })
+
       })
     })
+
     describe('user has not applied for project', () => {
+      beforeEach(() => {
+        mockProps.user = {
+          usertype: null,
+          projectsAppliedFor: []
+        }
+      })
+
       describe('user\'s usertype is "volunteer"', () => {
+        beforeEach(() => { mockProps.user.usertype = 'volunteer' })
         // component for applyForProject renders
       })
       describe('user\'s usertype is "contact"', () => {
-
+        beforeEach(() => { mockProps.user.usertype = 'contact' })
+        
       })
     })
   })
