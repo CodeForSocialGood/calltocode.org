@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Avatar from 'material-ui/Avatar'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
@@ -18,12 +19,16 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    if (this.props.authenticated) {
+    const { authenticated, user } = this.props
+
+    if (authenticated) {
       const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
-        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>PROFILE</Link>
+        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>
+          <Avatar>{user.email.charAt(0).toUpperCase()}</Avatar>
+        </Link>
       ]
-      if (this.props.user.usertype === 'contact') {
+      if (user.usertype === 'contact') {
         return [
           <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
           ...authButtons
