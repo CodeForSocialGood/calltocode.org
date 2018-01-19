@@ -1,47 +1,22 @@
 @import '../../scss/partials/partials';
 
+.projectListSection {
+  padding: 0 60px;
+  display: grid;
+}
+
 .title {
   font-size: 20px;
   margin-bottom: 15px;
 }
 
-.orgSection {
-  display: block;
-  padding: 0 60px;
-  margin-top: 30px;
+.listContainer {
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around !important;
 }
 
-.listOrg {
-  padding: 20px;
-  border: 0;
-  border-radius: 5px;
-  color: white;
-  background-color: #A2BFD6;
-  margin-bottom: 15px;
-  margin-right: 25px;
-}
-
-.listOrgAuthenticated,
-.listOrgAuthenticatedContact {
-  @extend .listOrg;
-}
-
-.listOrgAuthenticated:hover {
-  @extend %hover;
-  @extend %boxShadowSmall;
-}
-
-.listApply {
-  float: right;
-  margin-top: 15px;
-}
-
-.listApplyPass {
-  @extend .listApply;
-  color: green;
-}
-
-.listApplyFail {
-  @extend .listApply;
-  color: red;
+.list {
+  width: 100% !important;
 }

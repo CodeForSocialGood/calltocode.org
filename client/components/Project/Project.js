@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { GridListTileBar } from 'material-ui/GridList'
 
-import styles from '../ListOfProjects/ListOfProjects.scss'
+import styles from './Project.scss'
 
 class Project extends Component {
   constructor (props) {
@@ -27,15 +28,11 @@ class Project extends Component {
     const isContact = this.isUserTypeContact()
     if (applied && !isContact) {
       return (
-        <span className={styles.listApplyPass}>
-          &#10004;
-        </span>
+        <span className={styles.projectApplyPass}>&#10004;</span>
       )
     } else if (!isContact) {
       return (
-        <span className={styles.listApplyFail}>
-          &#10007;
-        </span>
+        <span className={styles.projectApplyFail}>&#10007;</span>
       )
     }
   }
@@ -52,29 +49,35 @@ class Project extends Component {
   }
 
   render () {
+    const { currentPage, project } = this.props
+
     const applied = this.getAppliedStatus()
     const isContact = this.isUserTypeContact()
-    let liClassName = styles.listOrg
+    const isProfile = currentPage.includes('profile')
+
+    let projectClasses = styles.project
     if (this.props.authenticated && !applied && !isContact) {
-      liClassName = styles.listOrgAuthenticated
+      projectClasses = styles.projectAuthenticated
     } else if (this.props.authenticated && !applied) {
-      liClassName = styles.listOrgAuthenticatedContact
+      projectClasses = styles.projectAuthenticatedContact
     }
 
     return (
-      <li
+      <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
-        {this.renderProjectApplicationResult(this.props.project)}
-        <div className={liClassName}>
-          Name:{this.props.project.name} Role:{this.props.project.role}
-        </div>
-      </li>
+        <img className={styles.image} src={project.image || require('../../images/logo.png')} />
+        <GridListTileBar title={project.name}
+          subtitle={isContact && isProfile ? null : project.organization.name || 'Organization Name'}
+          actionIcon={this.renderProjectApplicationResult(project)}>
+        </GridListTileBar>
+      </div>
     )
   }
 }
 
 function mapStateToProps (state) {
   return {
+    currentPage: state.routing.location.pathname,
     user: state.user
   }
 }
@@ -82,6 +85,7 @@ function mapStateToProps (state) {
 Project.propTypes = {
   applyForProject: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  currentPage: PropTypes.string.isRequired,
   project: PropTypes.object.isRequired,
   user: PropTypes.object
 }

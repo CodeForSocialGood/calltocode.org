@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import GridList, { GridListTile } from 'material-ui/GridList'
 
 import UserActionCreator from '../../actions/user'
 import Project from '../Project/Project'
@@ -16,22 +17,26 @@ class ListOfProjects extends Component {
   renderListOfProjects () {
     return this.props.projects.map((project, index) => {
       return (
-        <Project
-          key={index}
-          project={project}
-          authenticated={this.props.authenticated}
-          applyForProject={this.props.applyForProject} />
+        <GridListTile key={index}>
+          <Project
+            project={project}
+            authenticated={this.props.authenticated}
+            applyForProject={this.props.applyForProject} />
+        </GridListTile>
       )
     })
   }
 
   render () {
     return (
-      <section className={styles.orgSection}>
-        <h1 className={styles.title}>{this.props.title}</h1>
-        <ul>
-          {this.renderListOfProjects()}
-        </ul>
+      <section className={styles.projectListSection}>
+        <h1>{this.props.title}</h1>
+
+        <div className={styles.listContainer}>
+          <GridList className={styles.list} cellHeight={'auto'} cols={3} spacing={8}>
+            { this.renderListOfProjects() }
+          </GridList>
+        </div>
       </section>
     )
   }

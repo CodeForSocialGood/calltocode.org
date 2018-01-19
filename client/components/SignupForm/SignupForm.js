@@ -85,7 +85,7 @@ function SignupForm (props) {
 
   return (
     <form className={ styles.form } onSubmit={ handleSubmit(signup) }>
-      <h1 className={ styles.title }>Signup</h1>
+      <h1 className={styles.h1}>Signup</h1>
 
       <Field name="email"
         component={ EmailField }

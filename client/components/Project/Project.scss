@@ -1,0 +1,34 @@
+@import '../../scss/partials/partials';
+
+.project {
+  border-radius: 5px;
+  color: white;
+}
+
+.projectAuthenticated,
+.projectAuthenticatedContact {
+  @extend .project;
+}
+
+.projectAuthenticated:hover {
+  @extend %hover;
+  @extend %boxShadowSmall;
+}
+
+.image {
+  width: 100%;
+}
+
+.projectApply {
+  margin-right: 15px;
+}
+
+.projectApplyPass {
+  @extend .projectApply;
+  color: green;
+}
+
+.projectApplyFail {
+  @extend .projectApply;
+  color: red;
+}

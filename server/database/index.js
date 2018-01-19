@@ -9,9 +9,7 @@ const database = {
   },
 
   connect () {
-    this.client.connect(this.url, {
-      useMongoClient: true
-    })
+    this.client.connect(this.url)
 
     const db = this.client.connection
     return new Promise((resolve, reject) => {

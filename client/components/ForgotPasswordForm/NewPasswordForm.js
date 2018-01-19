@@ -9,7 +9,7 @@ import styles from './ForgotPasswordForm.scss'
 
 class NewPasswordForm extends Component {
   renderPassword (field) {
-    const passClasses = `${styles.inputPassword} 
+    const passClasses = `${styles.inputPassword}
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
     return (
       <div className={ styles.inputPasswordContainer }>
@@ -32,8 +32,8 @@ class NewPasswordForm extends Component {
 
     return (
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1 className={styles.title}>New Password</h1>
-        <h3>Set your new password</h3>
+        <h1 className={styles.h1}>New Password</h1>
+        <h3 className={styles.h3}>Set your new password</h3>
         <Field
           name="password"
           value={this.props.password}
@@ -55,9 +55,9 @@ NewPasswordForm.propTypes = {
 }
 
 const NewPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm', // <------ same form name
-  destroyOnUnmount: false, // <------ preserve form data
-  forceUnregisterOnUnmount: true // <------ unregister fields on unmount
+  form: 'ForgotPasswordForm',
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true
 })(NewPasswordForm)
 
 export default connect(null)(NewPasswordFormRedux)

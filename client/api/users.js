@@ -7,6 +7,11 @@ const usersApiClient = {
     return apiRequest.get('/users/current', apiOptions)
   },
 
+  update (apiOptions, user) {
+    const body = { user }
+    return apiRequest.put('/users/current', apiOptions, body)
+  },
+
   // TODO: use apiRequest and get apiOptions through params (calling of
   // usersApiClient.login needs to be moved to AuthActionCreator)
   async login (email, password) {
@@ -48,11 +53,6 @@ const usersApiClient = {
     }
 
     return fetch('/api/users/new-password', options)
-  },
-
-  update (apiOptions, user) {
-    const body = { user }
-    return apiRequest.put('/user', apiOptions, body)
   }
 }
 

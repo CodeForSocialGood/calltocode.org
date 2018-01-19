@@ -1,7 +1,7 @@
 @import '../../scss/partials/partials';
 
 .dropzone {
-  cursor: pointer;
+  @extend %hover;
   width: 200px;
   height: 200px;
   border: 2px dashed #C8C8C8;
@@ -31,7 +31,6 @@
 }
 
 .accept {
-  cursor: pointer;
   border: 2px solid #C8C8C8;
   background-size: 150% 100%;
   background-image: repeating-linear-gradient(-45deg, #F0F0F0, #F0F0F0 25px, #C8C8C8 25px, #C8C8C8 50px);
@@ -39,7 +38,6 @@
 }
 
 .reject {
-  cursor: pointer;
   border: 2px solid #C8C8C8;
   background-size: 150% 100%;
   background-image: repeating-linear-gradient(-45deg, #fc8785, #fc8785 25px, #f4231f 25px, #f4231f 50px);
