@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
 
-:global(.defaults) {
+:global .defaults {
 	font-family: 'Roboto', sans-serif;
 	color: #3C3E49;
 }
@@ -28,7 +27,8 @@ time, mark, audio, video {
 }
 
 h1 {
-	font-family: 'Roboto Slab', sans-serif;
+	margin: 15px 0;
+	font-size: 24px;
 }
 
 article, aside, details, figcaption, figure,

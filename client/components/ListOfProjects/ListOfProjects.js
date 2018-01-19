@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { GridList } from 'material-ui/GridList'
+import GridList from 'material-ui/GridList'
 
 import UserActionCreator from '../../actions/user'
 import Project from '../Project/Project'
@@ -28,11 +28,10 @@ class ListOfProjects extends Component {
   render () {
     return (
       <section className={styles.projectListSection}>
-        <h1 className={styles.title}>{this.props.title}</h1>
+        <h1>{this.props.title}</h1>
 
         <div className={styles.listContainer}>
-          <GridList className={styles.list}
-            cols={3}>
+          <GridList className={styles.list} cols={3}>
             { this.renderListOfProjects() }
           </GridList>
         </div>

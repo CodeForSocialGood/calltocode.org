@@ -19,11 +19,11 @@ defineSupportCode(({ Given, Then, When }) => {
   Given(/^I open the "(.*)" page$/, async selector => {
     const page = client.page[selector]()
     await page.navigate()
-    await page.waitForElementVisible('@body', 1000)
   })
 
   Then(/^I am on the "(.*)" page$/, async selector => {
     const page = client.page[selector]()
+    await page.waitForElementVisible('@body', 1000)
     await client.assert.urlEquals(page.url)
   })
 
@@ -43,6 +43,13 @@ defineSupportCode(({ Given, Then, When }) => {
     const createProject = client.page.createProject()
     createProject.setValue('@nameField', name)
     await createProject.submitForm('@createProjectForm')
+  })
+
+  When(/^I apply to a project with the project details (.*?)$/, async name => {
+    const home = client.page.home()
+    await home.expect.element('@body').text.to.contain(name)
+    await client.useXpath().click(`//div[text()="${name}"]`)
+    await client.pause(250) // Need this pause for some reason
   })
 
   Then(/^I do not see the project with the project details (.*?)$/, async name => {
