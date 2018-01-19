@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Button from 'material-ui/Button'
 import Avatar from 'material-ui/Avatar'
 
 import AuthActionCreator from '../../actions/auth'
@@ -22,25 +23,43 @@ class Header extends Component {
     const { authenticated, user } = this.props
 
     if (authenticated) {
-      const authButtons = [
-        <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
-        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>
-          <Avatar>{user.email.charAt(0).toUpperCase()}</Avatar>
-        </Link>
-      ]
-      if (user.usertype === 'contact') {
-        return [
-          <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
-          ...authButtons
-        ]
-      } else {
-        return authButtons
-      }
+      return (
+        <Fragment>
+          { user.usertype === 'contact' &&
+            <Button dense className={this.getLinkStyles('create-project')}
+              component={Link}
+              to="/create-project">
+              {'CREATE PROJECT'}
+            </Button>
+          }
+          <Button dense className={this.getLinkStyles()}
+            component={Link}
+            to="/"
+            onClick={this.props.logout}>
+            {'LOGOUT'}
+          </Button>
+          <Button dense className={this.getLinkStyles('profile')}
+            component={Link}
+            to="/profile">
+            <Avatar>{user.email.charAt(0).toUpperCase()}</Avatar>
+          </Button>
+        </Fragment>
+      )
     } else {
-      return ([
-        <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>,
-        <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>
-      ])
+      return (
+        <Fragment>
+          <Button dense className={this.getLinkStyles('signup')}
+            component={Link}
+            to="/signup">
+            {'SIGN UP'}
+          </Button>
+          <Button dense className={this.getLinkStyles('login')}
+            component={Link}
+            to="/login">
+            {'LOG IN'}
+          </Button>
+        </Fragment>
+      )
     }
   }
 
@@ -52,16 +71,21 @@ class Header extends Component {
 
   render () {
     return (
-      <div className={styles.headerRoot}>
-        <AppBar position="static" color="inherit" elevation={0}>
-          <Toolbar>
-            <Typography type="title" color="inherit" className={styles.flex}>
-              <Link to="/" className={styles.button}>calltocode</Link>
-            </Typography>
-            {this.renderHeaderButtons()}
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar className={styles.header}
+        position="static"
+        color="inherit"
+        elevation={0}>
+        <Toolbar>
+          <Typography className={`${styles.button} ${styles.flex}`}
+            type="title" color="inherit"
+            component={Link}
+            to="/">
+            {'calltocode'}
+          </Typography>
+
+          {this.renderHeaderButtons()}
+        </Toolbar>
+      </AppBar>
     )
   }
 }
