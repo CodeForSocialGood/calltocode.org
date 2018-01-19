@@ -27,10 +27,11 @@ Below is a cheatsheet for the scripts that can be found in `package.json`:
 
 ```bash
 $ yarn                              # Install dependencies (npm install)
-$ yarn start                        # Start app on ports 3000 and on port 3001 via https w/ watch mode (npm start)
-$ yarn stop                         # Stop all containers (npm stop)
-$ yarn restart                      # Stop and then start all containers and app (npm restart)
+$ yarn start                        # Start all docker containers and app on port 3000 and on port 3001 via https w/ watch mode (npm start)
+$ yarn stop                         # Stop all docker containers (npm stop)
+$ yarn restart                      # Restart all docker containers and app (npm restart)
 $ yarn test                         # Run linter, test build, and tests (npm test)
+$ yarn lint                         # Run linter (npm run lint)
 $ yarn db start                     # Start docker container with seeded MongoDB (npm run db -- start)
 $ yarn db stop                      # Stop docker container with MongoDB (npm run db -- stop)
 $ yarn email start                  # Start docker container with MailHog (npm run email -- start)
