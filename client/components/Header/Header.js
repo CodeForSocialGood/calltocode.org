@@ -18,31 +18,35 @@ export class Header extends Component {
   }
 
   renderHeaderButtons () {
-    if (this.props.authenticated) {
-      const authButtons = [
-        <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
-        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>PROFILE</Link>
-      ]
-      if (this.props.user.usertype === 'contact') {
-        return [
-          <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
-          ...authButtons
-        ]
-      } else {
-        return authButtons
-      }
-    } else {
-      return ([
-        <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>,
-        <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>
-      ])
+    const links = {
+      'signup': <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>,
+      'login': <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>,
+      'logout': <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
+      'profile': <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>PROFILE</Link>,
+      'createProject': <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>
     }
+
+    if (!this.props.authenticated) {
+      return ([ links.signup, links.login ])
+    }
+
+    const output = [ links.logout, links.profile ]
+
+    if (this.props.user.usertype === 'contact') {
+      return [ links.createProject, ...output ]
+    }
+
+    return output
   }
 
   getLinkStyles (page) {
-    return this.props.currentPage.includes(page)
-      ? `${styles.button} ${styles.active}`
-      : `${styles.button}`
+    let linkStyles = `${styles.button}`
+
+    if (this.props.currentPage.includes(page)) {
+      linkStyles += ` ${styles.active}`
+    }
+
+    return linkStyles
   }
 
   render () {
