@@ -13,11 +13,15 @@ beforeEach(() => {
       name: '',
       organization: {name: ''},
       image: '',
-      id: null
+      id: 1
     },
     user: {
       usertype: null,
-      projectsAppliedFor: []
+      projectsAppliedFor: [{type: 1, ref: ''}],
+      email: '',
+      salt: '',
+      hash: '',
+      organization: {type: 1, ref: ''}
     }
   }
 })
@@ -28,12 +32,6 @@ describe('<Project />', () => {
 
     describe('user has applied for project', () => {
       beforeEach(() => {
-        mockProps.project = {
-          name: '',
-          organization: {name: ''},
-          image: '',
-          id: 1
-        }
         mockProps.user = {
           usertype: null,
           projectsAppliedFor: [1]
@@ -43,11 +41,17 @@ describe('<Project />', () => {
       describe('user\'s usertype is "contact"', () => {
         beforeEach(() => { mockProps.user.usertype = 'contact' })
 
+        test('component renders correctly', () => {
+          const component = shallow(<Project {...mockProps} />)
+          expect(component).toMatchSnapshot()
+        })
       })
 
       describe('user\'s usertype is "volunteer"', () => {
         beforeEach(() => { mockProps.user.usertype = 'volunteer' })
 
+        const component = shallow(<Project {...mockProps} />)
+        expect(component).toMatchSnapshot()
       })
     })
 
@@ -62,16 +66,22 @@ describe('<Project />', () => {
       describe('user\'s usertype is "volunteer"', () => {
         beforeEach(() => { mockProps.user.usertype = 'volunteer' })
         // component for applyForProject renders
+        const component = shallow(<Project {...mockProps} />)
+        expect(component).toMatchSnapshot()
       })
       describe('user\'s usertype is "contact"', () => {
         beforeEach(() => { mockProps.user.usertype = 'contact' })
-        
+
+        const component = shallow(<Project {...mockProps} />)
+        expect(component).toMatchSnapshot()
       })
     })
   })
 
-  describe('authenticated is falsey', () => {
-    beforeEach(() => { mockProps.autheticated = true })
-
-  })
+  // describe('authenticated is falsey', () => {
+  //   beforeEach(() => { mockProps.autheticated = true })
+  //
+  //   const component = shallow(<Project {...mockProps} />)
+  //   expect(component).toMatchSnapshot()
+  // })
 })
