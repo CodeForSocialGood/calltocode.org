@@ -7,7 +7,7 @@ import SignupValidator from '../SignupForm/SignupValidator'
 import ValidationPopup from '../SignupForm/ValidationPopup'
 import styles from './ForgotPasswordForm.scss'
 
-class NewPasswordForm extends Component {
+export class NewPasswordForm extends Component {
   renderPassword (field) {
     const passClasses = `${styles.inputPassword} 
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
