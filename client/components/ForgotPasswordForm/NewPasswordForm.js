@@ -32,8 +32,8 @@ class NewPasswordForm extends Component {
 
     return (
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1>New Password</h1>
-        <h3>Set your new password</h3>
+        <h1 className={styles.h1}>New Password</h1>
+        <h3 className={styles.h3}>Set your new password</h3>
         <Field
           name="password"
           value={this.props.password}
