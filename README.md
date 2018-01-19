@@ -19,7 +19,7 @@
 
 - **:european_castle: Project Architecture**: We've put together an [architecture guide](docs/ARCHITECTURE.md) to serve as a reference and help reduce the time it takes to familiarize yourself with this project's architecture and codebase.
 
-- **:raising_hand: Questions & Problems**: If you're stuck on something, don't be afraid to ask around in [Slack](http://join-our-slack.code4socialgood.org/)! You can also check out our list of [common problems](docs/PROBLEMS.md) to see if your issue is addressed there.
+- **:raising_hand: Questions & Problems**: If you're stuck on something, don't be afraid to ask around in [Slack](http://join-our-slack.code4socialgood.org/)! You can also check out the [docs](docs/), where there is a lot of helpful information including a list of [common problems](docs/PROBLEMS.md).
 
 ## Additional Information
 
@@ -31,11 +31,10 @@ $ yarn start                        # Start all docker containers and app on por
 $ yarn stop                         # Stop all docker containers (npm stop)
 $ yarn restart                      # Restart all docker containers and app (npm restart)
 $ yarn test                         # Run linter, test build, and tests (npm test)
+$ yarn e2e                          # Run end-to-end tests (npm run e2e)
 $ yarn lint                         # Run linter (npm run lint)
-$ yarn db start                     # Start docker container with seeded MongoDB (npm run db -- start)
-$ yarn db stop                      # Stop docker container with MongoDB (npm run db -- stop)
-$ yarn email start                  # Start docker container with MailHog (npm run email -- start)
-$ yarn email stop                   # Stop docker container with MailHog (npm run email -- stop)
+$ yarn db <start/stop>              # Start/stop docker container with seeded MongoDB (npm run db -- <start/stop>)
+$ yarn email <start/stop>           # Start/stop docker container with MailHog (npm run email -- <start/stop>)
 $ yarn build                        # Generate distribution (npm run build)
 ```
 

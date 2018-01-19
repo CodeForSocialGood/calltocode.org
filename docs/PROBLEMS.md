@@ -6,6 +6,7 @@ This document contains potential solutions to common problems and errors. If you
 - [Address/port already in use](#addressinuse)
 - [Error response from daemon: Container <id> is not running](#containernotrunning)
 - [Errors](#errors)
+- [Test Errors](#tests)
 
 Anybody is free to add any problems & solutions to this file! Just open a PR following our [git workflow](./CONTRIBUTING.md#git).
 
@@ -74,3 +75,11 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 **Problem**: I am not seeing anything once I view the app at `localhost:3000`.
 
 **Solution**: `yarn db`
+
+## <a name="tests"></a> Test Errors
+
+General information about testing can be found in the [test docs](./TESTS.md).
+
+**Problem**: I tried to run the end-to-end (e2e) tests and they failed.
+
+**Solution**: Make sure the app is freshly running with `yarn restart` before you run the e2e tests in another terminal. If this isn't the issue, then it is possible you have introduced breaking changes that are causing them to fail.
