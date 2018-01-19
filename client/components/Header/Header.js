@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography'
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
 
-class Header extends Component {
+export class Header extends Component {
   constructor (props) {
     super(props)
 

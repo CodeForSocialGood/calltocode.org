@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> authenticated is falsey currentPage does not include the string "signup" currentPage does not include the string "login" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button"
+        key="signup"
+        replace={false}
+        to="/signup"
+      >
+        SIGN UP
+      </Link>
+      <Link
+        className="button"
+        key="login"
+        replace={false}
+        to="/login"
+      >
+        LOG IN
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is falsey currentPage does not include the string "signup" currentPage includes the string "login" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button"
+        key="signup"
+        replace={false}
+        to="/signup"
+      >
+        SIGN UP
+      </Link>
+      <Link
+        className="button active"
+        key="login"
+        replace={false}
+        to="/login"
+      >
+        LOG IN
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is falsey currentPage includes the string "signup" currentPage does not include the string "login" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button active"
+        key="signup"
+        replace={false}
+        to="/signup"
+      >
+        SIGN UP
+      </Link>
+      <Link
+        className="button"
+        key="login"
+        replace={false}
+        to="/login"
+      >
+        LOG IN
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is falsey currentPage includes the string "signup" currentPage includes the string "login" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button active"
+        key="signup"
+        replace={false}
+        to="/signup"
+      >
+        SIGN UP
+      </Link>
+      <Link
+        className="button active"
+        key="login"
+        replace={false}
+        to="/login"
+      >
+        LOG IN
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is truthy currentPage includes the string "profile" user's usertype is "contact" currentPage does not include the string "create-project" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button"
+        key="create-project"
+        replace={false}
+        to="/create-project"
+      >
+        CREATE PROJECT
+      </Link>
+      <Link
+        className="button"
+        key="logout"
+        onClick={[Function]}
+        replace={false}
+        to="/"
+      >
+        LOG OUT
+      </Link>
+      <Link
+        className="button active"
+        key="profile"
+        replace={false}
+        to="/profile"
+      >
+        PROFILE
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is truthy currentPage includes the string "profile" user's usertype is "contact" currentPage includes the string "create-project" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button active"
+        key="create-project"
+        replace={false}
+        to="/create-project"
+      >
+        CREATE PROJECT
+      </Link>
+      <Link
+        className="button"
+        key="logout"
+        onClick={[Function]}
+        replace={false}
+        to="/"
+      >
+        LOG OUT
+      </Link>
+      <Link
+        className="button active"
+        key="profile"
+        replace={false}
+        to="/profile"
+      >
+        PROFILE
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
+
+exports[`<Header /> authenticated is truthy currentPage includes the string "profile" user's usertype is not "contact" component renders correctly 1`] = `
+<div
+  className="headerRoot"
+>
+  <WithStyles(AppBar)
+    color="inherit"
+    elevation={0}
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(Typography)
+        className="flex"
+        color="inherit"
+        type="title"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/"
+        >
+          calltocode
+        </Link>
+      </WithStyles(Typography)>
+      <Link
+        className="button"
+        key="logout"
+        onClick={[Function]}
+        replace={false}
+        to="/"
+      >
+        LOG OUT
+      </Link>
+      <Link
+        className="button active"
+        key="profile"
+        replace={false}
+        to="/profile"
+      >
+        PROFILE
+      </Link>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>
+`;
