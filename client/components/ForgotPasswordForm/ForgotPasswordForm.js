@@ -11,7 +11,7 @@ import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import forgotPasswordApiClient from '../../api/forgotPassword'
 import styles from './ForgotPasswordForm.scss'
 
-class ForgotPasswordForm extends Component {
+export class ForgotPasswordForm extends Component {
   constructor (props) {
     super(props)
     this.nextPage = this.nextPage.bind(this)
@@ -77,7 +77,6 @@ class ForgotPasswordForm extends Component {
           {error}
         </div>
       </div>
-
     )
   }
 }
