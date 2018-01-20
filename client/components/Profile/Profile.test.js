@@ -4,7 +4,6 @@ import {shallow} from 'enzyme'
 
 import {Profile} from './Profile'
 let mockProps
-let mockState
 
 beforeEach(() => {
   mockProps = {
