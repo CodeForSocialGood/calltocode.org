@@ -17,11 +17,7 @@ beforeEach(() => {
     },
     user: {
       usertype: null,
-      projectsAppliedFor: [{type: 1, ref: ''}],
-      email: '',
-      salt: '',
-      hash: '',
-      organization: {type: 1, ref: ''}
+      projectsAppliedFor: [1]
     }
   }
 })
