@@ -17,7 +17,7 @@ const usersApiClient = {
     const { salt } = await apiRequest.get('/users/getSalt', apiOptions, query)
     const hash = bcrypt.hashSync(password, salt)
 
-    const body = { email, hash }    
+    const body = { email, hash }
     return apiRequest.post('/users/login', apiOptions, body)
   },
 
