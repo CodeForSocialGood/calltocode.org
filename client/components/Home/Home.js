@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import ProjectActionCreator from '../../actions/project'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 
-class Home extends Component {
+export class Home extends Component {
   componentDidMount () {
     this.props.onLoad()
   }
