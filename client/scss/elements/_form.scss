@@ -5,17 +5,7 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   grid-row-gap: 15px;
-  padding: 20px 60px;
-}
-
-%formTitle {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
-%formTitleSecondary {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+  padding: 0 60px;
 }
 
 %fieldText {

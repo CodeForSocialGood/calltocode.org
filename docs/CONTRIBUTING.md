@@ -9,6 +9,8 @@ This document contains general guidelines for contributing to this project:
 - [Git Workflow](#git)
 - [Questions or Problems?](#questions)
 
+Please note that this project is released with a [contributor code of conduct](./CODE_OF_CONDUCT.md). By contributing to this project you are also agreeing to abide by its terms.
+
 ## <a name="prerequisites"></a> Prerequisites
 
 Make sure your development environment is properly setup by following the [development environment setup](./DEVELOPER.md) guide.
@@ -73,7 +75,7 @@ We use [Pivotal Tracker](https://www.pivotaltracker.com) to track our user stori
 - The **story id** looks like `#153540677`
 - The **story name** looks like `Encrypt password`
 
-Stories in the backlog that say `Start` are available for starting.
+Stories in the backlog that say `Start` are available for starting. They are prioritized top-down, but can really be done in any order.
 
 ### For feature & bug stories, hit...
 
@@ -90,7 +92,7 @@ Stories in the backlog that say `Start` are available for starting.
 
 ## <a name="git"></a> Git Workflow
 
-For a detailed example (with screenshots) of our git workflow focused on contributing through a **fork**, see our [detailed contributing guidelines](./CONTRIBUTING_DETAILED.md).
+**If you're working through a fork**: see our [detailed contributing guidelines](./CONTRIBUTING_DETAILED.md) which outlines our git workflow (and has screenshots), focused on contributing through a fork.
 
 ### Stay updated with the master branch
 
@@ -151,7 +153,7 @@ chore: add something
 
 *Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story id**.*
 
-### Pull Request
+### <a name="pr"></a> Pull Request
 
 Once you are finished with the story, run the tests to make sure your changes are linted and haven't broken any tests:
 
@@ -179,7 +181,41 @@ You can now create a pull request using the Github web interface. Please format 
   - Full Example: `Feature/#153540677 - Encrypt password`
 - Pull Request Body: no requirements
 
+Once you have submitted your pull request (PR), it needs to be approved and updated with the `master` branch's latest changes with all conflicts resolved before it can be merged. See the section below on how to deal with this.
+
 *Jump back to the [Pivotal Tracker Workflow](#pivotal) section for more information about **story type**, **story id** and **story name**.*
+
+### Branch Updating and Conflicts
+
+If you need to resolve conflicts with master or update your branch with the latest changes from master after you've already pushed changes and possibly after you've submitted a pull request, it is best to do the following:
+
+#### Update master
+
+```bash
+$ git checkout master
+$ git pull -r
+$ git checkout <your branch>
+$ git rebase master
+```
+
+#### Resolve conflicts (if there are any)
+
+```bash
+# Repeat this step until there are no more conflicts
+$ git status
+# Follow instructions printed by git, then
+$ git rebase --continue
+```
+
+#### Re-push your changes
+
+```bash
+$ git push -f
+```
+
+This is a good practice because it will rebase your branch's changes on top of the latest changes on the `master` branch, avoiding any ugly/noisy merge commits on your branch.
+
+*In some cases you can update your branch using the "Update branch" button inside of your open pull request. This is available when there are no (complex) conflicts between your branch and master, and will always create an "ugly" merge commit on your branch. In our case, this doesn't really matter because we squash the commits in our PRs into one commit when we merge into master, but the above workflow is necessary when conflicts are too complex to be resolved through the browser.*
 
 ## <a name="questions"></a> Questions or Problems?
 

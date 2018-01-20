@@ -5,8 +5,7 @@
   @extend %form;
 }
 
-h1 {
-  @extend %formTitle;
+.formHeading {
   grid-column: 1 / 1;
   grid-row: 1;
 }
