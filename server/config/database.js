@@ -1,5 +1,8 @@
 const config = {
   get url () {
+
+    process.env.NODE_ENV=process.env.NODE_ENV|| "dev";
+
     switch (process.env.NODE_ENV) {
       case 'prod': return `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds117495.mlab.com:17495/c2c`
       case 'test': return 'mongodb://admin@db:27017/admin'

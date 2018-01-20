@@ -9,5 +9,6 @@ export default {
   common: commonReducer,
   form: formReducer,
   project: projectReducer,
-  user: userReducer
+  user: userReducer,
+  login: loginReducer
 }

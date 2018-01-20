@@ -34,12 +34,26 @@ class LoginForm extends Component {
     const response = await usersApiClient.login(email, password)
     if (response.status === 200) {
       const user = await response.json()
-      this.props.login(user)
+      this.props.login(user);
       return user.usertype
     } else {
       handleValidationRequestError(response, email, password)
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    var email = nextProps.email || "";
+    var password= nextProps.password || "";
+    var dispatch = nextProps.dispatch;
+
+    if (! email.trim() || ! password.trim()) {
+
+    } else {
+
+    }
+  }
+
+
 
   render () {
     const { error, handleSubmit, email, password } = this.props;

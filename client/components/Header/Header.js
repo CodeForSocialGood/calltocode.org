@@ -71,13 +71,13 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   logout: AuthActionCreator.logout
-}
+};
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
