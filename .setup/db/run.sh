@@ -13,15 +13,18 @@ start () {
   # Make sure a container isn't already running
   if [[ -z "$ID_FROM_DB" && -z "$ID_FROM_NAME" ]] ; then
     echo "--- Starting new docker container with MongoDB.."
-    docker run --name $NAME -d -p 27017:27017 -p 28017:28017 $DB:$IMAGE_VERSION | xargs echo "--- Started container"
+    docker run --name $NAME -d -p 27017:27017 -p 28017:28017 $DB:$IMAGE_VERSION \
+      | xargs echo "--- Started container"
 
     echo "--- Copying seed data to docker container.."
     docker cp ./.setup/db/seedData/users.json $NAME:users.json
     docker cp ./.setup/db/seedData/projects.json $NAME:projects.json
 
     echo "--- Adding seed data to MongoDB.."
-    docker exec $NAME mongoimport --db admin --collection users --file users.json --type json --jsonArray
-    docker exec $NAME mongoimport --db admin --collection projects --file projects.json --type json --jsonArray
+    docker exec $NAME mongoimport --quiet --db admin --collection users \
+      --file users.json --type json --jsonArray
+    docker exec $NAME mongoimport --quiet --db admin --collection projects \
+      --file projects.json --type json --jsonArray
   else
     echo "--- Skipping start, container already running"
     exit 0
