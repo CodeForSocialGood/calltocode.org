@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('<NewPasswordForm />', () => {
   describe('email exists in database', () => {
-    beforeEach(() => { mockProps.email = 'kevin@email.com' })
+    beforeEach(() => { mockProps.email = { email: 'kevin@email.com' } })
 
     test('component renders correctly', () => {
       const component = shallow(<NewPasswordForm {...mockProps} />)
@@ -29,7 +29,7 @@ describe('<NewPasswordForm />', () => {
     // })
   })
   describe('email does not exist in database', () => {
-    beforeEach(() => { mockProps.email = 'email@email.com' })
+    beforeEach(() => { mockProps.email = { email: 'email@email.com' } })
 
     test('component renders correctly', () => {
       const component = shallow(<NewPasswordForm {...mockProps} />)

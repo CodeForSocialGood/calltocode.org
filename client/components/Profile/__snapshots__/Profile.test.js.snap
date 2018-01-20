@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profile /> user's usertype is "contact" component renders correctly 1`] = `
+<Connect(ListOfProjects)
+  projects={Array []}
+  title="Your Organization's Projects"
+/>
+`;
+
+exports[`<Profile /> user's usertype is not "contact" component renders correctly 1`] = `
+<Connect(ListOfProjects)
+  projects={Array []}
+  title="Projects Applied For"
+/>
+`;

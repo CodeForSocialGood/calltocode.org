@@ -9,9 +9,9 @@ import ValidationPopup from '../SignupForm/ValidationPopup'
 import styles from './NewPasswordForm.scss'
 import AuthActionCreator from '../../actions/auth'
 
-class NewPasswordForm extends Component {
+export class NewPasswordForm extends Component {
   renderPassword (field) {
-    const passClasses = `${styles.inputPassword} 
+    const passClasses = `${styles.inputPassword}
                          ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
     return (
       <div className={ styles.inputPasswordContainer }>

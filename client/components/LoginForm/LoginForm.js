@@ -9,7 +9,7 @@ import AuthActionCreator from '../../actions/auth'
 import usersApiClient from '../../api/users'
 import styles from './LoginForm.scss'
 
-class LoginForm extends Component {
+export class LoginForm extends Component {
   renderEmail (field) {
     return (
       <input className={styles.inputEmail}
