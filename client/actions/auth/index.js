@@ -1,4 +1,4 @@
-import { APP_LOAD, LOGIN, LOGOUT, FORGOT_PASSWORD, LOGIN_FAILED } from './types'
+import { APP_LOAD, LOGIN, LOGOUT, LOGIN_FAILED } from './types'
 
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import usersApiClient from '../../api/users'
@@ -9,7 +9,6 @@ import { push } from 'react-router-redux'
 export const appLoad = { type: APP_LOAD }
 export const login = { type: LOGIN }
 export const logout = { type: LOGOUT }
-export const forgotPass = { type: FORGOT_PASSWORD }
 
 export default class AuthActionCreator {
   static appLoad () {
