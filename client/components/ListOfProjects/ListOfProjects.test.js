@@ -17,18 +17,40 @@ beforeEach(() => {
 describe('<ListOfProjects />', () => {
   describe('list of projects is empty', () => {
     describe('autheticated is truthy', () => {
-      
+      beforeEach(() => { mockProps.authenticated = true })
+
+      test('component renders correctly', () => {
+        const component = shallow(<ListOfProjects {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
     })
     describe('authenticated is falsey', () => {
+      beforeEach(() => { mockProps.authenticated = false })
 
+      test('component renders correctly', () => {
+        const component = shallow(<ListOfProjects {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
     })
   })
   describe('list of projects is not empty', () => {
-    describe('autheticated is truthy', () => {
+    beforeEach(() => { mockProps.projects = [{}] })
 
+    describe('autheticated is truthy', () => {
+      beforeEach(() => { mockProps.authenticated = true })
+
+      test('component renders correctly', () => {
+        const component = shallow(<ListOfProjects {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
     })
     describe('authenticated is falsey', () => {
+      beforeEach(() => { mockProps.authenticated = false })
 
+      test('component renders correctly', () => {
+        const component = shallow(<ListOfProjects {...mockProps} />)
+        expect(component).toMatchSnapshot()
+      })
     })
   })
 })

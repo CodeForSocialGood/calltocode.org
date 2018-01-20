@@ -7,7 +7,7 @@ import UserActionCreator from '../../actions/user'
 import Project from '../Project/Project'
 import styles from './ListOfProjects.scss'
 
-class ListOfProjects extends Component {
+export class ListOfProjects extends Component {
   constructor (props) {
     super(props)
 
