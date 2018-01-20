@@ -12,15 +12,12 @@ const usersApiClient = {
     return apiRequest.put('/users/current', apiOptions, body)
   },
 
-  // TODO: use apiRequest and get apiOptions through params (calling of
-  // usersApiClient.login needs to be moved to AuthActionCreator)
   async login (apiOptions, email, password) {
     const query = { email }
     const { salt } = await apiRequest.get('/users/getSalt', apiOptions, query)
     const hash = bcrypt.hashSync(password, salt)
 
-    const body = { email, hash }
-    // return apiRequest.post('/users/login', apiOptions, body)
+    const body = { email, hash }    
     return apiRequest.post('/users/login', apiOptions, body)
   },
 

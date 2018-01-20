@@ -11,7 +11,7 @@ export default function (state = initialState.users, action) {
       return { ...state, ...payload }
 
     case LOGOUT:
-      return initialState
+      return initialState.users
 
     case UPDATE_USER:
       return { ...state, ...payload }

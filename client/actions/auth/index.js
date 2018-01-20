@@ -1,4 +1,4 @@
-import { APP_LOAD, LOGIN, LOGOUT, LOGIN_FAILED } from './types'
+import { APP_LOAD, LOGIN, LOGOUT, FAILED_LOGIN } from './types'
 
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import usersApiClient from '../../api/users'
@@ -39,10 +39,10 @@ export default class AuthActionCreator {
           dispatch(AuthActionCreator.login(user))
           dispatch(push('/'))
         } else {
-          dispatch({ type: LOGIN_FAILED, error: user.error })
+          dispatch({ type: FAILED_LOGIN, payload: user.error, error: true })
         }
       } catch (error) {
-        dispatch({ type: LOGIN_FAILED, error })
+        dispatch({ type: FAILED_LOGIN, payload: error, error: true })
       }
     }
   }

@@ -1,5 +1,5 @@
 import initialState from './initialState'
-import { APP_LOAD, LOGIN, LOGOUT, LOGIN_FAILED } from '../actions/auth/types'
+import { APP_LOAD, LOGIN, LOGOUT, FAILED_LOGIN } from '../actions/auth/types'
 
 export default function (state = initialState.auth, action) {
   const { type, payload } = action
@@ -10,9 +10,9 @@ export default function (state = initialState.auth, action) {
       return { ...state, authenticated: !!payload.token }
 
     case LOGOUT:
-      return initialState
-    case LOGIN_FAILED:
-      return { ...state, error: action.error }
+      return initialState.auth
+    case FAILED_LOGIN:
+      return { ...state, error: action.payload }
     default:
       return state
   }
