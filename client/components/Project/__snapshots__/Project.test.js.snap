@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Project /> authenticated is truthy user has applied for project user's usertype is "volunteer" component renders correclty 1`] = `
+<WithStyles(GridListTile)
+  className="project"
+  onClick={[Function]}
+>
+  <img
+    src={Object {}}
+  />
+  <WithStyles(GridListTileBar)
+    actionIcon={
+      <span
+        className="projectApplyPass"
+      >
+        ✔
+      </span>
+    }
+    subtitle="Organization Name"
+    title=""
+  />
+</WithStyles(GridListTile)>
+`;
+
+exports[`<Project /> authenticated is truthy user has not applied for project user's usertype is "contact" component renders correclty 1`] = `
+<WithStyles(GridListTile)
+  className="project"
+  onClick={[Function]}
+>
+  <img
+    src={Object {}}
+  />
+  <WithStyles(GridListTileBar)
+    subtitle="Organization Name"
+    title=""
+  />
+</WithStyles(GridListTile)>
+`;
+
+exports[`<Project /> authenticated is truthy user has not applied for project user's usertype is "volunteer" component renders correclty 1`] = `
+<WithStyles(GridListTile)
+  className="project"
+  onClick={[Function]}
+>
+  <img
+    src={Object {}}
+  />
+  <WithStyles(GridListTileBar)
+    actionIcon={
+      <span
+        className="projectApplyFail"
+      >
+        ✗
+      </span>
+    }
+    subtitle="Organization Name"
+    title=""
+  />
+</WithStyles(GridListTile)>
+`;
