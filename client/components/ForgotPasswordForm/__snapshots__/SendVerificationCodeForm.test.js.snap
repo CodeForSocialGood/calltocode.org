@@ -6,11 +6,13 @@ exports[`<SendVerificationCodeForm /> email is length 0 component renders correc
   onSubmit={[Function]}
 >
   <h1
-    className="title"
+    className="h1"
   >
     Forgot Password?
   </h1>
-  <h3>
+  <h3
+    className="h3"
+  >
     Let's get you a new one!
   </h3>
   <Field
@@ -35,11 +37,13 @@ exports[`<SendVerificationCodeForm /> email is not length 0 component renders co
   onSubmit={[Function]}
 >
   <h1
-    className="title"
+    className="h1"
   >
     Forgot Password?
   </h1>
-  <h3>
+  <h3
+    className="h3"
+  >
     Let's get you a new one!
   </h3>
   <Field

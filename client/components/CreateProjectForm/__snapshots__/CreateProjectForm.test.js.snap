@@ -6,7 +6,7 @@ exports[`<CreateProjectForm /> with valid user organization component renders co
   id="createProjectForm"
 >
   <h1
-    className="title"
+    className="formHeading"
   >
     Create New Project
   </h1>
