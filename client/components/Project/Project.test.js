@@ -18,7 +18,8 @@ beforeEach(() => {
     user: {
       usertype: null,
       projectsAppliedFor: [1]
-    }
+    },
+    currentPage: ''
   }
 })
 
