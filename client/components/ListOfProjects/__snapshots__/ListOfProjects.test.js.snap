@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListOfProjects /> list of projects is empty authenticated is falsey component renders correctly 1`] = `
+<section
+  className="projectListSection"
+>
+  <h1
+    className="title"
+  />
+  <div
+    className="listContainer"
+  >
+    <WithStyles(GridList)
+      className="list"
+      cols={3}
+    />
+  </div>
+</section>
+`;
+
+exports[`<ListOfProjects /> list of projects is empty autheticated is truthy component renders correctly 1`] = `
+<section
+  className="projectListSection"
+>
+  <h1
+    className="title"
+  />
+  <div
+    className="listContainer"
+  >
+    <WithStyles(GridList)
+      className="list"
+      cols={3}
+    />
+  </div>
+</section>
+`;
+
+exports[`<ListOfProjects /> list of projects is not empty authenticated is falsey component renders correctly 1`] = `
+<section
+  className="projectListSection"
+>
+  <h1
+    className="title"
+  />
+  <div
+    className="listContainer"
+  >
+    <WithStyles(GridList)
+      className="list"
+      cols={3}
+    >
+      <Connect(Project)
+        applyForProject={[Function]}
+        authenticated={false}
+        key="0"
+        project={Object {}}
+      />
+    </WithStyles(GridList)>
+  </div>
+</section>
+`;
+
+exports[`<ListOfProjects /> list of projects is not empty autheticated is truthy component renders correctly 1`] = `
+<section
+  className="projectListSection"
+>
+  <h1
+    className="title"
+  />
+  <div
+    className="listContainer"
+  >
+    <WithStyles(GridList)
+      className="list"
+      cols={3}
+    >
+      <Connect(Project)
+        applyForProject={[Function]}
+        authenticated={true}
+        key="0"
+        project={Object {}}
+      />
+    </WithStyles(GridList)>
+  </div>
+</section>
+`;

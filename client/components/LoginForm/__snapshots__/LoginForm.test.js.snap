@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginForm /> error is "Wrong Email" component renders correctly 1`] = `
+<form
+  className="form"
+  id="loginForm"
+>
+  <h1
+    className="title"
+  >
+    Login
+  </h1>
+  <Field
+    component={[Function]}
+    name="email"
+  />
+  <Field
+    component={[Function]}
+    name="password"
+  />
+  <button
+    className="buttonSubmit"
+    type="submit"
+  >
+    Submit
+  </button>
+  <div
+    className="errorContent"
+  >
+    Wrong Email
+  </div>
+  <Link
+    className="forgotPassword"
+    key="forgotPassword"
+    replace={false}
+    to="/forgot-password"
+  >
+    Forgot Password?
+  </Link>
+</form>
+`;
+
+exports[`<LoginForm /> error is "Wrong password" component renders correctly 1`] = `
+<form
+  className="form"
+  id="loginForm"
+>
+  <h1
+    className="title"
+  >
+    Login
+  </h1>
+  <Field
+    component={[Function]}
+    name="email"
+  />
+  <Field
+    component={[Function]}
+    name="password"
+  />
+  <button
+    className="buttonSubmit"
+    type="submit"
+  >
+    Submit
+  </button>
+  <div
+    className="errorContent"
+  >
+    Wrong password
+  </div>
+  <Link
+    className="forgotPassword"
+    key="forgotPassword"
+    replace={false}
+    to="/forgot-password"
+  >
+    Forgot Password?
+  </Link>
+</form>
+`;

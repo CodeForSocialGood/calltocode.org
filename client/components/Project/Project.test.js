@@ -12,7 +12,7 @@ beforeEach(() => {
     project: {
       name: '',
       organization: {name: ''},
-      image: '',
+      image: {},
       id: 1
     },
     user: {
@@ -35,7 +35,11 @@ describe('<Project />', () => {
       })
 
       describe('user\'s usertype is "contact"', () => {
-        beforeEach(() => { mockProps.user.usertype = 'contact' })
+        // This works but I'm uncertain of why image needs to be null here
+        beforeEach(() => {
+          mockProps.user.usertype = 'contact'
+          mockProps.project.image = null
+        })
 
         test('component renders correctly', () => {
           const component = shallow(<Project {...mockProps} />)

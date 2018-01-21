@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> Projects is empty component renders correctly 1`] = `
+<Connect(ListOfProjects)
+  projects={Array []}
+  title="Click To Apply"
+/>
+`;
+
+exports[`<Home /> Projects is not empty component renders correctly 1`] = `
+<Connect(ListOfProjects)
+  projects={
+    Array [
+      Object {},
+    ]
+  }
+  title="Click To Apply"
+/>
+`;

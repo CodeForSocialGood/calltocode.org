@@ -121,7 +121,7 @@
       "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy"
+      "\\.(css|scss|png)$": "identity-obj-proxy"
     },
     "setupFiles": [
       "enzyme-react-16-adapter-setup"
