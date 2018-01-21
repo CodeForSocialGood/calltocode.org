@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
-import SignupValidator from './SignupValidator'
+import Validators from '../shared/Utils/Validators'
 import ValidationPopup from './ValidationPopup'
 import styles from './SignupForm.scss'
 
@@ -89,11 +89,11 @@ function SignupForm (props) {
 
       <Field name="email"
         component={ EmailField }
-        validate={ SignupValidator.validateEmail } />
+        validate={ Validators.validateEmail } />
 
       <Field name="password"
         component={ PasswordField }
-        validate={ SignupValidator.validatePassword } />
+        validate={ Validators.validatePassword } />
 
       <Field name="isOrganization"
         component={ IsOrganizationField } />
