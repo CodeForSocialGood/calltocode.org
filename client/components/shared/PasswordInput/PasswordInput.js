@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import Validators from '../Utils/Validators'
-import ValidationPopup from '../../SignupForm/ValidationPopup'
+import ValidationPopup from '../ValidationPopup/ValidationPopup'
 import TextField from 'material-ui/TextField'
 
 class PasswordInput extends Component {
