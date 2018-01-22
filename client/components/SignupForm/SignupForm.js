@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Field, formValueSelector, reduxForm } from 'redux-form'
-import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
@@ -9,35 +7,11 @@ import Validators from '../shared/Utils/Validators'
 import styles from './SignupForm.scss'
 import TextField from 'material-ui/TextField'
 import PasswordInput from '../shared/PasswordInput/PasswordInput'
-
-function IsOrganizationField ({ input }) {
-  return (
-    <div className={styles.inputCheckboxContainer}>
-      <input className={styles.inputIsOrganization}
-        type="checkbox"
-        { ...input } />
-      <label>Organization</label>
-    </div>
-  )
-}
-
-function OrganizationNameField ({ input }) {
-  return (
-    <input className={styles.inputOrganizationName}
-      type="text"
-      placeholder="Organization Name"
-      { ...input } />
-  )
-}
-
-function OrganizationURLField ({ input }) {
-  return (
-    <input className={styles.inputOrganizationURL}
-      type="text"
-      placeholder="Organization URL"
-      { ...input } />
-  )
-}
+import { FormControlLabel } from 'material-ui/Form'
+import Checkbox from 'material-ui/Checkbox'
+import { withStyles } from 'material-ui/styles'
+import { buttonSubmit } from './SignupFormJss'
+import Button from 'material-ui/Button'
 
 class SignupForm extends Component {
   constructor (props, context) {
@@ -48,12 +22,15 @@ class SignupForm extends Component {
         password: false
       },
       password: '',
-      email: ''
+      email: '',
+      isOrganization: false
     }
     this.onChangeEmail = this.onChangeEmail.bind(this)
     this.onChangeGeneric = this.onChangeGeneric.bind(this)
     this.onChangePassword = this.onChangePassword.bind(this)
     this.hasErrors = this.hasErrors.bind(this)
+    this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
   hasErrors (value) {
     this._setErrors(null, value)
@@ -66,8 +43,8 @@ class SignupForm extends Component {
   _setErrors (email, password) {
     this.setState({
       error: {
-        email: email || this.state.email,
-        password: password || this.state.password
+        email: email === undefined ? '' : email || this.state.error.email,
+        password: password || this.state.error.password
       }
     })
   }
@@ -90,11 +67,21 @@ class SignupForm extends Component {
     this._setState(event.target.name, event.target.value)
   }
 
-  render () {
-    const { handleSubmit, isOrganization, signup } = this.props
+  onChangeCheckbox (event) {
+    this._setState('isOrganization', event.target.checked)
+  }
+  onSubmit (event) {
+    event.preventDefault()
+    const { email, password, isOrganization } = this.state
+    this.props.signup({ email, password, isOrganization }).then(
+      this.context.router.history.push('/')
+    )
+  }
 
+  render () {
+    const { classes } = this.props
     return (
-      <form className={styles.form} onSubmit={handleSubmit(signup)}>
+      <form className={styles.form}>
         <h1 className={styles.h1}>Signup</h1>
 
         <TextField required id="email"
@@ -109,61 +96,57 @@ class SignupForm extends Component {
             nameTextField="password" />
         </div>
 
-        <Field name="isOrganization"
-          component={IsOrganizationField} />
+        <FormControlLabel className={styles.inputCheckboxContainer}
+          control={
+            <Checkbox name='isOrganization'
+              checked={this.state.isOrganization}
+              onChange={this.onChangeCheckbox}
+              value="isOrganization"
+            />
+          }
+          label="Organization"
+        />
+        {this.state.isOrganization &&
+          <Fragment>
+            <TextField required id="organizationName"
+              label="Organization name" type="text"
+              onChange={this.onChangeGeneric}
+              fullWidth className={styles.inputOrganizationName}
+              name="organizationName" />
 
-        {isOrganization &&
-          <Field name="organizationName"
-            component={OrganizationNameField} />
+            <TextField required id="organizationURL"
+              label="Organization URL" type="text"
+              onChange={this.onChangeGeneric}
+              fullWidth className={styles.inputOrganizationURL}
+              name="organizationURL" />
+
+          </Fragment>
         }
-
-        {isOrganization &&
-          <Field name="organizationURL"
-            component={OrganizationURLField} />
-        }
-
-        <button className={isOrganization ? styles.buttonSubmitMoved : styles.buttonSubmit}
-          type="submit">
+        <Button
+          raised className={classes.root}
+          style={{ gridRow: this.state.isOrganization ? 9 : 6 }}
+          color="primary" onClick={this.onSubmit}
+          fullWidth={true} >
           Submit
-        </button>
-      </form>
+        </Button>
+      </form >
     )
   }
 }
 
-function mapStateToProps (state) {
-  const selector = formValueSelector('SignupForm')
-
-  return {
-    isOrganization: selector(state, 'isOrganization')
-  }
+SignupForm.contextTypes = {
+  router: PropTypes.object
 }
 
 const mapDispatchToProps = {
   signup: AuthActionCreator.signup
 }
 
-IsOrganizationField.propTypes = {
-  input: PropTypes.object
-}
-
-OrganizationNameField.propTypes = {
-  input: PropTypes.object
-}
-
-OrganizationURLField.propTypes = {
-  input: PropTypes.object
-}
-
 SignupForm.propTypes = {
   handleSubmit: PropTypes.func,
   isOrganization: PropTypes.bool,
-  signup: PropTypes.func
+  signup: PropTypes.func,
+  classes: PropTypes.object
 }
 
-const SignupFormRedux = reduxForm({
-  form: 'SignupForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
-})(SignupForm)
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupFormRedux)
+export default connect(null, mapDispatchToProps)(withStyles(buttonSubmit)(SignupForm))
