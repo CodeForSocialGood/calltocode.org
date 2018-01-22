@@ -103,10 +103,11 @@ class SignupForm extends Component {
           onChange={this.onChangeEmail}
           fullWidth className={styles.inputEmailContainer}
           name="email" />
-
-        <PasswordInput hasErrors={this.hasErrors} onChangePassword={this.onChangePassword}
-          fullWidth inputClassName={styles.inputPasswordContainer}
-          nameTextField="password" />
+        <div className={styles.inputPasswordContainer}>
+          <PasswordInput hasErrors={this.hasErrors} onChangePassword={this.onChangePassword}
+            fullWidth inputClassName={styles.inputPassword}
+            nameTextField="password" />
+        </div>
 
         <Field name="isOrganization"
           component={IsOrganizationField} />
