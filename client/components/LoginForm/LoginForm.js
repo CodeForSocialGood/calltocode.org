@@ -7,7 +7,8 @@ import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
 import usersApiClient from '../../api/users'
-import styles from './LoginForm.scss'
+import styles from './LoginForm.scss';
+import {headerActionCreator} from "../../actions";
 
 class LoginForm extends Component {
   renderEmail (field) {
@@ -47,9 +48,9 @@ class LoginForm extends Component {
     var dispatch = nextProps.dispatch;
 
     if (! email.trim() || ! password.trim()) {
-
+      dispatch(headerActionCreator.disableLogin());
     } else {
-
+      dispatch(headerActionCreator.enableLogin());
     }
   }
 

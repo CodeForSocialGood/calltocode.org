@@ -18,6 +18,8 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
+    var {login} = this.props;
+
     if (this.props.authenticated) {
       const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
@@ -34,7 +36,7 @@ class Header extends Component {
     } else {
       return ([
         <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>,
-        <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>
+        login? <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>: null
       ])
     }
   }
@@ -46,6 +48,7 @@ class Header extends Component {
   }
 
   render () {
+
     return (
       <div className={styles.headerRoot}>
         <AppBar position="static" color="inherit" elevation={0}>
@@ -65,12 +68,13 @@ function mapStateToProps (state) {
   return {
     authenticated: state.auth.authenticated,
     currentPage: state.routing.location.pathname,
-    user: state.user
+    user: state.user,
+    login:state.login
   }
 }
 
 const mapDispatchToProps = {
-  logout: AuthActionCreator.logout
+  logout: AuthActionCreator.logout,
 };
 
 Header.propTypes = {
