@@ -1,6 +1,5 @@
 import test from 'ava'
 import { mock, stub } from 'sinon'
-import { ForbiddenError } from '../../lib/errors'
 
 import users from './users'
 
@@ -19,33 +18,70 @@ test.todo('putCurrent')
 
 test.todo('getUsers')
 
-test('createUser', async t => {
-  // Setup
+test('signup new user', t => {
+  // setup
   const { res } = t.context
+
   const user = {
     email: 'user@email.com',
     toJSON () {}
   }
-  const req = { body: user }
   const UserModel = {
-    save () { return user }
+    save (cb) { cb(null, user) }
+  }
+  const req = {
+    body: {
+      user: 'any user'
+    }
   }
 
   // mocks
   const stubUserModel = stub()
     .withArgs('any user')
     .returns(UserModel)
-  const resMock = mock(res)
+  const mockRes = mock(res)
     .expects('json')
     .once()
     .withExactArgs(user.toJSON())
 
   // execute
   users._init(stubUserModel)
-  await users.createUser(req, res)
+  users.signup(req, res)
 
   // verify
-  resMock.verify()
+  mockRes.verify()
+  t.pass()
+})
+
+test('do not signup new user when user already exists', t => {
+  // setup
+  const { res } = t.context
+
+  function MockException () {}
+  const user = {
+    save (cb) { cb(new MockException()) }
+  }
+  const req = {
+    body: {
+      user: 'any user'
+    }
+  }
+
+  // mock
+  const stubUserModel = stub()
+    .withArgs('any user')
+    .returns(user)
+  const mockRes = mock(res)
+    .expects('sendStatus')
+    .once()
+    .withExactArgs(500)
+
+    // execute
+  users._init(stubUserModel)
+  users.signup(req, res)
+
+  // verify
+  mockRes.verify()
   t.pass()
 })
 
@@ -53,71 +89,71 @@ test.todo('getUser')
 
 test.todo('putUser')
 
-test('login', async t => {
-  // Setup
+test.todo('getSalt')
+
+test('login with email and password', t => {
+  // setup
   const { res } = t.context
-  const user = {
-    email: 'anyemail@email.com',
-    salt: 'any salt',
-    hash: 'any hash',
-    toJSON () {}
+
+  const req = {
+    body: {
+      email: 'anyemail@email.com',
+      password: 'any password',
+      toJSON () {}
+    }
   }
-  const req = { body: user }
+
   const UserModel = {
-    findOne () { return user }
+    findOne (query) { return this },
+    exec (cb) {
+      cb(null, req.body)
+    }
   }
 
   // mocks
   const resMock = mock(res)
     .expects('json')
     .once()
-    .withExactArgs(user.toJSON())
 
   // action
   users._init(UserModel)
-  await users.login(req, res)
+  users.login(req, res)
 
   // test
   resMock.verify()
   t.pass()
 })
 
-test('login, throw ForbiddenError when login fails', async t => {
-  // Setup
+test('return unauthorized when login fails', t => {
+  // setup
   const { res } = t.context
-  const user = {
-    email: 'anyemail@email.com',
-    hash: 'hash',
-    toJSON () {}
-  }
+
   const req = {
     body: {
-      email: user.email,
-      hash: 'different hash'
+      toJSON () {}
     }
   }
+
   const UserModel = {
-    findOne () { return user }
+    findOne (query) { return this },
+    exec (cb) {
+      cb(new Error(null))
+    }
   }
 
-  // Action
+  // mocks
+  const resMock = mock(res)
+    .expects('sendStatus')
+    .once()
+    .withExactArgs(403)
+
+  // action
   users._init(UserModel)
+  users.login(req, res)
 
-  // Test
-  const forbidden = new ForbiddenError('Invalid email or password')
-  const error = await t.throws((async () => {
-    await users.login(req, res)
-  })())
-
-  t.is(error.name, forbidden.name)
-  t.is(error.message, forbidden.message)
-  t.is(error.status, forbidden.status)
+  // test
+  resMock.verify()
+  t.pass()
 })
 
-test.todo('getSalt')
-
 test.todo('changePassword')
-
-test.todo('createCode')
-
-test.todo('validateCode')

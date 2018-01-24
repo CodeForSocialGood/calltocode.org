@@ -1,156 +1,139 @@
 import bindFunctions from '../../lib/bindFunctions'
 import UserModel from '../../database/models/User'
-import ForgotPasswordModel from '../../database/models/ForgotPassword'
-import { emailConfig } from '../../config'
-import { ForbiddenError, NotFoundError } from '../../lib/errors'
 
 export default {
-  _init (Users = UserModel, ForgotPassword = ForgotPasswordModel, emailClient = emailConfig) {
+  _init (Users = UserModel) {
     bindFunctions(this)
 
     this.Users = Users
-    this.ForgotPassword = ForgotPassword
-    this.emailClient = emailClient
     return this
   },
 
-  async getCurrent (req, res) {
+  getCurrent (req, res, next) {
     const id = req.payload.id
-    const user = await this.Users.findById(id)
 
-    if (!user) throw new NotFoundError()
+    this.Users.findById(id).then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
 
-    return res.status(200).json(user.toJSON())
+      return res.status(200).json(user.toJSON())
+    }).catch(next)
   },
 
-  async putCurrent (req, res) {
+  putCurrent (req, res, next) {
     const id = req.payload.id
-    const user = await this.Users.findById(id)
 
-    if (!user) throw new NotFoundError()
+    this.Users.findById(id).then(user => {
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
 
-    const newUser = Object.assign(user, { ...req.body })
+      const { email, projectsAppliedFor } = req.body.user
 
-    await newUser.save()
+      if (typeof email !== 'undefined') {
+        user.email = email
+      }
 
-    return res.status(200).json(newUser.toJSON())
+      if (typeof projectsAppliedFor !== 'undefined') {
+        user.projectsAppliedFor = projectsAppliedFor
+      }
+
+      user.save().then(() => {
+        return res.status(200).send(user.toJSON())
+      })
+    }).catch(next)
   },
 
-  async getUsers (req, res) {
-    const query = {}
-    const limit = Number(req.query.limit) || 20
-    const offset = Number(req.query.offset) || 0
-    const sort = { createdAt: 'desc' }
+  getUsers (req, res) {
+    return this.Users.find().exec((err, users) => {
+      if (err) {
+        return res.sendStatus(500)
+      }
 
-    const users = await this.Users
-      .find(query)
-      .limit(limit)
-      .skip(offset)
-      .sort(sort)
-
-    return res.status(200).json(users.map(user => user.toJSON()))
+      return res.status(200).json(users.map(user => user.toJSON()))
+    })
   },
 
-  async createUser (req, res) {
-    const user = new this.Users(req.body)
-    const newUser = await user.save()
+  signup (req, res) {
+    const newUser = new this.Users(req.body.user)
 
-    return res.status(200).json(newUser.toJSON())
+    return newUser.save((err, user) => {
+      if (err) {
+        return res.sendStatus(500)
+      }
+
+      res.setHeader('Content-Type', 'application/json')
+      return res.status(200).json(user.toJSON())
+    })
   },
 
-  async getUser (req, res) {
-    const user = req.user
+  getUser (req, res) {
+    const id = req.params.user
 
-    return res.status(200).json(user.toJSON())
+    this.Users.findById(id).exec((err, user) => {
+      if (err) {
+        return res.sendStatus(500)
+      }
+
+      if (!user) {
+        return res.sendStatus(404)
+      }
+
+      return res.status(200).json(user.toJSON())
+    })
   },
 
-  async putUser (req, res) {
-    const user = Object.assign(req.user, { ...req.body })
-    const newUser = await user.save()
+  putUser (req, res) {},
 
-    return res.status(200).json(newUser.toJSON())
-  },
-
-  async login (req, res) {
-    const { email, hash } = req.body
-    const user = await this.Users.findOne({ email })
-
-    if (!user || user.hash !== hash) throw new ForbiddenError('Invalid email or password')
-
-    return res.status(200).json(user.toJSON())
-  },
-
-  async getSalt (req, res) {
+  getSalt (req, res) {
     const { email } = req.query
-    const user = await this.Users.findOne({ email })
+    this.Users.findOne({ email }).exec((err, user) => {
+      if (err) {
+        return res.status(500).json({ error: '500' })
+      }
 
-    if (!user) throw new NotFoundError()
+      if (!user) {
+        return res.status(401).json({ error: '401' })
+      }
 
-    return res.status(200).json({ salt: user.salt })
+      const { salt } = user
+      return res.status(200).json({ salt })
+    })
   },
 
-  async changePassword (req, res) {
-    const { email, salt, hash } = req.body
-    const user = await this.Users.findOne({ email })
+  login (req, res) {
+    const { email, hash } = req.body
 
-    if (!user) throw new NotFoundError()
+    this.Users.findOne({ email }).exec((err, user) => {
+      if (err) {
+        return res.sendStatus(403)
+      }
 
-    user.salt = salt
-    user.hash = hash
+      if (!user) {
+        res.statusMessage = 'Wrong email'
+        return res.status(403).json({ error: 'Invalid email' })
+      } else if (hash !== user.hash) {
+        res.statusMessage = 'Wrong password'
+        return res.status(403).json({ error: 'Invalid password' })
+      }
 
-    await user.save()
-
-    return res.status(200).json(user.toJSON())
+      return res.status(200).json(user.toJSON())
+    })
   },
 
-  async createCode (req, res) {
-    const email = req.body.email
-    const user = await this.Users.findOne({ email })
+  changePassword (req, res) {
+    const {email, salt, hash} = req.body
 
-    if (!user) return res.sendStatus(200)
-
-    const code = generateSixDigitCode()
-    await this.ForgotPassword.findOneAndUpdate(
-      { email },
-      { $set: { email, code } },
-      { upsert: true, 'new': true }
-    )
-
-    const text = `Your validation code is: ${code}`
-    const message = {
-      from: 'team.calltocode@gmail.com',
-      to: email,
-      subject: `Validation code for ${email}`,
-      html: `<strong>${text}</strong>`,
-      text
-    }
-
-    this.emailClient.send(message)
-
-    return res.sendStatus(200)
-  },
-
-  async validateCode (req, res) {
-    const { email, code } = req.body
-    const savedCode = await this.ForgotPassword.findOne({ email, code })
-
-    if (!savedCode) throw new NotFoundError('Invalid code')
-
-    savedCode.remove()
-
-    return res.sendStatus(200)
-  },
-
-  async userById (req, res, next, id) {
-    const user = await this.Users.findById(id)
-
-    if (!user) throw new NotFoundError()
-
-    req.user = user
-    next()
+    const query = {'email': email}
+    this.Users.findOneAndUpdate(query, {$set: { salt, hash }}, {}, function (error, doc) {
+      if (error) {
+        return res.send(500, { error })
+      } else if (!doc) {
+        return res.send(404, { error: 'No user found. No password updated' })
+      }
+      return res.send(doc.toJSON())
+    })
   }
-}
 
-function generateSixDigitCode () {
-  return Math.floor(Math.random() * 900000) + 100000
 }
