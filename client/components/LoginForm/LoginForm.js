@@ -44,6 +44,7 @@ class LoginForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     var email = nextProps.email || "";
+    console.log("component will receive props", email);
     var password= nextProps.password || "";
     var dispatch = nextProps.dispatch;
 
@@ -108,13 +109,13 @@ function handleValidationRequestError (response, email, password) {
 
 const mapDispatchToProps = {
   login: AuthActionCreator.login
-}
+};
 
 LoginForm.propTypes = {
   error: PropTypes.string,
   handleSubmit: PropTypes.func,
   login: PropTypes.func
-}
+};
 
 const LoginFormRedux = reduxForm({
   form: 'LoginForm',
@@ -130,5 +131,8 @@ const selector=formValueSelector('LoginForm');
 export default connect(state=> ({
   email: selector(state, "email"),
   password: selector(state, "password"),
-
+  initialValues:{
+    email:"",
+    password:""
+  }
 }), mapDispatchToProps)(LoginFormRedux)
