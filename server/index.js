@@ -1,7 +1,7 @@
 const app = require('./app')
 const { appConfig, databaseConfig } = require('./config')
 const database = require('./database')._init(databaseConfig.url)
-const logger = require('./logger')
+const logger = require('./lib/logger')
 
 app.listen(appConfig.port, runServer)
 

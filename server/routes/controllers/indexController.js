@@ -1,6 +1,6 @@
 const path = require('path')
 
-const bindFunctions = require('../../bindFunctions')
+const bindFunctions = require('../../lib/bindFunctions')
 
 const indexController = {
   _init (pathResolver = path) {

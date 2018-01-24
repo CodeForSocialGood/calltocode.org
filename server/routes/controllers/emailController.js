@@ -1,4 +1,4 @@
-const bindFunctions = require('../../bindFunctions')
+const bindFunctions = require('../../lib/bindFunctions')
 const { emailConfig } = require('../../config')
 
 const emailController = {

@@ -1,6 +1,6 @@
 const Rollbar = require('rollbar')
 
-const { rollbarConfig } = require('./config')
+const { rollbarConfig } = require('../config')
 const rollbar = new Rollbar(rollbarConfig)
 
 const logger = {

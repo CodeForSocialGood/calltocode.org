@@ -1,4 +1,4 @@
-const bindFunctions = require('../../bindFunctions')
+const bindFunctions = require('../../lib/bindFunctions')
 const ForgotPasswordModel = require('../../database/models/ForgotPassword')
 const UserModel = require('../../database/models/User')
 const { emailConfig } = require('../../config')
