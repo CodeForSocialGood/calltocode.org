@@ -8,6 +8,7 @@ export default {
   },
 
   connect () {
+    this.client.Promise = global.Promise
     this.client.connect(this.url)
 
     const db = this.client.connection
