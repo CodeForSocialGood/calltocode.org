@@ -1,4 +1,4 @@
-const test = require('ava')
+import test from 'ava'
 
 test.beforeEach(t => {
   t.context.req = {

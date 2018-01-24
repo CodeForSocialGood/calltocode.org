@@ -1,9 +1,9 @@
-const bindFunctions = require('../../lib/bindFunctions')
-const ForgotPasswordModel = require('../../database/models/ForgotPassword')
-const UserModel = require('../../database/models/User')
-const { emailConfig } = require('../../config')
+import bindFunctions from '../../lib/bindFunctions'
+import ForgotPasswordModel from '../../database/models/ForgotPassword'
+import UserModel from '../../database/models/User'
+import { emailConfig } from '../../config'
 
-const forgotPasswordController = {
+export default {
   _init (ForgotPass = ForgotPasswordModel, Users = UserModel, emailClient = emailConfig) {
     bindFunctions(this)
 
@@ -65,5 +65,3 @@ const forgotPasswordController = {
       .catch(() => res.status(404).json({error: 'Invalid code or email'}))
   }
 }
-
-module.exports = forgotPasswordController

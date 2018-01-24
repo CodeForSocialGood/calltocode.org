@@ -1,9 +1,12 @@
-const router = require('express').Router()
+import express from 'express'
 
-const auth = require('../../middleware/auth')
-const emailController = require('../controllers/emailController')._init()
+import auth from '../../lib/middleware/auth'
+import _email from '../controllers/emailController'
+
+const router = express.Router()
+const email = _email._init()
 
 router.route('/')
-  .post(auth.required, emailController.sendToOrg)
+  .post(auth.required, email.sendToOrg)
 
-module.exports = router
+export default router

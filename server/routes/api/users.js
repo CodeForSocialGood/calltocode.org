@@ -1,27 +1,30 @@
-const router = require('express').Router()
+import express from 'express'
 
-const auth = require('../../middleware/auth')
-const usersController = require('../controllers/usersController')._init()
+import auth from '../../lib/middleware/auth'
+import _users from '../controllers/usersController'
+
+const router = express.Router()
+const users = _users._init()
 
 router.route('/current')
-  .get(auth.required, usersController.getCurrent)
-  .put(auth.required, usersController.putCurrent)
+  .get(auth.required, users.getCurrent)
+  .put(auth.required, users.putCurrent)
 
 router.route('/')
-  .get(auth.optional, usersController.getUsers)
-  .post(usersController.signup)
+  .get(auth.optional, users.getUsers)
+  .post(users.signup)
 
 router.route('/getSalt')
-  .get(usersController.getSalt)
+  .get(users.getSalt)
 
 router.route('/login')
-  .post(usersController.login)
+  .post(users.login)
 
 router.route('/:user')
-  .get(auth.required, usersController.getUser)
-  .put(auth.required, usersController.putUser)
+  .get(auth.required, users.getUser)
+  .put(auth.required, users.putUser)
 
 router.route('/new-password')
-  .post(usersController.changePassword)
+  .post(users.changePassword)
 
-module.exports = router
+export default router

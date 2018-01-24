@@ -1,4 +1,4 @@
-const config = {
+export default {
   get url () {
     switch (process.env.NODE_ENV) {
       case 'test':
@@ -7,5 +7,3 @@ const config = {
     }
   }
 }
-
-module.exports = config

@@ -1,4 +1,4 @@
-const config = {
+export default {
   accessToken: process.env.ROLLBAR_API_KEY,
   enabled: true,
   verbose: true,
@@ -14,5 +14,3 @@ function envConfig () {
     default: return { enabled: false, captureUncaught: false, captureUnhandledRejections: false }
   }
 }
-
-module.exports = config

@@ -1,9 +1,10 @@
-const bindFunctions = require('../../lib/bindFunctions')
-const ProjectModel = require('../../database/models/Project')
+import bindFunctions from '../../lib/bindFunctions'
+import ProjectModel from '../../database/models/Project'
 
-const projectsController = {
+export default {
   _init (Projects = ProjectModel) {
     bindFunctions(this)
+
     this.Projects = Projects
     return this
   },
@@ -52,5 +53,3 @@ const projectsController = {
     })
   }
 }
-
-module.exports = projectsController

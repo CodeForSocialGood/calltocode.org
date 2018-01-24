@@ -1,7 +1,7 @@
-const bindFunctions = require('../../lib/bindFunctions')
-const UserModel = require('../../database/models/User')
+import bindFunctions from '../../lib/bindFunctions'
+import UserModel from '../../database/models/User'
 
-const usersController = {
+export default {
   _init (Users = UserModel) {
     bindFunctions(this)
 
@@ -137,5 +137,3 @@ const usersController = {
   }
 
 }
-
-module.exports = usersController

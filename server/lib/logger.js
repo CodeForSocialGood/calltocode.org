@@ -1,9 +1,23 @@
-const Rollbar = require('rollbar')
+import Rollbar from 'rollbar'
 
-const { rollbarConfig } = require('../config')
-const rollbar = new Rollbar(rollbarConfig)
+import { rollbarConfig } from '../config'
 
-const logger = {
+const rollbarLogger = new Rollbar(rollbarConfig)
+const localLogger = console
+
+function handleLog (rollbarLevel = 'debug', localLevel = rollbarLevel) {
+  return function () {
+    if (process.env.SILENT) return
+
+    if (rollbarConfig.enabled) {
+      rollbarLogger[rollbarLevel](...arguments)
+    } else if (rollbarConfig.verbose) {
+      localLogger[localLevel](...arguments)
+    }
+  }
+}
+
+export default {
   critical: handleLog('critical', 'error'),
   error: handleLog('error'),
   warn: handleLog('warn'),
@@ -11,17 +25,3 @@ const logger = {
   debug: handleLog('debug'),
   log: handleLog('log')
 }
-
-function handleLog (rollbarLevel = 'debug', localLevel = rollbarLevel) {
-  return function () {
-    if (process.env.SILENT) return
-
-    if (rollbarConfig.enabled) {
-      rollbar[rollbarLevel](...arguments)
-    } else if (rollbarConfig.verbose) {
-      console[localLevel](...arguments)
-    }
-  }
-}
-
-module.exports = logger

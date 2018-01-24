@@ -1,13 +1,18 @@
-const router = require('express').Router()
+import express from 'express'
 
-const auth = require('../../middleware/auth')
-const projectsController = require('../controllers/projectsController')._init()
+import auth from '../../lib/middleware/auth'
+import _projects from '../controllers/projectsController'
+
+const router = express.Router()
+const projects = _projects._init()
 
 router.route('/')
-  .get(auth.optional, projectsController.getProjects)
-  .post(projectsController.createProject)
+  .get(auth.optional, projects.getProjects)
+  // TODO: below, this should be `auth.required`. client api first needs to use
+  // `apiRequest` with `apiOptionsFromState` in order to pass authentication.
+  .post(auth.optional, projects.createProject)
 
 router.route('/:project')
-  .get(auth.optional, projectsController.getProject)
+  .get(auth.optional, projects.getProject)
 
-module.exports = router
+export default router

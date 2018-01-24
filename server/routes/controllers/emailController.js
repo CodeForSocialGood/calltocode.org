@@ -1,9 +1,10 @@
-const bindFunctions = require('../../lib/bindFunctions')
-const { emailConfig } = require('../../config')
+import bindFunctions from '../../lib/bindFunctions'
+import { emailConfig } from '../../config'
 
-const emailController = {
+export default {
   _init (emailClient = emailConfig) {
     bindFunctions(this)
+
     this.emailClient = emailClient
     return this
   },
@@ -22,5 +23,3 @@ const emailController = {
     res.sendStatus(200)
   }
 }
-
-module.exports = emailController

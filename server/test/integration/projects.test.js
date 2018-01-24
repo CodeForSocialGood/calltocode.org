@@ -1,8 +1,8 @@
-const test = require('ava')
-const request = require('supertest')
+import test from 'ava'
+import request from 'supertest'
 
-const { before, beforeEach, afterEach, after } = require('../util')
-const Project = require('../../database/models/Project')
+import { before, beforeEach, afterEach, after } from '../util'
+import Project from '../../database/models/Project'
 
 const toJSON = Project.schema.methods.toJSON
 

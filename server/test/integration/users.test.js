@@ -1,8 +1,8 @@
-const test = require('ava')
-const request = require('supertest')
+import test from 'ava'
+import request from 'supertest'
 
-const { before, beforeEach, afterEach, after } = require('../util')
-const User = require('../../database/models/User')
+import { before, beforeEach, afterEach, after } from '../util'
+import User from '../../database/models/User'
 
 const generateSessionToken = User.schema.methods.generateSessionToken
 

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 
-const { authConfig } = require('../../config')
+import { authConfig } from '../../config'
 
 const UserSchema = mongoose.Schema({
   usertype: {
@@ -55,6 +55,4 @@ UserSchema.methods.toJSON = function () {
   }
 }
 
-const User = mongoose.model('User', UserSchema)
-
-module.exports = User
+export default mongoose.model('User', UserSchema)

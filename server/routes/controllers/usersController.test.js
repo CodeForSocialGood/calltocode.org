@@ -1,7 +1,7 @@
-const test = require('ava')
-const { mock, stub } = require('sinon')
+import test from 'ava'
+import { mock, stub } from 'sinon'
 
-const usersController = require('./usersController')
+import usersController from './usersController'
 
 test.beforeEach(t => {
   t.context.res = {

@@ -1,6 +1,6 @@
-const logger = require('../lib/logger')
+import logger from '../logger'
 
-function errorHandler () {
+export default function () {
   return function (err, req, res, next) {
     logger.error(err)
 
@@ -10,5 +10,3 @@ function errorHandler () {
     return res.status(err.status || 500).json({ error })
   }
 }
-
-module.exports = errorHandler

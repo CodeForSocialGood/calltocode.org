@@ -1,4 +1,4 @@
-const config = {
+export default {
   send (message) {
     let mail
     switch (process.env.NODE_ENV) {
@@ -18,5 +18,3 @@ const config = {
     }
   }
 }
-
-module.exports = config

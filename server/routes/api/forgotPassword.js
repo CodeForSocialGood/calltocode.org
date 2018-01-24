@@ -1,12 +1,15 @@
-const router = require('express').Router()
+import express from 'express'
 
-const auth = require('../../middleware/auth')
-const forgotPasswordController = require('../controllers/forgotPasswordController')._init()
+import auth from '../../lib/middleware/auth'
+import _forgotPassword from '../controllers/forgotPasswordController'
+
+const router = express.Router()
+const forgotPassword = _forgotPassword._init()
 
 router.route('/')
-  .post(auth.optional, forgotPasswordController.sendVerificationCodeEmail)
+  .post(auth.optional, forgotPassword.sendVerificationCodeEmail)
 
 router.route('/code')
-  .post(forgotPasswordController.validateCode)
+  .post(forgotPassword.validateCode)
 
-module.exports = router
+export default router

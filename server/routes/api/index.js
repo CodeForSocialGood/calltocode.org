@@ -1,8 +1,15 @@
-const router = require('express').Router()
+import express from 'express'
 
-router.use('/email', require('./email'))
-router.use('/projects', require('./projects'))
-router.use('/users', require('./users'))
-router.use('/forgot-password', require('./forgotPassword'))
+import emailRoutes from './email'
+import forgotPasswordRoutes from './forgotPassword'
+import projectsRoutes from './projects'
+import usersRoutes from './users'
 
-module.exports = router
+const router = express.Router()
+
+router.use('/email', emailRoutes)
+router.use('/forgot-password', forgotPasswordRoutes)
+router.use('/projects', projectsRoutes)
+router.use('/users', usersRoutes)
+
+export default router

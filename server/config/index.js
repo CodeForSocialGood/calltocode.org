@@ -1,7 +1,13 @@
+import appConfig from './app'
+import authConfig from './auth'
+import databaseConfig from './database'
+import emailConfig from './email'
+import rollbarConfig from './rollbar'
+
 module.exports = {
-  appConfig: require('./app'),
-  authConfig: require('./auth'),
-  databaseConfig: require('./database'),
-  rollbarConfig: require('./rollbar'),
-  emailConfig: require('./email')
+  appConfig,
+  authConfig,
+  databaseConfig,
+  rollbarConfig,
+  emailConfig
 }
