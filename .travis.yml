@@ -28,6 +28,8 @@ before_script: greenkeeper-lockfile-update
 
 script:
 - yarn test
+- sudo service mongodb stop
+- while sudo lsof -Pi :27017 -sTCP:LISTEN -t; do sleep 1; done
 - NODE_ENV=ci yarn e2e
 
 after_script: greenkeeper-lockfile-upload
