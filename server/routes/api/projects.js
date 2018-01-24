@@ -1,7 +1,7 @@
 import express from 'express'
 
 import auth from '../../lib/middleware/auth'
-import _projects from '../controllers/projectsController'
+import _projects from '../controllers/projects'
 
 const router = express.Router()
 const projects = _projects._init()

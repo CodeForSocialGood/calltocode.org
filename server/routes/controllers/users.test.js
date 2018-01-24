@@ -1,7 +1,7 @@
 import test from 'ava'
 import { mock, stub } from 'sinon'
 
-import usersController from './usersController'
+import users from './users'
 
 test.beforeEach(t => {
   t.context.res = {
@@ -45,8 +45,8 @@ test('signup new user', t => {
     .withExactArgs(user.toJSON())
 
   // execute
-  usersController._init(stubUserModel)
-  usersController.signup(req, res)
+  users._init(stubUserModel)
+  users.signup(req, res)
 
   // verify
   mockRes.verify()
@@ -77,8 +77,8 @@ test('do not signup new user when user already exists', t => {
     .withExactArgs(500)
 
     // execute
-  usersController._init(stubUserModel)
-  usersController.signup(req, res)
+  users._init(stubUserModel)
+  users.signup(req, res)
 
   // verify
   mockRes.verify()
@@ -116,8 +116,8 @@ test('login with email and password', t => {
     .once()
 
   // action
-  usersController._init(UserModel)
-  usersController.login(req, res)
+  users._init(UserModel)
+  users.login(req, res)
 
   // test
   resMock.verify()
@@ -148,8 +148,8 @@ test('return unauthorized when login fails', t => {
     .withExactArgs(403)
 
   // action
-  usersController._init(UserModel)
-  usersController.login(req, res)
+  users._init(UserModel)
+  users.login(req, res)
 
   // test
   resMock.verify()

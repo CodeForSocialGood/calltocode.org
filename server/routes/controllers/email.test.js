@@ -1,7 +1,7 @@
 import test from 'ava'
 import { mock } from 'sinon'
 
-import email from './emailController'
+import email from './email'
 
 test('send email to organization', t => {
   // setup

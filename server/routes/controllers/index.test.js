@@ -1,7 +1,7 @@
 import test from 'ava'
 import { mock, match } from 'sinon'
 
-import indexController from './indexController'
+import index from './index'
 
 test('get index page', t => {
   // setup
@@ -24,8 +24,8 @@ test('get index page', t => {
     .withExactArgs('some path')
 
   // execute
-  indexController._init(path)
-  indexController.getIndexPage(null, res)
+  index._init(path)
+  index.getIndexPage(null, res)
 
   // verify
   mockPath.verify()

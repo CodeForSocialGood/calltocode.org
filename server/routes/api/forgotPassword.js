@@ -1,7 +1,7 @@
 import express from 'express'
 
 import auth from '../../lib/middleware/auth'
-import _forgotPassword from '../controllers/forgotPasswordController'
+import _forgotPassword from '../controllers/forgotPassword'
 
 const router = express.Router()
 const forgotPassword = _forgotPassword._init()

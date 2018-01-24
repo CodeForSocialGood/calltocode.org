@@ -1,7 +1,7 @@
 import express from 'express'
 
 import auth from '../../lib/middleware/auth'
-import _email from '../controllers/emailController'
+import _email from '../controllers/email'
 
 const router = express.Router()
 const email = _email._init()

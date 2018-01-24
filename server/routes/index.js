@@ -1,7 +1,7 @@
 import express from 'express'
 
 import api from './api'
-import _index from './controllers/indexController'
+import _index from './controllers/index'
 
 const router = express.Router()
 const index = _index._init()
