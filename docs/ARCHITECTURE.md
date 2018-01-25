@@ -501,7 +501,7 @@ File: `index.js`
 
 Imports: `babel-register`, `server.js`
 
-The entry point `requires` `babel-register` allows us to use es6 `import`/`export` features in our files. It then `requires` our `server` entry point.
+The entry point `requires` `babel-register` which allows us to use es6 `import`/`export` features in our files. It then `requires` our `server` entry point.
 
 ### Server
 
@@ -509,7 +509,7 @@ File: `server.js`
 
 Imports: `app.js`, `database/index.js`
 
-Runs the server using the express app and connects to the database:
+Runs the server using the set up express app and connects to the database:
 
 ```js
 import app from './app'
