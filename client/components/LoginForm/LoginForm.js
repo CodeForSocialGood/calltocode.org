@@ -53,12 +53,14 @@ class LoginForm extends Component {
   }
 
   handleChange (event) {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({ [event.target.name]: event.target.value })
   }
 
   render () {
-    const { classes } = this.props
+    const { classes } = this.props;
+
+
 
     return (
       <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
