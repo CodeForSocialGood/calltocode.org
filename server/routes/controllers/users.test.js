@@ -18,7 +18,7 @@ test.todo('putCurrent')
 
 test.todo('getUsers')
 
-test('signup new user', t => {
+test.skip('createUser', t => {
   // setup
   const { res } = t.context
 
@@ -53,7 +53,7 @@ test('signup new user', t => {
   t.pass()
 })
 
-test('do not signup new user when user already exists', t => {
+test.skip('createUser, throw Error when user already exists', t => {
   // setup
   const { res } = t.context
 
@@ -89,9 +89,7 @@ test.todo('getUser')
 
 test.todo('putUser')
 
-test.todo('getSalt')
-
-test('login with email and password', t => {
+test.skip('login', t => {
   // setup
   const { res } = t.context
 
@@ -124,7 +122,7 @@ test('login with email and password', t => {
   t.pass()
 })
 
-test('return unauthorized when login fails', t => {
+test.skip('login, throw ForbiddenError when login fails', t => {
   // setup
   const { res } = t.context
 
@@ -156,4 +154,10 @@ test('return unauthorized when login fails', t => {
   t.pass()
 })
 
+test.todo('getSalt')
+
 test.todo('changePassword')
+
+test.todo('createCode')
+
+test.todo('validateCode')

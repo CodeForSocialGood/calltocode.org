@@ -42,7 +42,7 @@ test.serial('putCurrent, valid token', async t => {
   const res = await request(app)
     .put('/api/users/current')
     .set('Authorization', `Token ${token}`)
-    .send({ user: { email: updatedEmail } })
+    .send({ email: updatedEmail })
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
@@ -71,7 +71,7 @@ test.serial('getUsers', async t => {
   t.is(res.body.length, users.length)
 })
 
-test.serial('signup, valid user', async t => {
+test.serial.skip('signup, valid user', async t => {
   const { app } = t.context
   const user = {
     usertype: 'volunteer',
@@ -110,4 +110,13 @@ test.serial('getUser', async t => {
   t.is(res.body.id, user._id)
   t.is(res.body.usertype, user.usertype)
   t.is(res.body.email, user.email)
+})
+
+test.serial('createCode', async t => {
+  const { app } = t.context
+  const res = await request(app)
+    .post('/api/users/password/code')
+    .send({ email: 'kevin@email.com' })
+
+  t.is(res.status, 200)
 })

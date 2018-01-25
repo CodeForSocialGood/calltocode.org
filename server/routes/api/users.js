@@ -1,9 +1,9 @@
-import express from 'express'
+import expressPromiseRouter from 'express-promise-router'
 
 import auth from '../../lib/middleware/auth'
 import _users from '../controllers/users'
 
-const router = express.Router()
+const router = expressPromiseRouter()
 const users = _users._init()
 
 router.route('/current')
@@ -12,19 +12,27 @@ router.route('/current')
 
 router.route('/')
   .get(auth.optional, users.getUsers)
-  .post(users.signup)
-
-router.route('/getSalt')
-  .get(users.getSalt)
+  .post(auth.optional, users.createUser)
 
 router.route('/login')
   .post(users.login)
 
-router.route('/:user')
+router.route('/salt')
+  .get(users.getSalt)
+
+router.route('/password')
+  .post(users.changePassword)
+
+router.route('/password/code')
+  .post(users.createCode)
+
+router.route('/password/code/validate')
+  .post(users.validateCode)
+
+router.route('/:userId')
   .get(auth.required, users.getUser)
   .put(auth.required, users.putUser)
 
-router.route('/new-password')
-  .post(users.changePassword)
+router.param('userId', users.userById)
 
 export default router

@@ -1,9 +1,9 @@
-import expressRouter from 'express-promise-router'
+import expressPromiseRouter from 'express-promise-router'
 
 import auth from '../../lib/middleware/auth'
 import _projects from '../controllers/projects'
 
-const router = expressRouter()
+const router = expressPromiseRouter()
 const projects = _projects._init()
 
 router.route('/')
