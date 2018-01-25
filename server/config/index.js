@@ -1,13 +1,5 @@
-import appConfig from './app'
-import authConfig from './auth'
-import databaseConfig from './database'
-import emailConfig from './email'
-import rollbarConfig from './rollbar'
-
-module.exports = {
-  appConfig,
-  authConfig,
-  databaseConfig,
-  rollbarConfig,
-  emailConfig
-}
+export { default as appConfig } from './app'
+export { default as authConfig } from './auth'
+export { default as databaseConfig } from './database'
+export { default as emailConfig } from './email'
+export { default as rollbarConfig } from './rollbar'
