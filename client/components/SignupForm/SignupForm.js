@@ -71,7 +71,6 @@ class SignupForm extends Component {
     this._setState('isOrganization', event.target.checked)
   }
   onSubmit (event) {
-    event.preventDefault()
     const { email, password, isOrganization } = this.state
     this.props.signup({ email, password, isOrganization }).then(
       this.context.router.history.push('/')
@@ -81,7 +80,7 @@ class SignupForm extends Component {
   render () {
     const { classes } = this.props
     return (
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={this.onSubmit}>
         <h1 className={styles.h1}>Signup</h1>
 
         <TextField required id="email"
@@ -125,7 +124,8 @@ class SignupForm extends Component {
         <Button
           raised className={classes.root}
           style={{ gridRow: this.state.isOrganization ? 9 : 6 }}
-          color="primary" onClick={this.onSubmit}
+          color="primary"
+          type="submit"
           fullWidth={true} >
           Submit
         </Button>

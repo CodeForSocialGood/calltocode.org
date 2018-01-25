@@ -61,7 +61,7 @@ class LoginForm extends Component {
     const { classes } = this.props
 
     return (
-      <form id="loginForm" className={styles.form} >
+      <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
         <h1 className={styles.h1}>Login</h1>
 
         <TextField required id="email" error={this.state.error['email']} label="Email" type="text" fullWidth className={styles.inputEmail} name="email"
@@ -70,7 +70,7 @@ class LoginForm extends Component {
         <TextField required id="password" error={this.state.error['password']} label="Password" type="password" fullWidth className={styles.inputPassword} name="password"
           onChange={this.handleChange} onBlur={this.onBlur} />
 
-        <Button raised className={classes.root} color="primary" fullWidth={true} onClick={this.onSubmit} >
+        <Button type="submit" raised className={classes.root} color="primary" fullWidth={true}>
           Submit
         </Button>
 
