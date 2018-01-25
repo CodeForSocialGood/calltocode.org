@@ -61,7 +61,7 @@ class LoginForm extends Component {
     const { classes } = this.props
 
     return (
-      <form className={styles.form} >
+      <form id="loginForm" className={styles.form} >
         <h1 className={styles.h1}>Login</h1>
 
         <TextField required id="email" error={this.state.error['email']} label="Email" type="text" fullWidth className={styles.inputEmail} name="email"
