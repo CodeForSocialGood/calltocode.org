@@ -15,8 +15,8 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
 class LoginForm extends Component {
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
     this.state = {
       email: '',
       password: '',
@@ -28,7 +28,7 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit (event) {
+  async onSubmit (event) {
     event.preventDefault()
     if (this.state.email.length === 0) {
       this.setState({
@@ -39,7 +39,10 @@ class LoginForm extends Component {
     if (this.state.password.length === 0 || this.state.email.length === 0) {
       return
     }
-    this.props.doLogin(this.state.email, this.state.password)
+    const loginRes = await this.props.doLogin(this.state.email, this.state.password)
+    if (loginRes) {
+      this.context.router.history.push('/')
+    }
   }
 
   onBlur (event) {
@@ -58,7 +61,7 @@ class LoginForm extends Component {
     const { classes } = this.props
 
     return (
-      <form className={styles.form} >
+      <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
         <h1 className={styles.h1}>Login</h1>
 
         <TextField required id="email" error={this.state.error['email']} label="Email" type="text" fullWidth className={styles.inputEmail} name="email"
@@ -67,7 +70,7 @@ class LoginForm extends Component {
         <TextField required id="password" error={this.state.error['password']} label="Password" type="password" fullWidth className={styles.inputPassword} name="password"
           onChange={this.handleChange} onBlur={this.onBlur} />
 
-        <Button raised className={classes.root} color="primary" fullWidth={true} onClick={this.onSubmit} >
+        <Button type="submit" raised className={classes.root} color="primary" fullWidth={true}>
           Submit
         </Button>
 
@@ -93,6 +96,10 @@ const mapStateToProps = (state) => {
   return {
     error: state.auth.error
   }
+}
+
+LoginForm.contextTypes = {
+  router: PropTypes.object
 }
 
 LoginForm.propTypes = {
