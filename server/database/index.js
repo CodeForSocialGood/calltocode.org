@@ -4,11 +4,11 @@ export default {
   _init (url, client = mongoose) {
     this.url = url
     this.client = client
+    this.client.Promise = global.Promise
     return this
   },
 
   connect () {
-    this.client.Promise = global.Promise
     this.client.connect(this.url)
 
     const db = this.client.connection
