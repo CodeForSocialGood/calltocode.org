@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './ValidationPopup.scss'
+import styles from './SignupForm.scss'
 
 const ValidationPopup = ({ error, active }) => {
   return (

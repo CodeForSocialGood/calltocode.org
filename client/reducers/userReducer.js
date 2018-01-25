@@ -1,8 +1,9 @@
-import initialState from './initialState'
 import { APP_LOAD, LOGIN, LOGOUT } from '../actions/auth/types'
 import { UPDATE_USER } from '../actions/user/types'
 
-export default function (state = initialState.users, action) {
+const defaultState = {}
+
+export default function (state = defaultState, action) {
   const { type, payload } = action
 
   switch (type) {
@@ -11,7 +12,7 @@ export default function (state = initialState.users, action) {
       return { ...state, ...payload }
 
     case LOGOUT:
-      return initialState.users
+      return defaultState
 
     case UPDATE_USER:
       return { ...state, ...payload }

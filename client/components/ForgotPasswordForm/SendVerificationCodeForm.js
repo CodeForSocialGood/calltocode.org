@@ -1,38 +1,48 @@
 import React from 'react'
+import {Field, reduxForm} from 'redux-form'
 import styles from './ForgotPasswordForm.scss'
 import PropTypes from 'prop-types'
 
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import { actionButton } from './forgotPasswordJss'
-import { withStyles } from 'material-ui/styles'
+function EmailField ({ input }) {
+  return (
+    <input className={styles.inputEmail}
+      placeholder="Email"
+      {...input} />
+  )
+}
 
 const SendVerificationCodeForm = props => {
-  const { classes } = props
+  const {handleSubmit} = props
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <h1 className={styles.h1}>Forgot Password?</h1>
       <h3 className={styles.h3}>{"Let's get you a new one!"}</h3>
 
-      <TextField required id="email"
-        label="Email" type="text" fullWidth className={styles.inputEmail} name="email"
-        onChange={props.onChangeEmail} />
+      <Field value={props.email}
+        name="email"
+        onChange={props.onChangeEmail}
+        component={EmailField} />
 
-      <Button disabled={props.email.length === 0}
-        raised className={classes.root}
-        color="primary" onClick={props.nextPage}
-        fullWidth={true} >
-        Send Verification Code
-      </Button>
+      <button disabled={props.email.length === 0}
+        className={styles.buttonSubmit}
+        type="submit">
+            Send Verification Code
+      </button>
     </form>
   )
+}
+
+EmailField.propTypes = {
+  input: PropTypes.object
 }
 SendVerificationCodeForm.propTypes = {
   handleSubmit: PropTypes.func,
   onChangeEmail: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  classes: PropTypes.object,
-  nextPage: PropTypes.func
+  email: PropTypes.string.isRequired
 }
 
-export default (withStyles(actionButton)(SendVerificationCodeForm))
+export default reduxForm({
+  form: 'ForgotPasswordForm',
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true
+})(SendVerificationCodeForm)

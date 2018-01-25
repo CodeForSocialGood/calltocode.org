@@ -1,7 +1,11 @@
-import initialState from './initialState'
 import { APP_LOAD } from '../actions/auth/types'
 
-export default function (state = initialState.common, action) {
+const defaultState = {
+  appLoaded: false,
+  appName: 'calltocode'
+}
+
+export default function (state = defaultState, action) {
   const { type } = action
 
   switch (type) {
