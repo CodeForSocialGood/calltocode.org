@@ -1,0 +1,6 @@
+export const primaryColor = 'royalblue'
+export const primaryColorHover = 'darkblue'
+export const listColor = 'darkgray'
+export const errorColor = 'red'
+export const validInputColor = '#3E9B2A'
+export const inputsBorderColor = '#C6CBD4'

@@ -18,6 +18,7 @@
     "restart": "yarn stop && yarn start",
     "pretest": "yarn lint && yarn build",
     "test": "SILENT=true ava --verbose",
+    "pree2e": "./e2e/pree2e.sh",
     "e2e": "nightwatch",
     "lint": "eslint --ignore-pattern server/public/ client/ server/",
     "build": "webpack --bail --display errors-only",

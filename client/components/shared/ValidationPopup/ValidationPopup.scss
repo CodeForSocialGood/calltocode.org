@@ -1,0 +1,40 @@
+@import '../../../scss/partials/partials';
+
+.validationPopup {
+    @extend %boxShadowSmall;
+    z-index: 1;
+    position: fixed;
+    max-width: 25vw;
+    margin-left: 25%;
+    margin-top: 5px;
+    padding: 3%;
+    background-color: #fff;
+    font-size: .8em;
+    grid-area: 4 / 1 / span 4 / 1;
+  
+    li {
+      margin-top: 3%;
+    }
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
+.tick:before {
+    content: "\2713 ";
+    color: $validInputColor;
+  }
+  
+  .cross:before {
+    content: "\2717 ";
+    color: $errorColor;
+  }
