@@ -1,11 +1,15 @@
-import initialState from './initialState'
 import {
   FETCHING_PROJECTS,
   RECEIVED_PROJECTS,
   FAILED_PROJECTS
 } from '../actions/project/types'
 
-export default function (state = initialState.projects, action) {
+const defaultState = {
+  fetching: false,
+  projects: []
+}
+
+export default function (state = defaultState, action) {
   const { type, payload } = action
 
   switch (type) {
