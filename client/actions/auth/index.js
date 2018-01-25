@@ -31,19 +31,23 @@ export default class AuthActionCreator {
 
   static doLogin (email, password) {
     return async (dispatch, getState) => {
+      let success = false
       try {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
         const user = await usersApiClient.login(apiOptions, email, password)
         if (!user.hasOwnProperty('error')) {
           dispatch(AuthActionCreator.login(user))
-          dispatch(push('/'))
+          success = true
         } else {
           dispatch({ type: FAILED_LOGIN, payload: user.error, error: true })
+          success = false
         }
       } catch (error) {
         dispatch({ type: FAILED_LOGIN, payload: error, error: true })
+        success = false
       }
+      return success
     }
   }
 

@@ -15,8 +15,8 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
 class LoginForm extends Component {
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
     this.state = {
       email: '',
       password: '',
@@ -28,7 +28,7 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit (event) {
+  async onSubmit (event) {
     event.preventDefault()
     if (this.state.email.length === 0) {
       this.setState({
@@ -39,7 +39,10 @@ class LoginForm extends Component {
     if (this.state.password.length === 0 || this.state.email.length === 0) {
       return
     }
-    this.props.doLogin(this.state.email, this.state.password)
+    const loginRes = await this.props.doLogin(this.state.email, this.state.password)
+    if (loginRes) {
+      this.context.router.history.push('/')
+    }
   }
 
   onBlur (event) {
@@ -93,6 +96,10 @@ const mapStateToProps = (state) => {
   return {
     error: state.auth.error
   }
+}
+
+LoginForm.contextTypes = {
+  router: PropTypes.object
 }
 
 LoginForm.propTypes = {
