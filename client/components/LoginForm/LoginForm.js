@@ -59,15 +59,16 @@ class LoginForm extends Component {
   }
 
   enableOrDisableLogin () {
-    var email = this.state.email || "";
-    var password= this.state.password || "";
-    var {enableLogin, disableLogin} = this.props;
+    var email = this.state.email || '';
+    var password = this.state.password || '';
+    var { enableLogin, disableLogin } = this.props;
 
-
-    if( ! email.trim() || ! password.trim())
+    if (!email.trim() || !password.trim()) {
       disableLogin();
-    else
+    }
+    else {
       enableLogin();
+    }
   }
 
   render () {
