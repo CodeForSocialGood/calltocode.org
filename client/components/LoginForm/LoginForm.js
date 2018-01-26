@@ -60,7 +60,7 @@ class LoginForm extends Component {
   render () {
     const { classes } = this.props;
 
-
+    //check if email and password is blank
 
     return (
       <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>

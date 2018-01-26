@@ -37,7 +37,7 @@ class Header extends Component {
     } else {
 
       var buttons=[<Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>];
-      if (login.login) {
+      if (login.enable) {
         buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>);
       } else {
         buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login') + ' ' + styles.disabled}>LOG IN</Link>);
