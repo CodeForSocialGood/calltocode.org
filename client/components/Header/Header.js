@@ -18,8 +18,8 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    var {login} = this.props;
-    console.log("had been logged", login);
+    var {login} = this.props
+    console.log('had been logged', login)
 
     if (this.props.authenticated) {
       const authButtons = [
@@ -35,15 +35,13 @@ class Header extends Component {
         return authButtons
       }
     } else {
-
-      var buttons=[<Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>];
+      var buttons = [<Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>]
       if (login.enable) {
-        buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>);
+        buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>)
       } else {
-        buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login') + ' ' + styles.disabled}>LOG IN</Link>);
-
+        buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login') + ' ' + styles.disabled}>LOG IN</Link>)
       }
-      return buttons;
+      return buttons
     }
   }
 
@@ -54,7 +52,6 @@ class Header extends Component {
   }
 
   render () {
-
     return (
       <div className={styles.headerRoot}>
         <AppBar position="static" color="inherit" elevation={0}>
@@ -75,12 +72,12 @@ function mapStateToProps (state) {
     authenticated: state.auth.authenticated,
     currentPage: state.routing.location.pathname,
     user: state.user,
-    login:state.login
+    login: state.login
   }
 }
 
 const mapDispatchToProps = {
-  logout: AuthActionCreator.logout,
+  logout: AuthActionCreator.logout
 };
 
 Header.propTypes = {
