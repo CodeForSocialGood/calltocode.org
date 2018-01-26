@@ -7,6 +7,7 @@ import AuthActionCreator from '../../actions/auth'
 import styles from './LoginForm.scss'
 import { buttonSubmit } from './loginFormJss'
 import { withStyles } from 'material-ui/styles'
+import HeaderActionCreator from '../../actions/header'
 
 /**
  * material ui components
@@ -46,7 +47,7 @@ class LoginForm extends Component {
   }
 
   onBlur (event) {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({
       error: { ...this.state.error, [event.target.name]: this.state[event.target.name].length === 0 }
     })
@@ -57,13 +58,16 @@ class LoginForm extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-    enableOrDisableLogin () {
+  enableOrDisableLogin () {
     var email = this.state.email || "";
     var password= this.state.password || "";
-    if(!email.trim() || !password.trim())
-      dispatch(headerActionCreator.disableLogin);
+    var {enableLogin, disableLogin} = this.props;
+
+
+    if( ! email.trim() || ! password.trim())
+      disableLogin();
     else
-      dispatch(headerActionCreator.enableLogin);
+      enableLogin();
   }
 
   render () {
@@ -101,8 +105,11 @@ class LoginForm extends Component {
 }
 
 const mapDispatchToProps = {
-  doLogin: AuthActionCreator.doLogin
-}
+  doLogin: AuthActionCreator.doLogin,
+  enableLogin: HeaderActionCreator.enableLogin,
+  disableLogin: HeaderActionCreator.disableLogin
+};
+
 const mapStateToProps = (state) => {
   return {
     error: state.auth.error

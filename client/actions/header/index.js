@@ -9,13 +9,13 @@ import {
 export const disable_login = { type: DISABLE_LOGIN };
 export const enable_login = { type: ENABLE_LOGIN};
 
-export default class headerActionCreator {
+export default class HeaderActionCreator {
   static  enableLogin(){
-    return enable_login;
+    return (dispatch) => dispatch(enable_login);
   }
 
   static  disableLogin(){
-    return disable_login;
+    return (dispatch) => dispatch(disable_login);
   }
 }
 
