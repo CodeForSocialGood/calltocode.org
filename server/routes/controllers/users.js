@@ -30,6 +30,7 @@ export default {
     if (!user) throw new NotFoundError()
 
     const newUser = Object.assign(user, { ...req.body })
+
     await newUser.save()
 
     return res.status(200).json(newUser.toJSON())
