@@ -1,16 +1,15 @@
 import bindFunctions from '../../lib/bindFunctions'
 import UserModel from '../../database/models/User'
 import ForgotPasswordModel from '../../database/models/ForgotPassword'
-import { emailConfig } from '../../config'
+import mailer from '../../lib/mailer'
 import { ForbiddenError, NotFoundError } from '../../lib/errors'
 
 export default {
-  _init (Users = UserModel, ForgotPassword = ForgotPasswordModel, emailClient = emailConfig) {
+  _init (Users = UserModel, ForgotPassword = ForgotPasswordModel) {
     bindFunctions(this)
 
     this.Users = Users
     this.ForgotPassword = ForgotPassword
-    this.emailClient = emailClient
     return this
   },
 
@@ -116,17 +115,7 @@ export default {
       { upsert: true, 'new': true }
     )
 
-    const text = `Your validation code is: ${code}`
-    const message = {
-      from: 'team.calltocode@gmail.com',
-      to: email,
-      subject: `Validation code for ${email}`,
-      html: `<strong>${text}</strong>`,
-      text
-    }
-
-    this.emailClient.send(message)
-
+    await mailer.sendPasswordCode(user, code)
     return res.sendStatus(200)
   },
 
