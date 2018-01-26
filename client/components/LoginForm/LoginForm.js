@@ -57,10 +57,19 @@ class LoginForm extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+    enableOrDisableLogin () {
+    var email = this.state.email || "";
+    var password= this.state.password || "";
+    if(!email.trim() || !password.trim())
+      dispatch(headerActionCreator.disableLogin);
+    else
+      dispatch(headerActionCreator.enableLogin);
+  }
+
   render () {
     const { classes } = this.props;
 
-    //check if email and password is blank
+    this.enableOrDisableLogin();
 
     return (
       <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
