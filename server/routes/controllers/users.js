@@ -109,13 +109,11 @@ export default {
     if (!user) return res.sendStatus(200)
 
     const code = generateSixDigitCode()
-    await this.ForgotPassword.findOneAndUpdate(
-      { email },
-      { $set: { email, code } },
-      { upsert: true, 'new': true }
-    )
+    const options = { upsert: true, new: true }
 
+    await this.ForgotPassword.findOneAndUpdate({ email }, { email, code }, options)
     await mailer.sendPasswordCode(user, code)
+
     return res.sendStatus(200)
   },
 
