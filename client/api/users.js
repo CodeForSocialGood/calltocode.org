@@ -7,8 +7,8 @@ const usersApiClient = {
     return apiRequest.get('/users/current', apiOptions)
   },
 
-  update (apiOptions, user) {
-    const body = { user }
+  update (apiOptions, fields) {
+    const body = { ...fields }
     return apiRequest.put('/users/current', apiOptions, body)
   },
 
