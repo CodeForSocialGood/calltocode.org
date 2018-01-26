@@ -4,20 +4,17 @@
 import {
   DISABLE_LOGIN,
   ENABLE_LOGIN
-} from "./types"
+} from './types'
 
-export const disable_login = { type: DISABLE_LOGIN };
-export const enable_login = { type: ENABLE_LOGIN};
+export const disableLog = { type: DISABLE_LOGIN }
+export const enableLog = { type: ENABLE_LOGIN }
 
 export default class HeaderActionCreator {
-  static  enableLogin(){
-    return (dispatch) => dispatch(enable_login);
+  static enableLogin () {
+    return (dispatch) => dispatch(enableLog)
   }
 
-  static  disableLogin(){
-    return (dispatch) => dispatch(disable_login);
+  static disableLogin () {
+    return (dispatch) => dispatch(disableLog)
   }
 }
-
-
-
