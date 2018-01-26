@@ -71,7 +71,7 @@ test.serial('getUsers', async t => {
   t.is(res.body.length, users.length)
 })
 
-test.serial.skip('signup, valid user', async t => {
+test.serial('signup, valid user', async t => {
   const { app } = t.context
   const user = {
     usertype: 'volunteer',
@@ -81,7 +81,7 @@ test.serial.skip('signup, valid user', async t => {
   }
   const res = await request(app)
     .post('/api/users')
-    .send({ user })
+    .send(user)
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
