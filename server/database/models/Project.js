@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const ProjectSchema = mongoose.Schema({
   organization: {
@@ -20,6 +20,4 @@ ProjectSchema.methods.toJSON = function () {
   }
 }
 
-const Project = mongoose.model('Project', ProjectSchema)
-
-module.exports = Project
+export default mongoose.model('Project', ProjectSchema)

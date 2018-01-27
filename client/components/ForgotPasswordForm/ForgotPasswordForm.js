@@ -6,7 +6,7 @@ import SendVerificationCodeForm from './SendVerificationCodeForm'
 import ValidateVerificationCode from './ValidateVerificationCodeForm'
 import NewPasswordForm from './NewPasswordForm'
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
-import forgotPasswordApiClient from '../../api/forgotPassword'
+import usersApiClient from '../../api/users'
 import styles from './ForgotPasswordForm.scss'
 
 class ForgotPasswordForm extends Component {
@@ -31,7 +31,7 @@ class ForgotPasswordForm extends Component {
 
   async nextPage () {
     const apiOptions = apiOptionsFromState()
-    const response = await forgotPasswordApiClient.sendValidationCode(apiOptions, this.state.email)
+    const response = await usersApiClient.createCode(apiOptions, this.state.email)
     if (response.status === 200) {
       this.setState({
         page: this.state.page + 1,
@@ -45,7 +45,7 @@ class ForgotPasswordForm extends Component {
   async validate () {
     const { email, code } = this.state
     const apiOptions = apiOptionsFromState()
-    const response = await forgotPasswordApiClient.validateCode(apiOptions, email, code)
+    const response = await usersApiClient.validateCode(apiOptions, email, code)
     if (response.status === 200) {
       this.setState({
         page: this.state.page + 1,

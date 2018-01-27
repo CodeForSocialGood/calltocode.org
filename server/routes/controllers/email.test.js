@@ -1,7 +1,7 @@
-const test = require('ava')
-const { mock } = require('sinon')
+import test from 'ava'
+import { mock } from 'sinon'
 
-const emailController = require('./emailController')
+import email from './email'
 
 test('send email to organization', t => {
   // setup
@@ -42,8 +42,8 @@ test('send email to organization', t => {
     .withExactArgs(200)
 
   // execute
-  emailController._init(emailClient)
-  emailController.sendToOrg(req, res)
+  email._init(emailClient)
+  email.sendToOrg(req, res)
 
   // verify
   mockEmailClient.verify()

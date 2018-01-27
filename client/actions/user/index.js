@@ -12,21 +12,18 @@ export default class UserActionCreator {
     return (dispatch, getState) => {
       try {
         const projectId = project.id
-        let updatedUser = { ...user }
+        const projectsAppliedFor = user.projectsAppliedFor
 
-        if (!user.projectsAppliedFor.includes(projectId)) {
-          const projectsAppliedFor = [...user.projectsAppliedFor, projectId]
-          updatedUser = { ...user, projectsAppliedFor }
-        }
+        if (!user.projectsAppliedFor.includes(projectId)) projectsAppliedFor.push(projectId)
 
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
-        const receivedUser = usersApiClient.update(apiOptions, updatedUser)
+        const updatedUser = usersApiClient.update(apiOptions, { projectsAppliedFor })
         emailApiClient.send(apiOptions, project, user.email)
 
         dispatch({
           ...updateUser,
-          payload: receivedUser
+          payload: updatedUser
         })
       } catch (e) {
         console.trace(e)
