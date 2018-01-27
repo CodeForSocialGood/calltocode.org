@@ -3,15 +3,27 @@ import { connect } from 'react-redux'
 import { Field, reduxForm, SubmissionError } from 'redux-form'
 import PropTypes from 'prop-types'
 
+import VerticalAlignHelper from '../../shared/VerticalAlignHelper/VerticalAlignHelper'
 import UploadDropzone from '../../UploadDropzone/UploadDropzone'
 import styles from './ProfilePictureForm.scss'
 
 class ProfilePictureForm extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showForm: false
+    }
+  }
+
   uploadImage (values) {
     console.log(values)
     /*
     waiting for story #154115334 for uploading image to server
      */
+
+    /* if (success uploading image) */
+    this.setState({ showForm: false })
   }
 
   renderImageUpload (field) {
@@ -22,11 +34,10 @@ class ProfilePictureForm extends Component {
     )
   }
 
-  render () {
+  renderForm () {
     const { handleSubmit } = this.props
     return (
       <form id="uploadProfilePictureForm" className={styles.form} onSubmit={handleSubmit(this.uploadImage.bind(this))}>
-        <h1 className={styles.formHeading} >Upload Profile Picture</h1>
 
         <Field name="image"
           component={this.renderImageUpload} />
@@ -36,7 +47,45 @@ class ProfilePictureForm extends Component {
           type="submit">
           Save
         </button>
+
       </form>
+    )
+  }
+
+  renderProfilePicture () {
+    const { user } = this.props
+    return (
+      <div
+        className={styles.profilePicture}
+        onClick={() => this.setState({ showForm: true })} >
+
+        <div className={styles.profilePictureInner} >
+
+          <img className={styles.image} src={user.profilePicture || require('../../../images/logo.png')} />
+
+          <div className={styles.imageHoverCover} />
+
+          <div className={styles.uploadNewButton}>
+            <VerticalAlignHelper />
+            <button>Upload New</button>
+          </div>
+
+        </div>
+
+      </div>
+    )
+  }
+
+  render () {
+    const render = this.state.showForm
+      ? this.renderForm()
+      : this.renderProfilePicture()
+
+    return (
+      <div className={styles.profilePictureWrapper} >
+        <h1 className={styles.formHeading} >Profile Picture</h1>
+        {render}
+      </div>
     )
   }
 }

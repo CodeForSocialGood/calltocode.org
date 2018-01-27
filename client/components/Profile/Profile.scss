@@ -1,6 +1,6 @@
 .profilePage {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 30% repeat(2, 1fr);
   grid-template-rows: auto;
   grid-row-gap: 15px;
   padding: 0 60px;

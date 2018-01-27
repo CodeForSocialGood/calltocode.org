@@ -49,7 +49,7 @@ class UploadDropzone extends Component {
 
     return (
       <div>
-        <Dropzone className={styles.dropzone}
+        <Dropzone className={`${styles.dropzone} c4sg-dropzone`}
           acceptClassName={styles.accept}
           rejectClassName={styles.reject}
           accept={types.join(',')}

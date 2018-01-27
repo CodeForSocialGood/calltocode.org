@@ -1,11 +1,8 @@
 @import '../../scss/partials/partials';
+@import '../../scss/elements/form';
 
 .dropzone {
-  @extend %hover;
-  width: 200px;
-  height: 200px;
-  border: 2px dashed #C8C8C8;
-  @include border-radius(5px);
+  @extend %dropzone
 }
 
 .dropzoneInterior {
