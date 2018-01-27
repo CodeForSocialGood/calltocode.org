@@ -14,7 +14,7 @@
     "server:watch": "nodemon --watch server/ --ignore server/public/ --exec 'node server/'",
     "sync": "browser-sync start --proxy localhost:3000 --files server/**/* --port 3001 --ws --no-open --https",
     "start": "yarn db start && yarn email start && npm-run-all --parallel client:watch server:watch sync",
-    "stop": "yarn db stop && yarn email stop",
+    "stop": "yarn db stop && yarn email stop && yarn ports:clear",
     "restart": "yarn stop && yarn start",
     "pretest": "yarn lint && yarn build",
     "test": "SILENT=true ava --verbose",
@@ -23,7 +23,8 @@
     "lint": "eslint --ignore-pattern server/public/ client/ server/",
     "build": "webpack --bail --display errors-only",
     "db": "./.setup/db/run.sh",
-    "email": "./.setup/email/run.sh"
+    "email": "./.setup/email/run.sh",
+    "ports:clear": "lsof -ti tcp:3000,3001,27017,28017 | xargs kill -9 --no-run-if-empty"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.1.4",
