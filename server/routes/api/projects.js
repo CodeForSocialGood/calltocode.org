@@ -14,9 +14,6 @@ router.route('/:projectId')
   .get(auth.optional, projects.getProject)
   .put(auth.optional, projects.putProject)
 
-router.route('/:projectId/apply')
-  .post(auth.required, projects.apply)
-
 router.param('projectId', projects.projectById)
 
 export default router

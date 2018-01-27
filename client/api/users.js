@@ -31,7 +31,7 @@ const usersApiClient = {
   },
 
   applyForProject (apiOptions, projectId) {
-    return apiRequest.post(`/projects/${projectId}/apply`, apiOptions)
+    return apiRequest.post(`/users/apply/${projectId}`, apiOptions)
   },
 
   createCode (apiOptions, email) {

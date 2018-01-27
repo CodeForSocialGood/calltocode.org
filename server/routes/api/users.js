@@ -20,6 +20,9 @@ router.route('/login')
 router.route('/salt')
   .get(users.getSalt)
 
+router.route('/apply/:projectId')
+  .post(auth.required, users.applyForProject)
+
 router.route('/password')
   .post(users.changePassword)
 

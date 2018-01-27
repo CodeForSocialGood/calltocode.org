@@ -1,15 +1,12 @@
 import bindFunctions from '../../lib/bindFunctions'
 import ProjectModel from '../../database/models/Project'
-import UserModel from '../../database/models/User'
-import mailer from '../../lib/mailer'
 import { NotFoundError } from '../../lib/errors'
 
 export default {
-  _init (Projects = ProjectModel, Users = UserModel) {
+  _init (Projects = ProjectModel) {
     bindFunctions(this)
 
     this.Projects = Projects
-    this.Users = Users
     return this
   },
 
@@ -56,21 +53,6 @@ export default {
     const newProject = await project.save()
 
     return res.status(200).json(newProject.toJSON())
-  },
-
-  async apply (req, res) {
-    const userId = req.payload.id
-    const user = await this.Users.findById(userId)
-
-    if (!user) throw new NotFoundError()
-
-    const project = req.project
-    const projectId = project._id
-
-    await user.applyForProject(projectId)
-    await mailer.sendApplication(user, project)
-
-    return res.status(200).json(user.toJSON())
   },
 
   async projectById (req, res, next, id) {
