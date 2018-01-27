@@ -1,0 +1,22 @@
+@import '../../../scss/partials/partials';
+@import '../../../scss/elements/form';
+
+.form {
+  @extend %form;
+}
+
+.formHeading {
+  grid-column: 1 / 1;
+  grid-row: 1;
+}
+
+.inputImageUpload {
+  grid-column: 1 / 1;
+  grid-row: 2;
+}
+
+.buttonSubmit {
+  @extend %buttonSubmit;
+  grid-column: 1 / 1;
+  grid-row: 4;
+}

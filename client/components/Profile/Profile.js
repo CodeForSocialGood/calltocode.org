@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ProjectActionCreator from '../../actions/project'
+import ProfilePictureForm from './ProfilePictureForm/ProfilePictureForm'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
+import styles from './Profile.scss'
 
 class Profile extends Component {
   componentDidMount () {
@@ -16,9 +18,19 @@ class Profile extends Component {
       : 'Projects Applied For'
 
     return (
-      <ListOfProjects
-        title={title}
-        projects={this.props.projects} />
+      <div className={styles.profilePage}>
+
+        <div className={styles.profilePictureForm} >
+          <ProfilePictureForm user={this.props.user} />
+        </div>
+
+        <div className={styles.listOfProjects} >
+          <ListOfProjects
+            title={title}
+            projects={this.props.projects} />
+        </div>
+
+      </div>
     )
   }
 }
