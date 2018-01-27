@@ -14,6 +14,9 @@ const UserSchema = mongoose.Schema({
     required: true,
     unique: true
   },
+  profilePicture: {
+    type: String
+  }
   salt: {
     type: String,
     required: true

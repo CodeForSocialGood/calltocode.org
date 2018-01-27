@@ -22,7 +22,7 @@ class ProfilePictureForm extends Component {
     waiting for story #154115334 for uploading image to server
      */
 
-    /* if (success uploading image) */
+    /* if (success uploading image, it will be saved as user.profilePicture) */
     this.setState({ showForm: false })
   }
 
