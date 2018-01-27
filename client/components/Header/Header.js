@@ -84,7 +84,8 @@ Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  login: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
