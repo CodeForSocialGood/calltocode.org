@@ -4,7 +4,6 @@ export default {
   _init (url, client = mongoose) {
     this.url = url
     this.client = client
-    this.client.Promise = global.Promise
     return this
   },
 
