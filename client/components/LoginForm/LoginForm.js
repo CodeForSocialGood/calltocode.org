@@ -52,7 +52,7 @@ class LoginForm extends Component {
   onBlur (event) {
     event.preventDefault()
     this.setState({
-      error: {...this.state.error, [event.target.name]: this.state[event.target.name].length === 0}
+      error: { ...this.state.error, [event.target.name]: this.state[event.target.name].length === 0 }
     })
   }
 
