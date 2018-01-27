@@ -61,7 +61,7 @@ class ProfilePictureForm extends Component {
 
         <div className={styles.profilePictureInner} >
 
-          <img className={styles.image} src={user.profilePicture || require('../../../images/logo.png')} />
+          <img className={styles.image} src={user.profilePicture || require('../../../images/profile-image.jpg')} />
 
           <div className={styles.imageHoverCover} />
 

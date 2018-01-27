@@ -41,7 +41,9 @@ class Header extends Component {
           <Button dense className={this.getLinkStyles('profile')}
             component={Link}
             to="/profile">
-            <Avatar>{user.email.charAt(0).toUpperCase()}</Avatar>
+            <Avatar
+              src={user.profilePicture || require('../../images/profile-image.jpg')} >
+            </Avatar>
           </Button>
         </Fragment>
       )
