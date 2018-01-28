@@ -114,8 +114,6 @@ const config = {
     /*
       turn on to create a visualisation of module sizings with each build
       will be output as stats.html in the output directory after running yarn build
-
-
     */
     /*,
     new BundleAnalyzerPlugin()
