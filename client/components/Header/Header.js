@@ -82,7 +82,11 @@ class Header extends Component {
             to="/">
             {'calltocode'}
           </Typography>
-
+          <Button dense className={this.getLinkStyles()}
+            component={Link}
+            to="/about">
+            {'ABOUT'}
+          </Button>
           {this.renderHeaderButtons()}
         </Toolbar>
       </AppBar>

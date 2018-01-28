@@ -8,6 +8,7 @@ import CreateProjectForm from './components/CreateProjectForm/CreateProjectForm'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
+import About from './components/About/About'
 import LoginForm from './components/LoginForm/LoginForm'
 import Profile from './components/Profile/Profile'
 import restricted from './components/Restricted/Restricted'
@@ -26,6 +27,7 @@ class App extends Component {
         <Version />
         <Switch>
           <Route exact path='/' component={Home}/>
+          <Route path='/about' component={About}/>
           <Route path='/create-project' component={CreateProjectForm}/>
           <Route path='/forgot-password' component={ForgotPasswordForm}/>
           <Route path='/login' component={LoginForm}/>
