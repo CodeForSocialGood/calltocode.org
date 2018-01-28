@@ -30,6 +30,10 @@ const usersApiClient = {
     return apiRequest.post('/users', apiOptions, body)
   },
 
+  applyForProject (apiOptions, projectId) {
+    return apiRequest.post(`/users/apply/${projectId}`, apiOptions)
+  },
+
   createCode (apiOptions, email) {
     const body = { email }
     return apiRequest.post('/users/password/code', apiOptions, body)

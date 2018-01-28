@@ -55,4 +55,12 @@ UserSchema.methods.toJSON = function () {
   }
 }
 
+UserSchema.methods.applyForProject = function (projectId) {
+  if (!this.projectsAppliedFor.includes(projectId)) {
+    this.projectsAppliedFor.push(projectId)
+  }
+
+  return this.save()
+}
+
 export default mongoose.model('User', UserSchema)

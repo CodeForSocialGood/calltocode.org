@@ -3,9 +3,6 @@ import request from 'supertest'
 
 import { before, beforeEach, afterEach, after } from '../util'
 import { NotFoundError } from '../../lib/errors'
-import Project from '../../database/models/Project'
-
-const toJSON = Project.schema.methods.toJSON
 
 test.before(before)
 test.beforeEach(beforeEach)
@@ -70,7 +67,10 @@ test.serial('getProject', async t => {
     .get(`/api/projects/${project._id}`)
 
   t.is(res.status, 200)
-  t.deepEqual(res.body, toJSON.call(project))
+  t.is(res.body.organization.toString(), project.organization.toString())
+  t.is(res.body.name, project.name)
+  t.is(res.body.role, project.role)
+  t.is(res.body.email, project.email)
 })
 
 test.serial('getProject should throw NotFoundError when no project found', async t => {
