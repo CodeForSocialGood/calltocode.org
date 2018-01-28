@@ -87,7 +87,7 @@
     "ignore-styles": "^5.0.1",
     "mongodb-memory-server": "^1.6.3",
     "nightwatch": "^0.9.19",
-    "nightwatch-cucumber": "^8.2.14",
+    "nightwatch-cucumber": "^9.0.0",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.1",
     "phantomjs-prebuilt": "^2.1.16",

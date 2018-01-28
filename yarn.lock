@@ -6233,9 +6233,9 @@ netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-nightwatch-cucumber@^8.2.14:
-  version "8.2.14"
-  resolved "https://registry.yarnpkg.com/nightwatch-cucumber/-/nightwatch-cucumber-8.2.14.tgz#eecbb738d2b3555667965e8d97ac8255d6c9e8ff"
+nightwatch-cucumber@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/nightwatch-cucumber/-/nightwatch-cucumber-9.0.0.tgz#429e4a6feb35e9f6b9f193b334d9fac0d9e8e17c"
   dependencies:
     co "^4.6.0"
     combine-errors "^3.0.3"
