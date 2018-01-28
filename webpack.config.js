@@ -4,6 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HardSourcePlugin = require('hard-source-webpack-plugin')
+// allow us to visualise our bundles and optimise
+const Visualizer = require('webpack-visualizer-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+//
 
 const env = require('./.setup/client/env')
 const clientDir = path.join(__dirname, 'client')
@@ -21,15 +25,19 @@ const config = {
       'react-router-dom',
       'redux',
       'react-redux',
+      'redux-form',
       'prop-types',
-      'lodash'
+      'lodash',
+      'material-ui'
     ]
   },
 
   output: {
     path: path.join(__dirname, 'server', 'public'),
     publicPath: '/',
-    filename: '[name].[chunkhash].js' // adding the chunk hash helps with caching, easier to tell when file has changed
+    filename: '[name].[chunkhash].js'
+    // adding the chunk hash helps with caching, easier to tell when file has changed
+    // but make sure to delete contents of output folder each time before running yarn build
   },
 
   module: {
@@ -100,7 +108,27 @@ const config = {
 
     new webpack.optimize.CommonsChunkPlugin({ // separate the webpack manifest from our main chunk
       name: 'manifest'
-    })
+    })/*,
+    new Visualizer()
+    */
+    /*
+      turn on to create a visualisation of module sizings with each build
+      will be output as stats.html in the output directory after running yarn build
+
+
+    */
+    /*,
+    new BundleAnalyzerPlugin()
+    */
+     /*
+       turn on to create an interactive treemap visualization of the contents of all our bundles
+       will open automatically after running yarn build
+
+       these plugins are going to really help us as the app grows
+       and we split it into multiple chunks
+       to make sure common components and vendor packages
+       aren't being requested multiple times without need
+      */
   ],
 
   devtool: 'source-map'

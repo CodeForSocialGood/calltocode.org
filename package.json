@@ -93,7 +93,9 @@
     "phantomjs-prebuilt": "^2.1.16",
     "selenium-server": "^3.8.1",
     "sinon": "^4.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "ava": {
     "files": [
