@@ -18,8 +18,8 @@ import Version from './components/Version/Version'
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
   loader: () => import('./components/Profile/Profile'),
-  loading: Loading,
-}));
+  loading: Loading
+}))
 
 class App extends Component {
   componentDidMount () {

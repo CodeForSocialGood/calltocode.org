@@ -14,5 +14,6 @@
   ],
   "globals": {
     "$_ENV": true
-  }
+  },
+  "parser": "babel-eslint"
 }
