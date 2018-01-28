@@ -30,9 +30,8 @@ class CreateProjectForm extends Component {
     this.setState({projectName: event.target.value})
   }
 
-  async createProject (values) {
-    const {projectname} = values
-    const response = await projectsApiClient.createProject(projectname, this.props.user.organization)
+  async createProject () {
+    const response = await projectsApiClient.createProject(this.state.projectName, this.props.user.organization)
     if (response.status === 500) {
       this.setState({error: response.statusText})
     }
