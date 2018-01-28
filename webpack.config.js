@@ -12,12 +12,24 @@ const config = {
   context: clientDir,
 
   entry: {
-    index: './index.js'
+    main: './index.js',
+    vendor: [
+      // vendors added here will be included in vendor chunk
+      // so they only get requested once and can easily be cached
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'prop-types',
+      'lodash'
+    ]
   },
 
   output: {
     path: path.join(__dirname, 'server', 'public'),
-    filename: 'client.js'
+    publicPath: '/',
+    filename: '[name].[chunkhash].js' // adding the chunk hash helps with caching, easier to tell when file has changed
   },
 
   module: {
@@ -77,6 +89,17 @@ const config = {
 
     new HardSourcePlugin({
       cacheDirectory: path.join('..', '..', 'node_modules', '.cache', 'hard-source', '[confighash]')
+    }),
+
+    new webpack.HashedModuleIdsPlugin(), // ensures vendor bundle hash only changes when it needs to
+
+    // CommonsChunkPlugin makes sure we don't have the same modules included in multiple chunks
+    new webpack.optimize.CommonsChunkPlugin({ // vendor must be included before manifest
+      name: 'vendor'
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({ // separate the webpack manifest from our main chunk
+      name: 'manifest'
     })
   ],
 
