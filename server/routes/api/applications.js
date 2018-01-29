@@ -7,7 +7,7 @@ const router = expressPromiseRouter()
 const applications = _applications._init()
 
 router.route('/')
-  .get(auth.optional, applications.getApplications)
+  .get(auth.required, applications.getApplications)
   .post(auth.required, applications.createApplication)
 
 export default router
