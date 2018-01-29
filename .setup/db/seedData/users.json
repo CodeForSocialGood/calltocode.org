@@ -6,16 +6,16 @@
 		"usertype": "contact",
 		"email": "mary@email.com",
 		"salt" : "$2a$10$Wf/vK558w2vQm29SrH.xxO",
-	  "hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
+		"hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
 		"organization": {
 			"$oid": "5b165cb5202e8986f99ec5c0"
 		},
-    "createdAt": {
-      "$date": "2018-01-29T21:03:46.266Z"
-    },
-    "updatedAt": {
-      "$date": "2018-01-29T21:03:46.266Z"
-    },
+		"createdAt": {
+			"$date": "2018-01-29T21:03:46.266Z"
+		},
+		"updatedAt": {
+			"$date": "2018-01-29T21:03:46.266Z"
+		},
 		"__v": 0
 	},
 	{
@@ -30,12 +30,12 @@
 			"5a165cb5202e8986f99ec5c1",
 			"5a165cb5202e8986f99ec5c3"
 		],
-    "createdAt": {
-      "$date": "2018-01-29T21:03:46.266Z"
-    },
-    "updatedAt": {
-      "$date": "2018-01-29T21:03:46.266Z"
-    },
+		"createdAt": {
+			"$date": "2018-01-29T21:03:46.266Z"
+		},
+		"updatedAt": {
+			"$date": "2018-01-29T21:03:46.266Z"
+		},
 		"__v": 0
 	}
 ]
