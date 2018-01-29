@@ -7,7 +7,11 @@ const ProjectSchema = mongoose.Schema({
   },
   name: String,
   role: String,
-  email: String
+  email: String,
+  applications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Application'
+  }]
 }, { timestamps: true })
 
 ProjectSchema.methods.toJSON = function () {
@@ -17,6 +21,7 @@ ProjectSchema.methods.toJSON = function () {
     name: this.name,
     role: this.role,
     email: this.email,
+    applications: this.applications,
     createdAt: this.createdAt,
     updatedAt: this.updatedAt
   }

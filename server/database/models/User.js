@@ -22,6 +22,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  applications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Application'
+  }],
   projectsAppliedFor: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
@@ -50,6 +54,7 @@ UserSchema.methods.toJSON = function () {
     id: this._id,
     usertype: this.usertype,
     email: this.email,
+    applications: this.applications,
     projectsAppliedFor: this.projectsAppliedFor,
     organization: this.organization,
     createdAt: this.createdAt,
