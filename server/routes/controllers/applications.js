@@ -11,16 +11,20 @@ export default {
     return this
   },
 
-  getApplications (req, res) {
+  async getApplications (req, res) {
     const query = {}
     const limit = Number(req.query.limit) || 5
     const offset = Number(req.query.offset) || 0
     const sort = { createdAt: 'desc' }
 
-    const { volunteer } = req.query
+    const { volunteer, project } = req.query
 
     if (typeof volunteer !== 'undefined') {
       query.volunteer = volunteer
+    }
+
+    if (typeof project !== 'undefined') {
+      query.project = project
     }
 
     const applications = await this.Applications
@@ -28,11 +32,12 @@ export default {
       .limit(limit)
       .skip(offset)
       .sort(sort)
+      .populate('project')
 
     return res.status(200).json(applications.map(application => application.toJSON()))
   },
 
-  createApplication (req, res) {
+  async createApplication (req, res) {
     const userId = req.payload.id
     const user = await this.Users.findById(userId)
 
