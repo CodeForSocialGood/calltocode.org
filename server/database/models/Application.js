@@ -16,7 +16,7 @@ const ApplicationSchema = mongoose.Schema({
     enum: ['pending', 'accepted', 'rejected'],
     default: 'pending',
     required: true
-  }
+  },
   seenAt: Date
 }, { timestamps: true })
 
@@ -26,7 +26,9 @@ ApplicationSchema.methods.toJSON = function () {
     volunteer: this.volunteer,
     project: this.project,
     status: this.status,
-    seenAt: this.seenAt
+    seenAt: this.seenAt,
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt
   }
 }
 

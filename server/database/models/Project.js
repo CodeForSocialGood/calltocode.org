@@ -17,8 +17,8 @@ ProjectSchema.methods.toJSON = function () {
     name: this.name,
     role: this.role,
     email: this.email,
-    createdAt: this.createdAt || Date.now(),
-    updatedAt: this.updatedAt || Date.now()
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt
   }
 }
 

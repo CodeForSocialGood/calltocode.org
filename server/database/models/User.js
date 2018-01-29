@@ -51,7 +51,9 @@ UserSchema.methods.toJSON = function () {
     usertype: this.usertype,
     email: this.email,
     projectsAppliedFor: this.projectsAppliedFor,
-    organization: this.organization
+    organization: this.organization,
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt
   }
 }
 
