@@ -30,7 +30,7 @@ General troubleshooting steps:
 
 **Problem**: `Error: address already in use`
 
-**Solution**: `lsof -ti tcp:3000,27017,28017 | xargs kill -9 --no-run-if-empty`
+**Solution**: `lsof -ti tcp:3000,3001,27017,28017 | xargs kill -9 --no-run-if-empty`
 
 ## <a name="containernotrunning"></a> Error response from daemon: Container <id> is not running
 
