@@ -45,6 +45,7 @@ export default {
 
     const application = new this.Applications({ ...req.body, volunteer: user })
     const newApplication = application.save()
+    await mailer.sendApplication(user, req.body.project)
 
     return res.status(200).json(newApplication.toJSON())
   }

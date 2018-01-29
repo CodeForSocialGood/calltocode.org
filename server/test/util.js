@@ -16,11 +16,11 @@ export async function before (t) {
 }
 
 export async function beforeEach (t) {
-  const projects = seedProjects.map(formatObjectIDs)
+  const projects = seedProjects.map(formatData)
   await saveData(projects, Project)
   t.context.projects = projects
 
-  const users = seedUsers.map(formatObjectIDs)
+  const users = seedUsers.map(formatData)
   await saveData(users, User)
   t.context.users = users
 
@@ -37,11 +37,17 @@ export async function after (t) {
   mongod.stop()
 }
 
-function formatObjectIDs (data) {
-  const newData = {}
-
+function formatData (data) {
+  const newData = { ...data }
   const oid = '$oid'
-  for (const prop in data) newData[prop] = data[prop][oid] ? data[prop][oid] : data[prop]
+  const date = '$date'
+
+  for (const prop in newData) {
+    // Format ObjectId
+    if (newData[prop][oid]) newData[prop] = newData[prop][oid]
+    // Format ISODate
+    if (newData[prop][date]) newData[prop] = newData[prop][date]
+  }
 
   return newData
 }
