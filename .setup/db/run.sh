@@ -19,12 +19,15 @@ start () {
     echo "--- Copying seed data to docker container.."
     docker cp ./.setup/db/seedData/users.json $NAME:users.json
     docker cp ./.setup/db/seedData/projects.json $NAME:projects.json
+    docker cp ./.setup/db/seedData/applications.json $NAME:applications.json
 
     echo "--- Adding seed data to MongoDB.."
     docker exec $NAME mongoimport --quiet --db admin --collection users \
       --file users.json --type json --jsonArray
     docker exec $NAME mongoimport --quiet --db admin --collection projects \
       --file projects.json --type json --jsonArray
+    docker exec $NAME mongoimport --quiet --db admin --collection applications \
+      --file applications.json --type json --jsonArray
   else
     echo "--- Skipping start, container already running"
     exit 0
