@@ -1,7 +1,6 @@
 import bindFunctions from '../../lib/bindFunctions'
 import ApplicationModel from '../../database/models/Application'
 import mailer from '../../lib/mailer'
-import { NotFoundError } from '../../lib/errors'
 
 export default {
   _init (Applications = ApplicationModel) {
@@ -38,14 +37,9 @@ export default {
   },
 
   async createApplication (req, res) {
-    const userId = req.payload.id
-    const user = await this.Users.findById(userId)
-
-    if (!user) throw new NotFoundError()
-
-    const application = new this.Applications({ ...req.body, volunteer: user })
-    const newApplication = application.save()
-    await mailer.sendApplication(user, req.body.project)
+    const application = new this.Applications(req.body)
+    const newApplication = await application.save()
+    await mailer.sendApplication(req.body.volunteer, req.body.project)
 
     return res.status(200).json(newApplication.toJSON())
   }
