@@ -32,4 +32,14 @@ ApplicationSchema.methods.toJSON = function () {
   }
 }
 
+ApplicationSchema.methods.accept = function () {
+  this.status = 'accepted'
+  return this.save()
+}
+
+ApplicationSchema.methods.reject = function () {
+  this.status = 'rejected'
+  return this.save()
+}
+
 export default mongoose.model('Application', ApplicationSchema)

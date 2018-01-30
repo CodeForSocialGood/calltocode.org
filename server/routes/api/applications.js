@@ -10,4 +10,12 @@ router.route('/')
   .get(auth.required, applications.getApplications)
   .post(auth.required, applications.createApplication)
 
+router.route('/:applicationId/accept')
+  .post(auth.required, applications.acceptApplication)
+
+router.route('/:applicationId/reject')
+  .post(auth.required, applications.rejectApplication)
+
+router.param('applicationId', applications.applicationById)
+
 export default router

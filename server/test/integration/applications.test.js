@@ -8,6 +8,20 @@ test.beforeEach(beforeEach)
 test.afterEach.always(afterEach)
 test.after.always(after)
 
+test.serial('application routes require Authorization', async t => {
+  const { app } = t.context
+  const res1 = await request(app).get('/api/applications')
+  const res2 = await request(app).post('/api/applications')
+
+  t.is(res1.status, 401)
+  t.true(typeof res1.body === 'object')
+  t.is(res1.body.error.name, 'UnauthorizedError')
+
+  t.is(res2.status, 401)
+  t.true(typeof res2.body === 'object')
+  t.is(res2.body.error.name, 'UnauthorizedError')
+})
+
 test.serial('getApplications, all', async t => {
   const { app, applications, contactToken } = t.context
   const res = await request(app)
@@ -67,18 +81,26 @@ test.serial('createApplication', async t => {
   t.is(res.body.status, 'pending')
 })
 
-test.serial('createApplication, invalid token should throw UnauthorizedError', async t => {
-  const { app, projects: [project], volunteer } = t.context
-  const newApplication = {
-    volunteer,
-    project
-  }
+test.serial('acceptApplication', async t => {
+  const { app, applications, contactToken } = t.context
+  const pendingApplication = applications.find(app => app.status === 'pending')
   const res = await request(app)
-    .post('/api/applications')
-    .set('Authorization', 'Token invalid')
-    .send(newApplication)
+    .post(`/api/applications/${pendingApplication._id}/accept`)
+    .set('Authorization', `Token ${contactToken}`)
 
-  t.is(res.status, 401)
-  t.true(typeof res.body === 'object')
-  t.is(res.body.error.name, 'UnauthorizedError')
+  t.is(res.status, 200)
+  t.is(res.body.id, pendingApplication._id)
+  t.is(res.body.status, 'accepted')
+})
+
+test.serial('rejectApplication', async t => {
+  const { app, applications, contactToken } = t.context
+  const pendingApplication = applications.find(app => app.status === 'pending')
+  const res = await request(app)
+    .post(`/api/applications/${pendingApplication._id}/reject`)
+    .set('Authorization', `Token ${contactToken}`)
+
+  t.is(res.status, 200)
+  t.is(res.body.id, pendingApplication._id)
+  t.is(res.body.status, 'rejected')
 })
