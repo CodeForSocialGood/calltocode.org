@@ -1,6 +1,3 @@
-/**
- * Created by hhy615 on 1/19/18.
- */
 import {
   DISABLE_LOGIN,
   ENABLE_LOGIN

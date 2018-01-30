@@ -18,8 +18,7 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    var {login} = this.props
-    console.log('had been logged', login)
+    const {login} = this.props
 
     if (this.props.authenticated) {
       const authButtons = [
@@ -35,7 +34,7 @@ class Header extends Component {
         return authButtons
       }
     } else {
-      var buttons = [<Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>]
+      const buttons = [<Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>]
       if (login.enable) {
         buttons.push(<Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>)
       } else {

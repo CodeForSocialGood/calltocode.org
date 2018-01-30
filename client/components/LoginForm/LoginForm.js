@@ -50,21 +50,21 @@ class LoginForm extends Component {
   }
 
   onBlur(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       error: {...this.state.error, [event.target.name]: this.state[event.target.name].length === 0}
     })
   }
 
   handleChange(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({[event.target.name]: event.target.value})
   }
 
   enableOrDisableLogin() {
-    var email = this.state.email || '';
-    var password = this.state.password || '';
-    var {enableLogin, disableLogin} = this.props;
+    const email = this.state.email || '';
+    const password = this.state.password || '';
+    const {enableLogin, disableLogin} = this.props;
 
     if (!email.trim() || !password.trim()) {
       disableLogin();
@@ -76,8 +76,8 @@ class LoginForm extends Component {
 
 
   componentWillUnmount() {
-    var {enableLogin} = this.props;
-      enableLogin();
+    const {enableLogin} = this.props;
+    enableLogin();
   }
 
   render() {
