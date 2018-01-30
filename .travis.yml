@@ -27,6 +27,7 @@ before_install: npm install --global greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 
 script:
+- yarn install
 - yarn test
 - mongo --eval "db.getSiblingDB('admin').shutdownServer()"
 - NODE_ENV=ci yarn e2e

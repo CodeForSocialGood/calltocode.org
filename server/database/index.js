@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const database = {
+export default {
   _init (url, client = mongoose) {
     this.url = url
     this.client = client
@@ -17,5 +17,3 @@ const database = {
     })
   }
 }
-
-module.exports = database
