@@ -1,21 +1,21 @@
-const MongodbMemoryServer = require('mongodb-memory-server').default
-const mongoose = require('mongoose')
+import MongodbMemoryServer from 'mongodb-memory-server'
+import mongoose from 'mongoose'
 
-const app = require('../app')
-const Project = require('../database/models/Project')
-const User = require('../database/models/User')
-const seedProjects = require('../../.setup/db/seedData/projects.json')
-const seedUsers = require('../../.setup/db/seedData/users.json')
+import app from '../app'
+import Project from '../database/models/Project'
+import User from '../database/models/User'
+import seedProjects from '../../.setup/db/seedData/projects.json'
+import seedUsers from '../../.setup/db/seedData/users.json'
 
 const mongod = new MongodbMemoryServer()
 
-async function before (t) {
+export async function before (t) {
   const mongoUri = await mongod.getConnectionString()
   mongoose.Promise = global.Promise
   mongoose.connect(mongoUri)
 }
 
-async function beforeEach (t) {
+export async function beforeEach (t) {
   const projects = seedProjects.map(formatObjectIDs)
   await saveData(projects, Project)
   t.context.projects = projects
@@ -27,12 +27,12 @@ async function beforeEach (t) {
   t.context.app = app
 }
 
-async function afterEach (t) {
+export async function afterEach (t) {
   await Project.remove()
   await User.remove()
 }
 
-async function after (t) {
+export async function after (t) {
   mongoose.disconnect()
   mongod.stop()
 }
@@ -52,5 +52,3 @@ async function saveData (dataArr, Model) {
     await entity.save()
   }
 }
-
-module.exports = { before, beforeEach, afterEach, after }

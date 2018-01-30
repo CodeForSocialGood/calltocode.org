@@ -1,6 +1,6 @@
-const jwt = require('express-jwt')
+import jwt from 'express-jwt'
 
-const { authConfig } = require('../config')
+import { authConfig } from '../../config'
 
 function getTokenFromHeader (req) {
   if (req.headers.authorization) {
@@ -13,7 +13,7 @@ function getTokenFromHeader (req) {
   return null
 }
 
-const auth = {
+export default {
   required: jwt({
     getToken: getTokenFromHeader,
     secret: authConfig.jwtSigningKey,
@@ -26,5 +26,3 @@ const auth = {
     userProperty: 'payload'
   })
 }
-
-module.exports = auth

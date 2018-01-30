@@ -1,13 +1,19 @@
-const router = require('express').Router()
+import expressPromiseRouter from 'express-promise-router'
 
-const auth = require('../../middleware/auth')
-const projectsController = require('../controllers/projectsController')._init()
+import auth from '../../lib/middleware/auth'
+import _projects from '../controllers/projects'
+
+const router = expressPromiseRouter()
+const projects = _projects._init()
 
 router.route('/')
-  .get(auth.optional, projectsController.getProjects)
-  .post(projectsController.createProject)
+  .get(auth.optional, projects.getProjects)
+  .post(auth.optional, projects.createProject)
 
-router.route('/:project')
-  .get(auth.optional, projectsController.getProject)
+router.route('/:projectId')
+  .get(auth.optional, projects.getProject)
+  .put(auth.optional, projects.putProject)
 
-module.exports = router
+router.param('projectId', projects.projectById)
+
+export default router

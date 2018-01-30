@@ -1,8 +1,8 @@
-const path = require('path')
+import path from 'path'
 
-const bindFunctions = require('../../bindFunctions')
+import bindFunctions from '../../lib/bindFunctions'
 
-const indexController = {
+export default {
   _init (pathResolver = path) {
     bindFunctions(this)
 
@@ -14,5 +14,3 @@ const indexController = {
     res.sendFile(this.indexFilePath)
   }
 }
-
-module.exports = indexController
