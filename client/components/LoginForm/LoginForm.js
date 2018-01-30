@@ -74,6 +74,12 @@ class LoginForm extends Component {
     }
   }
 
+
+  componentWillUnmount() {
+    var {enableLogin} = this.props;
+      enableLogin();
+  }
+
   render() {
     const {classes} = this.props;
 
