@@ -16,7 +16,7 @@
     "start": "yarn db start && yarn email start && npm-run-all --parallel client:watch server:watch sync",
     "stop": "yarn db stop && yarn email stop",
     "restart": "yarn stop && yarn start",
-    "pretest": "yarn lint && yarn build",
+    "pretest": "yarn build",
     "test": "SILENT=true ava --verbose",
     "pree2e": "./e2e/pree2e.sh",
     "e2e": "nightwatch",
