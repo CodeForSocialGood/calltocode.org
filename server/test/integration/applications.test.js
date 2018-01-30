@@ -59,7 +59,7 @@ test.serial('createApplication', async t => {
   const res = await request(app)
     .post('/api/applications')
     .set('Authorization', `Token ${volunteerToken}`)
-    .send({ ...newApplication })
+    .send(newApplication)
 
   t.is(res.status, 200)
   t.is(res.body.volunteer, volunteer._id)
@@ -68,5 +68,17 @@ test.serial('createApplication', async t => {
 })
 
 test.serial('createApplication, invalid token should throw UnauthorizedError', async t => {
-  t.pass()
+  const { app, projects: [project], volunteer } = t.context
+  const newApplication = {
+    volunteer,
+    project
+  }
+  const res = await request(app)
+    .post('/api/applications')
+    .set('Authorization', 'Token invalid')
+    .send(newApplication)
+
+  t.is(res.status, 401)
+  t.true(typeof res.body === 'object')
+  t.is(res.body.error.name, 'UnauthorizedError')
 })
