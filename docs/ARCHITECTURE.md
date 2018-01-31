@@ -691,7 +691,7 @@ File: `lib/middleware/errorHandler.js`
 
 Imports: `logger.js`
 
-This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the routes to `next()` which is then caught by this middleware. An `err` parameter is added:
+This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the route controllers (or anywhere else) to `next()` which is then ran through this middleware. An `err` parameter is added and the errors can be dealt with in a general way:
 
 ```js
 export default function () {
