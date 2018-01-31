@@ -62,9 +62,9 @@ class LoginForm extends Component {
   }
 
   enableOrDisableLogin() {
-    const email = this.state.email || '';
-    const password = this.state.password || '';
-    const {enableLogin, disableLogin} = this.props;
+    const email = this.state.email || ''
+    const password = this.state.password || ''
+    const {enableLogin, disableLogin} = this.props
 
     if (!email.trim() || !password.trim()) {
       disableLogin();
@@ -76,14 +76,14 @@ class LoginForm extends Component {
 
 
   componentWillUnmount() {
-    const {enableLogin} = this.props;
-    enableLogin();
+    const {enableLogin} = this.props
+    enableLogin()
   }
 
   render() {
     const {classes} = this.props;
 
-    this.enableOrDisableLogin();
+    this.enableOrDisableLogin()
 
     return (
       <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
