@@ -1,8 +1,8 @@
-const test = require('ava')
-const request = require('supertest')
+import test from 'ava'
+import request from 'supertest'
 
-const { before, beforeEach, afterEach, after } = require('../util')
-const User = require('../../database/models/User')
+import { before, beforeEach, afterEach, after } from '../util'
+import User from '../../database/models/User'
 
 const generateSessionToken = User.schema.methods.generateSessionToken
 
@@ -42,7 +42,7 @@ test.serial('putCurrent, valid token', async t => {
   const res = await request(app)
     .put('/api/users/current')
     .set('Authorization', `Token ${token}`)
-    .send({ user: { email: updatedEmail } })
+    .send({ email: updatedEmail })
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
@@ -81,7 +81,7 @@ test.serial('signup, valid user', async t => {
   }
   const res = await request(app)
     .post('/api/users')
-    .send({ user })
+    .send(user)
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
@@ -110,4 +110,13 @@ test.serial('getUser', async t => {
   t.is(res.body.id, user._id)
   t.is(res.body.usertype, user.usertype)
   t.is(res.body.email, user.email)
+})
+
+test.serial('createCode', async t => {
+  const { app } = t.context
+  const res = await request(app)
+    .post('/api/users/password/code')
+    .send({ email: 'kevin@email.com' })
+
+  t.is(res.status, 200)
 })

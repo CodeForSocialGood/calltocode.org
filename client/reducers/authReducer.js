@@ -11,8 +11,10 @@ export default function (state = initialState.auth, action) {
 
     case LOGOUT:
       return initialState.auth
+
     case FAILED_LOGIN:
-      return { ...state, error: action.payload }
+      return { ...state, error: payload.message }
+
     default:
       return state
   }

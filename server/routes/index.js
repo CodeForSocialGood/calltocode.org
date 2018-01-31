@@ -1,8 +1,12 @@
-const router = require('express').Router()
+import express from 'express'
 
-const indexController = require('./controllers/indexController')._init()
+import api from './api'
+import _index from './controllers/index'
 
-router.use('/api', require('./api'))
-router.get('*', indexController.getIndexPage.bind(indexController))
+const router = express.Router()
+const index = _index._init()
 
-module.exports = router
+router.use('/api', api)
+router.get('*', index.getIndexPage)
+
+export default router

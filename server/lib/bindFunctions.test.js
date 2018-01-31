@@ -1,6 +1,6 @@
-const test = require('ava')
+import test from 'ava'
 
-const bindFunctions = require('./bindFunctions')
+import bindFunctions from './bindFunctions'
 
 test.beforeEach(t => {
   t.context.testMessage = 'test message'

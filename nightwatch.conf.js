@@ -7,7 +7,7 @@ require('nightwatch-cucumber')({
   nightwatchOutput: false,
   cucumberArgs: [
     '--compiler', 'js:babel-core/register',
-    '--require', 'e2e/hooks.js',
+    '--require', 'e2e/util/hooks.js',
     '--require', 'e2e/step_definitions',
     '--format', 'node_modules/cucumber-pretty',
     'e2e'

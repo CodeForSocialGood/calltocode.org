@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-set -exu -o pipefail
+set -x
+
+APP_PID=$(lsof -t -i:3000)
+if [ -n $APP_PID ]; then kill $APP_PID; fi
+
+set -eu -o pipefail
 
 # build image
 COMMIT_HASH=$(echo "${TRAVIS_COMMIT:0:7}")
