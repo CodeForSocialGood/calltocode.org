@@ -18,7 +18,7 @@ test.serial('getProjects, all', async t => {
   t.is(res.body.length, projects.length)
 })
 
-test.serial('getProjects, projectsAppliedFor filter', async t => {
+test.serial('getProjects, projectsAppliedFor query', async t => {
   const { app, projects: [one, two] } = t.context
   const projectsAppliedFor = [one._id, two._id]
   const res = await request(app)
@@ -34,7 +34,7 @@ test.serial('getProjects, projectsAppliedFor filter', async t => {
   }
 })
 
-test.serial('getProjects, origanization filter', async t => {
+test.serial('getProjects, origanization query', async t => {
   const { app } = t.context
   const organization = '5b165cb5202e8986f99ec5c0'
   const res = await request(app)

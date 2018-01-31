@@ -2,9 +2,6 @@ import test from 'ava'
 import request from 'supertest'
 
 import { before, beforeEach, afterEach, after } from '../util'
-import User from '../../database/models/User'
-
-const generateSessionToken = User.schema.methods.generateSessionToken
 
 test.before(before)
 test.beforeEach(beforeEach)
@@ -12,16 +9,15 @@ test.afterEach.always(afterEach)
 test.after.always(after)
 
 test.serial('getCurrent, valid token', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, volunteer, volunteerToken } = t.context
   const res = await request(app)
     .get('/api/users/current')
-    .set('Authorization', `Token ${token}`)
+    .set('Authorization', `Token ${volunteerToken}`)
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
-  t.is(res.body.id, user._id)
-  t.is(res.body.email, user.email)
+  t.is(res.body.id, volunteer._id)
+  t.is(res.body.email, volunteer.email)
 })
 
 test.serial('getCurrent, invalid token should error unauthorized', async t => {
@@ -36,17 +32,16 @@ test.serial('getCurrent, invalid token should error unauthorized', async t => {
 })
 
 test.serial('putCurrent, valid token', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, volunteer, volunteerToken } = t.context
   const updatedEmail = 'updatedEmail@email.com'
   const res = await request(app)
     .put('/api/users/current')
-    .set('Authorization', `Token ${token}`)
+    .set('Authorization', `Token ${volunteerToken}`)
     .send({ email: updatedEmail })
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
-  t.is(res.body.id, user._id)
+  t.is(res.body.id, volunteer._id)
   t.is(res.body.email, updatedEmail)
 })
 
@@ -100,11 +95,10 @@ test.serial('signup, invalid user should error', async t => {
 })
 
 test.serial('getUser', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, users: [user], volunteerToken } = t.context
   const res = await request(app)
     .get(`/api/users/${user._id}`)
-    .set('Authorization', `Token ${token}`)
+    .set('Authorization', `Token ${volunteerToken}`)
 
   t.is(res.status, 200)
   t.is(res.body.id, user._id)
