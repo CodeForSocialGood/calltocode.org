@@ -17,7 +17,7 @@ export default {
     const offset = Number(req.query.offset) || 0
     const sort = { createdAt: 'desc' }
 
-    const { volunteer, project } = req.query
+    const { volunteer, project, status } = req.query
 
     if (typeof volunteer !== 'undefined') {
       query.volunteer = volunteer
@@ -25,6 +25,10 @@ export default {
 
     if (typeof project !== 'undefined') {
       query.project = project
+    }
+
+    if (typeof status !== 'undefined') {
+      query.status = status
     }
 
     const applications = await this.Applications

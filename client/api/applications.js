@@ -1,13 +1,13 @@
 import apiRequest from './lib/apiRequest'
 
 const applicationsApiClient = {
-  getVolunteerApplications (apiOptions, volunteerId) {
-    const query = { volunteer: volunteerId }
+  getVolunteerApplications (apiOptions, volunteerId, status = 'pending') {
+    const query = { volunteer: volunteerId, status }
     return apiRequest.get('/projects', apiOptions, query)
   },
 
-  getProjectApplications (apiOptions, projectId) {
-    const query = { project: projectId }
+  getProjectApplications (apiOptions, projectId, status = 'pending') {
+    const query = { project: projectId, status }
     return apiRequest.get('/applications', apiOptions, query)
   },
 
