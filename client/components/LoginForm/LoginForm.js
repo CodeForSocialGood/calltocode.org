@@ -16,7 +16,7 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
 class LoginForm extends Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context)
     this.state = {
       email: '',
@@ -29,7 +29,7 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  async onSubmit(event) {
+  async onSubmit (event) {
     event.preventDefault()
     if (this.state.email.length === 0) {
       this.setState({
@@ -49,39 +49,37 @@ class LoginForm extends Component {
     }
   }
 
-  onBlur(event) {
+  onBlur (event) {
     event.preventDefault()
     this.setState({
       error: {...this.state.error, [event.target.name]: this.state[event.target.name].length === 0}
     })
   }
 
-  handleChange(event) {
+  handleChange (event) {
     event.preventDefault()
     this.setState({[event.target.name]: event.target.value})
   }
 
-  enableOrDisableLogin() {
+  enableOrDisableLogin () {
     const email = this.state.email || ''
     const password = this.state.password || ''
     const {enableLogin, disableLogin} = this.props
 
     if (!email.trim() || !password.trim()) {
-      disableLogin();
-    }
-    else {
-      enableLogin();
+      disableLogin()
+    } else {
+      enableLogin()
     }
   }
 
-
-  componentWillUnmount() {
+  componentWillUnmount () {
     const {enableLogin} = this.props
     enableLogin()
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes} = this.props
 
     this.enableOrDisableLogin()
 
