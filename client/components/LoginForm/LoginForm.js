@@ -78,7 +78,7 @@ class LoginForm extends Component {
     enableLogin()
   }
 
-  render() {
+  render () {
     const {classes} = this.props
 
     this.enableOrDisableLogin()
@@ -118,7 +118,7 @@ const mapDispatchToProps = {
   doLogin: AuthActionCreator.doLogin,
   enableLogin: HeaderActionCreator.enableLogin,
   disableLogin: HeaderActionCreator.disableLogin
-};
+}
 
 const mapStateToProps = (state) => {
   return {
