@@ -29,7 +29,7 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  async onSubmit (event) {
+  async onSubmit(event) {
     event.preventDefault()
     if (this.state.email.length === 0) {
       this.setState({
