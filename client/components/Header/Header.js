@@ -51,7 +51,6 @@ class Header extends Component {
   }
 
   render () {
-
     return (
       <div className={styles.headerRoot}>
         <AppBar position="static" color="inherit" elevation={0}>

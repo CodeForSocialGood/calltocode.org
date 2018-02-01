@@ -29,7 +29,7 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  async onSubmit(event) {
+  async onSubmit (event) {
     event.preventDefault()
     if (this.state.email.length === 0) {
       this.setState({
@@ -88,12 +88,12 @@ class LoginForm extends Component {
         <h1 className={styles.h1}>Login</h1>
 
         <TextField required id="email" error={this.state.error['email']} label="Email" type="text" fullWidth
-                   className={styles.inputEmail} name="email"
-                   onChange={this.handleChange} onBlur={this.onBlur}/>
+          className={styles.inputEmail} name="email"
+          onChange={this.handleChange} onBlur={this.onBlur}/>
 
         <TextField required id="password" error={this.state.error['password']} label="Password" type="password"
-                   fullWidth className={styles.inputPassword} name="password"
-                   onChange={this.handleChange} onBlur={this.onBlur}/>
+          fullWidth className={styles.inputPassword} name="password"
+          onChange={this.handleChange} onBlur={this.onBlur}/>
 
         <Button type="submit" raised className={classes.root} color="primary" fullWidth={true}>
           Submit
