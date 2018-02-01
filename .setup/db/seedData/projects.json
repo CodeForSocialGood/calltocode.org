@@ -5,6 +5,7 @@
 		"name": "Example Project #1",
 		"role": "Mary Org Role 1",
 		"email": "mary@email.com",
+		"causes": ["Animal"],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
@@ -16,6 +17,7 @@
 		"name": "Example Project #2",
 		"role": "Mary Org Role 2",
 		"email": "mary@email.com",
+		"causes": ["Environment"],
 		"applications": [
 			{ "$oid": "5a1658a0327c0286c39a1aaa" }
 		],
@@ -29,6 +31,7 @@
 		"name": "Example Project #3",
 		"role": "Role1",
 		"email": "1@email.com",
+		"causes": ["International NGO"],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
@@ -40,6 +43,7 @@
 		"name": "Example Project #4",
 		"role": "Role2",
 		"email": "2@email.com",
+		"causes": ["Health"],
 		"applications": [
 			{ "$oid": "5a1658a0327c0286c39a1aab" }
 		],
@@ -53,6 +57,7 @@
 		"name": "Example Project #5",
 		"role": "Role3",
 		"email": "3@email.com",
+		"causes": ["Education"],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
@@ -64,6 +69,7 @@
 		"name": "Example Project #6",
 		"role": "Role4",
 		"email": "4@email.com",
+		"causes": ["Arts & Culture"],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
@@ -75,6 +81,7 @@
 		"name": "Example Project #7",
 		"role": "Role5",
 		"email": "5@email.com",
+		"causes": ["Other"],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
@@ -86,6 +93,7 @@
 		"name": "Example Project #8",
 		"role": "Role6",
 		"email": "6@email.com",
+		"causes": [],
 		"applications": [],
 		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
