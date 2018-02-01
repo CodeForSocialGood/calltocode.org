@@ -31,7 +31,8 @@ class CreateProjectForm extends Component {
     this.renderCauses = this.renderCauses.bind(this)
     this.state = {
       error: '',
-      projectName: ''
+      projectName: '',
+      causes: []
     }
   }
   saveFile () {
@@ -44,7 +45,7 @@ class CreateProjectForm extends Component {
   }
 
   async createProject () {
-    const response = await projectsApiClient.createProject(this.state.projectName, this.props.user.organization)
+    const response = await projectsApiClient.createProject(this.state.projectName, this.state.causes, this.props.user.organization)
     if (response.status === 500) {
       this.setState({error: response.statusText})
     }
