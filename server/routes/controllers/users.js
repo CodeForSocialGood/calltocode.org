@@ -39,14 +39,10 @@ export default {
 
   async getUsers (req, res) {
     const query = {}
-    const limit = Number(req.query.limit) || 20
-    const offset = Number(req.query.offset) || 0
     const sort = { createdAt: 'desc' }
 
     const users = await this.Users
       .find(query)
-      .limit(limit)
-      .skip(offset)
       .sort(sort)
 
     return res.status(200).json(users.map(user => user.toJSON()))

@@ -17,8 +17,6 @@ export default {
 
   async getApplications (req, res) {
     const query = {}
-    const limit = Number(req.query.limit) || 5
-    const offset = Number(req.query.offset) || 0
     const sort = { createdAt: 'desc' }
 
     const { volunteer, project, status } = req.query
@@ -37,8 +35,6 @@ export default {
 
     const applications = await this.Applications
       .find(query)
-      .limit(limit)
-      .skip(offset)
       .sort(sort)
       .populate('project')
 
@@ -64,10 +60,7 @@ export default {
     if (usertype === 'contact') {
       const orgProjects = await this.Projects.find({ organization })
 
-      const query = {
-        project: { $in: orgProjects },
-        seenAt: { $exists: false }
-      }
+      const query = { project: { $in: orgProjects }, seenAt: { $exists: false } }
       const sort = { createdAt: 'desc' }
 
       const applications = await this.Applications

@@ -12,8 +12,6 @@ export default {
 
   async getProjects (req, res, next) {
     const query = {}
-    const limit = Number(req.query.limit) || 20
-    const offset = Number(req.query.offset) || 0
     const sort = { createdAt: 'desc' }
 
     const { projectsAppliedFor, organization } = req.query
@@ -28,8 +26,6 @@ export default {
 
     const projects = await this.Projects
       .find(query)
-      .limit(limit)
-      .skip(offset)
       .sort(sort)
 
     return res.status(200).json(projects.map(project => project.toJSON()))
