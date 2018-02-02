@@ -81,6 +81,28 @@ test.serial('createApplication', async t => {
   t.is(res.body.status, 'pending')
 })
 
+test.serial('getNotifications', async t => {
+  const { app, applications, projects, contact, contactToken } = t.context
+  const contactOrgProjects = projects
+    .filter(project => project.organization === contact.organization)
+  const contactOrgApplicationIds = contactOrgProjects
+    .reduce((apps, project) => apps.concat(project.applications), [])
+  const contactOrgApplications = applications
+    .filter(app => contactOrgApplicationIds.includes(app._id) && !app.seenAt)
+
+  const res = await request(app)
+    .get('/api/applications/notifications')
+    .set('Authorization', `Token ${contactToken}`)
+
+  t.is(res.status, 200)
+  t.is(res.body.length, contactOrgApplications.length)
+
+  for (const application of res.body) {
+    const inList = contactOrgApplications.some(a => a._id === application.id)
+    t.true(inList)
+  }
+})
+
 test.serial('acceptApplication', async t => {
   const { app, applications, contactToken } = t.context
   const pendingApplication = applications.find(app => app.status === 'pending')
