@@ -1,13 +1,17 @@
 import bindFunctions from '../../lib/bindFunctions'
 import ApplicationModel from '../../database/models/Application'
+import ProjectModel from '../../database/models/Project'
+import UserModel from '../../database/models/User'
 import mailer from '../../lib/mailer'
 import { NotFoundError } from '../../lib/errors'
 
 export default {
-  _init (Applications = ApplicationModel) {
+  _init (Applications = ApplicationModel, Projects = ProjectModel, Users = UserModel) {
     bindFunctions(this)
 
     this.Applications = Applications
+    this.Projects = Projects
+    this.Users = Users
     return this
   },
 
@@ -47,6 +51,33 @@ export default {
     await mailer.sendApplication(req.body.volunteer, req.body.project)
 
     return res.status(200).json(newApplication.toJSON())
+  },
+
+  async getNotifications (req, res) {
+    const id = req.payload.id
+    const user = await this.Users.findById(id)
+
+    if (!user) throw new NotFoundError()
+
+    const { usertype, organization } = user
+
+    if (usertype === 'contact') {
+      const orgProjects = await this.Projects.find({ organization })
+
+      const query = {
+        project: { $in: orgProjects },
+        seenAt: { $exists: false }
+      }
+      const sort = { createdAt: 'desc' }
+
+      const applications = await this.Applications
+        .find(query)
+        .sort(sort)
+
+      return res.status(200).json(applications.map(application => application.toJSON()))
+    }
+
+    return res.sendStatus(200)
   },
 
   async acceptApplication (req, res) {
