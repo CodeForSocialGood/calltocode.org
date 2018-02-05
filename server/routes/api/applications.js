@@ -10,6 +10,9 @@ router.route('/')
   .get(auth.required, applications.getApplications)
   .post(auth.required, applications.createApplication)
 
+router.route('/notifications')
+  .get(auth.required, applications.getNotifications)
+
 router.route('/:applicationId/accept')
   .post(auth.required, applications.acceptApplication)
 
