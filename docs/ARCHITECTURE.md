@@ -609,7 +609,7 @@ const UserSchema = mongoose.Schema({
   // ...
 }, { timestamps: true })
 
-const User = mongoose.model('User', UserSchema)
+export default mongoose.model('User', UserSchema)
 ```
 
 This model says that our users are going to have a required `usertype` whose value is required, can only be a string, and with value 'contact' or 'volunteer'. We also tell the model to automatically add timestamps, which gives our data auto-populated `createdAt` and `updatedAt` fields. We then register the model with `mongoose.model()`.
@@ -637,13 +637,13 @@ This function allows us to easily generate a token for a user when they login or
 
 ### Custom Middleware
 
-Files: `middleware/*.js`
+Files: `lib/middleware/*.js`
 
 Middleware are functions that we can pass server requests through. You can use this to set up logging (`morgan` does this), authenticate a user before you finish a request (`auth.js`) or add error handling to the end of the request (`errorHandler.js`).
 
 #### Auth Middleware
 
-File: `middleware/auth.js`
+File: `lib/middleware/auth.js`
 
 Imports: `express-jwt`, `config/authConfig.js`
 
@@ -680,21 +680,21 @@ export default {
 }
 ```
 
-- `auth.required` will require the user to be authenticated (logged in) for the request to succeed. If a user does not pass this authentication, the request will error with a 401 (unauthorized) status code.
-- `auth.optional` does not require the user to be authenticated (logged in) for the request to succeed, but is instead used to potentially enhance the data being returned.
+- `auth.required` will require the user to be authenticated (logged in) for the request to succeed. If a user does not pass this authentication, the request will throw an UnauthorizedError with a 401 status code.
+- `auth.optional` does not require the user to be authenticated (logged in) for the request to succeed, but is instead used to potentially enhance the data being returned by modifying the return data specific to the user.
 
 *Note: notice how `auth.required` and `auth.optional` both define a `userProperty: 'payload'`. This says that when the user is successfully authenticated, that the token will be parsed and any data that was signed into the token (user _id: `id`, and token expiration: `exp` in our case) will be added to the request object on its `payload` property. This will be explained more below.*
 
 #### Error Handler Middleware
 
-File: `middleware/errorHandler.js`
+File: `lib/middleware/errorHandler.js`
 
 Imports: `logger.js`
 
-This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the routes to `next()` which is then caught by this middleware. An `err` parameter is added:
+This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the route controllers (or anywhere else) to `next()` which is then ran through this middleware. An `err` parameter is added and the errors can be dealt with in a general way:
 
 ```js
-function errorHandler () {
+export default function () {
   return function (err, req, res, next) {
     logger.error(err)
 
@@ -734,15 +734,14 @@ This points the request to:
 
 File: `routes/api/index.js`
 
-Imports: `express`
+Imports: `express`, `./*.js`
 
-The file uses express router to further define our api endpoints:
+This file uses express router to further define our api endpoints:
 
 ```js
 const router = express.Router()
 
-router.use('/email', emailRoutes)
-router.use('/forgot-password', forgotPasswordRoutes)
+router.use('/applications', applicationsRoutes)
 router.use('/projects', projectsRoutes)
 router.use('/users', usersRoutes)
 
@@ -755,9 +754,9 @@ For example, the users endpoints are now accessible at `/api/users`, and are fur
 
 Files: `routes/api/*.js`
 
-Imports: `express`
+Imports: `expressPromiseRouter`, `../controllers/*.js`
 
-These files also use express router in order to once again further define our api endpoints and handle requests differently on each, for example in `routes/api/users.js`:
+These files use an express router wrapper (`expressPromiseRouter`) to once again further define our api endpoints and handle requests differently on each. For example in `routes/api/users.js`:
 
 ```js
 import auth from '../../lib/middleware/auth'
@@ -773,10 +772,10 @@ router.route('/current')
 export default router
 ```
 
-This is the end of the endpoint definition:
+These are the ends of these endpoint definitions:
 
-- A `GET` request on `/api/users/current` will end up here, pass through our `auth.required` token authentication, and if successful, use our usersController `getCurrent` property to interact with the database.
-- A `PUT` request on `/api/users/current` will do the same thing, except use the usersController `putCurrent` property.
+- A `GET` request on `/api/users/current` will end up here, pass through our `auth.required` token authentication, and if successful, use our `users` controller's `getCurrent` property to interact with the database.
+- A `PUT` request on `/api/users/current` will do the same thing, except use the `users` controller's `putCurrent` property.
 
 These properties are functions.
 
@@ -788,7 +787,7 @@ Imports: `database/models/*.js`
 
 ##### \_init
 
-You may have noticed that when we imported the usersController above, we also needed to call `._init()` on it:
+You may have noticed that when we imported the `users` controller above, we also needed to call `._init()` on it:
 
 ```js
 import _users from '../controllers/users'
@@ -796,7 +795,7 @@ import _users from '../controllers/users'
 const users = _users._init()
 ```
 
-This function is used to bind the controller's model and own functions to itself:
+This function is used to bind the controller's needed model(s) and own functions to itself:
 
 ```js
 export default {
@@ -810,7 +809,7 @@ export default {
 }
 ```
 
-This pattern allows us to easily mock the model in our controller unit tests.
+This pattern is repeated in all of the controllers and allows us to easily mock the model(s) in our controller unit tests.
 
 ##### Controller Implementations
 
@@ -819,26 +818,23 @@ The controller function implementations are where we interact with the database:
 ```js
 export default {
   // ...
-  getCurrent (req, res, next) {
+  async getCurrent (req, res) {
     const id = req.payload.id
+    const user = await this.Users.findById(id)
 
-    this.Users.findById(id).then(user => {
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' })
-      }
+    if (!user) throw new NotFoundError()
 
-      return res.status(200).json(user.toJSON())
-    }).catch(next)
+    return res.status(200).json(user.toJSON())
   },
   // ...
 }
 ```
 
-Recall how the `req.payload` is populated with the parsing of the authentication token, explained in the Auth Middleware section above. We then use the parsed `id` to `findById()` the user and return the data back to the client with `return res.status(200).json(user.toJSON())`.
+Recall how the `req.payload` is populated with the parsing of the authentication token, explained in the Auth Middleware section above. We then use the parsed `id` to `findById()` the current user and return the data back to the client with `return res.status(200).json(user.toJSON())`.
 
 Also recall how we are calling `user.toJSON()`. We can do this because the `toJSON ()` function is defined on the mongoose User model in the same way that `generateSessionToken ()` was.
 
-Lastly recall how we are using `.catch(next)` to catch any errors and forward them to `next` which passes everything to the error handler, as was mentioned above.
+Lastly recall how we are throwing a `NotFoundError` in the event that a user isn't found. The `expressPromiseRouter` mentioned earlier allows us to do this, as it handles the rejection and forwards it to `next` which passes to the error handler middleware. Any other errors thrown in the controller implementations (a failing query, etc.) are forwarded to the error handler in the same way.
 
 ### Public files
 
