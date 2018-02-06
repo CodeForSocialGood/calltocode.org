@@ -11,5 +11,8 @@ export default {
     fetching: false,
     projects: []
   },
-  users: {}
+  users: {},
+  login: {
+    enable: true
+  }
 }

@@ -1,6 +1,6 @@
 @import '../../scss/partials/partials';
 
-.header {
+.headerRoot {
   width: 100%;
   margin-bottom: 2px;
 
@@ -15,7 +15,15 @@
   }
 }
 
+.flex {
+  flex: 1;
+}
+
 .button {
+  padding: 10px;
+  margin-left: 10px;
+  color: dimgray;
+
   &.active, &:active {
     @extend %buttonActive;
   }
@@ -25,6 +33,7 @@
   }
 }
 
-.flex {
-  flex: 1;
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
 }
