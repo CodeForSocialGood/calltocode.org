@@ -28,13 +28,16 @@ class CreateProjectForm extends Component {
     this.createProject = this.createProject.bind(this)
     this.saveFile = this.saveFile.bind(this)
     this.projectNameChange = this.projectNameChange.bind(this)
+    this.handleCheckbox = this.handleCheckbox.bind(this)
     this.renderCauses = this.renderCauses.bind(this)
+
     this.state = {
       error: '',
       projectName: '',
       causes: []
     }
   }
+
   saveFile () {
     // TODO ... implement the save file
   }
@@ -51,11 +54,21 @@ class CreateProjectForm extends Component {
     }
   }
 
+  handleCheckbox (event, checked) {
+    const { causes } = this.state
+    const cause = event.target.value
+    this.setState({
+      causes: checked
+        ? [...causes, cause]
+        : causes.filter(c => c !== cause)
+    })
+  }
+
   renderCauses () {
     return causes.map((cause, index) => {
       return (
         <FormControlLabel key={index}
-          control={ <Checkbox value="checkedA" /> }
+          control={ <Checkbox value={cause} onChange={this.handleCheckbox} /> }
           label={cause}
         />
       )
