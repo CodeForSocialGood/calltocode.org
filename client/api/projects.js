@@ -15,13 +15,13 @@ const projectsApiClient = {
     return apiRequest.get('/projects', apiOptions, query)
   },
 
-  async createProject (name, causes, organization) {
+  async createProject (name, causes, technologies, organization) {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, causes, organization })
+      body: JSON.stringify({ name, causes, technologies, organization })
     }
     return fetch('/api/projects/', options)
   }
