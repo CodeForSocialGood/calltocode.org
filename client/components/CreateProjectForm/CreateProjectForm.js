@@ -24,7 +24,8 @@ class CreateProjectForm extends Component {
     this.state = {
       error: '',
       projectName: '',
-      causes: []
+      causes: [],
+      technologies: []
     }
   }
 
@@ -45,12 +46,14 @@ class CreateProjectForm extends Component {
   }
 
   handleCheckbox (event, checked) {
-    const { causes } = this.state
-    const cause = event.target.value
+    const value = event.target.value
+    const listName = causes.includes(value) ? 'causes' : 'technologies'
+    const list = this.state[listName]
+
     this.setState({
-      causes: checked
-        ? [...causes, cause]
-        : causes.filter(c => c !== cause)
+      [listName]: checked
+        ? [...list, value]
+        : list.filter(i => i !== value)
     })
   }
 
