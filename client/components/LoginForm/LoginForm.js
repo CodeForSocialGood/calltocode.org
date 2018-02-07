@@ -7,7 +7,7 @@ import AuthActionCreator from '../../actions/auth'
 import styles from './LoginForm.scss'
 import {buttonSubmit} from './loginFormJss'
 import {withStyles} from 'material-ui/styles'
-import HeaderActionCreator from '../../actions/header'
+import LoginActionCreator from '../../actions/header'
 
 /**
  * material ui components
@@ -80,6 +80,7 @@ class LoginForm extends Component {
 
   render () {
     const {classes} = this.props
+    const {login} = this.props
 
     this.enableOrDisableLogin()
 
@@ -116,8 +117,8 @@ class LoginForm extends Component {
 
 const mapDispatchToProps = {
   doLogin: AuthActionCreator.doLogin,
-  enableLogin: HeaderActionCreator.enableLogin,
-  disableLogin: HeaderActionCreator.disableLogin
+  enableLogin: LoginActionCreator.enableLogin,
+  disableLogin: LoginActionCreator.disableLogin
 }
 
 const mapStateToProps = (state) => {
