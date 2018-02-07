@@ -12,6 +12,10 @@ const ProjectSchema = mongoose.Schema({
     type: String,
     enum: ['Animal', 'Environment', 'International NGO', 'Health', 'Education', 'Arts & Culture', 'Other']
   }],
+  technologies: [{
+    type: String,
+    enum: ['JavaScript', 'Ruby', 'Java', 'Python', 'PHP', 'C++', 'Other']
+  }],
   applications: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Application'
@@ -26,6 +30,7 @@ ProjectSchema.methods.toJSON = function () {
     role: this.role,
     email: this.email,
     causes: this.causes,
+    technologies: this.technologies,
     applications: this.applications,
     createdAt: this.createdAt,
     updatedAt: this.updatedAt
