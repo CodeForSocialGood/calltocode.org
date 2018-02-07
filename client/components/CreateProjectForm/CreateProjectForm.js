@@ -22,7 +22,7 @@ const causes = [
   'Other'
 ]
 
-const techs = [
+const technologies = [
   'JavaScript',
   'Ruby',
   'Java',
@@ -78,7 +78,7 @@ class CreateProjectForm extends Component {
       return (
         <FormControlLabel key={index}
           control={ <Checkbox value={item} onChange={this.handleCheckbox} /> }
-          label={cause}
+          label={item}
         />
       )
     })
@@ -105,7 +105,7 @@ class CreateProjectForm extends Component {
 
         <FormLabel>Technologies</FormLabel>
         <FormGroup row>
-          {this.renderList(techs)}
+          {this.renderList(technologies)}
         </FormGroup>
 
         <Button type="submit" disabled={this.state.projectName.length === 0} raised className={classes.root} color="primary" fullWidth>
