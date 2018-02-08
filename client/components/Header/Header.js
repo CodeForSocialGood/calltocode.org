@@ -26,19 +26,19 @@ class Header extends Component {
       return (
         <Fragment>
           { user.usertype === 'contact' &&
-            <Button dense className={this.getLinkStyles('create-project')}
+            <Button className={this.getLinkStyles('create-project')}
               component={Link}
               to="/create-project">
               {'CREATE PROJECT'}
             </Button>
           }
-          <Button dense className={this.getLinkStyles()}
+          <Button className={this.getLinkStyles()}
             component={Link}
             to="/"
             onClick={this.props.logout}>
             {'LOGOUT'}
           </Button>
-          <Button dense className={this.getLinkStyles('profile')}
+          <Button className={this.getLinkStyles('profile')}
             component={Link}
             to="/profile">
             <Avatar>{user.email.charAt(0).toUpperCase()}</Avatar>
@@ -48,12 +48,12 @@ class Header extends Component {
     } else {
       return (
         <Fragment>
-          <Button dense className={this.getLinkStyles('signup')}
+          <Button className={this.getLinkStyles('signup')}
             component={Link}
             to="/signup">
             {'SIGN UP'}
           </Button>
-          <Button dense className={this.getLinkStyles('login')}
+          <Button className={this.getLinkStyles('login')}
             component={Link}
             to="/login">
             {'LOG IN'}
