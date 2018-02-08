@@ -32,12 +32,12 @@ class Header extends Component {
         return authButtons
       }
     } else {
-      return [
+      return (
         <div>
           <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>
           <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>
         </div>
-      ]
+      )
     }
   }
 
