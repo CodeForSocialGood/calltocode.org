@@ -1,2 +1,0 @@
-export const DISABLE_LOGIN = 'DISABLE_LOGIN'
-export const ENABLE_LOGIN = 'ENABLE_LOGIN'

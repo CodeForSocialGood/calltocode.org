@@ -7,7 +7,6 @@ import AuthActionCreator from '../../actions/auth'
 import styles from './LoginForm.scss'
 import {buttonSubmit} from './loginFormJss'
 import {withStyles} from 'material-ui/styles'
-import LoginActionCreator from '../../actions/header'
 
 /**
  * material ui components
@@ -40,13 +39,19 @@ class LoginForm extends Component {
         }
       })
     }
-    if (this.state.password.length === 0 || this.state.email.length === 0) {
-      return
-    }
+
     const loginRes = await this.props.doLogin(this.state.email, this.state.password)
     if (loginRes) {
       this.context.router.history.push('/')
     }
+  }
+
+  canBeSubmitted () {
+    const { email, password } = this.state
+    return (
+      email.length > 0 &&
+      password.length > 0
+    )
   }
 
   onBlur (event) {
@@ -61,28 +66,9 @@ class LoginForm extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  enableOrDisableLogin () {
-    const email = this.state.email || ''
-    const password = this.state.password || ''
-    const {enableLogin, disableLogin} = this.props
-
-    if (!email.trim() || !password.trim()) {
-      disableLogin()
-    } else {
-      enableLogin()
-    }
-  }
-
-  componentWillUnmount () {
-    const {enableLogin} = this.props
-    enableLogin()
-  }
-
   render () {
     const {classes} = this.props
-    const {login} = this.props
-
-    this.enableOrDisableLogin()
+    const isEnabled = this.canBeSubmitted()
 
     return (
       <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
@@ -96,7 +82,7 @@ class LoginForm extends Component {
           fullWidth className={styles.inputPassword} name="password"
           onChange={this.handleChange} onBlur={this.onBlur}/>
 
-        <Button type="submit" raised className={classes.root} color="primary" fullWidth={true}>
+        <Button type="submit" raised className={classes.root} color="primary" fullWidth={true} disabled={!isEnabled}>
           Submit
         </Button>
 
@@ -116,9 +102,7 @@ class LoginForm extends Component {
 }
 
 const mapDispatchToProps = {
-  doLogin: AuthActionCreator.doLogin,
-  enableLogin: LoginActionCreator.enableLogin,
-  disableLogin: LoginActionCreator.disableLogin
+  doLogin: AuthActionCreator.doLogin
 }
 
 const mapStateToProps = (state) => {
@@ -135,9 +119,7 @@ LoginForm.propTypes = {
   error: PropTypes.string,
   handleSubmit: PropTypes.func,
   doLogin: PropTypes.func,
-  classes: PropTypes.object,
-  enableLogin: PropTypes.func,
-  disableLogin: PropTypes.func
+  classes: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(buttonSubmit)(LoginForm))
