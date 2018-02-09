@@ -1,0 +1,17 @@
+.profilePage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 15px;
+  padding: 0 60px;
+}
+
+.profilePictureForm {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.listOfProjects {
+  grid-column: 2 / 4;
+  grid-row: 1 / 4;
+}
