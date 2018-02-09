@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
+import Button from 'material-ui/Button/Button'
 
 import VerticalAlignHelper from '../../shared/VerticalAlignHelper/VerticalAlignHelper'
 import UploadDropzone from '../../UploadDropzone/UploadDropzone'
@@ -14,6 +13,10 @@ class ProfilePictureForm extends Component {
     this.state = {
       showForm: false
     }
+  }
+
+  saveFile () {
+    // TODO ... implement the save file
   }
 
   uploadImage (values) {
@@ -29,24 +32,23 @@ class ProfilePictureForm extends Component {
   renderImageUpload (field) {
     return (
       <UploadDropzone className={styles.inputImageUpload}
-        saveFile={file => field.input.onChange(file)}
-        {...field.input} />
+        saveFile={this.saveFile.bind(this)} />
     )
   }
 
   renderForm () {
-    const { handleSubmit } = this.props
     return (
-      <form id="uploadProfilePictureForm" className={styles.form} onSubmit={handleSubmit(this.uploadImage.bind(this))}>
+      <form id="uploadProfilePictureForm" className={styles.form} onSubmit={this.uploadImage.bind(this)}>
 
-        <Field name="image"
-          component={this.renderImageUpload} />
+        {this.renderImageUpload()}
 
-        <button
+        <Button
           className={styles.buttonSubmit}
-          type="submit">
+          type="submit"
+          color="primary"
+          fullWidth >
           Save
-        </button>
+        </Button>
 
       </form>
     )
@@ -91,11 +93,7 @@ class ProfilePictureForm extends Component {
 }
 
 ProfilePictureForm.propTypes = {
-  user: PropTypes.object,
-  error: PropTypes.string,
-  handleSubmit: PropTypes.func
+  user: PropTypes.object
 }
 
-const ProfilePictureFormRedux = reduxForm({ form: 'ProfilePictureForm' })(ProfilePictureForm)
-
-export default connect(null, null)(ProfilePictureFormRedux)
+export default ProfilePictureForm

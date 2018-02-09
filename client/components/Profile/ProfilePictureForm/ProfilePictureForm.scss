@@ -53,6 +53,10 @@ $hoverTransition: opacity linear 100ms;
 
     .uploadNewButton {
       opacity: 1;
+
+      button:hover {
+        background-color: $primaryColor;
+      }
     }
   }
 }
