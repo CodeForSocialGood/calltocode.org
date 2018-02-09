@@ -17,7 +17,7 @@
 		"name": "Example Project #2",
 		"role": "Mary Org Role 2",
 		"email": "mary@email.com",
-		"causes": ["Environment"],
+		"causes": ["Environment", "Animal", "International NGO", "Health"],
 		"applications": [
 			{ "$oid": "5a1658a0327c0286c39a1aaa" }
 		],
