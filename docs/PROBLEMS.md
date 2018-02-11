@@ -79,7 +79,3 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 ## <a name="tests"></a> Test Errors
 
 General information about testing can be found in the [test docs](./TESTS.md).
-
-**Problem**: I tried to run the end-to-end (e2e) tests and they failed.
-
-**Solution**: Make sure the app is freshly running with `yarn restart` before you run the e2e tests in another terminal. If this isn't the issue, then it is possible you have introduced breaking changes that are causing them to fail.
