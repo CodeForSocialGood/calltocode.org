@@ -3,16 +3,14 @@ const { Given, Then, When } = require('cucumber')
 
 Given(/^I am logged out$/, async () => {
   const header = client.page.header()
-  await client.pause(250)
-  await header.expect.element('@loginButton').to.be.visible
-  await header.expect.element('@signupButton').to.be.visible
+  await header.waitForElementVisible('@loginButton', 2500)
+  await header.waitForElementVisible('@signupButton', 2500)
 })
 
 Given(/^I am logged in$/, async () => {
   const header = client.page.header()
-  await client.pause(250)
-  await header.expect.element('@loginButton').to.not.be.present
-  await header.expect.element('@signupButton').to.not.be.present
+  await header.waitForElementNotPresent('@loginButton', 2500)
+  await header.waitForElementNotPresent('@signupButton', 2500)
 })
 
 Given(/^I open the "(.*)" page$/, async selector => {
@@ -22,7 +20,7 @@ Given(/^I open the "(.*)" page$/, async selector => {
 
 Then(/^I am on the "(.*)" page$/, async selector => {
   const page = client.page[selector]()
-  await page.waitForElementVisible('@body', 1000)
+  await page.waitForElementVisible('@body', 2500)
   await client.assert.urlEquals(page.url)
 })
 
@@ -52,11 +50,13 @@ When(/^I apply to a project with the project details (.*?)$/, async name => {
 })
 
 Then(/^I do not see the project with the project details (.*?)$/, async name => {
-  const createProject = client.page.createProject()
-  await createProject.expect.element('@body').text.to.not.contain(name)
+  const profile = client.page.profile()
+  await profile.waitForElementPresent('@body', 2500)
+  await profile.expect.element('@body').text.to.not.contain(name)
 })
 
 Then(/^I see the project with the project details (.*?)$/, async name => {
-  const createProject = client.page.createProject()
-  await createProject.expect.element('@body').text.to.contain(name)
+  const profile = client.page.profile()
+  await profile.waitForElementPresent('@body', 2500)
+  await profile.expect.element('@body').text.to.contain(name)
 })
