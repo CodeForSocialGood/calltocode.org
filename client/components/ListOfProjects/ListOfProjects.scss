@@ -20,3 +20,15 @@
 .list {
   width: 100% !important;
 }
+
+.causesContainer {
+  display: inline-flex;
+  width: 100%;
+  overflow-x: scroll;
+  margin-bottom: -17px;
+}
+
+.cause {
+  margin-bottom: 70px;
+  margin-right: 5px;
+}
