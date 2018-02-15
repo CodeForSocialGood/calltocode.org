@@ -26,18 +26,25 @@ Then(/^I am on the "(.*)" page$/, async selector => {
 
 When(/^I click the "(.*)" header link$/, async selector => {
   const header = client.page.header()
-  await header.click(`@${selector}Button`)
+  const button = `@${selector}Button`
+  await header.waitForElementVisible(button, 2500)
+  await header.click(button)
 })
 
 When(/^I login with the login details (.*?) (.*?)$/, async (email, password) => {
   const login = client.page.login()
+  await login.waitForElementVisible('@loginForm', 2500)
+  await login.waitForElementVisible('@emailField', 2500)
   login.setValue('@emailField', email)
+  await login.waitForElementVisible('@passwordField', 2500)
   login.setValue('@passwordField', password)
   await login.submitForm('@loginForm')
 })
 
 When(/^I create a project with the project details (.*?)$/, async name => {
   const createProject = client.page.createProject()
+  await createProject.waitForElementVisible('@createProjectForm', 2500)
+  await createProject.waitForElementVisible('@nameField', 2500)
   createProject.setValue('@nameField', name)
   await createProject.submitForm('@createProjectForm')
 })
