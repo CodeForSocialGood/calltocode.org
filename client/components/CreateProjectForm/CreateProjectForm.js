@@ -11,26 +11,7 @@ import projectsApiClient from '../../api/projects'
 import UploadDropzone from '../UploadDropzone/UploadDropzone'
 import styles from './CreateProjectForm.scss'
 import { buttonSubmit } from './createProjectFormJss'
-
-const causes = [
-  'Animal',
-  'Environment',
-  'International NGO',
-  'Health',
-  'Education',
-  'Arts & Culture',
-  'Other'
-]
-
-const technologies = [
-  'JavaScript',
-  'Ruby',
-  'Java',
-  'Python',
-  'PHP',
-  'C++',
-  'Other'
-]
+import { causes, technologies } from '../shared/constants'
 
 class CreateProjectForm extends Component {
   constructor (props, context) {
