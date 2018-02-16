@@ -1,0 +1,94 @@
+@import "../../scss/partials/partials";
+
+$black: #000;
+$bottom-red: #ff3e3e;
+$text-red: #ea4c2d;
+$top-red: #e74e2b;
+$white: #fff;
+
+.container {
+  background: linear-gradient($top-red, $bottom-red);
+  height: 100vh;
+  left: 0;
+  padding: 40px 50px;
+  position: absolute;
+  right: 0;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  height: 43px;
+  justify-content: space-between;
+}
+
+.navLink {
+  margin: 0 10px;
+
+  span {
+    color: $white;
+    font-size: 14px;
+    letter-spacing: 2.3px;
+  }
+}
+
+a.navButton {
+  background: $white;
+  border-radius: 49.5px;
+  margin: 0 10px;
+  padding: 13px 28px;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: $white;
+  }
+
+  span {
+    color: $text-red;
+    font-size: 14px;
+    letter-spacing: 2.3px;
+  }
+}
+
+.hero {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 131px 55px 0;
+}
+
+.heroLeft {
+  flex-basis: 553px;
+}
+
+.heroRight {
+  flex-basis: 1;
+}
+
+.heroHeader {
+  color: $white;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 74px;
+  margin-bottom: 40px;
+}
+
+a.heroButton {
+  background: $white;
+  border-radius: 49.5px;
+  padding: 23px 52px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+
+  span {
+    color: $black;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2.4px;
+  }
+}
