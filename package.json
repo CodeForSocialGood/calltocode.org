@@ -73,7 +73,9 @@
     "sendmail": "^1.2.0",
     "style-loader": "^0.20.0",
     "url-loader": "^0.6.2",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "devDependencies": {
     "ava": "^0.25.0",
@@ -98,9 +100,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "selenium-server": "^3.8.1",
     "sinon": "^4.0.0",
-    "supertest": "^3.0.0",
-    "webpack-bundle-analyzer": "^2.9.2",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "supertest": "^3.0.0"
   },
   "ava": {
     "files": [
