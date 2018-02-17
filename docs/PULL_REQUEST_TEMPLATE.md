@@ -10,17 +10,21 @@
 - [ ] Your pull request targets the `master` branch of calltocode.org
 - [ ] Your branch is updated with the latest changes on `master`
 - [ ] Your branch passes linting, building and all new and existing tests with command `yarn test`
+- [ ] Your branch passes the end-to-end tests with command `yarn e2e`
 - [ ] The story that this pull request addresses is referenced above by ID
 
 #### Post-Submission Checklist:
 <!-- After creating the pull request, tick the boxes below that are completed -->
 <!-- Make sure you keep up with your pull request after submission until it is merged: -->
 
-- [ ] Address any reviews on your pull request, as it will not be merged until it is approved
 - [ ] Your branch has no conflicts with `master` (find this out at the bottom of your pull request)
+- [ ] Address any reviews on your pull request, as it will be unable to be merged until it is approved
 
 #### Description of Changes:
 <!-- Put a description of your changes here -->
+
+#### TODO:
+<!-- Put any TODO's here -->
 
 <!-- LINKS:
 Contributing guidelines: https://github.com/CodeForSocialGood/calltocode.org/blob/master/docs/CONTRIBUTING.md

@@ -11,16 +11,7 @@ import projectsApiClient from '../../api/projects'
 import UploadDropzone from '../UploadDropzone/UploadDropzone'
 import styles from './CreateProjectForm.scss'
 import { buttonSubmit } from './createProjectFormJss'
-
-const causes = [
-  'Animal',
-  'Environment',
-  'International NGO',
-  'Health',
-  'Education',
-  'Arts & Culture',
-  'Other'
-]
+import { causes, technologies } from '../shared/constants'
 
 class CreateProjectForm extends Component {
   constructor (props, context) {
@@ -29,8 +20,7 @@ class CreateProjectForm extends Component {
     this.saveFile = this.saveFile.bind(this)
     this.projectNameChange = this.projectNameChange.bind(this)
     this.handleCheckbox = this.handleCheckbox.bind(this)
-    this.renderCauses = this.renderCauses.bind(this)
-
+    this.renderList = this.renderList.bind(this)
     this.state = {
       error: '',
       projectName: '',
@@ -64,12 +54,12 @@ class CreateProjectForm extends Component {
     })
   }
 
-  renderCauses () {
-    return causes.map((cause, index) => {
+  renderList (items) {
+    return items.map((item, index) => {
       return (
         <FormControlLabel key={index}
-          control={ <Checkbox value={cause} onChange={this.handleCheckbox} /> }
-          label={cause}
+          control={ <Checkbox value={item} onChange={this.handleCheckbox} /> }
+          label={item}
         />
       )
     })
@@ -91,7 +81,12 @@ class CreateProjectForm extends Component {
 
         <FormLabel>Causes</FormLabel>
         <FormGroup row>
-          {this.renderCauses()}
+          {this.renderList(causes)}
+        </FormGroup>
+
+        <FormLabel>Technologies</FormLabel>
+        <FormGroup row>
+          {this.renderList(technologies)}
         </FormGroup>
 
         <Button type="submit" disabled={this.state.projectName.length === 0} raised className={classes.root} color="primary" fullWidth>
