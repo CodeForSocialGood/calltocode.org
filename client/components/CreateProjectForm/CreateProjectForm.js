@@ -48,6 +48,8 @@ class CreateProjectForm extends Component {
     )
     if (response.status === 500) {
       this.setState({error: response.statusText})
+    } else {
+      this.context.router.history.push('/profile')
     }
   }
 
@@ -101,13 +103,12 @@ class CreateProjectForm extends Component {
         <Button type="submit" disabled={this.state.projectName.length === 0} raised className={classes.root} color="primary" fullWidth>
         Create Project
         </Button>
-        
+
         {this.state.error &&
           <div className={styles.errorContent}>
             {this.state.error}
           </div>
         }
-
       </form>
     )
   }
@@ -118,6 +119,10 @@ function mapStateToProps (state) {
     projects: state.project.projects,
     user: state.user
   }
+}
+
+CreateProjectForm.contextTypes = {
+  router: PropTypes.object
 }
 
 CreateProjectForm.propTypes = {
