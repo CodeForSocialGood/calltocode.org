@@ -16,4 +16,17 @@ export default class ApplicationActionCreator {
       }
     }
   }
+  static createApplication (project, user) {
+    return (dispatch, getState) => {
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const applicationToCreate = { project: project.id, volunteer: user.id }
+        const application = applicationsApiClient.createApplication(apiOptions, applicationToCreate)
+        dispatch({type: actionTypes.CREATE_APPLICATION_SUCCESS, payload: application})
+      } catch (error) {
+        dispatch({type: actionTypes.CREATE_APPLICATION_ERROR, payload: error, error: true})
+      }
+    }
+  }
 }

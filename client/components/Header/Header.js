@@ -16,6 +16,17 @@ class Header extends Component {
 
     this.renderHeaderButtons = this.renderHeaderButtons.bind(this)
     this.getLinkStyles = this.getLinkStyles.bind(this)
+    this.renderNotificationBadge = this.renderNotificationBadge.bind(this)
+  }
+
+  renderNotificationBadge () {
+    const { applications } = this.props
+    return applications && applications.applications.length > 0 &&
+    <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
+      <Badge badgeContent={applications.applications.length} color="primary" >
+        <span className={styles.applicationBadgeText}> APPLICATIONS</span>
+      </Badge>
+    </Link>
   }
 
   renderHeaderButtons () {
@@ -27,8 +38,7 @@ class Header extends Component {
       ]
       if (this.props.user.usertype === 'contact') {
         return [
-          applications && applications.applications.length > 0 &&
-          <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}> <Badge badgeContent={applications.applications.length} color="primary" /></Link>,
+          this.renderNotificationBadge(),
           <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
           ...authButtons
         ]
