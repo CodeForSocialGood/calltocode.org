@@ -30,7 +30,6 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
-    const { applications } = this.props
     if (this.props.authenticated) {
       const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
