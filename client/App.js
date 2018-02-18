@@ -6,7 +6,6 @@ import Loadable from 'react-loadable'
 
 import Loading from './components/Loading/Loading'
 import AuthActionCreator from './actions/auth'
-import CreateProjectForm from './components/CreateProjectForm/CreateProjectForm'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
@@ -22,6 +21,11 @@ const ProfileRestrictedLoadable = restricted(Loadable({
   loading: Loading
 }))
 
+const CreateProjectRestrictedLoadable = restricted(Loadable({
+  loader: () => import('./components/CreateProjectForm/CreateProjectForm'),
+  loading: Loading
+}))
+
 class App extends Component {
   componentDidMount () {
     this.props.appLoad()
@@ -34,7 +38,7 @@ class App extends Component {
         <Version />
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/create-project' component={CreateProjectForm}/>
+          <Route path='/create-project' component={CreateProjectRestrictedLoadable}/>
           <Route path='/forgot-password' component={ForgotPasswordForm}/>
           <Route path='/login' component={LoginForm}/>
           <Route path='/profile' component={ProfileRestrictedLoadable}/>
