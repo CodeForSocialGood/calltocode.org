@@ -24,7 +24,7 @@ class Header extends Component {
     return applications && applications.applications.length > 0 &&
     <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
       <Badge badgeContent={applications.applications.length} color="primary" >
-        <span className={styles.applicationBadgeText}> APPLICATIONS</span>
+        <span className={styles.applicationBadgeText}>APPLICATIONS</span>
       </Badge>
     </Link>
   }
