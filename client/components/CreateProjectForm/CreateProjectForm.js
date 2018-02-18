@@ -38,7 +38,8 @@ class CreateProjectForm extends Component {
     this.setState({projectName: event.target.value})
   }
 
-  async createProject () {
+  async createProject (event) {
+    event.preventDefault()
     const response = await projectsApiClient.createProject(
       this.state.projectName,
       this.state.causes,
@@ -100,6 +101,12 @@ class CreateProjectForm extends Component {
         <Button type="submit" disabled={this.state.projectName.length === 0} raised className={classes.root} color="primary" fullWidth>
         Create Project
         </Button>
+        
+        {this.state.error &&
+          <div className={styles.errorContent}>
+            {this.state.error}
+          </div>
+        }
 
       </form>
     )
