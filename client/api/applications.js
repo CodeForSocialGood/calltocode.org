@@ -22,6 +22,10 @@ const applicationsApiClient = {
 
   rejectApplication (apiOptions, applicationId) {
     return apiRequest.post(`/applications/${applicationId}/reject`, apiOptions)
+  },
+
+  getNotifications (apiOptions) {
+    return apiRequest.get('/applications/notifications', apiOptions)
   }
 }
 

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Badge from 'material-ui/Badge'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
@@ -18,6 +19,7 @@ class Header extends Component {
   }
 
   renderHeaderButtons () {
+    const { applications } = this.props
     if (this.props.authenticated) {
       const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
@@ -25,6 +27,8 @@ class Header extends Component {
       ]
       if (this.props.user.usertype === 'contact') {
         return [
+          applications && applications.applications.length > 0 &&
+          <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}> <Badge badgeContent={applications.applications.length} color="primary" /></Link>,
           <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
           ...authButtons
         ]
@@ -65,6 +69,7 @@ class Header extends Component {
 
 function mapStateToProps (state) {
   return {
+    applications: state.application,
     authenticated: state.auth.authenticated,
     currentPage: state.routing.location.pathname,
     user: state.user,
@@ -81,7 +86,12 @@ Header.propTypes = {
   currentPage: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  login: PropTypes.object
+  login: PropTypes.object,
+  applications: PropTypes.shape({
+    applications: PropTypes.array,
+    fetching: PropTypes.bool
+  })
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

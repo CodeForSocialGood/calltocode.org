@@ -11,5 +11,9 @@ export default {
     fetching: false,
     projects: []
   },
-  users: {}
+  users: {},
+  applications: {
+    fetching: false,
+    applications: []
+  }
 }
