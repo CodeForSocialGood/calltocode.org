@@ -4,7 +4,7 @@ import map from '../../images/map.png'
 import { callToCodeEfforts } from '../shared/constants'
 
 /**
- * callToCodeEfforts constants should be removed once the API to
+ * TODO: callToCodeEfforts constants should be removed once the API to
  * get the efforts are implemented
  */
 class LandingC extends Component {
