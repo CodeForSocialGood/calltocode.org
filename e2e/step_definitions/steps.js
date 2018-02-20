@@ -50,20 +50,18 @@ When(/^I create a project with the project details (.*?)$/, async name => {
 })
 
 When(/^I apply to a project with the project details (.*?)$/, async name => {
-  const home = client.page.home()
-  await home.expect.element('@body').text.to.contain(name)
-  await client.useXpath().click(`//div[text()="${name}"]`)
-  await client.pause(250) // Need this pause for some reason
+  const selector = `//div[text()="${name}"]`
+  await client.useXpath().waitForElementVisible(selector, 2500)
+  await client.useXpath().click(selector)
+  await client.pause(1250) // Need this pause for some reason
 })
 
 Then(/^I do not see the project with the project details (.*?)$/, async name => {
-  const profile = client.page.profile()
-  await profile.waitForElementPresent('@body', 2500)
-  await profile.expect.element('@body').text.to.not.contain(name)
+  const selector = `//div[text()="${name}"]`
+  await client.useXpath().waitForElementNotPresent(selector, 2500)
 })
 
 Then(/^I see the project with the project details (.*?)$/, async name => {
-  const profile = client.page.profile()
-  await profile.waitForElementPresent('@body', 2500)
-  await profile.expect.element('@body').text.to.contain(name)
+  const selector = `//div[text()="${name}"]`
+  await client.useXpath().waitForElementVisible(selector, 2500)
 })
