@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Avatar from 'material-ui/Avatar'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
@@ -21,7 +22,13 @@ class Header extends Component {
     if (this.props.authenticated) {
       const authButtons = [
         <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
-        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>PROFILE</Link>
+        (
+          <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>
+            <Avatar
+              src={this.props.user.profilePicture || require('../../images/profile-image.jpg')} >
+            </Avatar>
+          </Link>
+        )
       ]
       if (this.props.user.usertype === 'contact') {
         return [
