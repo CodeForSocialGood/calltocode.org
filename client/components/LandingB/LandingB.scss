@@ -1,0 +1,64 @@
+@import "../../scss/partials/partials";
+
+$black: #000;
+$bottom-red: #ff3e3e;
+$text-red: #ea4c2d;
+$top-red: #e74e2b;
+$white: #fff;
+
+.landingPageHeading {
+  position: relative;
+  text-align: center;
+  padding-bottom: 30px;
+  line-height: 2.33;
+  letter-spacing: normal;
+  font-size: 30px;
+}
+
+.imgContainer1 {
+  position: absolute;
+  height: 60px;
+  width: 240;
+  left: 498px;
+  display: inline-block;
+}
+
+.imgContainer2 {
+  position: absolute;
+  height: 60px;
+  width: 240;
+  left: 730px;
+  display: inline-block;
+}
+
+.mainimage1{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: auto;
+}
+
+/* Centered text */
+.centeredText1 {
+  position: absolute;
+  text-align:left;
+  z-index: 100;
+  color: white;
+  left: 70px;
+  bottom: 20px;
+  font: Gotham-Bold;
+  font-size:13.8px;
+  letter-spacing:2.8px;
+}
+
+.centeredText2 {
+  position: absolute;
+  text-align:left;
+  z-index: 100;
+  color: black;
+  left: 40px;
+  bottom: 20px;
+  font: Gotham-Bold;
+  font-size:13.8px;
+  letter-spacing:2.8px;
+}
