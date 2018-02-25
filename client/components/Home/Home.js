@@ -50,6 +50,21 @@ class Home extends Component {
   }
 
   render () {
+    const filteredProjects = this.props.projects.filter(project => {
+      let matched = true
+      this.state.filters.causes.forEach(cause => {
+        if (!project.causes.includes(cause)) {
+          matched = false
+        }
+      })
+      this.state.filters.technologies.forEach(technology => {
+        if (!project.technologies.includes(technology)) {
+          matched = false
+        }
+      })
+      return matched
+    })
+
     return (
       <Fragment>
         <section className={styles.filterSection}>
@@ -67,7 +82,7 @@ class Home extends Component {
 
         <ListOfProjects
           title={'Click To Apply'}
-          projects={this.props.projects} />
+          projects={filteredProjects} />
       </Fragment>
     )
   }
