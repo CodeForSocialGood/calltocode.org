@@ -4,10 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HardSourcePlugin = require('hard-source-webpack-plugin')
-// allow us to visualise our bundles and optimise
+/* allow us to visualise our bundles and optimise
 const Visualizer = require('webpack-visualizer-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-//
+*/
 
 const env = require('./.setup/client/env')
 const clientDir = path.join(__dirname, 'client')
