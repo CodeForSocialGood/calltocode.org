@@ -15,7 +15,10 @@ class Home extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.renderList = this.renderList.bind(this)
     this.state = {
-      filters: {}
+      filters: {
+        causes: [],
+        technologies: []
+      }
     }
   }
 
@@ -24,7 +27,15 @@ class Home extends Component {
   }
 
   handleCheckbox (event, checked) {
-    console.log(event.target.name, event.target.value, checked)
+    const filters = this.state.filters
+    const index = this.state.filters[event.target.name].indexOf(event.target.value)
+    if (index === -1) {
+      filters[event.target.name].push(event.target.value)
+      this.setState({ filters })
+    } else {
+      filters[event.target.name].splice(index, 1)
+      this.setState({ filters })
+    }
   }
 
   renderList (items, type) {
