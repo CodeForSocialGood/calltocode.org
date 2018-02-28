@@ -24,7 +24,8 @@ class CreateProjectForm extends Component {
     this.state = {
       error: '',
       projectName: '',
-      causes: []
+      causes: [],
+      technologies: []
     }
   }
 
@@ -37,20 +38,30 @@ class CreateProjectForm extends Component {
     this.setState({projectName: event.target.value})
   }
 
-  async createProject () {
-    const response = await projectsApiClient.createProject(this.state.projectName, this.state.causes, this.props.user.organization)
+  async createProject (event) {
+    event.preventDefault()
+    const response = await projectsApiClient.createProject(
+      this.state.projectName,
+      this.state.causes,
+      this.state.technologies,
+      this.props.user.organization
+    )
     if (response.status === 500) {
       this.setState({error: response.statusText})
+    } else {
+      this.context.router.history.push('/profile')
     }
   }
 
   handleCheckbox (event, checked) {
-    const { causes } = this.state
-    const cause = event.target.value
+    const value = event.target.value
+    const listName = causes.includes(value) ? 'causes' : 'technologies'
+    const list = this.state[listName]
+
     this.setState({
-      causes: checked
-        ? [...causes, cause]
-        : causes.filter(c => c !== cause)
+      [listName]: checked
+        ? [...list, value]
+        : list.filter(i => i !== value)
     })
   }
 
@@ -93,6 +104,11 @@ class CreateProjectForm extends Component {
         Create Project
         </Button>
 
+        {this.state.error &&
+          <div className={styles.errorContent}>
+            {this.state.error}
+          </div>
+        }
       </form>
     )
   }
@@ -103,6 +119,10 @@ function mapStateToProps (state) {
     projects: state.project.projects,
     user: state.user
   }
+}
+
+CreateProjectForm.contextTypes = {
+  router: PropTypes.object
 }
 
 CreateProjectForm.propTypes = {
