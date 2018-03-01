@@ -28,7 +28,7 @@ class Header extends Component {
     const { applications } = this.props
     return applications &&
     <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
-      {applications.applications.length > 0 ? <Badge badgeContent={applications.applications.length} color="primary" >
+      {applications.notSeenCounter > 0 ? <Badge badgeContent={applications.notSeenCounter} color="primary" >
         <span className={styles.applicationBadgeText}>APPLICATIONS</span>
       </Badge> : <span className={styles.applicationBadgeText}>APPLICATIONS</span>}
     </Link>
@@ -104,7 +104,8 @@ Header.propTypes = {
   login: PropTypes.object,
   applications: PropTypes.shape({
     applications: PropTypes.any,
-    fetching: PropTypes.bool
+    fetching: PropTypes.bool,
+    notSeenCounter: PropTypes.number
   }),
   getNotifications: PropTypes.func
 

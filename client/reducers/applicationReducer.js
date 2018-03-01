@@ -6,12 +6,11 @@ export default function (state = initialState.applications, action) {
     case actionTypes.FETCH_NOTIFICATIONS_START:
       return { ...state, fetching: true }
     case actionTypes.FETCH_NOTIFICATIONS_SUCCESS:
-      return { ...state, fetching: false, applications: action.payload }
+      return { ...state, fetching: false, applications: action.payload, notSeenCounter: action.payload.length }
     case actionTypes.FETCH_NOTIFICATIONS_ERROR:
       return { ...state, fetching: false }
     case actionTypes.MARK_AS_SEEN_SUCCESS:
-      const applications = state.applications.filter(application => application.id !== action.payload.id)
-      return {...state, applications}
+      return {...state, notSeenCounter: (state.notSeenCounter - 1)}
     default: return state
   }
 }

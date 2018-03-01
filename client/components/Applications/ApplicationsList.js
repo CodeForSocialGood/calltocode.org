@@ -19,10 +19,13 @@ class ApplicationsList extends Component {
       })
     }
   }
-
+  renderApplicationInfo (application) {
+    return (<div> Volunteer email: {application.volunteer.email} - Project name: {application.project.name} </div>)
+  }
   render () {
     return (
-      <h1>test</h1>)
+      Array.isArray(this.props.applications) && this.props.applications.map(this.renderApplicationInfo)
+    )
   }
 }
 

@@ -14,6 +14,7 @@ export default {
   users: {},
   applications: {
     fetching: false,
-    applications: []
+    applications: [],
+    notSeenCounter: 0
   }
 }
