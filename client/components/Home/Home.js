@@ -5,7 +5,6 @@ import Checkbox from 'material-ui/Checkbox'
 import { FormGroup, FormLabel, FormControlLabel } from 'material-ui/Form'
 
 import ProjectActionCreator from '../../actions/project'
-import ApplicationActionCreator from '../../actions/application'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 import styles from './Home.scss'
 import { causes, technologies } from '../shared/constants'
@@ -22,7 +21,6 @@ class Home extends Component {
 
   componentDidMount () {
     this.props.onLoad()
-    this.props.getNotifications()
   }
 
   handleCheckbox (event, checked) {
@@ -71,14 +69,14 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  onLoad: ProjectActionCreator.fetchAllProjects,
-  getNotifications: ApplicationActionCreator.getNotifications
+  onLoad: ProjectActionCreator.fetchAllProjects
+
 }
 
 Home.propTypes = {
   onLoad: PropTypes.func,
-  projects: PropTypes.array,
-  getNotifications: PropTypes.func
+  projects: PropTypes.array
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

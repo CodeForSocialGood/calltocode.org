@@ -9,6 +9,7 @@ import Badge from 'material-ui/Badge'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
+import ApplicationActionCreator from '../../actions/application'
 
 class Header extends Component {
   constructor (props) {
@@ -19,13 +20,17 @@ class Header extends Component {
     this.renderNotificationBadge = this.renderNotificationBadge.bind(this)
   }
 
+  componentDidMount () {
+    this.props.getNotifications()
+  }
+
   renderNotificationBadge () {
     const { applications } = this.props
-    return applications && applications.applications.length > 0 &&
+    return applications &&
     <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
-      <Badge badgeContent={applications.applications.length} color="primary" >
+      {applications.applications.length > 0 ? <Badge badgeContent={applications.applications.length} color="primary" >
         <span className={styles.applicationBadgeText}>APPLICATIONS</span>
-      </Badge>
+      </Badge> : <span className={styles.applicationBadgeText}>APPLICATIONS</span>}
     </Link>
   }
 
@@ -87,7 +92,8 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  logout: AuthActionCreator.logout
+  logout: AuthActionCreator.logout,
+  getNotifications: ApplicationActionCreator.getNotifications
 }
 
 Header.propTypes = {
@@ -97,9 +103,10 @@ Header.propTypes = {
   user: PropTypes.object.isRequired,
   login: PropTypes.object,
   applications: PropTypes.shape({
-    applications: PropTypes.array,
+    applications: PropTypes.any,
     fetching: PropTypes.bool
-  })
+  }),
+  getNotifications: PropTypes.func
 
 }
 

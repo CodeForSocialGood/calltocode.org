@@ -65,6 +65,8 @@ export default {
 
       const applications = await this.Applications
         .find(query)
+        .populate('project', 'name')
+        .populate('volunteer', 'email')
         .sort(sort)
 
       return res.status(200).json(applications.map(application => application.toJSON()))
@@ -85,6 +87,14 @@ export default {
     const application = req.application
 
     await application.reject()
+
+    return res.status(200).json(application.toJSON())
+  },
+
+  async markAsSeenApplication (req, res) {
+    const application = req.application
+
+    await application.markAsSeen()
 
     return res.status(200).json(application.toJSON())
   },

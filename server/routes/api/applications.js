@@ -19,6 +19,9 @@ router.route('/:applicationId/accept')
 router.route('/:applicationId/reject')
   .post(auth.required, applications.rejectApplication)
 
+router.route('/:applicationId/markAsSeen')
+  .post(auth.required, applications.markAsSeenApplication)
+
 router.param('applicationId', applications.applicationById)
 
 export default router

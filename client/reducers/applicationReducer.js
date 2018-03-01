@@ -9,6 +9,9 @@ export default function (state = initialState.applications, action) {
       return { ...state, fetching: false, applications: action.payload }
     case actionTypes.FETCH_NOTIFICATIONS_ERROR:
       return { ...state, fetching: false }
+    case actionTypes.MARK_AS_SEEN_SUCCESS:
+      const applications = state.applications.filter(application => application.id !== action.payload.id)
+      return {...state, applications}
     default: return state
   }
 }

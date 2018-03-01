@@ -26,6 +26,10 @@ const applicationsApiClient = {
 
   getNotifications (apiOptions) {
     return apiRequest.get('/applications/notifications', apiOptions)
+  },
+
+  markAsSeenApplication (apiOptions, applicationId) {
+    return apiRequest.post(`/applications/${applicationId}/markAsSeen`, apiOptions)
   }
 }
 

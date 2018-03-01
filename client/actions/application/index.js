@@ -16,6 +16,20 @@ export default class ApplicationActionCreator {
       }
     }
   }
+
+  static markAsSeen (applicationId) {
+    return (dispatch, getState) => {
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const application = applicationsApiClient.markAsSeenApplication(apiOptions, applicationId)
+        dispatch({type: actionTypes.MARK_AS_SEEN_SUCCESS, payload: application})
+      } catch (error) {
+        dispatch({type: actionTypes.MARK_AS_SEEN_ERROR, payload: error, error: true})
+      }
+    }
+  }
+
   static createApplication (project, user) {
     return (dispatch, getState) => {
       try {
