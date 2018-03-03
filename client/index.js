@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createHistory from 'history/createBrowserHistory'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
@@ -16,6 +16,7 @@ import './scss/main.scss'
 import App from './App'
 import reducers from './reducers'
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const browserHistory = createHistory()
 const navigationMiddleware = routerMiddleware(browserHistory)
 const loggerMiddleware = createLogger({
@@ -27,12 +28,14 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
-  applyMiddleware(
-    navigationMiddleware,
-    loggerMiddleware,
-    promiseMiddleware,
-    thunkMiddleware,
-    localStorageMiddleware
+  composeEnhancers(
+    applyMiddleware(
+      navigationMiddleware,
+      loggerMiddleware,
+      promiseMiddleware,
+      thunkMiddleware,
+      localStorageMiddleware
+    )
   )
 )
 
