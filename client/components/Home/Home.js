@@ -72,11 +72,13 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   onLoad: ProjectActionCreator.fetchAllProjects
+
 }
 
 Home.propTypes = {
   onLoad: PropTypes.func,
   projects: PropTypes.array
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

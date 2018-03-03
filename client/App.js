@@ -27,6 +27,11 @@ const CreateProjectRestrictedLoadable = restricted(Loadable({
   loading: Loading
 }))
 
+const ApplicationsRestrictedLoadable = restricted(Loadable({
+  loader: () => import('./components/Applications/ApplicationsList'),
+  loading: Loading
+}))
+
 class App extends Component {
   componentDidMount () {
     this.props.appLoad()
@@ -46,6 +51,7 @@ class App extends Component {
           <Route path='/signup' component={SignupForm}/>
           <Route path='/landing-a' component={LandingA} />
           <Route path='/landing-c' component={LandingC} />
+          <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
         </Switch>
       </div>
     )
