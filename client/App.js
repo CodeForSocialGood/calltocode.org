@@ -15,7 +15,6 @@ import SignupForm from './components/SignupForm/SignupForm'
 import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
-import ApplicationsList from './components/Applications/ApplicationsList'
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
