@@ -18,12 +18,19 @@ class Home extends Component {
       filters: {
         causes: [],
         technologies: []
-      }
+      },
+      filteredProjects: props.projects
     }
   }
 
   componentDidMount () {
     this.props.onLoad()
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (this.props.projects !== nextProps.projects) {
+      this.setState({filteredProjects: nextProps.projects})
+    }
   }
 
   handleCheckbox (event, checked) {
@@ -36,20 +43,6 @@ class Home extends Component {
       filters[event.target.name].splice(index, 1)
       this.setState({ filters })
     }
-  }
-
-  renderList (items, type) {
-    return items.map((item, index) => {
-      return (
-        <FormControlLabel key={index}
-          control={ <Checkbox name={type} value={item} onChange={this.handleCheckbox} /> }
-          label={item}
-        />
-      )
-    })
-  }
-
-  render () {
     const filteredProjects = this.props.projects.filter(project => {
       let matched = true
       this.state.filters.causes.forEach(cause => {
@@ -64,7 +57,21 @@ class Home extends Component {
       })
       return matched
     })
+    this.setState({ filteredProjects })
+  }
 
+  renderList (items, type) {
+    return items.map((item, index) => {
+      return (
+        <FormControlLabel key={index}
+          control={ <Checkbox name={type} value={item} onChange={this.handleCheckbox} /> }
+          label={item}
+        />
+      )
+    })
+  }
+
+  render () {
     return (
       <Fragment>
         <section className={styles.filterSection}>
@@ -82,7 +89,9 @@ class Home extends Component {
 
         <ListOfProjects
           title={'Click To Apply'}
-          projects={filteredProjects} />
+          projects={this.state.filteredProjects}
+          className={styles.projectList}
+        />
       </Fragment>
     )
   }
