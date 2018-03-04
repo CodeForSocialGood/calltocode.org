@@ -41,5 +41,9 @@ ApplicationSchema.methods.reject = function () {
   this.status = 'rejected'
   return this.save()
 }
+ApplicationSchema.methods.markAsSeen = function () {
+  this.seenAt = Date.now()
+  return this.save()
+}
 
 export default mongoose.model('Application', ApplicationSchema)

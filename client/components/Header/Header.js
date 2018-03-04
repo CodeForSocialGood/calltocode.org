@@ -5,9 +5,11 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Badge from 'material-ui/Badge'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
+import ApplicationActionCreator from '../../actions/application'
 
 class Header extends Component {
   constructor (props) {
@@ -15,6 +17,21 @@ class Header extends Component {
 
     this.renderHeaderButtons = this.renderHeaderButtons.bind(this)
     this.getLinkStyles = this.getLinkStyles.bind(this)
+    this.renderNotificationBadge = this.renderNotificationBadge.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.getNotifications()
+  }
+
+  renderNotificationBadge () {
+    const { applications } = this.props
+    return applications &&
+    <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
+      {applications.notSeenCounter > 0 ? <Badge badgeContent={applications.notSeenCounter} color="primary" >
+        <span className={styles.applicationBadgeText}>APPLICATIONS</span>
+      </Badge> : <span className={styles.applicationBadgeText}>APPLICATIONS</span>}
+    </Link>
   }
 
   renderHeaderButtons () {
@@ -25,6 +42,7 @@ class Header extends Component {
       ]
       if (this.props.user.usertype === 'contact') {
         return [
+          this.renderNotificationBadge(),
           <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
           ...authButtons
         ]
@@ -65,6 +83,7 @@ class Header extends Component {
 
 function mapStateToProps (state) {
   return {
+    applications: state.application,
     authenticated: state.auth.authenticated,
     currentPage: state.routing.location.pathname,
     user: state.user,
@@ -73,7 +92,8 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  logout: AuthActionCreator.logout
+  logout: AuthActionCreator.logout,
+  getNotifications: ApplicationActionCreator.getNotifications
 }
 
 Header.propTypes = {
@@ -81,7 +101,14 @@ Header.propTypes = {
   currentPage: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  login: PropTypes.object
+  login: PropTypes.object,
+  applications: PropTypes.shape({
+    applications: PropTypes.any,
+    fetching: PropTypes.bool,
+    notSeenCounter: PropTypes.number
+  }),
+  getNotifications: PropTypes.func
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

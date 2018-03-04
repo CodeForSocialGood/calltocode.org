@@ -40,6 +40,7 @@ Feature: Smoke Tests
     And I do not see the project with the project details <name>
     When I click the "home" header link
     Then I am on the "home" page
+    And I see the project with the project details <name>
     When I apply to a project with the project details <name>
     And I click the "profile" header link
     Then I am on the "profile" page

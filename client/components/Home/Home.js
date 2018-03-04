@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Checkbox from 'material-ui/Checkbox'
@@ -66,6 +66,7 @@ class Home extends Component {
         <FormControlLabel key={index}
           control={ <Checkbox name={type} value={item} onChange={this.handleCheckbox} /> }
           label={item}
+          className={styles.checkBoxes}
         />
       )
     })
@@ -73,16 +74,15 @@ class Home extends Component {
 
   render () {
     return (
-      <Fragment>
+      <div className={styles.homeGrid}>
         <section className={styles.filterSection}>
-          <h1>{'Filters'}</h1>
-          <FormLabel>Causes</FormLabel>
-          <FormGroup row>
+          <span className={styles.filterTitle}><h1>{'Filters'}</h1></span>
+          <FormLabel className={styles.causeTitle}>Causes</FormLabel>
+          <FormGroup column className={styles.causesList}>
             { this.renderList(causes, 'causes') }
           </FormGroup>
-
-          <FormLabel>Technologies</FormLabel>
-          <FormGroup row>
+          <FormLabel className={styles.techTitle}>Tech</FormLabel>
+          <FormGroup column className={styles.techList}>
             { this.renderList(technologies, 'technologies') }
           </FormGroup>
         </section>
@@ -92,7 +92,7 @@ class Home extends Component {
           projects={this.state.filteredProjects}
           className={styles.projectList}
         />
-      </Fragment>
+      </div>
     )
   }
 }
@@ -105,11 +105,13 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   onLoad: ProjectActionCreator.fetchAllProjects
+
 }
 
 Home.propTypes = {
   onLoad: PropTypes.func,
   projects: PropTypes.array
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
