@@ -33,29 +33,24 @@ class Home extends Component {
     }
   }
 
+  projectContainsCause (project) {
+    return this.state.filters.causes.length === 0 || this.state.filters.causes.some(cause => project.causes.indexOf(cause) >= 0)
+  }
+  projectContainsTech (project) {
+    return this.state.filters.technologies.length === 0 || this.state.filters.technologies.some(tech => project.technologies.indexOf(tech) >= 0)
+  }
+
   handleCheckbox (event, checked) {
     const filters = this.state.filters
     const index = this.state.filters[event.target.name].indexOf(event.target.value)
     if (index === -1) {
       filters[event.target.name].push(event.target.value)
-      this.setState({ filters })
     } else {
       filters[event.target.name].splice(index, 1)
-      this.setState({ filters })
     }
+    this.setState({ filters })
     const filteredProjects = this.props.projects.filter(project => {
-      let matched = true
-      this.state.filters.causes.forEach(cause => {
-        if (!project.causes.includes(cause)) {
-          matched = false
-        }
-      })
-      this.state.filters.technologies.forEach(technology => {
-        if (!project.technologies.includes(technology)) {
-          matched = false
-        }
-      })
-      return matched
+      return this.projectContainsCause(project) && this.projectContainsTech(project)
     })
     this.setState({ filteredProjects })
   }
