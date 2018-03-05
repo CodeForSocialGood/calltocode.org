@@ -1,0 +1,57 @@
+@import "../../scss/partials/partials";
+
+.container {
+  left: 0;
+  padding: 20px 20px;
+  position: absolute;
+  right: 0;
+}
+
+.header {
+  object-fit: contain;
+  font-family: Gotham;
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.projectSection {
+}
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.viewAllContainer {
+  position: relative;
+}
+
+a.viewAll {
+  @include centerer;
+  margin-top: 100px;
+  border-radius: 1.2px;
+  background: #ed4b2f;
+  padding: 23px 52px;
+  box-shadow: 0 5px 96px 0 rgba(0, 0, 0, 0.1);
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: #ed4b2f;
+  }
+
+  span {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+}
