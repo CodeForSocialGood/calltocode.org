@@ -15,7 +15,11 @@ class Home extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.renderList = this.renderList.bind(this)
     this.state = {
-      filters: {}
+      filters: {
+        causes: [],
+        technologies: []
+      },
+      filteredProjects: props.projects
     }
   }
 
@@ -23,8 +27,32 @@ class Home extends Component {
     this.props.onLoad()
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    if (this.props.projects !== nextProps.projects) {
+      this.setState({filteredProjects: nextProps.projects})
+    }
+  }
+
+  projectContainsCause (project) {
+    return this.state.filters.causes.length === 0 || this.state.filters.causes.some(cause => project.causes.indexOf(cause) >= 0)
+  }
+  projectContainsTech (project) {
+    return this.state.filters.technologies.length === 0 || this.state.filters.technologies.some(tech => project.technologies.indexOf(tech) >= 0)
+  }
+
   handleCheckbox (event, checked) {
-    console.log(event.target.name, event.target.value, checked)
+    const filters = this.state.filters
+    const index = this.state.filters[event.target.name].indexOf(event.target.value)
+    if (index === -1) {
+      filters[event.target.name].push(event.target.value)
+    } else {
+      filters[event.target.name].splice(index, 1)
+    }
+    this.setState({ filters })
+    const filteredProjects = this.props.projects.filter(project => {
+      return this.projectContainsCause(project) && this.projectContainsTech(project)
+    })
+    this.setState({ filteredProjects })
   }
 
   renderList (items, type) {
@@ -56,7 +84,7 @@ class Home extends Component {
 
         <ListOfProjects
           title={'Click To Apply'}
-          projects={this.props.projects}
+          projects={this.state.filteredProjects}
           className={styles.projectList}
         />
       </div>
