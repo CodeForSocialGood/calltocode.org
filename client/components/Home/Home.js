@@ -83,7 +83,7 @@ class Home extends Component {
         </section>
 
         <ListOfProjects
-          title={'Click To Apply'}
+          title={'Find Projects'}
           projects={this.state.filteredProjects}
           className={styles.projectList}
         />
