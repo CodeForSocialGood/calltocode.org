@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Checkbox from 'material-ui/Checkbox'
@@ -15,7 +15,11 @@ class Home extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.renderList = this.renderList.bind(this)
     this.state = {
-      filters: {}
+      filters: {
+        causes: [],
+        technologies: []
+      },
+      filteredProjects: props.projects
     }
   }
 
@@ -23,8 +27,32 @@ class Home extends Component {
     this.props.onLoad()
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    if (this.props.projects !== nextProps.projects) {
+      this.setState({filteredProjects: nextProps.projects})
+    }
+  }
+
+  projectContainsCause (project) {
+    return this.state.filters.causes.length === 0 || this.state.filters.causes.some(cause => project.causes.indexOf(cause) >= 0)
+  }
+  projectContainsTech (project) {
+    return this.state.filters.technologies.length === 0 || this.state.filters.technologies.some(tech => project.technologies.indexOf(tech) >= 0)
+  }
+
   handleCheckbox (event, checked) {
-    console.log(event.target.name, event.target.value, checked)
+    const filters = this.state.filters
+    const index = this.state.filters[event.target.name].indexOf(event.target.value)
+    if (index === -1) {
+      filters[event.target.name].push(event.target.value)
+    } else {
+      filters[event.target.name].splice(index, 1)
+    }
+    this.setState({ filters })
+    const filteredProjects = this.props.projects.filter(project => {
+      return this.projectContainsCause(project) && this.projectContainsTech(project)
+    })
+    this.setState({ filteredProjects })
   }
 
   renderList (items, type) {
@@ -33,6 +61,7 @@ class Home extends Component {
         <FormControlLabel key={index}
           control={ <Checkbox name={type} value={item} onChange={this.handleCheckbox} /> }
           label={item}
+          className={styles.checkBoxes}
         />
       )
     })
@@ -40,24 +69,25 @@ class Home extends Component {
 
   render () {
     return (
-      <Fragment>
+      <div className={styles.homeGrid}>
         <section className={styles.filterSection}>
-          <h1>{'Filters'}</h1>
-          <FormLabel>Causes</FormLabel>
-          <FormGroup row>
+          <span className={styles.filterTitle}><h1>{'Filters'}</h1></span>
+          <FormLabel className={styles.causeTitle}>Causes</FormLabel>
+          <FormGroup column className={styles.causesList}>
             { this.renderList(causes, 'causes') }
           </FormGroup>
-
-          <FormLabel>Technologies</FormLabel>
-          <FormGroup row>
+          <FormLabel className={styles.techTitle}>Tech</FormLabel>
+          <FormGroup column className={styles.techList}>
             { this.renderList(technologies, 'technologies') }
           </FormGroup>
         </section>
 
         <ListOfProjects
           title={'Click To Apply'}
-          projects={this.props.projects} />
-      </Fragment>
+          projects={this.state.filteredProjects}
+          className={styles.projectList}
+        />
+      </div>
     )
   }
 }
@@ -70,11 +100,13 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   onLoad: ProjectActionCreator.fetchAllProjects
+
 }
 
 Home.propTypes = {
   onLoad: PropTypes.func,
   projects: PropTypes.array
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
