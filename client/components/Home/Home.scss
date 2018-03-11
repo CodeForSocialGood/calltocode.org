@@ -1,8 +1,11 @@
+@import '../../scss/partials/partials';
+
 $titleBarColor: #f5f5f5;
 $titleBarRadius: 200px;
 $fontColor: #4b4c4d;
 
 .homeGrid {
+	background-color: $background-gray;
 	display: grid;
 	margin-left: -150px;
 	grid-template-columns: auto 85%;//
