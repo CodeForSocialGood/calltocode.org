@@ -48,7 +48,7 @@ class ListOfProjects extends Component {
   render () {
     return (
       <section className={styles.projectListSection}>
-        <h1>{this.props.title}</h1>
+        <h1 className={styles.title}>{this.props.title}</h1>
 
         <div className={styles.listContainer}>
           <GridList className={styles.list} cellHeight={'auto'} cols={3} spacing={8}>
