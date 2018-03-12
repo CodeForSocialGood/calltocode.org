@@ -75,7 +75,8 @@
     "url-loader": "^1.0.0",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.2",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "webpack-visualizer-plugin": "^0.1.11",
+    "file-loader": "^1.1.6"
   },
   "devDependencies": {
     "ava": "^0.25.0",
@@ -90,7 +91,6 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^3.0.1",
-    "file-loader": "^1.1.6",
     "geckodriver": "^1.10.0",
     "ignore-styles": "^5.0.1",
     "mongodb-memory-server": "^1.6.3",
