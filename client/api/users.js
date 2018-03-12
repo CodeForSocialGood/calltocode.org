@@ -7,30 +7,18 @@ const usersApiClient = {
     return apiRequest.get('/users/current', apiOptions)
   },
 
-  update (apiOptions, user) {
-    const body = { user }
+  update (apiOptions, fields) {
+    const body = { ...fields }
     return apiRequest.put('/users/current', apiOptions, body)
   },
 
-  // TODO: use apiRequest and get apiOptions through params (calling of
-  // usersApiClient.login needs to be moved to AuthActionCreator)
-  async login (email, password) {
-    const apiOptions = { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, origin: '/api', token: '' }
-
+  async login (apiOptions, email, password) {
     const query = { email }
-    const { salt } = await apiRequest.get('/users/getSalt', apiOptions, query)
+    const { salt } = await apiRequest.get('/users/salt', apiOptions, query)
     const hash = bcrypt.hashSync(password, salt)
 
     const body = { email, hash }
-    // return apiRequest.post('/users/login', apiOptions, body)
-
-    const options = {
-      method: 'POST',
-      headers: apiOptions.headers,
-      body: JSON.stringify(body)
-    }
-
-    return fetch('/api/users/login', options)
+    return apiRequest.post('/users/login', apiOptions, body)
   },
 
   signup (apiOptions, user) {
@@ -38,8 +26,22 @@ const usersApiClient = {
     const salt = bcrypt.genSaltSync(saltRounds)
     const hash = bcrypt.hashSync(user.password, salt)
 
-    const body = { user: { ...user, salt, hash } }
+    const body = { ...user, salt, hash }
     return apiRequest.post('/users', apiOptions, body)
+  },
+
+  applyForProject (apiOptions, projectId) {
+    return apiRequest.post(`/users/apply/${projectId}`, apiOptions)
+  },
+
+  createCode (apiOptions, email) {
+    const body = { email }
+    return apiRequest.post('/users/password/code', apiOptions, body)
+  },
+
+  validateCode (apiOptions, email, code) {
+    const body = { email, code }
+    return apiRequest.post('/users/password/code/validate', apiOptions, body)
   },
 
   changePassword (email, password) {
@@ -52,7 +54,7 @@ const usersApiClient = {
       body: JSON.stringify({ email, salt, hash })
     }
 
-    return fetch('/api/users/new-password', options)
+    return fetch('/api/users/password', options)
   }
 }
 

@@ -6,6 +6,17 @@ services:
 - docker
 - mongodb
 
+addons:
+  chrome: stable
+
+install:
+- wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip -P ~/
+- unzip ~/chromedriver_linux64.zip -d ~/
+- rm ~/chromedriver_linux64.zip
+- sudo mv -f ~/chromedriver /usr/local/share/
+- sudo chmod +x /usr/local/share/chromedriver
+- sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+
 branches:
   only:
   - master
@@ -16,7 +27,10 @@ before_install: npm install --global greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 
 script:
+- yarn install
 - yarn test
+- mongo --eval "db.getSiblingDB('admin').shutdownServer()"
+- NODE_ENV=ci yarn e2e
 
 after_script: greenkeeper-lockfile-upload
 

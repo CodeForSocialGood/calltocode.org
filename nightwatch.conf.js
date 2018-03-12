@@ -7,17 +7,17 @@ require('nightwatch-cucumber')({
   nightwatchOutput: false,
   cucumberArgs: [
     '--compiler', 'js:babel-core/register',
-    '--require', 'client/test/e2e/hooks.js',
-    '--require', 'client/test/e2e/step_definitions',
+    '--require', 'e2e/util/hooks.js',
+    '--require', 'e2e/step_definitions',
     '--format', 'node_modules/cucumber-pretty',
-    'client/test/e2e'
+    'e2e'
   ]
 })
 
-module.exports = {
+const config = {
   output_folder: 'reports',
   custom_assertions_path: '',
-  page_objects_path: 'client/test/e2e/page_objects',
+  page_objects_path: 'e2e/page_objects',
   live_output: false,
   disable_colors: false,
   selenium: {
@@ -28,17 +28,6 @@ module.exports = {
     port: 4444
   },
   test_settings: {
-    default: {
-      launch_url: 'http://localhost:8087',
-      selenium_port: 4444,
-      selenium_host: '127.0.0.1',
-      desiredCapabilities: {
-        browserName: 'phantomjs',
-        javascriptEnabled: true,
-        acceptSslCerts: true,
-        'phantomjs.binary.path': phantomjs.path
-      }
-    },
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome',
@@ -65,3 +54,35 @@ module.exports = {
     }
   }
 }
+
+if (process.env.NODE_ENV === 'ci') {
+  config.test_settings.default = {
+    desiredCapabilities: {
+      browserName: 'chrome',
+      javascriptEnabled: true,
+      acceptSslCerts: true,
+      chromeOptions: {
+        args: [
+          'headless',
+          'disable-web-security',
+          'ignore-certificate-errors',
+          'disable-gpu'
+        ]
+      }
+    }
+  }
+} else {
+  config.test_settings.default = {
+    launch_url: 'http://localhost:8087',
+    selenium_port: 4444,
+    selenium_host: '127.0.0.1',
+    desiredCapabilities: {
+      browserName: 'phantomjs',
+      javascriptEnabled: true,
+      acceptSslCerts: true,
+      'phantomjs.binary.path': phantomjs.path
+    }
+  }
+}
+
+module.exports = config

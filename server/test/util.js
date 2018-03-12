@@ -1,49 +1,86 @@
-const MongodbMemoryServer = require('mongodb-memory-server').default
-const mongoose = require('mongoose')
+import MongodbMemoryServer from 'mongodb-memory-server'
+import mongoose from 'mongoose'
 
-const app = require('../app')
-const Project = require('../database/models/Project')
-const User = require('../database/models/User')
-const seedProjects = require('../../.setup/db/seedData/projects.json')
-const seedUsers = require('../../.setup/db/seedData/users.json')
+import app from '../app'
+import Application from '../database/models/Application'
+import Project from '../database/models/Project'
+import User from '../database/models/User'
+import seedApplications from '../../.setup/db/seedData/applications.json'
+import seedProjects from '../../.setup/db/seedData/projects.json'
+import seedUsers from '../../.setup/db/seedData/users.json'
 
 const mongod = new MongodbMemoryServer()
+const generateSessionToken = User.schema.methods.generateSessionToken
 
-async function before (t) {
+export async function before (t) {
   const mongoUri = await mongod.getConnectionString()
   mongoose.Promise = global.Promise
   mongoose.connect(mongoUri)
 }
 
-async function beforeEach (t) {
-  const projects = seedProjects.map(formatObjectIDs)
+export async function beforeEach (t) {
+  const applications = seedApplications.map(formatData)
+  await saveData(applications, Application)
+  t.context.applications = applications
+
+  const projects = seedProjects.map(formatData)
   await saveData(projects, Project)
   t.context.projects = projects
 
-  const users = seedUsers.map(formatObjectIDs)
+  const users = seedUsers.map(formatData)
   await saveData(users, User)
   t.context.users = users
+
+  const contact = users.find(user => user.usertype === 'contact')
+  t.context.contact = contact
+  t.context.contactToken = generateSessionToken.call(contact)
+
+  const volunteer = users.find(user => user.usertype === 'volunteer')
+  t.context.volunteer = volunteer
+  t.context.volunteerToken = generateSessionToken.call(volunteer)
 
   t.context.app = app
 }
 
-async function afterEach (t) {
+export async function afterEach (t) {
+  await Application.remove()
   await Project.remove()
   await User.remove()
 }
 
-async function after (t) {
+export async function after (t) {
   mongoose.disconnect()
   mongod.stop()
 }
 
-function formatObjectIDs (data) {
-  const newData = {}
+function formatData (data) {
+  const copy = {}
 
+  for (const prop in data) {
+    let val = data[prop]
+
+    if (Array.isArray(val)) {
+      for (const index in val) val[index] = formatValue(val[index])
+    } else if (typeof val === 'object') {
+      val = formatValue(val)
+    }
+
+    copy[prop] = val
+  }
+
+  return copy
+}
+
+function formatValue (value) {
   const oid = '$oid'
-  for (const prop in data) newData[prop] = data[prop][oid] ? data[prop][oid] : data[prop]
+  const date = '$date'
 
-  return newData
+  // Format ObjectId
+  if (value[oid]) return value[oid]
+  // Format ISODate
+  if (value[date]) return value[date]
+
+  return value
 }
 
 async function saveData (dataArr, Model) {
@@ -52,5 +89,3 @@ async function saveData (dataArr, Model) {
     await entity.save()
   }
 }
-
-module.exports = { before, beforeEach, afterEach, after }

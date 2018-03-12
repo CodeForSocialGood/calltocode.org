@@ -1,10 +1,7 @@
-const test = require('ava')
-const request = require('supertest')
+import test from 'ava'
+import request from 'supertest'
 
-const { before, beforeEach, afterEach, after } = require('../util')
-const User = require('../../database/models/User')
-
-const generateSessionToken = User.schema.methods.generateSessionToken
+import { before, beforeEach, afterEach, after } from '../util'
 
 test.before(before)
 test.beforeEach(beforeEach)
@@ -12,16 +9,15 @@ test.afterEach.always(afterEach)
 test.after.always(after)
 
 test.serial('getCurrent, valid token', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, volunteer, volunteerToken } = t.context
   const res = await request(app)
     .get('/api/users/current')
-    .set('Authorization', `Token ${token}`)
+    .set('Authorization', `Token ${volunteerToken}`)
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
-  t.is(res.body.id, user._id)
-  t.is(res.body.email, user.email)
+  t.is(res.body.id, volunteer._id)
+  t.is(res.body.email, volunteer.email)
 })
 
 test.serial('getCurrent, invalid token should error unauthorized', async t => {
@@ -36,17 +32,16 @@ test.serial('getCurrent, invalid token should error unauthorized', async t => {
 })
 
 test.serial('putCurrent, valid token', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, volunteer, volunteerToken } = t.context
   const updatedEmail = 'updatedEmail@email.com'
   const res = await request(app)
     .put('/api/users/current')
-    .set('Authorization', `Token ${token}`)
-    .send({ user: { email: updatedEmail } })
+    .set('Authorization', `Token ${volunteerToken}`)
+    .send({ email: updatedEmail })
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
-  t.is(res.body.id, user._id)
+  t.is(res.body.id, volunteer._id)
   t.is(res.body.email, updatedEmail)
 })
 
@@ -81,7 +76,7 @@ test.serial('signup, valid user', async t => {
   }
   const res = await request(app)
     .post('/api/users')
-    .send({ user })
+    .send(user)
 
   t.is(res.status, 200)
   t.true(typeof res.body === 'object')
@@ -100,14 +95,22 @@ test.serial('signup, invalid user should error', async t => {
 })
 
 test.serial('getUser', async t => {
-  const { app, users: [user] } = t.context
-  const token = generateSessionToken.call(user)
+  const { app, users: [user], volunteerToken } = t.context
   const res = await request(app)
     .get(`/api/users/${user._id}`)
-    .set('Authorization', `Token ${token}`)
+    .set('Authorization', `Token ${volunteerToken}`)
 
   t.is(res.status, 200)
   t.is(res.body.id, user._id)
   t.is(res.body.usertype, user.usertype)
   t.is(res.body.email, user.email)
+})
+
+test.serial('createCode', async t => {
+  const { app } = t.context
+  const res = await request(app)
+    .post('/api/users/password/code')
+    .send({ email: 'kevin@email.com' })
+
+  t.is(res.status, 200)
 })

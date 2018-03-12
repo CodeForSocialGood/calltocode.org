@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 
-const { authConfig } = require('../../config')
+import { authConfig } from '../../config'
 
 const UserSchema = mongoose.Schema({
   usertype: {
@@ -22,6 +22,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  applications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Application'
+  }],
   projectsAppliedFor: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
@@ -50,11 +54,20 @@ UserSchema.methods.toJSON = function () {
     id: this._id,
     usertype: this.usertype,
     email: this.email,
+    applications: this.applications,
     projectsAppliedFor: this.projectsAppliedFor,
-    organization: this.organization
+    organization: this.organization,
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt
   }
 }
 
-const User = mongoose.model('User', UserSchema)
+UserSchema.methods.applyForProject = function (projectId) {
+  if (!this.projectsAppliedFor.includes(projectId)) {
+    this.projectsAppliedFor.push(projectId)
+  }
 
-module.exports = User
+  return this.save()
+}
+
+export default mongoose.model('User', UserSchema)

@@ -1,0 +1,52 @@
+@import "../../scss/partials/partials";
+
+.container {
+  left: 0;
+  padding: 20px 20px;
+  position: absolute;
+  right: 0;
+}
+
+.landingPageHeading {
+  text-align: center;
+  padding-bottom: 30px;
+  line-height: 2.33;
+  letter-spacing: normal;
+  font-size: 30px;
+}
+
+.map {
+  width: 929px;
+  height: 488px;
+  object-fit: contain;
+  margin:0px auto;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.effortsSection {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-template-rows: auto;
+  grid-gap: 15px;
+  justify-items: center;
+  align-items: center;
+}
+
+.effortItem {
+  text-align: center;
+}
+
+.number {
+  font-size: 350%;
+  color: $text-red
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 300;
+}

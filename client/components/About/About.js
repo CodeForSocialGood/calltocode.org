@@ -5,8 +5,8 @@ import styles from './About.scss'
 class About extends Component {
   render () {
     return (
-      <section>
-        <h1 className={styles.contactTitle}>Contact</h1>
+      <section className={styles.aboutSection}>
+        <h1>Contact</h1>
         <p className={styles.aboutItem}>
           <span className={styles.aboutItemTitle}>Email: </span>
           <span>
@@ -23,7 +23,7 @@ class About extends Component {
             </a>
           </span>
         </p>
-        <h2 className={styles.missionStmtTitle}>Mission Statement</h2>
+        <h1>Mission Statement</h1>
         <p>
           A platform where college students can get development experience by
           matching them with nonprofits, calltocode.org is a nonprofit and open-sourced

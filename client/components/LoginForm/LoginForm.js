@@ -1,71 +1,99 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm, SubmissionError } from 'redux-form'
-import { push } from 'react-router-redux'
-import { Link } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
-import usersApiClient from '../../api/users'
 import styles from './LoginForm.scss'
+import {buttonSubmit} from './loginFormJss'
+import {withStyles} from 'material-ui/styles'
+
+/**
+ * material ui components
+ */
+import TextField from 'material-ui/TextField'
+import Button from 'material-ui/Button'
 
 class LoginForm extends Component {
-  renderEmail (field) {
-    return (
-      <input className={styles.inputEmail}
-        placeholder="Email"
-        title = {field.meta.error}
-        {...field.input} />
-    )
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      email: '',
+      password: '',
+      error: {},
+      isValid: false
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.onBlur = this.onBlur.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
-  renderPassword (field) {
-    return (
-      <input className={styles.inputPassword}
-        placeholder="Password"
-        type="password"
-        title = {field.meta.error}
-        {...field.input} />
-    )
-  }
+  async onSubmit (event) {
+    event.preventDefault()
+    if (this.state.email.length === 0) {
+      this.setState({
+        error: {
+          ...this.state.error,
+          'email': this.state.email.length === 0,
+          'password': this.state.password.length === 0
+        }
+      })
+    }
 
-  async validateEmailAndPassword (values) {
-    const { email, password } = values
-    const response = await usersApiClient.login(email, password)
-    if (response.status === 200) {
-      const user = await response.json()
-      this.props.login(user)
-      return user.usertype
-    } else {
-      handleValidationRequestError(response, email, password)
+    const loginRes = await this.props.doLogin(this.state.email, this.state.password)
+    if (loginRes) {
+      this.context.router.history.push('/')
     }
   }
 
+  canBeSubmitted () {
+    const { email, password } = this.state
+    return (
+      email.length > 0 &&
+      password.length > 0
+    )
+  }
+
+  onBlur (event) {
+    event.preventDefault()
+    this.setState({
+      error: { ...this.state.error, [event.target.name]: this.state[event.target.name].length === 0 }
+    })
+  }
+
+  handleChange (event) {
+    event.preventDefault()
+    this.setState({[event.target.name]: event.target.value})
+  }
+
   render () {
-    const { error, handleSubmit } = this.props
+    const {classes} = this.props
+    const isEnabled = this.canBeSubmitted()
 
     return (
-      <form id="loginForm" className={styles.form} onSubmit={handleSubmit(this.validateEmailAndPassword.bind(this))}>
+      <form id="loginForm" className={styles.form} onSubmit={this.onSubmit}>
         <h1 className={styles.h1}>Login</h1>
 
-        <Field
-          name="email"
-          component={this.renderEmail} />
-        <Field
-          name="password"
-          component={this.renderPassword} />
+        <TextField required id="email" error={this.state.error['email']} label="Email" type="text" fullWidth
+          className={styles.inputEmail} name="email"
+          onChange={this.handleChange} onBlur={this.onBlur}/>
 
-        <button className={styles.buttonSubmit} type="submit">
+        <TextField required id="password" error={this.state.error['password']} label="Password" type="password"
+          fullWidth className={styles.inputPassword} name="password"
+          onChange={this.handleChange} onBlur={this.onBlur}/>
+
+        <Button type="submit" raised className={classes.root} color="primary" fullWidth={true} disabled={!isEnabled}>
           Submit
-        </button>
+        </Button>
+
         <div className={styles.errorContent}>
-          {error}
+          {this.props.error}
         </div>
 
         <Link
           className={styles.forgotPassword}
           key='forgotPassword'
-          to='/forgot-password' >
+          to='/forgot-password'>
           Forgot Password?
         </Link>
       </form>
@@ -73,39 +101,25 @@ class LoginForm extends Component {
   }
 }
 
-function handleValidationRequestError (response, email, password) {
-  const _error = 'Incorrect credentials, please try again!'
+const mapDispatchToProps = {
+  doLogin: AuthActionCreator.doLogin
+}
 
-  if (response.status === 403) {
-    if (response.statusText === 'Wrong email') {
-      throw new SubmissionError({ email: response.statusText, _error })
-    } else if (response.statusText === 'Wrong password') {
-      throw new SubmissionError({ password: response.statusText, _error })
-    } else {
-      throw new SubmissionError({ email, _error: response.statusText })
-    }
-  } else {
-    throw new SubmissionError({ email, _error: response.statusText })
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error
   }
 }
 
-const mapDispatchToProps = {
-  login: AuthActionCreator.login
+LoginForm.contextTypes = {
+  router: PropTypes.object
 }
 
 LoginForm.propTypes = {
   error: PropTypes.string,
   handleSubmit: PropTypes.func,
-  login: PropTypes.func
+  doLogin: PropTypes.func,
+  classes: PropTypes.object
 }
 
-const LoginFormRedux = reduxForm({
-  form: 'LoginForm',
-  onSubmitSuccess: (result, dispatch) => {
-    result === 'contact'
-      ? dispatch(push('/profile'))
-      : dispatch(push('/'))
-  }
-})(LoginForm)
-
-export default connect(null, mapDispatchToProps)(LoginFormRedux)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(buttonSubmit)(LoginForm))

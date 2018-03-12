@@ -1,10 +1,8 @@
-const test = require('ava')
-const request = require('supertest')
+import test from 'ava'
+import request from 'supertest'
 
-const { before, beforeEach, afterEach, after } = require('../util')
-const Project = require('../../database/models/Project')
-
-const toJSON = Project.schema.methods.toJSON
+import { before, beforeEach, afterEach, after } from '../util'
+import { NotFoundError } from '../../lib/errors'
 
 test.before(before)
 test.beforeEach(beforeEach)
@@ -20,7 +18,7 @@ test.serial('getProjects, all', async t => {
   t.is(res.body.length, projects.length)
 })
 
-test.serial('getProjects, volunteer with valid projects', async t => {
+test.serial('getProjects, projectsAppliedFor query', async t => {
   const { app, projects: [one, two] } = t.context
   const projectsAppliedFor = [one._id, two._id]
   const res = await request(app)
@@ -32,20 +30,11 @@ test.serial('getProjects, volunteer with valid projects', async t => {
 
   for (const project of res.body) {
     const inList = projectsAppliedFor.some(p => p._id === project._id)
-    t.is(inList, true)
+    t.true(inList)
   }
 })
 
-test.serial('getProjects, volunteer with invalid projects should error', async t => {
-  const { app } = t.context
-  const res = await request(app)
-    .get('/api/projects')
-    .query({ projectsAppliedFor: 'invalid,invalid' })
-
-  t.is(res.status, 500)
-})
-
-test.serial('getProjects, contact with valid origanization', async t => {
+test.serial('getProjects, origanization query', async t => {
   const { app } = t.context
   const organization = '5b165cb5202e8986f99ec5c0'
   const res = await request(app)
@@ -59,38 +48,67 @@ test.serial('getProjects, contact with valid origanization', async t => {
   }
 })
 
-test.serial('getProjects, contact with invalid organization should error', async t => {
+test.serial('createProject', async t => {
   const { app } = t.context
+  const newProject = {
+    name: 'Test project'
+  }
   const res = await request(app)
-    .get('/api/projects')
-    .query({ organization: 'invalid' })
+    .post('/api/projects')
+    .send({ ...newProject })
 
-  t.is(res.status, 500)
+  t.is(res.status, 200)
+  t.is(res.body.name, newProject.name)
 })
 
-test.serial('getProject with a valid id', async t => {
+test.serial('getProject', async t => {
   const { app, projects: [project] } = t.context
   const res = await request(app)
     .get(`/api/projects/${project._id}`)
 
   t.is(res.status, 200)
-  t.deepEqual(res.body, toJSON.call(project))
+  t.is(res.body.organization.toString(), project.organization.toString())
+  t.is(res.body.name, project.name)
+  t.is(res.body.role, project.role)
+  t.is(res.body.email, project.email)
 })
 
-test.serial('getProject with a valid unused id should return project not found', async t => {
+test.serial('getProject should throw NotFoundError when no project found', async t => {
   const { app } = t.context
   const organizationId = '5b165cb5202e8986f99ec5c0'
   const res = await request(app)
     .get(`/api/projects/${organizationId}`)
 
-  t.is(res.status, 404)
-  t.deepEqual(res.body, { error: 'Project not found' })
+  const error = new NotFoundError()
+
+  t.is(res.status, error.status)
+  t.is(res.body.error.name, error.name)
+  t.is(res.body.error.message, error.message)
 })
 
-test.serial('getProject with an invalid id should error', async t => {
-  const { app } = t.context
+test.serial('putProject', async t => {
+  const { app, projects: [one] } = t.context
+  const updatedProject = {
+    name: 'Updated name'
+  }
   const res = await request(app)
-    .get('/api/projects/invalid')
+    .put(`/api/projects/${one._id}`)
+    .send({ ...updatedProject })
 
-  t.is(res.status, 500)
+  t.is(res.status, 200)
+  t.is(res.body.name, updatedProject.name)
+})
+
+test.serial('putProject should throw NotFoundError when no project found', async t => {
+  const { app } = t.context
+  const organizationId = '5b165cb5202e8986f99ec5c0'
+  const res = await request(app)
+    .put(`/api/projects/${organizationId}`)
+    .send({ name: 'Updated name' })
+
+  const error = new NotFoundError()
+
+  t.is(res.status, error.status)
+  t.is(res.body.error.name, error.name)
+  t.is(res.body.error.message, error.message)
 })

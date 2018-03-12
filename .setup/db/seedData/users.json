@@ -1,29 +1,31 @@
 [
 	{
-		"_id": {
-			"$oid": "5a1658a0327c0286c39a1deb"
-		},
+		"_id": { "$oid": "5a1658a0327c0286c39a1deb" },
 		"usertype": "contact",
 		"email": "mary@email.com",
 		"salt" : "$2a$10$Wf/vK558w2vQm29SrH.xxO",
-	  "hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c0"
-		},
+		"hash" : "$2a$10$Wf/vK558w2vQm29SrH.xxOZppqQk/5pOe5GwrYnntf7VO0gAVRp5u",
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c0" },
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a1658a0327c0286c39a1dea"
-		},
+		"_id": { "$oid": "5a1658a0327c0286c39a1dea" },
 		"usertype": "volunteer",
 		"email": "kevin@email.com",
 		"salt" : "$2a$10$Uul1BtyDlBKWvtYabzZ4L.",
 		"hash" : "$2a$10$Uul1BtyDlBKWvtYabzZ4L.qLVuY7di8A0.Tlo2r7U2xvGpIkKmCPy",
-		"projectsAppliedFor": [
-			"5a165cb5202e8986f99ec5c1",
-			"5a165cb5202e8986f99ec5c3"
+		"applications": [
+			{ "$oid": "5a1658a0327c0286c39a1aaa" },
+			{ "$oid": "5a1658a0327c0286c39a1aab" }
 		],
+		"projectsAppliedFor": [
+			{ "$oid": "5a165cb5202e8986f99ec5c1" },
+			{ "$oid": "5a165cb5202e8986f99ec5c3" }
+		],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	}
 ]

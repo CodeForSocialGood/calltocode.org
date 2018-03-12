@@ -1,48 +1,40 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
 
-import SignupValidator from '../SignupForm/SignupValidator'
-import ValidationPopup from '../SignupForm/ValidationPopup'
 import styles from './ForgotPasswordForm.scss'
+import PasswordInput from '../shared/PasswordInput/PasswordInput'
+
+import Button from 'material-ui/Button'
+import { actionButton } from './forgotPasswordJss'
+import { withStyles } from 'material-ui/styles'
 
 class NewPasswordForm extends Component {
-  renderPassword (field) {
-    const passClasses = `${styles.inputPassword}
-                         ${field.meta.pristine ? '' : (field.meta.error ? styles.error : styles.valid)}`
-    return (
-      <div className={ styles.inputPasswordContainer }>
-        <input
-          className={ passClasses }
-          placeholder="New Password"
-          type="password"
-          {...field.input} />
-        <Field
-          name="popup"
-          component={ValidationPopup}
-          active={field.meta.active}
-          error={field.meta.error} />
-      </div>
-    )
+  constructor (props) {
+    super(props)
+    this.state = { passHasErrors: false }
+    this.hasErrors = this.hasErrors.bind(this)
   }
-
+  hasErrors (value) {
+    this.setState({ passHasErrors: value })
+  }
   render () {
-    const { handleSubmit } = this.props
+    const { classes } = this.props
 
     return (
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form}>
         <h1 className={styles.h1}>New Password</h1>
         <h3 className={styles.h3}>Set your new password</h3>
-        <Field
-          name="password"
-          value={this.props.password}
-          onChange={this.props.onChangePassword}
-          component={this.renderPassword}
-          validate={SignupValidator.validatePassword} />
-        <button className={styles.buttonSubmit} disabled={this.props.password.length === 0} type="submit">
+        <div className={styles.inputPasswordContainer}>
+          <PasswordInput hasErrors={this.hasErrors} onChangePassword={this.props.onChangePassword} fullWidth={true}
+            inputClassName={styles.inputPassword} nameTextField="password" />
+        </div>
+
+        <Button disabled={this.props.password.length === 0 || this.state.passHasErrors}
+          raised className={classes.root}
+          color="primary" onClick={this.props.changePass}
+          fullWidth={true} >
           Change Password
-        </button>
+        </Button>
       </form>
     )
   }
@@ -51,13 +43,9 @@ class NewPasswordForm extends Component {
 NewPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   onChangePassword: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired
+  password: PropTypes.string.isRequired,
+  changePass: PropTypes.func,
+  classes: PropTypes.object
 }
 
-const NewPasswordFormRedux = reduxForm({
-  form: 'ForgotPasswordForm',
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
-})(NewPasswordForm)
-
-export default connect(null)(NewPasswordFormRedux)
+export default withStyles(actionButton)(NewPasswordForm)

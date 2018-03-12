@@ -22,10 +22,7 @@
   }
 }
 
-.inputEmail {
-  @extend %fieldText;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
+.inputEmail {  
   grid-column: 1 / 1;
   grid-row: 2;
 }
@@ -45,12 +42,9 @@
   grid-row: 3;
 }
 
-.inputPassword {
-  @extend %fieldText;
+.inputPassword {  
   grid-column: 1 / 1;
-  grid-row: 4;
-  border: none;
-  border-bottom: 1px solid $inputsBorderColor;
+  grid-row: 4;  
 }
 
 .inputEmail,
@@ -70,10 +64,15 @@
   }
 }
 
-.buttonSubmit {
+.buttonSubmit {  
+  @extend %buttonSubmit;  
+  grid-column: 1 / 1;
+  grid-row: 5;  
+}
+.buttonSubmit1 {
   @extend %buttonSubmit;
   grid-column: 1 / 1;
-  grid-row: 5;
+  grid-row: 6;
 }
 
 .errorContent {

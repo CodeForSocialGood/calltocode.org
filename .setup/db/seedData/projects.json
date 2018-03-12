@@ -1,98 +1,110 @@
 [
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c0"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c0"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c0" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c0" },
 		"name": "Example Project #1",
 		"role": "Mary Org Role 1",
 		"email": "mary@email.com",
+		"causes": ["Animal"],
+		"technologies": ["JavaScript"],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c1"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c0"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c1" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c0" },
 		"name": "Example Project #2",
 		"role": "Mary Org Role 2",
 		"email": "mary@email.com",
+		"causes": ["Environment", "Animal", "International NGO", "Health"],
+		"technologies": ["Ruby"],
+		"applications": [
+			{ "$oid": "5a1658a0327c0286c39a1aaa" }
+		],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c2"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c1"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c2" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c1" },
 		"name": "Example Project #3",
 		"role": "Role1",
 		"email": "1@email.com",
+		"causes": ["International NGO"],
+		"technologies": ["Java"],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c3"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c2"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c3" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c2" },
 		"name": "Example Project #4",
 		"role": "Role2",
 		"email": "2@email.com",
+		"causes": ["Health"],
+		"technologies": ["Python"],
+		"applications": [
+			{ "$oid": "5a1658a0327c0286c39a1aab" }
+		],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c4"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c3"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c4" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c3" },
 		"name": "Example Project #5",
 		"role": "Role3",
 		"email": "3@email.com",
+		"causes": ["Education"],
+		"technologies": ["PHP"],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c5"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c4"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c5" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c4" },
 		"name": "Example Project #6",
 		"role": "Role4",
 		"email": "4@email.com",
+		"causes": ["Arts & Culture"],
+		"technologies": ["C++"],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c6"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c5"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c6" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c5" },
 		"name": "Example Project #7",
 		"role": "Role5",
 		"email": "5@email.com",
+		"causes": ["Other"],
+		"technologies": ["Other"],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	},
 	{
-		"_id": {
-			"$oid": "5a165cb5202e8986f99ec5c7"
-		},
-		"organization": {
-			"$oid": "5b165cb5202e8986f99ec5c6"
-		},
+		"_id": { "$oid": "5a165cb5202e8986f99ec5c7" },
+		"organization": { "$oid": "5b165cb5202e8986f99ec5c6" },
 		"name": "Example Project #8",
 		"role": "Role6",
 		"email": "6@email.com",
+		"causes": [],
+		"technologies": [],
+		"applications": [],
+		"createdAt": { "$date": "2018-01-29T21:03:46.266Z" },
+		"updatedAt": { "$date": "2018-01-29T21:03:46.266Z" },
 		"__v": 0
 	}
 ]

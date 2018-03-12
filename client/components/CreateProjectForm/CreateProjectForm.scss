@@ -26,5 +26,12 @@
 .buttonSubmit {
   @extend %buttonSubmit;
   grid-column: 1 / 1;
-  grid-row: 4;
+  grid-row: 8;
+}
+
+.errorContent {
+  grid-row: 9;
+  grid-column: 1 / 1;
+  font-size: 1rem;
+  color: $errorColor;
 }

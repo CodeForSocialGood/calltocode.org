@@ -1,8 +1,6 @@
-const path = require('path')
+import path from 'path'
 
-const config = {
+export default {
   port: 3000,
   publicDir: path.join(__dirname, '..', 'public')
 }
-
-module.exports = config

@@ -1,164 +1,152 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Field, formValueSelector, reduxForm } from 'redux-form'
-import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import AuthActionCreator from '../../actions/auth'
-import SignupValidator from './SignupValidator'
-import ValidationPopup from './ValidationPopup'
+import Validators from '../shared/Utils/Validators'
 import styles from './SignupForm.scss'
+import TextField from 'material-ui/TextField'
+import PasswordInput from '../shared/PasswordInput/PasswordInput'
+import { FormControlLabel } from 'material-ui/Form'
+import Checkbox from 'material-ui/Checkbox'
+import { withStyles } from 'material-ui/styles'
+import { buttonSubmit } from './SignupFormJss'
+import Button from 'material-ui/Button'
 
-function EmailField ({ input, meta: { dirty, error } }) {
-  const emailClasses = `${styles.inputEmail} ${getValidationClass(dirty, error)}`
-
-  return (
-    <div className={ styles.inputEmailContainer }>
-      <input className={ emailClasses }
-        type="text"
-        placeholder="Email"
-        { ...input } />
-      { dirty &&
-        <div className={ error ? styles.cross : styles.tick }></div>
-      }
-      { dirty &&
-        <div className={ styles.inputEmailError }>{ error }</div>
-      }
-    </div>
-  )
-}
-
-function PasswordField ({ input, meta: { active, dirty, error } }) {
-  const passwordClasses = `${styles.inputPassword} ${getValidationClass(dirty, error)}`
-
-  return (
-    <div className={ styles.inputPasswordContainer }>
-      <input className={ passwordClasses }
-        type="password"
-        placeholder="Password"
-        { ...input } />
-      <Field key="popup" name="popup"
-        component={ ValidationPopup } active={ active } error={ error } />
-    </div>
-  )
-}
-
-function IsOrganizationField ({ input }) {
-  return (
-    <div className={ styles.inputCheckboxContainer }>
-      <input className={ styles.inputIsOrganization }
-        type="checkbox"
-        { ...input } />
-      <label>Organization</label>
-    </div>
-  )
-}
-
-function OrganizationNameField ({ input }) {
-  return (
-    <input className={ styles.inputOrganizationName }
-      type="text"
-      placeholder="Organization Name"
-      { ...input } />
-  )
-}
-
-function OrganizationURLField ({ input }) {
-  return (
-    <input className={ styles.inputOrganizationURL }
-      type="text"
-      placeholder="Organization URL"
-      { ...input } />
-  )
-}
-
-function getValidationClass (dirty, error) {
-  if (dirty) {
-    return error ? styles.error : styles.valid
+class SignupForm extends Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      error: {
+        email: '',
+        password: false
+      },
+      password: '',
+      email: '',
+      isOrganization: false
+    }
+    this.onChangeEmail = this.onChangeEmail.bind(this)
+    this.onChangeGeneric = this.onChangeGeneric.bind(this)
+    this.onChangePassword = this.onChangePassword.bind(this)
+    this.hasErrors = this.hasErrors.bind(this)
+    this.onChangeCheckbox = this.onChangeCheckbox.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+  hasErrors (value) {
+    this._setErrors(null, value)
   }
 
-  return ''
-}
-
-function SignupForm (props) {
-  const { handleSubmit, isOrganization, signup } = props
-
-  return (
-    <form className={ styles.form } onSubmit={ handleSubmit(signup) }>
-      <h1 className={styles.h1}>Signup</h1>
-
-      <Field name="email"
-        component={ EmailField }
-        validate={ SignupValidator.validateEmail } />
-
-      <Field name="password"
-        component={ PasswordField }
-        validate={ SignupValidator.validatePassword } />
-
-      <Field name="isOrganization"
-        component={ IsOrganizationField } />
-
-      { isOrganization &&
-        <Field name="organizationName"
-          component={ OrganizationNameField } />
-      }
-
-      { isOrganization &&
-        <Field name="organizationURL"
-          component={ OrganizationURLField } />
-      }
-
-      <button className={ isOrganization ? styles.buttonSubmitMoved : styles.buttonSubmit }
-        type="submit">
-        Submit
-      </button>
-    </form>
-  )
-}
-
-function mapStateToProps (state) {
-  const selector = formValueSelector('SignupForm')
-
-  return {
-    isOrganization: selector(state, 'isOrganization')
+  _setState (prop, value) {
+    this.setState({ [prop]: value })
   }
+
+  _setErrors (email, password) {
+    this.setState({
+      error: {
+        email: email === undefined ? '' : email || this.state.error.email,
+        password: password || this.state.error.password
+      }
+    })
+  }
+
+  onChangePassword (event) {
+    event.preventDefault()
+    this._setState('password', event.target.value)
+  }
+
+  onChangeEmail (event) {
+    const email = event.target.value
+    event.preventDefault()
+    this._setState('email', email)
+    const emailValidation = Validators.validateEmail(email)
+    this._setErrors(emailValidation, null)
+  }
+
+  onChangeGeneric (event) {
+    event.preventDefault()
+    this._setState(event.target.name, event.target.value)
+  }
+
+  onChangeCheckbox (event) {
+    this._setState('isOrganization', event.target.checked)
+  }
+  onSubmit (event) {
+    const { email, password, isOrganization } = this.state
+    this.props.signup({ email, password, isOrganization }).then(
+      this.context.router.history.push('/')
+    )
+  }
+
+  render () {
+    const { classes } = this.props
+    return (
+      <form className={styles.form} onSubmit={this.onSubmit}>
+        <h1 className={styles.h1}>Signup</h1>
+
+        <TextField required id="email"
+          label="Email" type="text" error={this.state.error.email.length !== 0}
+          helperText={this.state.error.email}
+          onChange={this.onChangeEmail}
+          fullWidth className={styles.inputEmailContainer}
+          name="email" />
+        <div className={styles.inputPasswordContainer}>
+          <PasswordInput hasErrors={this.hasErrors} onChangePassword={this.onChangePassword}
+            fullWidth inputClassName={styles.inputPassword}
+            nameTextField="password" />
+        </div>
+
+        <FormControlLabel className={styles.inputCheckboxContainer}
+          control={
+            <Checkbox name='isOrganization'
+              checked={this.state.isOrganization}
+              onChange={this.onChangeCheckbox}
+              value="isOrganization"
+            />
+          }
+          label="Organization"
+        />
+        {this.state.isOrganization &&
+          <Fragment>
+            <TextField required id="organizationName"
+              label="Organization name" type="text"
+              onChange={this.onChangeGeneric}
+              fullWidth className={styles.inputOrganizationName}
+              name="organizationName" />
+
+            <TextField required id="organizationURL"
+              label="Organization URL" type="text"
+              onChange={this.onChangeGeneric}
+              fullWidth className={styles.inputOrganizationURL}
+              name="organizationURL" />
+
+          </Fragment>
+        }
+        <Button
+          raised className={classes.root}
+          style={{ gridRow: this.state.isOrganization ? 9 : 6 }}
+          color="primary"
+          type="submit"
+          fullWidth={true} >
+          Submit
+        </Button>
+      </form >
+    )
+  }
+}
+
+SignupForm.contextTypes = {
+  router: PropTypes.object
 }
 
 const mapDispatchToProps = {
   signup: AuthActionCreator.signup
 }
 
-EmailField.propTypes = {
-  input: PropTypes.object,
-  meta: PropTypes.object
-}
-
-PasswordField.propTypes = {
-  input: PropTypes.object,
-  meta: PropTypes.object
-}
-
-IsOrganizationField.propTypes = {
-  input: PropTypes.object
-}
-
-OrganizationNameField.propTypes = {
-  input: PropTypes.object
-}
-
-OrganizationURLField.propTypes = {
-  input: PropTypes.object
-}
-
 SignupForm.propTypes = {
   handleSubmit: PropTypes.func,
   isOrganization: PropTypes.bool,
-  signup: PropTypes.func
+  signup: PropTypes.func,
+  classes: PropTypes.object
 }
 
-const SignupFormRedux = reduxForm({
-  form: 'SignupForm',
-  onSubmitSuccess: (result, dispatch) => dispatch(push('/'))
-})(SignupForm)
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupFormRedux)
+export default connect(null, mapDispatchToProps)(withStyles(buttonSubmit)(SignupForm))

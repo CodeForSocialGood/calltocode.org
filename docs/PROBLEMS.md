@@ -20,36 +20,41 @@ General troubleshooting steps:
 
 - Ensure direnv is set up properly with `direnv allow`. See the [development environment setup](DEVELOPER.md) if you have not done so already. If nothing else works, at the very least, run `source .env`.
 
-- Start and seed the MongoDB database: `yarn db`
-
-- Make sure the database is running by running `yarn start:dev` (should see 'Database Connected' in your terminal)
+- Make sure the database is running by running `yarn restart` (should see 'Database Connected' in your terminal)
 
 - Make sure database is seeded by either checking the data in Robo 3T if you downloaded that (see [development environment setup](DEVELOPER.md)) or by trying to log in with Kevin's credentials (check them in the `Personas` story in the Icebox on Pivotal Tracker)
+
+**Problem**:
+
+```
+Database connection error { MongoNetworkError: failed to connect to server [127.0.0.1:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+```
+
+**Solution**: Try [here](#addressinuse), followed by `yarn restart`
 
 ## <a name="addressinuse"></a> Address/port already in use
 
 **Problem**: `Error: address already in use`
 
-**Solution**: `lsof -ti tcp:3000,27017,28017 | xargs kill -9 --no-run-if-empty`
+**Solution**: Free all needed ports with `lsof -ti tcp:3000,3001,27017,28017 | xargs kill -9 --no-run-if-empty`
 
 ## <a name="containernotrunning"></a> Error response from daemon: Container <id> is not running
 
 **Problem**:
 ```bash
-$ yarn db start
-Starting new docker container with MongoDB..
-Started container 38ee6b4af0c4481a137209c70bb64784afbd33f4ab5bbb37735aa9d2ca945bf7
-Copying seed data to docker container..
-Adding seed data to MongoDB..
+--- Starting new docker container with MongoDB..
+--- Started container 38ee6b4af0c4481a137209c70bb64784afbd33f4ab5bbb37735aa9d2ca945bf7
+--- Copying seed data to docker container..
+--- Adding seed data to MongoDB..
 Error response from daemon: Container 38ee6b4af0c4481a137209c70bb64784afbd33f4ab5bbb37735aa9d2ca945bf7 is not running
 error Command failed with exit code 1.
 ```
 
 **Solution**:
 ```bash
-$ yarn db stop
+$ yarn stop
 $ docker system prune
-$ docker volume rm $(docker volume ls -qf dangling=true)
+$ docker volume prune
 ```
 
 ## <a name="errors"></a> Errors
@@ -60,7 +65,7 @@ $ docker volume rm $(docker volume ls -qf dangling=true)
 
 **Problem (3)**:
 ```bash
-$ yarn start:dev
+$ yarn start
 yarn run v1.3.2
 $ NODE_ENV=dev npm-run-all --parallel client:watch server:watch
 /bin/sh: npm-run-all: command not found
@@ -74,12 +79,8 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 
 **Problem**: I am not seeing anything once I view the app at `localhost:3000`.
 
-**Solution**: `yarn db`
+**Solution**: `yarn restart`
 
 ## <a name="tests"></a> Test Errors
 
 General information about testing can be found in the [test docs](./TESTS.md).
-
-**Problem**: I tried to run the end-to-end (e2e) tests and they failed.
-
-**Solution**: Make sure the app is freshly running with `yarn restart` before you run the e2e tests in another terminal. If this isn't the issue, then it is possible you have introduced breaking changes that are causing them to fail.

@@ -49,7 +49,8 @@ Here is a breakdown of the project's structure (links are to more information in
 - `server/` - back-end files
   - `config/` - configuration files for anything on the server
   - `database/` - mongoose models and setup
-  - `middleware/` - custom express middleware (user authentication, errorHandler)
+  - `lib/` - files used throughout the server
+    - `middleware/` - custom express middleware (user authentication, errorHandler)
   - `routes/` - routing to the REST API
     - `api/` - API endpoints (for example: POST `/project`)
     - `controllers/` - API implementations (for example: `createProject()`)
@@ -498,14 +499,24 @@ Other components can be understood by following the patterns described above.
 
 File: `index.js`
 
+Imports: `babel-register`, `server.js`
+
+The entry point `requires` `babel-register` which allows us to use es6 `import`/`export` features in our files. It then `requires` our `server` entry point.
+
+### Server
+
+File: `server.js`
+
 Imports: `app.js`, `database/index.js`
 
-Runs the server using the express app and connects to the database:
+Runs the server using the set up express app and connects to the database:
 
 ```js
-const app = require('./app')
-const { appConfig, databaseConfig } = require('./config')
-const database = require('./database')._init(databaseConfig.url)
+import app from './app'
+import _database from './database'
+import { appConfig, databaseConfig } from './config'
+
+const database = _database._init(databaseConfig.url)
 
 app.listen(appConfig.port, runServer)
 
@@ -519,6 +530,8 @@ async function runServer () {
     logger.error('Database connection error', error)
   }
 }
+
+export default app
 ```
 
 ### Express App
@@ -530,15 +543,18 @@ Imports: `express`, `middleware`, `routes/index.js`
 Sets up and exports the express app, adding middleware and routes:
 
 ```js
+import errorHandler from './lib/middleware/errorHandler'
+import routes from './routes'
+
 const app = express()
 
 app.use(express.static(appConfig.publicDir))
 app.use(bodyParser.json())
 app.use(morgan('dev'))
-app.use('/', require('./routes'))
+app.use('/', routes)
 app.use(errorHandler())
 
-module.exports = app
+export default app
 ```
 
 ### Database
@@ -550,7 +566,7 @@ Imports: `mongoose`
 Exports an object which has an `_init () {}` for setting itself up, and a `connect () {}` for connecting to the MongoDB through mongoose:
 
 ```js
-const database = {
+export default {
   _init (url, client = mongoose) {
     this.url = url
     this.client = client
@@ -558,7 +574,8 @@ const database = {
   },
 
   connect () {
-    this.client.connect(this.url, { useMongoClient: true })
+    this.client.Promise = global.Promise
+    this.client.connect(this.url)
 
     const db = this.client.connection
     return new Promise((resolve, reject) => {
@@ -567,8 +584,6 @@ const database = {
     })
   }
 }
-
-module.exports = database
 ```
 
 Files: `database/models/*.js`
@@ -594,7 +609,7 @@ const UserSchema = mongoose.Schema({
   // ...
 }, { timestamps: true })
 
-const User = mongoose.model('User', UserSchema)
+export default mongoose.model('User', UserSchema)
 ```
 
 This model says that our users are going to have a required `usertype` whose value is required, can only be a string, and with value 'contact' or 'volunteer'. We also tell the model to automatically add timestamps, which gives our data auto-populated `createdAt` and `updatedAt` fields. We then register the model with `mongoose.model()`.
@@ -602,8 +617,8 @@ This model says that our users are going to have a required `usertype` whose val
 We can also define functions on the model which can be called on the data that we retrieve/create using this model (more on this below):
 
 ```js
-const jwt = require('jsonwebtoken')
-const { authConfig } = require('../../config')
+import jwt from 'jsonwebtoken'
+import { authConfig } from '../../config'
 
 UserSchema.methods.generateSessionToken = function () {
   const today = new Date()
@@ -622,13 +637,13 @@ This function allows us to easily generate a token for a user when they login or
 
 ### Custom Middleware
 
-Files: `middleware/*.js`
+Files: `lib/middleware/*.js`
 
 Middleware are functions that we can pass server requests through. You can use this to set up logging (`morgan` does this), authenticate a user before you finish a request (`auth.js`) or add error handling to the end of the request (`errorHandler.js`).
 
 #### Auth Middleware
 
-File: `middleware/auth.js`
+File: `lib/middleware/auth.js`
 
 Imports: `express-jwt`, `config/authConfig.js`
 
@@ -650,7 +665,7 @@ function getTokenFromHeader (req) {
 The authentication itself happens internally in the `express-jwt` module, but we define two types of user authentication:
 
 ```js
-const auth = {
+export default {
   required: jwt({
     getToken: getTokenFromHeader,
     secret: authConfig.jwtSigningKey,
@@ -663,25 +678,23 @@ const auth = {
     userProperty: 'payload'
   })
 }
-
-module.exports = auth
 ```
 
-- `auth.required` will require the user to be authenticated (logged in) for the request to succeed. If a user does not pass this authentication, the request will error with a 401 (unauthorized) status code.
-- `auth.optional` does not require the user to be authenticated (logged in) for the request to succeed, but is instead used to potentially enhance the data being returned.
+- `auth.required` will require the user to be authenticated (logged in) for the request to succeed. If a user does not pass this authentication, the request will throw an UnauthorizedError with a 401 status code.
+- `auth.optional` does not require the user to be authenticated (logged in) for the request to succeed, but is instead used to potentially enhance the data being returned by modifying the return data specific to the user.
 
 *Note: notice how `auth.required` and `auth.optional` both define a `userProperty: 'payload'`. This says that when the user is successfully authenticated, that the token will be parsed and any data that was signed into the token (user _id: `id`, and token expiration: `exp` in our case) will be added to the request object on its `payload` property. This will be explained more below.*
 
 #### Error Handler Middleware
 
-File: `middleware/errorHandler.js`
+File: `lib/middleware/errorHandler.js`
 
 Imports: `logger.js`
 
-This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the routes to `next()` which is then caught by this middleware. An `err` parameter is added:
+This custom middleware is unique because it is specifically added to the very end of the app's middleware chain, after the routes. This is because we can forward any errors that occur in the route controllers (or anywhere else) to `next()` which is then ran through this middleware. An `err` parameter is added and the errors can be dealt with in a general way:
 
 ```js
-function errorHandler () {
+export default function () {
   return function (err, req, res, next) {
     logger.error(err)
 
@@ -708,30 +721,31 @@ Imports: `express`
 This file uses express router to define our endpoint base (`/api`), which says that all of our endpoints begin with that base:
 
 ```js
-const router = require('express').Router()
+import api from './api'
 
-router.use('/api', require('./api'))
+const router = express.Router()
 
-module.exports = router
+router.use('/api', api)
+
+export default router
 ```
 
 This points the request to:
 
 File: `routes/api/index.js`
 
-Imports: `express`
+Imports: `express`, `./*.js`
 
-The file uses express router to further define our api endpoints:
+This file uses express router to further define our api endpoints:
 
 ```js
-const router = require('express').Router()
+const router = express.Router()
 
-router.use('/email', require('./email'))
-router.use('/projects', require('./projects'))
-router.use('/users', require('./users'))
-router.use('/forgot-password', require('./forgotPassword'))
+router.use('/applications', applicationsRoutes)
+router.use('/projects', projectsRoutes)
+router.use('/users', usersRoutes)
 
-module.exports = router
+export default router
 ```
 
 For example, the users endpoints are now accessible at `/api/users`, and are further defined in `routes/api/users.js` (example continues below).
@@ -740,27 +754,28 @@ For example, the users endpoints are now accessible at `/api/users`, and are fur
 
 Files: `routes/api/*.js`
 
-Imports: `express`
+Imports: `expressPromiseRouter`, `../controllers/*.js`
 
-These files also use express router in order to once again further define our api endpoints and handle requests differently on each, for example in `routes/api/users.js`:
+These files use an express router wrapper (`expressPromiseRouter`) to once again further define our api endpoints and handle requests differently on each. For example in `routes/api/users.js`:
 
 ```js
-const router = require('express').Router()
+import auth from '../../lib/middleware/auth'
+import _users from '../controllers/users'
 
-const auth = require('../../middleware/auth')
-const usersController = require('../controllers/usersController')._init()
+const router = express.Router()
+const users = _users._init()
 
 router.route('/current')
-  .get(auth.required, usersController.getCurrent)
-  .put(auth.required, usersController.putCurrent)
+  .get(auth.required, users.getCurrent)
+  .put(auth.required, users.putCurrent)
 
-module.exports = router
+export default router
 ```
 
-This is the end of the endpoint definition:
+These are the ends of these endpoint definitions:
 
-- A `GET` request on `/api/users/current` will end up here, pass through our `auth.required` token authentication, and if successful, use our usersController `getCurrent` property to interact with the database.
-- A `PUT` request on `/api/users/current` will do the same thing, except use the usersController `putCurrent` property.
+- A `GET` request on `/api/users/current` will end up here, pass through our `auth.required` token authentication, and if successful, use our `users` controller's `getCurrent` property to interact with the database.
+- A `PUT` request on `/api/users/current` will do the same thing, except use the `users` controller's `putCurrent` property.
 
 These properties are functions.
 
@@ -772,16 +787,18 @@ Imports: `database/models/*.js`
 
 ##### \_init
 
-You may have noticed that when we were importing the usersController above, that we also called `._init()` on it:
+You may have noticed that when we imported the `users` controller above, we also needed to call `._init()` on it:
 
 ```js
-const usersController = require('../controllers/usersController')._init()
+import _users from '../controllers/users'
+
+const users = _users._init()
 ```
 
-This function is used to bind the controller's model and own functions to itself:
+This function is used to bind the controller's needed model(s) and own functions to itself:
 
 ```js
-const usersController = {
+export default {
   _init (Users = UserModel) {
     bindFunctions(this)
 
@@ -792,35 +809,32 @@ const usersController = {
 }
 ```
 
-This pattern allows us to easily mock the model in our controller unit tests.
+This pattern is repeated in all of the controllers and allows us to easily mock the model(s) in our controller unit tests.
 
 ##### Controller Implementations
 
 The controller function implementations are where we interact with the database:
 
 ```js
-const usersController = {
+export default {
   // ...
-  getCurrent (req, res, next) {
+  async getCurrent (req, res) {
     const id = req.payload.id
+    const user = await this.Users.findById(id)
 
-    this.Users.findById(id).then(user => {
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' })
-      }
+    if (!user) throw new NotFoundError()
 
-      return res.status(200).json(user.toJSON())
-    }).catch(next)
+    return res.status(200).json(user.toJSON())
   },
   // ...
 }
 ```
 
-Recall how the `req.payload` is populated with the parsing of the authentication token, explained in the Auth Middleware section above. We then use the parsed `id` to `findById()` the user and return the data back to the client with `return res.status(200).json(user.toJSON())`.
+Recall how the `req.payload` is populated with the parsing of the authentication token, explained in the Auth Middleware section above. We then use the parsed `id` to `findById()` the current user and return the data back to the client with `return res.status(200).json(user.toJSON())`.
 
 Also recall how we are calling `user.toJSON()`. We can do this because the `toJSON ()` function is defined on the mongoose User model in the same way that `generateSessionToken ()` was.
 
-Lastly recall how we are using `.catch(next)` to catch any errors and forward them to `next` which passes everything to the error handler, as was mentioned above.
+Lastly recall how we are throwing a `NotFoundError` in the event that a user isn't found. The `expressPromiseRouter` mentioned earlier allows us to do this, as it handles the rejection and forwards it to `next` which passes to the error handler middleware. Any other errors thrown in the controller implementations (a failing query, etc.) are forwarded to the error handler in the same way.
 
 ### Public files
 
