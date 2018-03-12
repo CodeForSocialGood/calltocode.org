@@ -21,7 +21,9 @@ class Header extends Component {
   }
 
   componentDidMount () {
-    this.props.getNotifications()
+    if (this.props.authenticated) {
+      this.props.getNotifications()
+    }
   }
 
   renderNotificationBadge () {
@@ -74,6 +76,7 @@ class Header extends Component {
               <Link to="/" className={styles.button}>calltocode</Link>
             </Typography>
             {this.renderHeaderButtons()}
+            <Link key="about" to="/about" className={this.getLinkStyles('about')}>ABOUT</Link>
           </Toolbar>
         </AppBar>
       </div>
