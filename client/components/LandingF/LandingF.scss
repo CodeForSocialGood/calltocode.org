@@ -2,11 +2,15 @@
 
 $black: #2c2c2c;
 $grey: #9fa3a7;
+<<<<<<< HEAD
 $white: #ffffff;
+=======
+>>>>>>> feature #155111485- Visitor sees landing page(Section F)
 
 
 .container {
   background-color: $black;
+<<<<<<< HEAD
   background-size: cover;
   object-fit: contain;
   height: 438px;
@@ -21,15 +25,56 @@ $white: #ffffff;
   width: 103px;
   height: 15px;
   list-style-type: none;
+=======
+  font-family: Gotham;
+  height: 438px;
+  color: $grey;
+  display: flex;
+}
+
+.product, .company {
+  width: 103px;
+  height: 15px;
+  list-style-type: none;
+  font-family: Gotham;
+>>>>>>> feature #155111485- Visitor sees landing page(Section F)
   font-size: 15.6px;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
+<<<<<<< HEAD
 }
 
 .link {
   color: $white;
 }
+=======
+  color: #9fa3a7;
+}
+
+.popular, .press {
+  margin-top: 32px;
+}
+
+.list {
+  padding-left: 0px;
+}
+.list-items {
+  list-style-type: none;
+  width: 131px;
+  margin-bottom: 28px;
+  object-fit: contain;
+  font-family: Gotham;
+  font-size: 18.2px;
+  text-align: left;
+  color: #9fa3a7;
+}
+
+.social-media {
+  display: flex;
+}
+
+>>>>>>> feature #155111485- Visitor sees landing page(Section F)
 .column1, .column2, .column3, .column4 {
   margin-top: 103px;
 }
@@ -37,18 +82,53 @@ $white: #ffffff;
 .column1 {
   margin-left: 95px;
 }
+<<<<<<< HEAD
 
 .nonProfit {
   margin-top: 24px;
 }
+=======
+>>>>>>> feature #155111485- Visitor sees landing page(Section F)
 .column2 {
   margin-left: 137px;
   padding-left: 0px;
   text-align: left;
+<<<<<<< HEAD
   width: 131px;
 }
 
 .column3 {
   margin-left: 75px;
   width: 131px;
+=======
+  color: #9fa3a7;
+}
+
+.column3 {
+  margin-left: 155px;
+}
+
+.column4 {
+  margin-left: 153px;
+}
+
+.logo-home {
+  width: 248px;
+  height: 90px;
+}
+
+.facebook, .twitter, .linked-in, .pininterest {
+    margin-right: 66px;
+}
+
+.FOLLOW-US {
+  width: 127px;
+  height: 15px;
+  font-family: Gotham;
+  font-family: Gotham;
+  font-size: 15.6px;
+  font-weight: bold;
+  text-align: left;
+  color: #ffffff;
+>>>>>>> feature #155111485- Visitor sees landing page(Section F)
 }
