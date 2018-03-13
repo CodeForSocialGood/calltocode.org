@@ -54,4 +54,4 @@ class Footer extends React.Component {
 };
 
 
-export default LandingF
+export default Footer
