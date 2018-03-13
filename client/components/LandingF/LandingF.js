@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 <<<<<<< HEAD
 import styles from './LandingF.scss'
@@ -18,6 +19,9 @@ class Footer extends React.Component {
             <li className={styles.projects}><a href="#" className={styles.link}>Projects</a></li>
 =======
 import ReactDOM from 'react-dom'
+=======
+
+>>>>>>> remove first 2 lines
 import React, { Component } from 'react'
 import styles from './LandingF.scss'
 import logo from '../../images/logo-home.png'
