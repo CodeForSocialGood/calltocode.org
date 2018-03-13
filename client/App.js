@@ -16,12 +16,16 @@ import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ProjectDetail from './components/Project/ProjectDetail'
 import Footer from './components/LandingF/LandingF'
 import LandingB from './components/LandingB/LandingB'
 =======
 import LandingF from './components/LandingC/LandingF'
 >>>>>>>  some changes in app.js
+=======
+import LandingF from './components/LandingF/LandingF'
+>>>>>>> fixed error
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
