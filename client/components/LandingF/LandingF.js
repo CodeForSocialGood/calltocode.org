@@ -1,9 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
-=======
-import ReactDOM from 'react-dom'
-import React, { Component } from 'react'
->>>>>>> changes in landingf.js
 import styles from './LandingF.scss'
 import logoV from '../../images/logo-home-video-copy.png'
 import c3nonprofit from '../../images/501-c-3-nonprofit.png'
