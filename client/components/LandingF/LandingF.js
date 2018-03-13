@@ -15,6 +15,32 @@ class Footer extends React.Component {
         <div className={styles.column2}>
           <ul className={styles.list}>
             <li className={styles.projects}><a href="#" className={styles.link}>Projects</a></li>
+import React, { Component } from 'react'
+import styles from './LandingF.scss'
+import logo from '../../images/logo-home.png'
+import facebook from '../../images/facebook.png'
+import linked-in from '../../images/linked-in.png'
+import pininterest from '../../images/pininterest.png'
+import twitter from '../../images/twitter.png'
+import 501-c-3-nonprofit from '../../images/501-c-3-nonprofit.png'
+
+
+class Footer extends React.Component {
+  render(){
+    return (
+      <div className={styles.container}>
+        <div className={styles.column1}>
+          <img src={logo} alt="Call to code logo" className="logo-home">
+          <p><img src={501-c-3-nonprofit} className="non-profit"></p>
+        </div>
+
+
+        <div className={styles.column2}>
+          <ul className={styles.list}>
+            <li className={styles.product}>Product</li>
+            <li className={styles.list-items styles.popular}><a href="#">Popular</li>
+            <li className={styles.list-items}><a href="#">Trending</li>
+            <li className={styles.list-items}><a href="#">Catalog</li>
           </ul>
         </div>
 
