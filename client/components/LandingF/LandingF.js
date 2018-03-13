@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 import styles from './LandingF.scss'
 import logo from '../../images/logo-home.png'
 import facebook from '../../images/facebook.png'
