@@ -9,6 +9,7 @@ import AuthActionCreator from './actions/auth'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
+import About from './components/About/About'
 import LoginForm from './components/LoginForm/LoginForm'
 import restricted from './components/Restricted/Restricted'
 import SignupForm from './components/SignupForm/SignupForm'
@@ -44,6 +45,7 @@ class App extends Component {
         <Version />
         <Switch>
           <Route exact path='/' component={Home}/>
+          <Route path='/about' component={About}/>
           <Route path='/create-project' component={CreateProjectRestrictedLoadable}/>
           <Route path='/forgot-password' component={ForgotPasswordForm}/>
           <Route path='/login' component={LoginForm}/>

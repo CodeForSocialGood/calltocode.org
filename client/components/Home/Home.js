@@ -73,11 +73,11 @@ class Home extends Component {
         <section className={styles.filterSection}>
           <span className={styles.filterTitle}><h1>{'Filters'}</h1></span>
           <FormLabel className={styles.causeTitle}>Causes</FormLabel>
-          <FormGroup column className={styles.causesList}>
+          <FormGroup className={styles.causesList}>
             { this.renderList(causes, 'causes') }
           </FormGroup>
           <FormLabel className={styles.techTitle}>Tech</FormLabel>
-          <FormGroup column className={styles.techList}>
+          <FormGroup className={styles.techList}>
             { this.renderList(technologies, 'technologies') }
           </FormGroup>
         </section>
