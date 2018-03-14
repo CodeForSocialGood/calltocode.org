@@ -80,6 +80,19 @@ class Footer extends React.Component {
             <li className={styles.about}><a href="/about" className={styles.link}>About</a></li>
           </ul>
         </div>
+<<<<<<< HEAD
+=======
+
+        <div className={styles.column4}>
+          <p className={styles.followUS}>FOLLOW US</p>
+          <div className={styles.socialMedia}>
+            <a href="#"><img src={facebook} alt="facebook logo" className={styles.facebook} /></a>
+            <a href="#"><img src={twitter} alt="twitter logo" className={styles.twitter} /></a>
+            <a href="#"><img src={linkedin} alt="linkedin logo" className={styles.linkedIn} /></a>
+            <a href="#"><img src={pininterest} alt="pininterest logo" className={styles.pininterest} /></a>
+        </div>
+        </div>
+>>>>>>> styles added to social media
       </div>
     )
   }
