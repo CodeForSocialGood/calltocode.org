@@ -44,7 +44,7 @@ class Footer extends React.Component {
           <div className={styles.socialMedia}>
             <a href="#"><img src={facebook} alt="facebook logo" className="facebook" /></a>
             <a href="#"><img src={twitter} alt="twitter logo" className="twitter" /></a>
-            <a href="#"><img src={linked-in} alt="linkedin logo" className="linkedIn" /></a>
+            <a href="#"><img src={linkedin} alt="linkedin logo" className="linkedIn" /></a>
             <a href="#"><img src={pininterest} alt="pininterest logo" className="pininterest" /></a>
         </div>
         </div>
