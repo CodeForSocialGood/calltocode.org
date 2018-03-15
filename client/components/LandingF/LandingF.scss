@@ -5,7 +5,6 @@ $grey: #9fa3a7;
 $white: #ffffff;
 
 .container {
-<<<<<<< HEAD
   background-color: $black;
   background-size: cover;
   object-fit: contain;
@@ -15,13 +14,6 @@ $white: #ffffff;
   grid-template-columns: 1fr .6fr .6fr 1fr;
   grid-template-rows: auto;
   grid-column-gap: 5px;
-=======
-  background: $black;
-  height: 438px;
-  width: 1440;
-  color: $grey;
-  display: flex;
->>>>>>> added links
 }
 
 .projects, .about {
@@ -47,13 +39,11 @@ $white: #ffffff;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
-<<<<<<< HEAD
 }
 
 .link {
   color: $white;
 }
-<<<<<<< HEAD
 .link {
   color: $grey;
 }
@@ -89,15 +79,6 @@ $white: #ffffff;
 //   color: #ffffff;
 // }
 
-=======
-=======
-  color: $grey;
-}
-
-a {
-  color:$grey
-}
->>>>>>> added links
 // .popular, .press {
 //   margin-top: 32px;
 // }
@@ -119,10 +100,6 @@ a {
 // .socialMedia {
 //   display: flex;
 // }
-<<<<<<< HEAD
-=======
->>>>>>> added links
->>>>>>> added links
 
 .column1, .column2, .column3 {
 .column1, .column2, .column3, .column4 {
@@ -150,35 +127,7 @@ a {
 }
 
 .column3 {
-<<<<<<< HEAD
   width: 131px;
-=======
-  margin-left: 155px;
-}
-
-// .column4 {
-//   margin-left: 153px;
-// }
-
-// .logoHome {
-//   width: 248px;
-//   height: 90px;
-// }
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
->>>>>>> added links
 }
 
 .column3 {
