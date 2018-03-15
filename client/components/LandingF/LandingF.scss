@@ -2,15 +2,20 @@
 
 $black: #2c2c2c;
 $grey: #9fa3a7;
+$white: #ffffff;
 
 
 .container {
   background-color: $black;
   background-size: cover;
+  object-fit: contain;
   height: 438px;
-  width: 1440;
-  color: $grey;
+  width: 1440px;
+  color: $white;
   display: flex;
+  left: 0;
+  right: 0;
+  position: absolute;
 }
 
 .projects, .about {
@@ -21,24 +26,26 @@ $grey: #9fa3a7;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
-  color: $grey;
 }
 
 .link {
-  color: $grey;
+  color: $white;
 }
 .column1, .column2, .column3, .column4 {
   margin-top: 103px;
 }
 
 .column1 {
-  margin-left: 95px;
+  padding-left: 95px;
+}
+
+.nonProfit {
+  margin-top:24px;
 }
 .column2 {
   margin-left: 137px;
   padding-left: 0px;
   text-align: left;
-  color: $grey;
 }
 
 .column3 {
@@ -55,7 +62,7 @@ $grey: #9fa3a7;
 //   font-size: 15.6px;
 //   font-weight: bold;
 //   text-align: left;
-//   color: #ffffff;
+//   color:
 // }
 
 // .popular, .press {
@@ -73,7 +80,6 @@ $grey: #9fa3a7;
 //   font-family: Gotham;
 //   font-size: 18.2px;
 //   text-align: left;
-//   color: #9fa3a7;
 // }
 //
 // .socialMedia {
