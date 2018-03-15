@@ -32,7 +32,7 @@ class Footer extends React.Component {
         <div className={styles.column3}>
           <ul className={styles.list}>
             <li className={styles.company}>Company</li>
-            <li className={styles.listItems}>Press</a></li>
+            <li className={styles.listItems}>Press</li>
             <li className={styles.listItems}>Releases</li>
             <li className={styles.listItems}>Mission</li>
             <li className={styles.listItems}>Strategy</li>
