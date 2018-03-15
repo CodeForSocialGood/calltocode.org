@@ -10,7 +10,6 @@ $white: #ffffff;
   background-size: cover;
   object-fit: contain;
   height: 438px;
-  width: 1440px;
   color: $white;
   display: flex;
   left: 0;
@@ -36,11 +35,11 @@ $white: #ffffff;
 }
 
 .column1 {
-  padding-left: 95px;
+  margin-left: 95px;
 }
 
 .nonProfit {
-  margin-top:24px;
+  margin-top: 24px;
 }
 .column2 {
   margin-left: 137px;
