@@ -10,6 +10,7 @@ $white: #ffffff;
 
 .container {
 <<<<<<< HEAD
+<<<<<<< HEAD
   background-color: $black;
 <<<<<<< HEAD
   background-size: cover;
@@ -31,16 +32,21 @@ $white: #ffffff;
   background: $black;
 >>>>>>> removed few links
   font-family: Gotham;
+=======
+  background-color: $black;
+  background-size: cover;
+>>>>>>>  font-size
   height: 438px;
   color: $grey;
   display: flex;
   position: absolute;
 }
 
-.project, .about {
+.projects, .about {
   width: 103px;
   height: 15px;
   list-style-type: none;
+<<<<<<< HEAD
 <<<<<<< HEAD
   font-family: Gotham;
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
@@ -48,12 +54,16 @@ $white: #ffffff;
 =======
   font-size: 30px;
 >>>>>>> changed logo image
+=======
+  font-size: 15.6px;
+>>>>>>>  font-size
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
 <<<<<<< HEAD
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .link {
 <<<<<<< HEAD
@@ -67,6 +77,41 @@ $white: #ffffff;
 }
 =======
 >>>>>>> changed logo image
+=======
+.link {
+  color: $grey;
+}
+.column1, .column2, .column3, .column4 {
+  margin-top: 103px;
+}
+
+.column1 {
+  margin-left: 95px;
+}
+.column2 {
+  margin-left: 137px;
+  padding-left: 0px;
+  text-align: left;
+  color: $grey;
+}
+
+.column3 {
+  margin-left: 155px;
+}
+//
+//
+//
+// .followUS {
+//   width: 127px;
+//   height: 15px;
+//   font-family: Gotham;
+//   font-family: Gotham;
+//   font-size: 15.6px;
+//   font-weight: bold;
+//   text-align: left;
+//   color: #ffffff;
+// }
+>>>>>>>  font-size
 
 // .popular, .press {
 //   margin-top: 32px;
@@ -89,6 +134,7 @@ $white: #ffffff;
 // .socialMedia {
 //   display: flex;
 // }
+<<<<<<< HEAD
 
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
 .column1, .column2, .column3, .column4 {
@@ -152,3 +198,5 @@ $white: #ffffff;
   color: #ffffff;
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
 }
+=======
+>>>>>>>  font-size
