@@ -16,16 +16,14 @@ $grey: #9fa3a7;
   width: 103px;
   height: 15px;
   list-style-type: none;
-  font-size: 15.6px;
+  font-size: 30px;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
   color: $grey;
 }
 
-.link {
-  color:$grey
-}
+
 // .popular, .press {
 //   margin-top: 32px;
 // }
@@ -59,7 +57,7 @@ $grey: #9fa3a7;
   margin-left: 137px;
   padding-left: 0px;
   text-align: left;
-  color: #9fa3a7;
+  color: $grey;
 }
 
 .column3 {

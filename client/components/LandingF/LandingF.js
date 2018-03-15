@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './LandingF.scss';
-import logo from '../../images/logo-home.png';
+import logoV from '../../images/logo-home-video-copy.png';
 import facebook from '../../images/facebook.png';
 import linkedIn from '../../images/linked-in.png';
 import pininterest from '../../images/pininterest.png';
@@ -15,7 +15,7 @@ class Footer extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.column1}>
-          <img src={logo} alt="Call to code logo" className={styles.logoHome} />
+          <img src={logoV} alt="Call to code logo"/>
           <p><img src={c3nonprofit} className="nonProfit" /></p>
         </div>
 
