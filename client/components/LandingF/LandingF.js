@@ -15,8 +15,8 @@ class Footer extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.column1}>
-          <img src={logo} alt="Call to code logo" className="logo-home" />
-          <p><img src={c3nonprofit} className="non-profit" /></p>
+          <img src={logo} alt="Call to code logo" className={styles.logoHome} />
+          <p><img src={c3nonprofit} className="nonProfit" /></p>
         </div>
 
 
