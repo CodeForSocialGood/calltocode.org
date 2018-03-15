@@ -20,6 +20,18 @@ $white: #ffffff;
   width: 103px;
   height: 15px;
   list-style-type: none;
+  font-family: Gotham;
+  height: 438px;
+  color: $grey;
+  display: flex;
+  position: absolute;
+}
+
+.project, .about {
+  width: 103px;
+  height: 15px;
+  list-style-type: none;
+  font-family: Gotham;
   font-size: 15.6px;
   font-weight: bold;
   letter-spacing: 3.1px;
