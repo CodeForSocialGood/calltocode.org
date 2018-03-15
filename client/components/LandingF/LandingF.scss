@@ -5,24 +5,58 @@ $grey: #9fa3a7;
 
 
 .container {
-  background: $black;
+  background-color: $black;
+  background-size: cover;
   height: 438px;
   width: 1440;
   color: $grey;
   display: flex;
 }
 
-.project, .about {
+.projects, .about {
   width: 103px;
   height: 15px;
   list-style-type: none;
-  font-size: 30px;
+  font-size: 15.6px;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
   color: $grey;
 }
 
+.link {
+  color: $grey;
+}
+.column1, .column2, .column3, .column4 {
+  margin-top: 103px;
+}
+
+.column1 {
+  margin-left: 95px;
+}
+.column2 {
+  margin-left: 137px;
+  padding-left: 0px;
+  text-align: left;
+  color: $grey;
+}
+
+.column3 {
+  margin-left: 155px;
+}
+//
+//
+//
+// .followUS {
+//   width: 127px;
+//   height: 15px;
+//   font-family: Gotham;
+//   font-family: Gotham;
+//   font-size: 15.6px;
+//   font-weight: bold;
+//   text-align: left;
+//   color: #ffffff;
+// }
 
 // .popular, .press {
 //   margin-top: 32px;
@@ -45,45 +79,3 @@ $grey: #9fa3a7;
 // .socialMedia {
 //   display: flex;
 // }
-
-.column1, .column2, .column3, .column4 {
-  margin-top: 103px;
-}
-
-.column1 {
-  margin-left: 95px;
-}
-.column2 {
-  margin-left: 137px;
-  padding-left: 0px;
-  text-align: left;
-  color: $grey;
-}
-
-.column3 {
-  margin-left: 155px;
-}
-
-// .column4 {
-//   margin-left: 153px;
-// }
-
-// .logoHome {
-//   width: 248px;
-//   height: 90px;
-// }
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
-}
