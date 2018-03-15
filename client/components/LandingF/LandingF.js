@@ -14,21 +14,13 @@ class Footer extends React.Component {
 
         <div className={styles.column2}>
           <ul className={styles.list}>
-<<<<<<< HEAD
             <li className={styles.projects}><a href="#" className={styles.link}>Projects</a></li>
-=======
-            <li className={styles.projects}><a href="#" {styles.link}>Projects</a></li>
->>>>>>> added links
           </ul>
         </div>
 
         <div className={styles.column3}>
           <ul className={styles.list}>
-<<<<<<< HEAD
             <li className={styles.about}><a href="/about" className={styles.link}>About</a></li>
-=======
-            <li className={styles.about}><a href="#" className={styles.link}>About</a></li>
->>>>>>> added links
           </ul>
         </div>
 
