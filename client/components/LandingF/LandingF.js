@@ -56,6 +56,11 @@ class Footer extends React.Component {
             <li className={styles.listItems}>Popular</li>
             <li className={styles.listItems}>Trending</li>
             <li className={styles.listItems}>Catalog</li>
+            <li className={styles.projects}>Projects</li>
+            // <li className={styles.listItems}>Popular</li>
+            // <li className={styles.listItems}>Trending</li>
+            // <li className={styles.listItems}>Catalog</li>
+            // <li className={styles.listItems}>Features</li>
           </ul>
         </div>
 
@@ -76,6 +81,12 @@ export default Footer
             <li className={styles.listItems}>Mission</li>
             <li className={styles.listItems}>Strategy</li>
             <li className={styles.listItems}>Works</li>
+            <li className={styles.about}>About</li>
+            // <li className={styles.listItems}>Press</li>
+            // <li className={styles.listItems}>Releases</li>
+            // <li className={styles.listItems}>Mission</li>
+            // <li className={styles.listItems}>Strategy</li>
+            // <li className={styles.listItems}>Works</li>
           </ul>
         </div>
 
