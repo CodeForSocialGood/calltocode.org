@@ -4,7 +4,7 @@ import logoV from '../../images/logo-home-video-copy.png'
 import c3nonprofit from '../../images/501-c-3-nonprofit.png'
 
 class Footer extends React.Component {
-  render() {
+  render () {
     return (
       <div className={styles.container}>
         <div className={styles.column1}>
