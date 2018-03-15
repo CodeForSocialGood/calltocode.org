@@ -22,7 +22,7 @@ class Footer extends React.Component {
 
         <div className={styles.column2}>
           <ul className={styles.list}>
-            <li className={styles.projects}><a href="#" {styles.link}>Projects</a></li>
+            <li className={styles.projects}><a href="#" className={styles.link}>Projects</a></li>
           </ul>
         </div>
 
