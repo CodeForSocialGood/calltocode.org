@@ -79,7 +79,6 @@ class Footer extends React.Component {
             <li className={styles.about}><a href="/about" className={styles.link}>About</a></li>
           </ul>
         </div>
-
       </div>
     )
   }
