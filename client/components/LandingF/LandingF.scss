@@ -5,14 +5,15 @@ $grey: #9fa3a7;
 
 
 .container {
-  background-color: $black;
+  background: $black;
   font-family: Gotham;
   height: 438px;
   color: $grey;
   display: flex;
+  position: absolute;
 }
 
-.product, .company {
+.project, .about {
   width: 103px;
   height: 15px;
   list-style-type: none;
@@ -24,27 +25,27 @@ $grey: #9fa3a7;
   color: #9fa3a7;
 }
 
-.popular, .press {
-  margin-top: 32px;
-}
-
-.list {
-  padding-left: 0px;
-}
-.listItems {
-  list-style-type: none;
-  width: 131px;
-  margin-bottom: 28px;
-  object-fit: contain;
-  font-family: Gotham;
-  font-size: 18.2px;
-  text-align: left;
-  color: #9fa3a7;
-}
-
-.socialMedia {
-  display: flex;
-}
+// .popular, .press {
+//   margin-top: 32px;
+// }
+//
+// .list {
+//   padding-left: 0px;
+// }
+// .listItems {
+//   list-style-type: none;
+//   width: 131px;
+//   margin-bottom: 28px;
+//   object-fit: contain;
+//   font-family: Gotham;
+//   font-size: 18.2px;
+//   text-align: left;
+//   color: #9fa3a7;
+// }
+//
+// .socialMedia {
+//   display: flex;
+// }
 
 .column1, .column2, .column3, .column4 {
   margin-top: 103px;
@@ -64,9 +65,9 @@ $grey: #9fa3a7;
   margin-left: 155px;
 }
 
-.column4 {
-  margin-left: 153px;
-}
+// .column4 {
+//   margin-left: 153px;
+// }
 
 .logoHome {
   width: 248px;
