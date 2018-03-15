@@ -23,6 +23,15 @@ import linkedin from '../../images/linked-in.png'
 import pininterest from '../../images/pininterest.png'
 import twitter from '../../images/twitter.png'
 import c3nonprofit from '../../images/501-c-3-nonprofit.png'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import styles from './LandingF.scss';
+import logo from '../../images/logo-home.png';
+import facebook from '../../images/facebook.png';
+import linkedIn from '../../images/linked-in.png';
+import pininterest from '../../images/pininterest.png';
+import twitter from '../../images/twitter.png';
+import c3nonprofit from '../../images/501-c-3-nonprofit.png';
 
 
 class Footer extends React.Component {
