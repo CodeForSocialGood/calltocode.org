@@ -39,12 +39,30 @@ $white: #ffffff;
 }
 
 .link {
-<<<<<<< HEAD
   color: $white;
-=======
-  color:$grey
->>>>>>>  fixed error
 }
+
+// .popular, .press {
+//   margin-top: 32px;
+// }
+//
+// .list {
+//   padding-left: 0px;
+// }
+// .listItems {
+//   list-style-type: none;
+//   width: 131px;
+//   margin-bottom: 28px;
+//   object-fit: contain;
+//   font-family: Gotham;
+//   font-size: 18.2px;
+//   text-align: left;
+//   color: #9fa3a7;
+// }
+//
+// .socialMedia {
+//   display: flex;
+// }
 
 .column1, .column2, .column3 {
 .column1, .column2, .column3, .column4 {
@@ -73,4 +91,32 @@ $white: #ffffff;
 
 .column3 {
   width: 131px;
+}
+
+.column3 {
+  margin-left: 155px;
+}
+
+// .column4 {
+//   margin-left: 153px;
+// }
+
+.logoHome {
+  width: 248px;
+  height: 90px;
+}
+
+.facebook, .twitter, .linkedIn, .pininterest {
+    margin-right: 66px;
+}
+
+.followUS {
+  width: 127px;
+  height: 15px;
+  font-family: Gotham;
+  font-family: Gotham;
+  font-size: 15.6px;
+  font-weight: bold;
+  text-align: left;
+  color: #ffffff;
 }
