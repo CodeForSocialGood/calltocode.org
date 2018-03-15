@@ -21,17 +21,20 @@ $white: #ffffff;
   height: 15px;
   list-style-type: none;
   font-family: Gotham;
+  background-color: $black;
+  background-size: cover;
   height: 438px;
   color: $grey;
   display: flex;
   position: absolute;
 }
 
-.project, .about {
+.projects, .about {
   width: 103px;
   height: 15px;
   list-style-type: none;
   font-family: Gotham;
+  font-size: 15.6px;
   font-size: 15.6px;
   font-weight: bold;
   letter-spacing: 3.1px;
@@ -41,6 +44,39 @@ $white: #ffffff;
 .link {
   color: $white;
 }
+.link {
+  color: $grey;
+}
+.column1, .column2, .column3, .column4 {
+  margin-top: 103px;
+}
+
+.column1 {
+  margin-left: 95px;
+}
+.column2 {
+  margin-left: 137px;
+  padding-left: 0px;
+  text-align: left;
+  color: $grey;
+}
+
+.column3 {
+  margin-left: 155px;
+}
+//
+//
+//
+// .followUS {
+//   width: 127px;
+//   height: 15px;
+//   font-family: Gotham;
+//   font-family: Gotham;
+//   font-size: 15.6px;
+//   font-weight: bold;
+//   text-align: left;
+//   color: #ffffff;
+// }
 
 // .popular, .press {
 //   margin-top: 32px;
