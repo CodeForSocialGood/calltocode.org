@@ -1,12 +1,13 @@
 
-import React, { Component } from 'react'
-import styles from './LandingF.scss'
-import logo from '../../images/logo-home.png'
-import facebook from '../../images/facebook.png'
-import linkedin from '../../images/linked-in.png'
-import pininterest from '../../images/pininterest.png'
-import twitter from '../../images/twitter.png'
-import c3nonprofit from '../../images/501-c-3-nonprofit.png'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import styles from './LandingF.scss';
+import logo from '../../images/logo-home.png';
+import facebook from '../../images/facebook.png';
+import linkedIn from '../../images/linked-in.png';
+import pininterest from '../../images/pininterest.png';
+import twitter from '../../images/twitter.png';
+import c3nonprofit from '../../images/501-c-3-nonprofit.png';
 
 
 class Footer extends React.Component {
@@ -44,7 +45,7 @@ class Footer extends React.Component {
           <div className={styles.socialMedia}>
             <a href="#"><img src={facebook} alt="facebook logo" className={styles.facebook} /></a>
             <a href="#"><img src={twitter} alt="twitter logo" className={styles.twitter} /></a>
-            <a href="#"><img src={linkedin} alt="linkedin logo" className={styles.linkedIn} /></a>
+            <a href="#"><img src={linkedIn} alt="linkedin logo" className={styles.linkedIn} /></a>
             <a href="#"><img src={pininterest} alt="pininterest logo" className={styles.pininterest} /></a>
         </div>
         </div>
