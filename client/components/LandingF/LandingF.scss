@@ -20,15 +20,40 @@ $white: #ffffff;
   width: 103px;
   height: 15px;
   list-style-type: none;
-  font-size: 15.6px;
+  font-size: 30px;
   font-weight: bold;
   letter-spacing: 3.1px;
   text-align: left;
 }
 
+<<<<<<< HEAD
 .link {
   color: $white;
 }
+=======
+
+// .popular, .press {
+//   margin-top: 32px;
+// }
+//
+// .list {
+//   padding-left: 0px;
+// }
+// .listItems {
+//   list-style-type: none;
+//   width: 131px;
+//   margin-bottom: 28px;
+//   object-fit: contain;
+//   font-family: Gotham;
+//   font-size: 18.2px;
+//   text-align: left;
+//   color: #9fa3a7;
+// }
+//
+// .socialMedia {
+//   display: flex;
+// }
+>>>>>>> changed logo image
 
 .column1, .column2, .column3 {
   margin-top: 103px;
@@ -47,7 +72,11 @@ $white: #ffffff;
   margin-left: 80px;
   padding-left: 0px;
   text-align: left;
+<<<<<<< HEAD
   width: 131px;
+=======
+  color: $grey;
+>>>>>>> changed logo image
 }
 
 .column3 {
