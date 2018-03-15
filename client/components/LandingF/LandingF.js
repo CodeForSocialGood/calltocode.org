@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> few more bugs fixed
 import React from 'react'
 import styles from './LandingF.scss'
 import logoV from '../../images/logo-home-video-copy.png'
@@ -90,7 +93,11 @@ class Footer extends React.Component {
       </div>
     )
   }
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> few more bugs fixed
 
 export default Footer
             <li className={styles.company}>Company</li>
