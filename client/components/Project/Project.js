@@ -26,15 +26,11 @@ class Project extends Component {
   renderProjectApplicationResult (project) {
     const applied = this.getAppliedStatus()
     const isContact = this.isUserTypeContact()
-    if (applied && !isContact) {
-      return (
-        <span className={styles.projectApplyPass}>&#10004;</span>
-      )
-    } else if (!isContact) {
-      return (
-        <span className={styles.projectApplyFail}>&#10007;</span>
-      )
+    if (this.props.authenticated && !isContact) {
+      return applied ? <span className={styles.projectApplyPass}>&#10004;</span>
+        : <span className={styles.projectApplyFail}>&#10007;</span>
     }
+    return <span />
   }
 
   getAppliedStatus () {
