@@ -15,7 +15,18 @@
   @extend %boxShadowSmall;
 }
 
+.projectClasses {
+  display: grid;
+  grid-template-areas: 
+    "img content";
+}
+
+.projectContent {
+  grid-area: content;
+}
+
 .image {
+  grid-area: img;
   width: 100%;
 }
 
@@ -32,3 +43,4 @@
   @extend .projectApply;
   color: red;
 }
+
