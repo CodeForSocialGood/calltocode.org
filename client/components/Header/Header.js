@@ -6,10 +6,12 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Badge from 'material-ui/Badge'
+import Button from 'material-ui/Button'
 
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
 import ApplicationActionCreator from '../../actions/application'
+import logo from '../../images/logo-nav.png'
 
 class Header extends Component {
   constructor (props) {
@@ -28,36 +30,80 @@ class Header extends Component {
 
   renderNotificationBadge () {
     const { applications } = this.props
-    return applications &&
-    <Link key="show-applications" to="/show-applications" className={this.getLinkStyles('show-project')}>
-      {applications.notSeenCounter > 0 ? <Badge badgeContent={applications.notSeenCounter} color="primary" >
-        <span className={styles.applicationBadgeText}>APPLICATIONS</span>
-      </Badge> : <span className={styles.applicationBadgeText}>APPLICATIONS</span>}
-    </Link>
+    return (
+      applications && (
+        <Link
+          key="show-applications"
+          to="/show-applications"
+          className={this.getLinkStyles('show-project')}
+        >
+          {applications.notSeenCounter > 0 ? (
+            <Badge badgeContent={applications.notSeenCounter} color="primary">
+              <span className={styles.applicationBadgeText}>APPLICATIONS</span>
+            </Badge>
+          ) : (
+            <span className={styles.applicationBadgeText}>APPLICATIONS</span>
+          )}
+        </Link>
+      )
+    )
   }
 
   renderHeaderButtons () {
     if (this.props.authenticated) {
       const authButtons = [
-        <Link key="logout" to='/' onClick={this.props.logout} className={this.getLinkStyles()}>LOG OUT</Link>,
-        <Link key="profile" to="/profile" className={this.getLinkStyles('profile')}>PROFILE</Link>
+        <Link
+          key="logout"
+          to="/"
+          onClick={this.props.logout}
+          className={this.getLinkStyles()}
+        >
+          LOG OUT
+        </Link>,
+        <Link
+          key="profile"
+          to="/profile"
+          className={this.getLinkStyles('profile')}
+        >
+          PROFILE
+        </Link>
       ]
       if (this.props.user.usertype === 'contact') {
         return [
           this.renderNotificationBadge(),
-          <Link key="create-project" to="/create-project" className={this.getLinkStyles('create-project')}>CREATE PROJECT</Link>,
+          <Link
+            key="create-project"
+            to="/create-project"
+            className={this.getLinkStyles('create-project')}
+          >
+            CREATE PROJECT
+          </Link>,
           ...authButtons
         ]
       } else {
         return authButtons
       }
     } else {
-      return (
-        <div>
-          <Link key="signup" to="/signup" className={this.getLinkStyles('signup')}>SIGN UP</Link>
-          <Link key="login" to='/login' className={this.getLinkStyles('login')}>LOG IN</Link>
-        </div>
-      )
+      return [
+        <Link
+          key="projects"
+          to="/projects"
+          className={this.getLinkStyles('projects')}
+        >
+          PROJECTS
+        </Link>,
+        <Link key="login" to="/login" className={this.getLinkStyles('login')}>
+          LOG IN
+        </Link>,
+        <Button
+          key="signup"
+          to="/signup"
+          component={Link}
+          className={styles.navButton}
+        >
+          SIGN UP
+        </Button>
+      ]
     }
   }
 
@@ -71,12 +117,17 @@ class Header extends Component {
     return (
       <div className={styles.headerRoot}>
         <AppBar position="static" color="inherit" elevation={0}>
-          <Toolbar>
+          <Toolbar style={{ height: '128px' }}>
             <Typography type="title" color="inherit" className={styles.flex}>
-              <Link to="/" className={styles.button}>calltocode</Link>
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt="Calltocode logo"
+                  className={styles.navLogo}
+                />
+              </Link>
             </Typography>
             {this.renderHeaderButtons()}
-            <Link key="about" to="/about" className={this.getLinkStyles('about')}>ABOUT</Link>
           </Toolbar>
         </AppBar>
       </div>
@@ -111,7 +162,6 @@ Header.propTypes = {
     notSeenCounter: PropTypes.number
   }),
   getNotifications: PropTypes.func
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
