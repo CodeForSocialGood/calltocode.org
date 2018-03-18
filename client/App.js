@@ -16,6 +16,7 @@ import SignupForm from './components/SignupForm/SignupForm'
 import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
+import Footer from './components/LandingF/LandingF'
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
@@ -53,6 +54,7 @@ class App extends Component {
           <Route path='/signup' component={SignupForm}/>
           <Route path='/landing-a' component={LandingA} />
           <Route path='/landing-c' component={LandingC} />
+          <Route path='/landing-f' component={Footer} />
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
         </Switch>
       </div>
