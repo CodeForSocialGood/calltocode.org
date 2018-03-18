@@ -1,0 +1,54 @@
+@import "../../scss/partials/partials";
+
+$black: #2c2c2c;
+$grey: #9fa3a7;
+$white: #ffffff;
+
+
+.container {
+  background-color: $black;
+  background-size: cover;
+  object-fit: contain;
+  height: 438px;
+  color: $white;
+  display: flex;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.projects, .about {
+  width: 103px;
+  height: 15px;
+  list-style-type: none;
+  font-size: 15.6px;
+  font-weight: bold;
+  letter-spacing: 3.1px;
+  text-align: left;
+}
+
+.link {
+  color: $white;
+}
+.column1, .column2, .column3, .column4 {
+  margin-top: 103px;
+}
+
+.column1 {
+  margin-left: 95px;
+}
+
+.nonProfit {
+  margin-top: 24px;
+}
+.column2 {
+  margin-left: 137px;
+  padding-left: 0px;
+  text-align: left;
+  width: 131px;
+}
+
+.column3 {
+  margin-left: 75px;
+  width: 131px;
+}
