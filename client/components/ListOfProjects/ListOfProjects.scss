@@ -5,31 +5,33 @@
   display: grid;
 }
 
+.title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  padding: 15px;
+  color: white;
+  background-color: $backgound-orange;
+}
+
 .listContainer {
   width: 100% !important;
   display: flex !important;
   flex-wrap: wrap !important;
+  justify-content: space-around !important;
 }
 
 .list {
   width: 100% !important;
 }
 
-.projectTile {
-    margin-bottom: 20px;
-}
-
 .causesContainer {
   display: inline-flex;
   width: 100%;
   overflow-x: scroll;
+  margin-bottom: -17px;
 }
 
 .cause {
   margin-bottom: 70px;
   margin-right: 5px;
-}
-
-.projectTile {
-  display: flex;
 }

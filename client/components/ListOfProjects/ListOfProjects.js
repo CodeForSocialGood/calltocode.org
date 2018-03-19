@@ -25,7 +25,7 @@ class ListOfProjects extends Component {
   renderListOfProjects () {
     return this.props.projects.map((project, projectIndex) => {
       return (
-        <div className={styles.projectTile} key={projectIndex}>
+        <GridListTile key={projectIndex}>
           <Project
             project={project}
             authenticated={this.props.authenticated}
@@ -40,7 +40,7 @@ class ListOfProjects extends Component {
               )
             })}
           </div>
-        </div>
+        </GridListTile>
       )
     })
   }
@@ -48,10 +48,12 @@ class ListOfProjects extends Component {
   render () {
     return (
       <section className={styles.projectListSection}>
+        <h1 className={styles.title}>{this.props.title}</h1>
+
         <div className={styles.listContainer}>
-          <div className={styles.list}>
+          <GridList className={styles.list} cellHeight={'auto'} cols={3} spacing={8}>
             { this.renderListOfProjects() }
-          </div>
+          </GridList>
         </div>
       </section>
     )
