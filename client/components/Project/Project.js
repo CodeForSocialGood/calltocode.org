@@ -62,11 +62,10 @@ class Project extends Component {
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
         <img className={styles.image} src={project.image || require('../../images/logo.png')} />
-        <div className={styles.projectContent}>
-          <div>{project.name}</div>
-          <div>{isContact && isProfile ? null : project.organization.name || 'Organization Name'}</div>
-          <div>{this.renderProjectApplicationResult(project)}</div>
-        </div>
+        <GridListTileBar title={project.name}
+          subtitle={isContact && isProfile ? null : project.organization.name || 'Organization Name'}
+          actionIcon={this.renderProjectApplicationResult(project)}>
+        </GridListTileBar>
       </div>
     )
   }

@@ -69,29 +69,24 @@ class Home extends Component {
 
   render () {
     return (
-      <div className={styles.homeContainer}>
-        <div className={styles.homeTitleBar}>
-          <h1 className={styles.title}>Find Projects</h1>
-        </div>
-        <div className={styles.homeGrid}>
-          <section className={styles.filterSection}>
-            <span className={styles.filterTitle}><h1>{'Filters'}</h1></span>
-            <FormLabel className={styles.causeTitle}>Causes</FormLabel>
-            <FormGroup className={styles.causesList}>
-              { this.renderList(causes, 'causes') }
-            </FormGroup>
-            <FormLabel className={styles.techTitle}>Tech</FormLabel>
-            <FormGroup className={styles.techList}>
-              { this.renderList(technologies, 'technologies') }
-            </FormGroup>
-          </section>
+      <div className={styles.homeGrid}>
+        <section className={styles.filterSection}>
+          <span className={styles.filterTitle}><h1>{'Filters'}</h1></span>
+          <FormLabel className={styles.causeTitle}>Causes</FormLabel>
+          <FormGroup className={styles.causesList}>
+            { this.renderList(causes, 'causes') }
+          </FormGroup>
+          <FormLabel className={styles.techTitle}>Tech</FormLabel>
+          <FormGroup className={styles.techList}>
+            { this.renderList(technologies, 'technologies') }
+          </FormGroup>
+        </section>
 
-          <ListOfProjects
-            title={'Find Projects'}
-            projects={this.state.filteredProjects}
-            className={styles.projectList}
-          />
-        </div>
+        <ListOfProjects
+          title={'Find Projects'}
+          projects={this.state.filteredProjects}
+          className={styles.projectList}
+        />
       </div>
     )
   }
