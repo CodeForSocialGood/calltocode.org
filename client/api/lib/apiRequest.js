@@ -29,7 +29,7 @@ async function apiRequest (apiOptions, options) {
 
 function getQueryString (query = {}) {
   const encode = encodeURIComponent
-  const keys = Object.keys(query)
+  const keys = Object.keys(query || {})
 
   return keys.length > 0
     ? '?' + keys.map(k => encode(k) + '=' + encode(query[k])).join('&')
