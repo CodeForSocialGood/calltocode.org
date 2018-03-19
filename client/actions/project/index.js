@@ -64,4 +64,22 @@ export default class ProjectActionCreator {
       }
     }
   }
+
+  static fetchProjectById (id) {
+    console.log('show applications 3')
+    return (dispatch, getState) => {
+      dispatch(ProjectActionCreator.fetching())
+
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const project = projectsApiClient.getProjectById(apiOptions, id)
+        console.log('fetch project by id', project)
+        dispatch(ProjectActionCreator.received(project))
+      } catch (e) {
+        console.trace(e)
+        dispatch(ProjectActionCreator.failed())
+      }
+    }
+  }
 }

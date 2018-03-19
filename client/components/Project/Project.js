@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Chip from 'material-ui/Chip'
+import {Link} from 'react-router-dom'
 import styles from './Project.scss'
 
 class Project extends Component {
@@ -31,6 +32,7 @@ class Project extends Component {
     }
     return <span />
   }
+
 
   getAppliedStatus () {
     return (
@@ -62,7 +64,9 @@ class Project extends Component {
         onClick={this.handleClick.bind(this)}>
         <img className={styles.image} src={project.image || require('../../images/logo.png')} />
         <div className={styles.projectContent}>
-          <div className={styles.projectTitle}>{project.name}</div>
+          <div className={styles.projectTitle}>
+            <Link to={`/projects/${project.id}`}>{project.name}</Link>
+          </div>
           <div>{isContact && isProfile ? null : project.organization.name || 'Organization Name'}</div>
           <div>{this.renderProjectApplicationResult(project)}</div>
         </div>
