@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HardSourcePlugin = require('hard-source-webpack-plugin')
 // allow us to visualise our bundles and optimise
-const Visualizer = require('webpack-visualizer-plugin');
+const Visualizer = require('webpack-visualizer-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 //
 
@@ -59,7 +59,7 @@ const config = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader?sourceMap',
-          //resolve-url-loader may be chained before sass-loader if necessary
+          // resolve-url-loader may be chained before sass-loader if necessary
           use: [
             'css-loader?modules&importLoaders=1&localIdentName="[local]__[hash:base64:5]"',
             'sass-loader?sourceMap'
@@ -67,7 +67,7 @@ const config = {
         })
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -118,7 +118,7 @@ const config = {
     /*,
     new BundleAnalyzerPlugin()
     */
-     /*
+    /*
        turn on to create an interactive treemap visualization of the contents of all our bundles
        will open automatically after running yarn build
 
