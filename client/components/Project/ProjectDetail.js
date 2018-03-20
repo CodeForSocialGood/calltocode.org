@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ProjectActionCreator from '../../actions/project'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
+import Card, {CardHeader, CardContent, CardMedia} from 'material-ui/Card'
+import Typography from 'material-ui/Typography';
+
 
 class ProjectDetail extends Component {
   constructor (args) {
@@ -15,14 +19,20 @@ class ProjectDetail extends Component {
 
   renderApplication (application) {
     return (
-      <div>
-        <p>
-          {application.volunteer.email}
-        </p>
-        <p>
-          Submitted at: {application.createdAt}
-        </p>
-      </div>
+      <Card>
+        <CardHeader
+          title= {application.volunteer.email}
+        />
+        <CardContent>
+          <Typography>
+           message: {application.message}
+          </Typography>
+
+          <Typography>
+            Submitted at: {application.createdAt}
+          </Typography>
+        </CardContent>
+      </Card>
     )
   }
 
@@ -30,15 +40,21 @@ class ProjectDetail extends Component {
     const project = this.props.project || {}
     const applications = project.applications || []
     if (applications.length === 0) {
-      return (<h2>No one applied this project</h2>)
+      return (
+        <div>
+          <h1>No one applied this project</h1>
+          <Link to={`/profile`}>Go Back</Link>
+        </div>)
     } else {
       return (
         <div>
+          <h1>The following applicants applied this project:</h1>
           <ul>
             {
               applications.map((app) => <li key={app.id}> {this.renderApplication(app)} </li>)
             }
           </ul>
+          <Link to={`/profile`} >Go Back</Link>
         </div>
       )
     }
