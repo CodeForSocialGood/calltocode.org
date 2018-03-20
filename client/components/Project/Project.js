@@ -72,8 +72,6 @@ class Project extends Component {
       projectClasses = styles.projectAuthenticatedContact
     }
 
-    console.log('show applications 2')
-
     return (
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
