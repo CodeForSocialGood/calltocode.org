@@ -13,7 +13,12 @@ export default function (state = initialState.projects, action) {
       return { ...state, fetching: true }
 
     case RECEIVED_PROJECTS:
-      return { ...state, fetching: false, projects: payload }
+      const value = payload || {}
+      if (value instanceof Array) {
+        return {...state, fetching: false, projects: payload}
+      } else {
+        return {...state, fetching: false, project: payload}
+      }
 
     case FAILED_PROJECTS:
       return { ...state, fetching: false }

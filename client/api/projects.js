@@ -24,6 +24,10 @@ const projectsApiClient = {
       body: JSON.stringify({ name, causes, technologies, organization })
     }
     return fetch('/api/projects/', options)
+  },
+
+  getProjectById (apiOptions, id) {
+    return apiRequest.get('/projects/' + id, apiOptions, null)
   }
 }
 

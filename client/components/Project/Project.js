@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { GridListTileBar } from 'material-ui/GridList'
+import {Link} from 'react-router-dom'
 
 import styles from './Project.scss'
 
@@ -33,6 +34,19 @@ class Project extends Component {
     return <span />
   }
 
+  renderProjectTitle () {
+    const { currentPage, project } = this.props
+    const isContact = this.isUserTypeContact()
+    const isProfile = currentPage.includes('profile')
+    if (isProfile && isContact) {
+      return (
+        <Link to={`/projects/${project.id}`}>
+          {project.name}
+        </Link>
+      )
+    }
+  }
+
   getAppliedStatus () {
     return (
       this.props.user.projectsAppliedFor &&
@@ -62,7 +76,7 @@ class Project extends Component {
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
         <img className={styles.image} src={project.image || require('../../images/logo.png')} />
-        <GridListTileBar title={project.name}
+        <GridListTileBar title={ this.renderProjectTitle() }
           subtitle={isContact && isProfile ? null : project.organization.name || 'Organization Name'}
           actionIcon={this.renderProjectApplicationResult(project)}>
         </GridListTileBar>
