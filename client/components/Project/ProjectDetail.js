@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import ProjectActionCreator from '../../actions/project'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import Card, {CardHeader, CardContent, CardMedia} from 'material-ui/Card'
-import Typography from 'material-ui/Typography';
-
+import Card, {CardContent} from 'material-ui/Card'
+import Typography from 'material-ui/Typography'
+import styles from './ProjectDetail.scss'
 
 class ProjectDetail extends Component {
   constructor (args) {
     super(args)
-    this.state = { projectId: this.props.match.params.id }
+    this.state = {projectId: this.props.match.params.id}
   }
 
   componentDidMount () {
@@ -20,14 +20,13 @@ class ProjectDetail extends Component {
   renderApplication (application) {
     return (
       <Card>
-        <CardHeader
-          title= {application.volunteer.email}
-        />
         <CardContent>
           <Typography>
-           message: {application.message}
+            Applicant: {application.volunteer.email}
           </Typography>
-
+          <Typography expandable={true}>
+            Message: {application.message}
+          </Typography>
           <Typography>
             Submitted at: {application.createdAt}
           </Typography>
@@ -39,25 +38,24 @@ class ProjectDetail extends Component {
   render () {
     const project = this.props.project || {}
     const applications = project.applications || []
-    if (applications.length === 0) {
-      return (
-        <div>
-          <h1>No one applied this project</h1>
+    return applications.length === 0 ? (
+      <div>
+        <h1>No one had applied this project</h1>
+        <p className={styles.goBack}>
           <Link to={`/profile`}>Go Back</Link>
-        </div>)
-    } else {
-      return (
-        <div>
-          <h1>The following applicants applied this project:</h1>
-          <ul>
-            {
-              applications.map((app) => <li key={app.id}> {this.renderApplication(app)} </li>)
-            }
-          </ul>
+        </p>
+      </div>) : (
+      <div>
+        <h1>The following applicants applied this project:</h1>
+        <ul>
+          {
+            applications.map((app) => <li key={app.id}> {this.renderApplication(app)} </li>)
+          }
+        </ul>
+        <p className={styles.goBack}>
           <Link to={`/profile`} >Go Back</Link>
-        </div>
-      )
-    }
+        </p>
+      </div>)
   }
 }
 
