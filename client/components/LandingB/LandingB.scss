@@ -1,0 +1,100 @@
+@import "../../scss/partials/partials";
+
+.globalNetwork{
+    text-align: center;
+    font-size: 46px;        
+}
+
+.volunteerOrgButtons{
+    height: 60px;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 47px;
+    text-transform: uppercase;
+    
+}
+
+.volunteers{    
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+    background-color: $black;    
+    height: 100%;
+    width: 235px;
+    border-radius: 200px 0 0 200px;
+    color: $white;    
+    font-size: 13.8px;
+    font-weight: bold;
+    letter-spacing: 2.8px;    
+    cursor: pointer;
+}
+
+.organizations{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $grayDE;
+    height: 100%;
+    width: 235px;
+    border-radius: 0 200px 200px 0;
+    color: $black;
+    font-size: 13.8px;
+    font-weight: bold;    
+    letter-spacing: 2.8px; 
+    cursor: pointer;
+}
+
+.wrapper{
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);    
+}
+.createProfile{
+    grid-column: 1;
+}
+
+.searchProjects{
+    grid-column: 2;
+}
+.applyForProjects{
+    grid-column: 3;
+}
+
+.createProfile,
+.searchProjects,
+.applyForProjects{
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+}
+
+.icon{
+    width: 81px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.subtitle{
+    margin-top: 22px;    
+    height: 12px;    
+    font-family: Gotham;
+    font-size: 12px;
+    font-weight: bold;    
+    letter-spacing: 2.4px;
+    text-align: center;
+    color: #212121;
+    text-transform: uppercase;
+}
+.description{ 
+    margin-top: 15px;      
+    width: 206px;      
+    opacity: 0.67;
+    font-family: Gotham;
+    font-size: 14px;    
+    line-height: 1.71;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #262626;    
+}   
