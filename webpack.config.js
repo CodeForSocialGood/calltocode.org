@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const HardSourcePlugin = require('hard-source-webpack-plugin')
+const CleanPlugin = require('clean-webpack-plugin')
 /* allow us to visualise our bundles and optimise
 const Visualizer = require('webpack-visualizer-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -30,6 +30,17 @@ const config = {
       'lodash',
       'material-ui'
     ]
+  },
+
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'initial',
+      cacheGroups: {
+        default: false,
+        vendors: false
+      }
+    }
   },
 
   output: {
@@ -79,12 +90,27 @@ const config = {
   },
 
   plugins: [
+    new CleanPlugin(['server/public/'], {root: __dirname}),
+
     new HtmlWebpackPlugin({
-      template: path.join(clientDir, 'index.html')
+      inject: true,
+      template: path.join(clientDir, 'index.html'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      }
     }),
 
     new ExtractTextPlugin({
-      filename: 'client.css'
+      filename: '[name].css'
     }),
 
     new webpack.DefinePlugin({
@@ -95,20 +121,9 @@ const config = {
       {from: path.join(clientDir, 'robots.txt')}
     ]),
 
-    new HardSourcePlugin({
-      cacheDirectory: path.join('..', '..', 'node_modules', '.cache', 'hard-source', '[confighash]')
-    }),
+    // ensures vendor bundle hash only changes when it needs to
+    new webpack.HashedModuleIdsPlugin() /*,
 
-    new webpack.HashedModuleIdsPlugin(), // ensures vendor bundle hash only changes when it needs to
-
-    // CommonsChunkPlugin makes sure we don't have the same modules included in multiple chunks
-    new webpack.optimize.CommonsChunkPlugin({ // vendor must be included before manifest
-      name: 'vendor'
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({ // separate the webpack manifest from our main chunk
-      name: 'manifest'
-    })/*,
     new Visualizer()
     */
     /*

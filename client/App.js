@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Loadable from 'react-loadable'
-
 import Loading from './components/Loading/Loading'
 import AuthActionCreator from './actions/auth'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
