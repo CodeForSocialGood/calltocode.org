@@ -6,3 +6,4 @@ server/public/
 **/reports/
 package-lock.json
 npm-shrinkwrap.json
+yarn.lock
