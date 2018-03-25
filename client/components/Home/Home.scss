@@ -1,21 +1,45 @@
 @import '../../scss/partials/partials';
 
-$titleBarColor: #f5f5f5;
-$titleBarRadius: 200px;
-$fontColor: #4b4c4d;
+.homeContainer {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
+}
 
 .homeGrid {
 	background-color: $background-gray;
 	display: grid;
-	margin-left: -150px;
-	grid-template-columns: auto 85%;//
+	width: auto;
+	height: auto;
+	padding: 0 40px 0 40px;
+	margin-top: 128px;
+	grid-template-columns: 360px 975px;
 	grid-template-areas:
+		"title title"
 		"filterSection projectList";
+}
+
+.title {
+	grid-area: title;
+	font-size: 20px;
+	margin: 0 0 0 -50px;
+	padding: 15px 15px 15px 80px;
+	color: white;
+	width: 94vw;
+	background-color: $backgound-orange;
 }
 
 .projectList {
 	grid-area: projectList;
-	padding: 0 30px;
+	display: grid;
+	padding: 10px 30px 0 0;
+	height: auto;
 }
 
 .filterSection {
@@ -32,7 +56,7 @@ $fontColor: #4b4c4d;
 		"techTitle"
 		"technologies";
 	grid-row-gap: 10px;
-	height: 70%;
+	height: 800px;
 }
 
 .filterTitle {
@@ -41,26 +65,26 @@ $fontColor: #4b4c4d;
 
 .causeTitle {
 	grid-area: causeTitle;
-	border-radius: $titleBarRadius;
-	color: $fontColor;
+	border-radius: $filterTitleRadius;
+	color: $listColor;
 	font-weight: bold;
 	height: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: $titleBarColor;
+	background-color: $filterTitleColor;
 }
 
 .techTitle {
 	grid-area: techTitle;
-	border-radius: $titleBarRadius;
-	color: $fontColor;
+	border-radius: $filterTitleRadius;
+	color: $listColor;
 	font-weight: bold;
 	height: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: $titleBarColor;
+	background-color: $filterTitleColor;
 }
 
 .causesList {
