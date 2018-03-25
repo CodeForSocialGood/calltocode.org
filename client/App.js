@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Loadable from 'react-loadable'
-
 import Loading from './components/Loading/Loading'
 import AuthActionCreator from './actions/auth'
 import ForgotPasswordForm from './components/ForgotPasswordForm/ForgotPasswordForm'
@@ -17,6 +16,7 @@ import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
 import Footer from './components/LandingF/LandingF'
+import LandingB from './components/LandingB/LandingB'
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
@@ -55,6 +55,7 @@ class App extends Component {
           <Route path='/landing-a' component={LandingA} />
           <Route path='/landing-c' component={LandingC} />
           <Route path='/landing-f' component={Footer} />
+          <Route path='/landing-b' component={LandingB} />
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
         </Switch>
       </div>
