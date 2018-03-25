@@ -30,7 +30,7 @@ script:
 - yarn install
 - yarn test
 - mongo --eval "db.getSiblingDB('admin').shutdownServer()"
-- NODE_ENV=ci yarn e2e
+# - yarn e2e -e ci --tag smoke
 
 after_script: greenkeeper-lockfile-upload
 
