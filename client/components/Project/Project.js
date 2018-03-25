@@ -33,7 +33,6 @@ class Project extends Component {
     return <span />
   }
 
-
   getAppliedStatus () {
     return (
       this.props.user.projectsAppliedFor &&
