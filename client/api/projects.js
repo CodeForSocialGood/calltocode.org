@@ -15,14 +15,15 @@ const projectsApiClient = {
     return apiRequest.get('/projects', apiOptions, query)
   },
 
-  async createProject (name, causes, technologies, organization) {
+  async createProject (data) {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       },
-      body: JSON.stringify({ name, causes, technologies, organization })
+      body: data
     }
+    console.log(data.get('projectName'))
     return fetch('/api/projects/', options)
   }
 }

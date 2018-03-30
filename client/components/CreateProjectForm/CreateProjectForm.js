@@ -25,12 +25,13 @@ class CreateProjectForm extends Component {
       error: '',
       projectName: '',
       causes: [],
-      technologies: []
+      technologies: [],
+      file: null
     }
   }
 
-  saveFile () {
-    // TODO ... implement the save file
+  saveFile (file) {
+    this.setState({ file })
   }
 
   projectNameChange (event) {
@@ -40,12 +41,13 @@ class CreateProjectForm extends Component {
 
   async createProject (event) {
     event.preventDefault()
-    const response = await projectsApiClient.createProject(
-      this.state.projectName,
-      this.state.causes,
-      this.state.technologies,
-      this.props.user.organization
-    )
+    const data = new FormData()
+    data.append('projectName', this.state.projectName)
+    data.append('causes', this.state.causes)
+    data.append('technologies', this.state.technologies)
+    data.append('organization', this.props.user.organization)
+    data.append('picture', this.state.file)
+    const response = await projectsApiClient.createProject(data)
     if (response.status === 500) {
       this.setState({error: response.statusText})
     } else {
