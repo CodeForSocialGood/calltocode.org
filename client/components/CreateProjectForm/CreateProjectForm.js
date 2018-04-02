@@ -42,7 +42,7 @@ class CreateProjectForm extends Component {
   async createProject (event) {
     event.preventDefault()
     const data = new FormData()
-    data.append('projectName', this.state.projectName)
+    data.append('name', this.state.projectName)
     data.append('causes', this.state.causes)
     data.append('technologies', this.state.technologies)
     data.append('organization', this.props.user.organization)

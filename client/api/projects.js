@@ -18,12 +18,8 @@ const projectsApiClient = {
   async createProject (data) {
     const options = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
       body: data
     }
-    console.log(data.get('projectName'))
     return fetch('/api/projects/', options)
   }
 }
