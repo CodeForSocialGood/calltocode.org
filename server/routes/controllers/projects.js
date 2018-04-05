@@ -52,7 +52,6 @@ export default {
   },
 
   async projectById (req, res, next, id) {
-    // const project = await this.Projects.findById(id)
     const project = await this.Projects.findById(id).populate({
       path: 'applications',
       populate: {path: 'volunteer'}

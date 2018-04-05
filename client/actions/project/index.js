@@ -74,7 +74,6 @@ export default class ProjectActionCreator {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
         const project = projectsApiClient.getProjectById(apiOptions, id)
-        console.log('fetch project by id', project)
         dispatch(ProjectActionCreator.received(project))
       } catch (e) {
         console.trace(e)
