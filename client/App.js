@@ -15,6 +15,7 @@ import SignupForm from './components/SignupForm/SignupForm'
 import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
+import ProjectDetail from './components/Project/ProjectDetail'
 import Footer from './components/LandingF/LandingF'
 import LandingB from './components/LandingB/LandingB'
 
@@ -57,6 +58,7 @@ class App extends Component {
           <Route path='/landing-f' component={Footer} />
           <Route path='/landing-b' component={LandingB} />
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
+          <Route path='/projects/:id' component={ProjectDetail} />
         </Switch>
       </div>
     )
