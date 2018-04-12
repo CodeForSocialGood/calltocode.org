@@ -1,0 +1,64 @@
+@import "../../scss/partials/partials";
+
+$black: #000;
+$bottom-red: #ff3e3e;
+$top-red: #e74e2b;
+$white: #fff;
+
+.container {
+  background: linear-gradient(to bottom, #e74e2b, #ff3e3e);
+  height: 423px;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows:auto;
+  position: absolute;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+h1 {
+  color: $white;
+  text-align: center;
+  margin-top: 70px;
+  letter-spacing: 3.1px;
+  font-size: 30px;
+}
+
+.slack, .github {
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+  display: block;
+}
+
+.slack{
+  margin-top:20px;
+}
+
+.contribute {
+  width: 216px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-align: center;
+  color: #000000;
+}
+
+.community {
+  width: 185px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-align: left;
+  color: #000000
+}
