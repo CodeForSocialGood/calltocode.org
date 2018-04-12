@@ -23,6 +23,21 @@ class LandingE extends React.Component {
             <img src={slack} alt="slack logo"/>
             <span className={styles.community}>JOIN THE COMMUNITY</span>
           </Button>
+          <a href="#">
+            <button className={styles.github}>
+              <span><img src={github} alt="github logo"/></span>
+              <span className={styles.contribute}>CONTRIBUTE TO PROJECTS</span>
+            </button>
+          </a>
+        </div>
+
+        <div>
+          <a href="#">
+            <button className={styles.slack}>
+              <span><img src={slack} alt="slack logo"/></span>
+              <span className={styles.community}>JOIN THE COMMUNITY</span>
+            </button>
+          </a>
         </div>
 
       < /div>
