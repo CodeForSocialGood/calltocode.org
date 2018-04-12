@@ -16,6 +16,16 @@ $white: #fff;
 img {
   vertical-align: middle;
 }
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows:auto;
+  position: absolute;
+  margin: 0 auto;
+  justify-items: center;
+}
+
 h1 {
   color: $white;
   text-align: center;
@@ -52,6 +62,18 @@ a.slack {
 
 .slack{
   margin-top:-15px;
+  font-size: 30px;
+}
+
+.slack, .github {
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+  display: block;
+}
+
+.slack{
+  margin-top:20px;
 }
 
 .contribute {
@@ -80,4 +102,5 @@ a.slack {
   text-align: left;
   color: #000000;
   padding-left: 10px;
+  color: #000000
 }
