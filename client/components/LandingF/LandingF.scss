@@ -11,7 +11,10 @@ $white: #ffffff;
   object-fit: contain;
   height: 438px;
   color: $white;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr .6fr .6fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
   left: 0;
   right: 0;
   position: absolute;
@@ -30,8 +33,9 @@ $white: #ffffff;
 .link {
   color: $white;
 }
-.column1, .column2, .column3, .column4 {
+.column1, .column2, .column3 {
   margin-top: 103px;
+  display: inline-block;
 }
 
 .column1 {
@@ -42,13 +46,12 @@ $white: #ffffff;
   margin-top: 24px;
 }
 .column2 {
-  margin-left: 137px;
+  margin-left: 80px;
   padding-left: 0px;
   text-align: left;
   width: 131px;
 }
 
 .column3 {
-  margin-left: 75px;
   width: 131px;
 }
