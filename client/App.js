@@ -15,7 +15,6 @@ import SignupForm from './components/SignupForm/SignupForm'
 import Version from './components/Version/Version'
 import LandingA from './components/LandingA/LandingA'
 import LandingC from './components/LandingC/LandingC'
-
 import Footer from './components/LandingF/LandingF'
 import LandingE from './components/LandingE/LandingE'
 
@@ -58,7 +57,6 @@ class App extends Component {
           <Route path='/landing-f' component={Footer} />
           <Route path='/landing-e' component={LandingE} />
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
-          
         </Switch>
       </div>
     )
