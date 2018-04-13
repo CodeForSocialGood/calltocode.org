@@ -70,6 +70,25 @@ a.slack {
   width: 369px;
   height: 75px;
   border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+}
+
+a.slack {
+  background: $white;
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
 }
 
 .slack{
