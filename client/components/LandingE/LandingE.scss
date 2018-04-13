@@ -19,13 +19,14 @@ img {
   left: 0;
   right: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows:auto;
   position: absolute;
   margin: 0 auto;
   justify-items: center;
 }
 
+img {
+  vertical-align: middle;
+}
 h1 {
   color: $white;
   text-align: center;
@@ -69,11 +70,10 @@ a.slack {
   width: 369px;
   height: 75px;
   border-radius: 49.5px;
-  display: block;
 }
 
 .slack{
-  margin-top:20px;
+  margin-top:-15px;
 }
 
 .contribute {
