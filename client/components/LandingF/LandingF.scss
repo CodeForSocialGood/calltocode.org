@@ -3,6 +3,7 @@
 $black: #2c2c2c;
 $grey: #9fa3a7;
 <<<<<<< HEAD
+<<<<<<< HEAD
 $white: #ffffff;
 =======
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
@@ -13,11 +14,25 @@ $white: #ffffff;
 <<<<<<< HEAD
   background-color: $black;
 <<<<<<< HEAD
+=======
+$white: #ffffff;
+
+
+.container {
+  background-color: $black;
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
   background-size: cover;
   object-fit: contain;
   height: 438px;
   color: $white;
+<<<<<<< HEAD
   display: flex;
+=======
+  display: grid;
+  grid-template-columns: 1fr .6fr .6fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
   left: 0;
   right: 0;
   position: absolute;
@@ -27,6 +42,7 @@ $white: #ffffff;
   width: 103px;
   height: 15px;
   list-style-type: none;
+<<<<<<< HEAD
 =======
 =======
   background: $black;
@@ -148,16 +164,34 @@ $white: #ffffff;
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
 .column1, .column2, .column3, .column4 {
   margin-top: 103px;
+=======
+  font-size: 15.6px;
+  font-weight: bold;
+  letter-spacing: 3.1px;
+  text-align: left;
+}
+
+.link {
+  color: $white;
+}
+.column1, .column2, .column3 {
+  margin-top: 103px;
+  display: inline-block;
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
 }
 
 .column1 {
   margin-left: 95px;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
 
 .nonProfit {
   margin-top: 24px;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> feature #155111485- Visitor sees landing page(Section F)
 .column2 {
@@ -166,10 +200,17 @@ $white: #ffffff;
   text-align: left;
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+.column2 {
+  margin-left: 80px;
+  padding-left: 0px;
+  text-align: left;
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
   width: 131px;
 }
 
 .column3 {
+<<<<<<< HEAD
   margin-left: 75px;
   width: 131px;
 =======
@@ -209,3 +250,7 @@ $white: #ffffff;
 }
 =======
 >>>>>>>  font-size
+=======
+  width: 131px;
+}
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4

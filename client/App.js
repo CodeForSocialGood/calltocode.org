@@ -18,6 +18,7 @@ import LandingC from './components/LandingC/LandingC'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ProjectDetail from './components/Project/ProjectDetail'
 import Footer from './components/LandingF/LandingF'
 import LandingB from './components/LandingB/LandingB'
@@ -30,6 +31,10 @@ import LandingF from './components/LandingF/LandingF'
 =======
 import Footer from './components/LandingF/LandingF'
 >>>>>>> some changes again
+=======
+import Footer from './components/LandingF/LandingF'
+import LandingE from './components/LandingE/LandingE'
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
@@ -69,6 +74,7 @@ class App extends Component {
           <Route path='/landing-c' component={LandingC} />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Route path='/landing-f' component={Footer} />
           <Route path='/landing-b' component={LandingB} />
 =======
@@ -77,6 +83,10 @@ class App extends Component {
 =======
           <Route path='/landing-f' component={Footer} />
 >>>>>>> some changes again
+=======
+          <Route path='/landing-f' component={Footer} />
+          <Route path='/landing-e' component={LandingE} />
+>>>>>>> d24de3ce2834bc7e4a6bbc55f75cabe03c804bf4
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
           <Route path='/projects/:id' component={ProjectDetail} />
         </Switch>
