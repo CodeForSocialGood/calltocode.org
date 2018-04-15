@@ -117,7 +117,7 @@ class Header extends Component {
     return (
       <div className={styles.headerRoot}>
         <AppBar position="static" color="inherit" elevation={0}>
-          <Toolbar style={{ height: '128px' }}>
+          <Toolbar style={{height: '128px', 'zIndex': 1100}}>
             <Typography type="title" color="inherit" className={styles.flex}>
               <Link to="/">
                 <img
