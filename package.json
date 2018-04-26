@@ -7,7 +7,7 @@
   "author": "c2c team",
   "private": true,
   "engines": {
-    "node": "9.2.0"
+    "node": "10"
   },
   "scripts": {
     "client:watch": "webpack --mode development --watch --progress --hide-modules",
