@@ -8,13 +8,8 @@ import Typography from 'material-ui/Typography'
 import styles from './ProjectDetail.scss'
 
 class ProjectDetail extends Component {
-  constructor (args) {
-    super(args)
-    this.state = {projectId: this.props.match.params.id}
-  }
-
   componentDidMount () {
-    this.props.fetchProjectById(this.state.projectId)
+    this.props.fetchProjectById(this.props.match.params.id)
   }
 
   renderApplication (application) {
