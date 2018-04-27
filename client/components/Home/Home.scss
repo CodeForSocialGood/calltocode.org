@@ -4,7 +4,7 @@
 	display: block;
 	position: absolute;
 	bottom: 0;
-	top: 0;
+	top: 128px;
 	left: 0;
 	right: 0;
 	margin: 0;
@@ -18,7 +18,6 @@
 	width: auto;
 	height: auto;
 	padding: 0 40px 0 40px;
-	margin-top: 128px;
 	grid-template-columns: 360px 975px;
 	grid-template-areas:
 		"title title"
