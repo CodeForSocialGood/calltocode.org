@@ -70,7 +70,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "rollbar": "^2.3.2",
-    "sass-loader": "^7.0.0",
+    "sass-loader": "^7.0.1",
     "sendmail": "^1.2.0",
     "style-loader": "^0.20.0",
     "url-loader": "^1.0.0",
