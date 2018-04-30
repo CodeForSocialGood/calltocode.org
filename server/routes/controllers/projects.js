@@ -33,6 +33,7 @@ export default {
 
   async createProject (req, res, next) {
     console.log(req.file)
+    req.body.image = req.file.filename
     console.log(req.body)
     const project = new this.Projects(req.body)
     const newProject = await project.save()

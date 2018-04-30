@@ -8,6 +8,7 @@ const ProjectSchema = mongoose.Schema({
   name: String,
   role: String,
   email: String,
+  image: String,
   causes: [{
     type: String,
     enum: ['Animal', 'Environment', 'International NGO', 'Health', 'Education', 'Arts & Culture', 'Other']
@@ -29,6 +30,7 @@ ProjectSchema.methods.toJSON = function () {
     name: this.name,
     role: this.role,
     email: this.email,
+    image: this.image,
     causes: this.causes,
     technologies: this.technologies,
     applications: this.applications,
