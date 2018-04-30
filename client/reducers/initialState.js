@@ -9,7 +9,10 @@ export default {
   },
   projects: {
     fetching: false,
-    projects: []
+    projects: [],
+    error: {
+      message: ''
+    }
   },
   users: {},
   applications: {

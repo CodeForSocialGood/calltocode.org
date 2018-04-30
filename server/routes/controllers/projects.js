@@ -1,6 +1,9 @@
 import bindFunctions from '../../lib/bindFunctions'
 import ProjectModel from '../../database/models/Project'
-import { NotFoundError } from '../../lib/errors'
+import { NotFoundError, RequestError } from '../../lib/errors'
+import { presignedPutObject, createBucketIfNecessary } from '../../lib/minio'
+
+const projectsBucket = 'projects'
 
 export default {
   _init (Projects = ProjectModel) {
@@ -49,6 +52,18 @@ export default {
     const newProject = await project.save()
 
     return res.status(200).json(newProject.toJSON())
+  },
+
+  async getPresignedUrl (req, res, next) {
+    const { imageName } = req.query
+    try {
+      await createBucketIfNecessary(projectsBucket)
+      const url = await presignedPutObject(projectsBucket, imageName)
+      console.log(url)
+      return res.status(200).json(url)
+    } catch (ex) {
+      throw new RequestError()
+    }
   },
 
   async projectById (req, res, next, id) {
