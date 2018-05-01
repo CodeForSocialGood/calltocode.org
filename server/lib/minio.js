@@ -3,6 +3,27 @@ import { minioConfig } from '../config'
 
 const { client, region } = minioConfig
 
+const setBucketPolicy = async (bucketName) => {
+  try {
+    await client.setBucketPolicy(bucketName, JSON.stringify({
+      Version: '2012-10-17',
+      Statement: [
+        {
+          Sid: '',
+          Action: ['s3:GetObject'],
+          Effect: 'Allow',
+          Resource: `arn:aws:s3:::${bucketName}/*`,
+          Principal: {
+            AWS: ['*']
+          }
+        }
+      ]
+    }))
+  } catch (err) {
+    logger.error(err)
+  }
+}
+
 /**
  * Creates a bucket to upload
  * @param {String} bucketName
@@ -10,6 +31,7 @@ const { client, region } = minioConfig
 const makeBucket = async (bucketName) => {
   try {
     await client.makeBucket(bucketName, region)
+    await setBucketPolicy(bucketName)
   } catch (err) {
     logger.error(err)
   }
