@@ -7,11 +7,12 @@ import Button from 'material-ui/Button/Button'
 import Checkbox from 'material-ui/Checkbox'
 import { FormGroup, FormLabel, FormControlLabel } from 'material-ui/Form'
 
-import projectsApiClient from '../../api/projects'
 import UploadDropzone from '../UploadDropzone/UploadDropzone'
 import styles from './CreateProjectForm.scss'
 import { buttonSubmit } from './createProjectFormJss'
 import { causes, technologies } from '../shared/constants'
+
+import ProjectActionCreator from '../../actions/project/'
 
 class CreateProjectForm extends Component {
   constructor (props, context) {
@@ -26,12 +27,12 @@ class CreateProjectForm extends Component {
       projectName: '',
       causes: [],
       technologies: [],
-      file: null
+      file: ''
     }
   }
 
   saveFile (file) {
-    this.setState({ file })
+    this.setState({file})
   }
 
   projectNameChange (event) {
@@ -41,18 +42,11 @@ class CreateProjectForm extends Component {
 
   async createProject (event) {
     event.preventDefault()
-    const data = new FormData()
-    data.append('name', this.state.projectName)
-    data.append('causes', this.state.causes)
-    data.append('technologies', this.state.technologies)
-    data.append('organization', this.props.user.organization)
-    data.append('picture', this.state.file)
-    const response = await projectsApiClient.createProject(data)
-    if (response.status === 500) {
-      this.setState({error: response.statusText})
-    } else {
-      this.context.router.history.push('/profile')
-    }
+    this.props.createProject(this.state.projectName,
+      this.state.causes,
+      this.state.technologies,
+      this.props.user.organization,
+      this.state.file)
   }
 
   handleCheckbox (event, checked) {
@@ -106,9 +100,9 @@ class CreateProjectForm extends Component {
         Create Project
         </Button>
 
-        {this.state.error &&
+        {this.props.errorMessage.length > 0 &&
           <div className={styles.errorContent}>
-            {this.state.error}
+            {this.props.errorMessage}
           </div>
         }
       </form>
@@ -119,8 +113,13 @@ class CreateProjectForm extends Component {
 function mapStateToProps (state) {
   return {
     projects: state.project.projects,
-    user: state.user
+    user: state.user,
+    errorMessage: state.project.error.message
   }
+}
+
+const mapDispatchToProps = {
+  createProject: ProjectActionCreator.createProject
 }
 
 CreateProjectForm.contextTypes = {
@@ -132,7 +131,9 @@ CreateProjectForm.propTypes = {
   handleSubmit: PropTypes.func,
   createProject: PropTypes.func,
   user: PropTypes.object,
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  projects: PropTypes.array,
+  errorMessage: PropTypes.string
 }
 
-export default connect(mapStateToProps, null)(withStyles(buttonSubmit)(CreateProjectForm))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(buttonSubmit)(CreateProjectForm))

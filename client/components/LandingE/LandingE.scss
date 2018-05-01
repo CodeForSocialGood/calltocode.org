@@ -1,0 +1,86 @@
+@import "../../scss/partials/partials";
+
+$black: #000;
+$bottom-red: #ff3e3e;
+$top-red: #e74e2b;
+$white: #fff;
+
+.container {
+  background: linear-gradient(to bottom, #e74e2b, #ff3e3e);
+  height: 423px;
+  left: 0;
+  right: 0;
+  display: grid;
+  position: absolute;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+img {
+  vertical-align: middle;
+}
+h1 {
+  color: $white;
+  text-align: center;
+  margin-top: 70px;
+  letter-spacing: 3.1px;
+  font-size: 48px;
+}
+
+ a.github {
+  background: $white;
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+}
+
+a.slack {
+  background: $white;
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+}
+
+.slack{
+  margin-top:-15px;
+}
+
+.contribute {
+  width: 216px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-align: center;
+  color: #000000;
+  padding-left: 10px;
+}
+
+.community {
+  width: 185px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-align: left;
+  color: #000000;
+  padding-left: 10px;
+}
