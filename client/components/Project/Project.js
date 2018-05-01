@@ -61,7 +61,7 @@ class Project extends Component {
     return (
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
-        <img className={styles.image} src={project.image || require('../../images/logo.png')} />
+        <img className={styles.image} src={project.imageUrl || require('../../images/logo.png')} />
         <div className={styles.projectContent}>
           <div className={styles.projectTitle}>
             <Link to={`/projects/${project.id}`}>{project.name}</Link>
