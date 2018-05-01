@@ -80,7 +80,8 @@ export default class ProjectActionCreator {
   }
 
   static async uploadImage (file, apiOptions) {
-    const url = await projectsApiClient.getPresignedUrlForProjectImage(apiOptions, file.name)
+    const filename = file.name.replace(/(\.[\w\d_-]+)$/i, Date.now() + '$1')
+    const url = await projectsApiClient.getPresignedUrlForProjectImage(apiOptions, filename)
     await projectsApiClient.uploadImage(apiOptions, url, file)
   }
 
