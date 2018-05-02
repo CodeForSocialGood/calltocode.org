@@ -31,8 +31,8 @@ class ProjectDetail extends Component {
   }
 
   render () {
-    const project = this.props.project || {};
-    const applications = project.applications || [];
+    const project = this.props.project || {}
+    const applications = project.applications || []
     return applications.length === 0 ? (
       <div>
         <h1>No one had applied this project</h1>
@@ -56,16 +56,16 @@ class ProjectDetail extends Component {
 
 const mapDispatchToProps = {
   fetchProjectById: ProjectActionCreator.fetchProjectById
-};
+}
 
 const mapStateToProperties = (state) => {
   return {project: state.project.project || {}}
-};
+}
 
 ProjectDetail.propTypes = {
   project: PropTypes.object,
   fetchProjectById: PropTypes.func,
   match: PropTypes.object
-};
+}
 
 export default connect(mapStateToProperties, mapDispatchToProps)(ProjectDetail)
