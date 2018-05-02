@@ -10,6 +10,9 @@ router.route('/')
   .get(auth.optional, projects.getProjects)
   .post(auth.optional, projects.createProject)
 
+router.route('/presignedUrl')
+  .get(auth.optional, projects.getPresignedUrl)
+
 router.route('/:projectId')
   .get(auth.optional, projects.getProject)
   .put(auth.optional, projects.putProject)

@@ -1,15 +1,12 @@
-import {
-  FETCHING_PROJECTS,
-  RECEIVED_PROJECTS,
-  FAILED_PROJECTS
-} from './types'
+import * as actionTypes from './types'
+import { push } from 'react-router-redux'
 
 import apiOptionsFromState from '../../api/lib/apiOptionsFromState'
 import projectsApiClient from '../../api/projects'
 
-export const fetching = { type: FETCHING_PROJECTS }
-export const received = { type: RECEIVED_PROJECTS }
-export const failed = { type: FAILED_PROJECTS }
+export const fetching = { type: actionTypes.FETCHING_PROJECTS }
+export const received = { type: actionTypes.RECEIVED_PROJECTS }
+export const failed = { type: actionTypes.FAILED_PROJECTS }
 
 export default class ProjectActionCreator {
   static fetching () {
@@ -78,6 +75,33 @@ export default class ProjectActionCreator {
       } catch (e) {
         console.trace(e)
         dispatch(ProjectActionCreator.failed())
+      }
+    }
+  }
+
+  static async uploadImage (file, apiOptions) {
+    const url = await projectsApiClient.getPresignedUrlForProjectImage(apiOptions, file.name)
+    await projectsApiClient.uploadImage(apiOptions, url, file)
+  }
+
+  static createProject (projectName, causes, technologies, organization, file) {
+    return async (dispatch, getState) => {
+      dispatch({type: actionTypes.CREATE_PROJECT_START})
+
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        await ProjectActionCreator.uploadImage(file, apiOptions)
+        await projectsApiClient.createProject(apiOptions, projectName, causes,
+          technologies, organization)
+        dispatch({type: actionTypes.CREATE_PROJECT_SUCCESS})
+        dispatch(push('/'))
+      } catch (e) {
+        console.trace(e)
+        dispatch({
+          type: actionTypes.CREATE_PROJECT_FAILED,
+          payload: e,
+          error: true})
       }
     }
   }
