@@ -2,7 +2,8 @@ import initialState from './initialState'
 import {
   FETCHING_PROJECTS,
   RECEIVED_PROJECTS,
-  FAILED_PROJECTS
+  FAILED_PROJECTS,
+  CREATE_PROJECT_FAILED
 } from '../actions/project/types'
 
 export default function (state = initialState.projects, action) {
@@ -22,6 +23,9 @@ export default function (state = initialState.projects, action) {
 
     case FAILED_PROJECTS:
       return { ...state, fetching: false }
+    case CREATE_PROJECT_FAILED: {
+      return {...state, error: {message: payload}}
+    }
 
     default:
       return state

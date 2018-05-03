@@ -29,4 +29,5 @@ class LandingE extends React.Component {
     )
   }
 }
+
 export default LandingE
