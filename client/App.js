@@ -61,10 +61,7 @@ class App extends Component {
           <Route path='/landing-b' component={LandingB} />
           <Route path='/landing-f' component={Footer} />
           <Route path='/landing-e' component={LandingE} />
-<<<<<<< HEAD
           <Route path='/landing-d' component={LandingD} />
-=======
->>>>>>> c4f9c7c4c88f0f4b6dbd7456b9ea2d3b2f291d1e
           <Route path='/show-applications' component={ApplicationsRestrictedLoadable} />
           <Route path='/projects/:id' component={ProjectDetail} />
         </Switch>
