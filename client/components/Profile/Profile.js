@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ProjectActionCreator from '../../actions/project'
+import UserActionCreator from '../../actions/user'
 import ProfilePictureForm from './ProfilePictureForm/ProfilePictureForm'
 import ListOfProjects from '../ListOfProjects/ListOfProjects'
 import styles from './Profile.scss'
@@ -21,7 +22,9 @@ class Profile extends Component {
     return (
       <div className={styles.profilePage}>
         <div className={styles.profilePictureForm}>
-          <ProfilePictureForm user={this.props.user} />
+          <ProfilePictureForm
+            user={this.props.user}
+            updateProfilePicture={this.props.updateProfilePicture} />
         </div>
 
         <div className={styles.listOfProjects}>
@@ -41,11 +44,13 @@ function mapStateToProps (state) {
 }
 
 const mapDispatchToProps = {
-  onLoad: ProjectActionCreator.fetchProfileProjects
+  onLoad: ProjectActionCreator.fetchProfileProjects,
+  updateProfilePicture: UserActionCreator.updateProfilePicture
 }
 
 Profile.propTypes = {
   onLoad: PropTypes.func,
+  updateProfilePicture: PropTypes.func,
   projects: PropTypes.array,
   user: PropTypes.object
 }

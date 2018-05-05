@@ -57,6 +57,7 @@ UserSchema.methods.toJSON = function () {
     id: this._id,
     usertype: this.usertype,
     email: this.email,
+    profilePicture: this.profilePicture,
     applications: this.applications,
     projectsAppliedFor: this.projectsAppliedFor,
     organization: this.organization,

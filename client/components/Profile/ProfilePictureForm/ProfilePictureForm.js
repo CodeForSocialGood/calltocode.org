@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Button from 'material-ui/Button/Button'
 
 import VerticalAlignHelper from '../../shared/VerticalAlignHelper/VerticalAlignHelper'
 import UploadDropzone from '../../UploadDropzone/UploadDropzone'
@@ -15,17 +14,13 @@ class ProfilePictureForm extends Component {
     }
   }
 
-  saveFile () {
-    // TODO ... implement the save file
+  saveFile (file) {
+    this.uploadImage(file)
   }
 
-  uploadImage (values) {
-    console.log(values)
-    /*
-    waiting for story #154115334 for uploading image to server
-     */
+  async uploadImage (file) {
+    await this.props.updateProfilePicture(file)
 
-    /* if (success uploading image, it will be saved as user.profilePicture) */
     this.setState({ showForm: false })
   }
 
@@ -42,17 +37,8 @@ class ProfilePictureForm extends Component {
     return (
       <form
         id="uploadProfilePictureForm"
-        className={styles.form}
-        onSubmit={this.uploadImage.bind(this)}>
+        className={styles.form} >
         {this.renderImageUpload()}
-
-        <Button
-          className={styles.buttonSubmit}
-          type="submit"
-          color="primary"
-          fullWidth>
-          Save
-        </Button>
       </form>
     )
   }
@@ -98,7 +84,8 @@ class ProfilePictureForm extends Component {
 }
 
 ProfilePictureForm.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  updateProfilePicture: PropTypes.func.isRequired
 }
 
 export default ProfilePictureForm
