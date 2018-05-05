@@ -1,0 +1,122 @@
+@import "../../scss/partials/partials";
+
+$black: #000;
+$bottom-red: #ff3e3e;
+$top-red: #e74e2b;
+$white: #fff;
+$dark: #212121;
+$blue: #79c3fd;
+$coolgrey: #9fa3a7;
+
+
+.container {
+  left: 0;
+  right: 0;
+  padding: 20px 20px;
+  position: absolute;
+}
+
+.subcontainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  align-items: center;
+  grid-column-gap: 40px;
+}
+
+img.project1 {
+  border-top-left-radius:8px;
+  border-top-right-radius: 8px;
+  width: 360px;
+  height: 252px;
+}
+
+.projectDetails {
+  text-align: center;
+  font-size: 14px;
+  line-height: 35px;
+  width: 269px;
+  margin:10px 55px;
+  color:$coolgrey;
+
+}
+
+.projectTitle {
+  color: $dark;
+  height: 32px;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 22px;
+  line-height: 1.45;
+  font-weight: normal;
+
+}
+.header {
+  object-fit: contain;
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.column1, .column2, .column3 {
+    margin-top: 103px;
+    width: 360px;
+    height:477px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 80px 0 rgba(0, 0, 0, 0.11);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
+  }
+
+a.learnMore {
+    width: 178px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 200px;
+    background-color: #79c3fd;
+    color: $white;
+    letter-spacing: 1.3px;
+    font-size: 12px;
+    margin: 10px -50px;
+    left: 40%;
+  }
+
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.viewAllContainer {
+  position: relative;
+}
+
+a.viewAll {
+  @include centerer;
+  margin-top: 100px;
+  border-radius: 1.2px;
+  background: $top-red;
+  padding: 23px 52px;
+  box-shadow: 0 5px 96px 0 rgba(0, 0, 0, 0.1);
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $top-red;
+  }
+
+  span {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+}
