@@ -1,8 +1,17 @@
 @import '../../scss/partials/partials';
 
 .project {
-  border-radius: 5px;
-  color: white;
+  background-color: white;
+  color: black;
+  display: grid;
+  grid-template-areas:
+    "img content"
+    "img causes";
+  grid-template-columns: 25% auto;
+  grid-template-rows: 70% auto;
+  grid-column-gap: 40px;
+  padding: 20px 0 20px 40px;
+  box-shadow: 0 4px 80px 0 rgba(0, 0, 0, 0.05);
 }
 
 .projectAuthenticated,
@@ -15,8 +24,29 @@
   @extend %boxShadowSmall;
 }
 
+.projectContent {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.causesContainer {
+  grid-area: causes;
+}
+
+.cause {
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
 .image {
-  width: 100%;
+  grid-area: img;
+  padding-left: 30px;
+}
+
+.projectTitle {
+  font-size: 24px;
 }
 
 .projectApply {
@@ -32,3 +62,4 @@
   @extend .projectApply;
   color: red;
 }
+

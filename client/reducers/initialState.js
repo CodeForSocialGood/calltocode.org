@@ -9,7 +9,15 @@ export default {
   },
   projects: {
     fetching: false,
-    projects: []
+    projects: [],
+    error: {
+      message: ''
+    }
   },
-  users: {}
+  users: {},
+  applications: {
+    fetching: false,
+    applications: [],
+    notSeenCounter: 0
+  }
 }

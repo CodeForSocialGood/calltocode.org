@@ -1,8 +1,7 @@
-@import '../../scss/partials/partials';
-@import '../../scss/elements/form';
+@import '../../scss/partials/_partials';
 
 .dropzone {
-  @extend %dropzone
+  @extend %dropzone;
 }
 
 .dropzoneInterior {
@@ -28,16 +27,28 @@
 }
 
 .accept {
-  border: 2px solid #C8C8C8;
+  border: 2px solid #c8c8c8;
   background-size: 150% 100%;
-  background-image: repeating-linear-gradient(-45deg, #F0F0F0, #F0F0F0 25px, #C8C8C8 25px, #C8C8C8 50px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #f0f0f0,
+    #f0f0f0 25px,
+    #c8c8c8 25px,
+    #c8c8c8 50px
+  );
   @include animation(scroll 2s linear infinite);
 }
 
 .reject {
-  border: 2px solid #C8C8C8;
+  border: 2px solid #c8c8c8;
   background-size: 150% 100%;
-  background-image: repeating-linear-gradient(-45deg, #fc8785, #fc8785 25px, #f4231f 25px, #f4231f 50px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #fc8785,
+    #fc8785 25px,
+    #f4231f 25px,
+    #f4231f 50px
+  );
   @include animation(scroll 2s linear infinite);
 }
 
@@ -47,9 +58,9 @@
 
 @include keyframes(scroll) {
   0% {
-      background-position: 0 0;
+    background-position: 0 0;
   }
   100% {
-      background-position: -75px 0;
+    background-position: -75px 0;
   }
 }

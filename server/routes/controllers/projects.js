@@ -1,6 +1,12 @@
 import bindFunctions from '../../lib/bindFunctions'
 import ProjectModel from '../../database/models/Project'
-import { NotFoundError } from '../../lib/errors'
+import { NotFoundError, RequestError } from '../../lib/errors'
+import { presignedPutObject, createBucketIfNecessary } from '../../lib/minio'
+import { minioConfig } from '../../config'
+
+const { client } = minioConfig
+
+const projectsBucket = 'projects'
 
 export default {
   _init (Projects = ProjectModel) {
@@ -33,6 +39,7 @@ export default {
 
   async createProject (req, res, next) {
     const project = new this.Projects(req.body)
+    project.imageUrl = `${client.protocol}//${client.host}:${client.port}/${projectsBucket}/${project.imageUrl}`
     const newProject = await project.save()
 
     return res.status(200).json(newProject.toJSON())
@@ -51,9 +58,23 @@ export default {
     return res.status(200).json(newProject.toJSON())
   },
 
-  async projectById (req, res, next, id) {
-    const project = await this.Projects.findById(id)
+  async getPresignedUrl (req, res, next) {
+    const { imageName } = req.query
+    try {
+      await createBucketIfNecessary(projectsBucket)
+      const url = await presignedPutObject(projectsBucket, imageName)
+      console.log(url)
+      return res.status(200).json(url)
+    } catch (ex) {
+      throw new RequestError()
+    }
+  },
 
+  async projectById (req, res, next, id) {
+    const project = await this.Projects.findById(id).populate({
+      path: 'applications',
+      populate: {path: 'volunteer'}
+    })
     if (!project) throw new NotFoundError()
 
     req.project = project

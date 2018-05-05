@@ -15,15 +15,31 @@ const projectsApiClient = {
     return apiRequest.get('/projects', apiOptions, query)
   },
 
-  async createProject (name, causes, technologies, organization) {
+  async createProject (apiOptions, name, causes, technologies, organization, imageUrl) {
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, causes, technologies, organization })
+      body: JSON.stringify({ name, causes, technologies, organization, imageUrl })
     }
     return fetch('/api/projects/', options)
+  },
+
+  async getPresignedUrlForProjectImage (apiOptions, imageName) {
+    const query = { imageName }
+    return apiRequest.get('/projects/presignedUrl', apiOptions, query)
+  },
+
+  async uploadImage (apiOptions, url, file) {
+    return fetch(url, {
+      method: 'PUT',
+      body: file
+    })
+  },
+
+  getProjectById (apiOptions, id) {
+    return apiRequest.get('/projects/' + id, apiOptions, null)
   }
 }
 

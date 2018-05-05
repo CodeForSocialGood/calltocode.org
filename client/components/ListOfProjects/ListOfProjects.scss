@@ -2,33 +2,21 @@
 
 .projectListSection {
   padding: 0 60px;
+  width: 93%;
   display: grid;
-}
-
-.title {
-  font-size: 20px;
-  margin-bottom: 15px;
 }
 
 .listContainer {
   width: 100% !important;
   display: flex !important;
   flex-wrap: wrap !important;
-  justify-content: space-around !important;
 }
 
 .list {
   width: 100% !important;
 }
 
-.causesContainer {
-  display: inline-flex;
-  width: 100%;
-  overflow-x: scroll;
-  margin-bottom: -17px;
-}
-
-.cause {
-  margin-bottom: 70px;
-  margin-right: 5px;
+.projectTile {
+    margin-bottom: 15px;
+    display: grid;
 }

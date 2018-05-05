@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { GridListTileBar } from 'material-ui/GridList'
-
+import Chip from 'material-ui/Chip'
+import {Link} from 'react-router-dom'
 import styles from './Project.scss'
+import logo from '../../images/logo.png'
 
 class Project extends Component {
   constructor (props) {
@@ -26,15 +27,11 @@ class Project extends Component {
   renderProjectApplicationResult (project) {
     const applied = this.getAppliedStatus()
     const isContact = this.isUserTypeContact()
-    if (applied && !isContact) {
-      return (
-        <span className={styles.projectApplyPass}>&#10004;</span>
-      )
-    } else if (!isContact) {
-      return (
-        <span className={styles.projectApplyFail}>&#10007;</span>
-      )
+    if (this.props.authenticated && !isContact) {
+      return applied ? <span className={styles.projectApplyPass}>&#10004;</span>
+        : <span className={styles.projectApplyFail}>&#10007;</span>
     }
+    return <span />
   }
 
   getAppliedStatus () {
@@ -65,11 +62,23 @@ class Project extends Component {
     return (
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
-        <img className={styles.image} src={project.image || require('../../images/logo.png')} />
-        <GridListTileBar title={project.name}
-          subtitle={isContact && isProfile ? null : project.organization.name || 'Organization Name'}
-          actionIcon={this.renderProjectApplicationResult(project)}>
-        </GridListTileBar>
+        <img className={styles.image} src={project.imageUrl || logo }/>
+        <div className={styles.projectContent}>
+          <div className={styles.projectTitle}>
+            <Link to={`/projects/${project.id}`}>{project.name}</Link>
+          </div>
+          <div>{isContact && isProfile ? null : project.organization.name || 'Organization Name'}</div>
+          <div>{this.renderProjectApplicationResult(project)}</div>
+        </div>
+        <div className={styles.causesContainer}>
+          { project.causes.map((cause, chipIndex) => {
+            return (
+              <Chip key={`${chipIndex}`}
+                className={styles.cause}
+                label={cause} />
+            )
+          })}
+        </div>
       </div>
     )
   }
