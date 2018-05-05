@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Chip from 'material-ui/Chip'
 import {Link} from 'react-router-dom'
 import styles from './Project.scss'
+import logo from '../../images/logo.png'
 
 class Project extends Component {
   constructor (props) {
@@ -61,7 +62,7 @@ class Project extends Component {
     return (
       <div className={projectClasses}
         onClick={this.handleClick.bind(this)}>
-        <img className={styles.image} src={project.image || require('../../images/logo.png')} />
+        <img className={styles.image} src={project.imageUrl || logo }/>
         <div className={styles.projectContent}>
           <div className={styles.projectTitle}>
             <Link to={`/projects/${project.id}`}>{project.name}</Link>
