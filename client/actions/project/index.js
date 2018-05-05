@@ -80,8 +80,10 @@ export default class ProjectActionCreator {
   }
 
   static async uploadImage (file, apiOptions) {
-    const url = await projectsApiClient.getPresignedUrlForProjectImage(apiOptions, file.name)
+    const filename = file.name.replace(/(\.[\w\d_-]+)$/i, Date.now() + '$1')
+    const url = await projectsApiClient.getPresignedUrlForProjectImage(apiOptions, filename)
     await projectsApiClient.uploadImage(apiOptions, url, file)
+    return filename
   }
 
   static createProject (projectName, causes, technologies, organization, file) {
@@ -91,9 +93,9 @@ export default class ProjectActionCreator {
       try {
         const state = getState()
         const apiOptions = apiOptionsFromState(state)
-        await ProjectActionCreator.uploadImage(file, apiOptions)
+        const filename = await ProjectActionCreator.uploadImage(file, apiOptions)
         await projectsApiClient.createProject(apiOptions, projectName, causes,
-          technologies, organization)
+          technologies, organization, filename)
         dispatch({type: actionTypes.CREATE_PROJECT_SUCCESS})
         dispatch(push('/'))
       } catch (e) {

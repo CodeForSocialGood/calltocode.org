@@ -2,6 +2,9 @@ import bindFunctions from '../../lib/bindFunctions'
 import ProjectModel from '../../database/models/Project'
 import { NotFoundError, RequestError } from '../../lib/errors'
 import { presignedPutObject, createBucketIfNecessary } from '../../lib/minio'
+import { minioConfig } from '../../config'
+
+const { client } = minioConfig
 
 const projectsBucket = 'projects'
 
@@ -36,6 +39,7 @@ export default {
 
   async createProject (req, res, next) {
     const project = new this.Projects(req.body)
+    project.imageUrl = `${client.protocol}//${client.host}:${client.port}/${projectsBucket}/${project.imageUrl}`
     const newProject = await project.save()
 
     return res.status(200).json(newProject.toJSON())
