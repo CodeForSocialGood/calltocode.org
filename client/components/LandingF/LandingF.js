@@ -12,7 +12,6 @@ import pininterest from '../../images/pininterest.png';
 import twitter from '../../images/twitter.png';
 import c3nonprofit from '../../images/501-c-3-nonprofit.png';
 
-
 class Footer extends React.Component {
   render () {
     return (
