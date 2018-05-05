@@ -3,7 +3,6 @@ import styles from './LandingF.scss'
 import logoV from '../../images/logo-home-video-copy.png'
 import c3nonprofit from '../../images/501-c-3-nonprofit.png'
 
-
 class Footer extends React.Component {
   render () {
     return (
@@ -24,8 +23,7 @@ class Footer extends React.Component {
             <li className={styles.about}><a href="#" className={styles.link}>About</a></li>
           </ul>
         </div>
-
-        </div>
+      </div>
     )
   }
 }
