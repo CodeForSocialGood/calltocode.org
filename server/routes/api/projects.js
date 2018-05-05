@@ -13,6 +13,9 @@ router.route('/')
 router.route('/presignedUrl')
   .get(auth.optional, projects.getPresignedUrl)
 
+router.route('/recent')
+  .get(auth.optional, projects.getRecentProjects)
+
 router.route('/:projectId')
   .get(auth.optional, projects.getProject)
   .put(auth.optional, projects.putProject)

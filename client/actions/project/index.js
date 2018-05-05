@@ -105,4 +105,22 @@ export default class ProjectActionCreator {
       }
     }
   }
+  static getRecentProjects (nrOfProjects) {
+    return async (dispatch, getState) => {
+      dispatch({type: actionTypes.GET_RECENT_PROJECTS_START})
+
+      try {
+        const state = getState()
+        const apiOptions = apiOptionsFromState(state)
+        const projects = await projectsApiClient.getRecentProjects(apiOptions, nrOfProjects)
+        dispatch({type: actionTypes.GET_RECENT_PROJECTS_SUCCESS, payload: projects})
+      } catch (e) {
+        console.trace(e)
+        dispatch({
+          type: actionTypes.GET_RECENT_PROJECTS_FAILED,
+          payload: e,
+          error: true})
+      }
+    }
+  }
 }

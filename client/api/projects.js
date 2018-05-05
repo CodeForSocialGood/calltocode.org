@@ -5,6 +5,11 @@ const projectsApiClient = {
     return apiRequest.get('/projects', apiOptions)
   },
 
+  getRecentProjects (apiOptions, nrOfProjects) {
+    const query = { quantity: nrOfProjects }
+    return apiRequest.get('/projects/recent', apiOptions, query)
+  },
+
   getAppliedProjects (apiOptions, projectsAppliedFor) {
     const query = { projectsAppliedFor }
     return apiRequest.get('/projects', apiOptions, query)

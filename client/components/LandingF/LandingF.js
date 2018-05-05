@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './LandingF.scss'
 import logoV from '../../images/logo-home-video-copy.png'
 import c3nonprofit from '../../images/501-c-3-nonprofit.png'
-import logo from '../../images/logo-home.png'
 
 class Footer extends React.Component {
   render () {
@@ -25,7 +24,7 @@ class Footer extends React.Component {
           </ul>
         </div>
 
-        </div>
+      </div>
     )
   }
 }
