@@ -31,25 +31,28 @@ class ProfilePictureForm extends Component {
 
   renderImageUpload (field) {
     return (
-      <UploadDropzone className={styles.inputImageUpload}
-        saveFile={this.saveFile.bind(this)} />
+      <UploadDropzone
+        className={styles.inputImageUpload}
+        saveFile={this.saveFile.bind(this)}
+      />
     )
   }
 
   renderForm () {
     return (
-      <form id="uploadProfilePictureForm" className={styles.form} onSubmit={this.uploadImage.bind(this)}>
-
+      <form
+        id="uploadProfilePictureForm"
+        className={styles.form}
+        onSubmit={this.uploadImage.bind(this)}>
         {this.renderImageUpload()}
 
         <Button
           className={styles.buttonSubmit}
           type="submit"
           color="primary"
-          fullWidth >
+          fullWidth>
           Save
         </Button>
-
       </form>
     )
   }
@@ -59,11 +62,15 @@ class ProfilePictureForm extends Component {
     return (
       <div
         className={styles.profilePicture}
-        onClick={() => this.setState({ showForm: true })} >
-
-        <div className={styles.profilePictureInner} >
-
-          <img className={styles.image} src={user.profilePicture || require('../../../images/profile-image.jpg')} />
+        onClick={() => this.setState({ showForm: true })}>
+        <div className={styles.profilePictureInner}>
+          <img
+            className={styles.image}
+            src={
+              user.profilePicture ||
+              require('../../../images/profile-image.jpg')
+            }
+          />
 
           <div className={styles.imageHoverCover} />
 
@@ -71,9 +78,7 @@ class ProfilePictureForm extends Component {
             <VerticalAlignHelper />
             <button>Upload New</button>
           </div>
-
         </div>
-
       </div>
     )
   }
@@ -84,8 +89,8 @@ class ProfilePictureForm extends Component {
       : this.renderProfilePicture()
 
     return (
-      <div className={styles.profilePictureWrapper} >
-        <h1 className={styles.formHeading} >Profile Picture</h1>
+      <div className={styles.profilePictureWrapper}>
+        <h3 className={styles.formHeading}>You</h3>
         {render}
       </div>
     )

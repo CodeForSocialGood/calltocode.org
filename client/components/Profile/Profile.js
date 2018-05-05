@@ -13,23 +13,21 @@ class Profile extends Component {
   }
 
   render () {
-    const title = this.props.user.usertype === 'contact'
-      ? 'Your Organization\'s Projects'
-      : 'Projects Applied For'
+    const title =
+      this.props.user.usertype === 'contact'
+        ? "Your Organization's Projects"
+        : 'Projects Applied For'
 
     return (
       <div className={styles.profilePage}>
-
-        <div className={styles.profilePictureForm} >
+        <div className={styles.profilePictureForm}>
           <ProfilePictureForm user={this.props.user} />
         </div>
 
-        <div className={styles.listOfProjects} >
-          <ListOfProjects
-            title={title}
-            projects={this.props.projects} />
+        <div className={styles.listOfProjects}>
+          <h3 className={styles.youProjects}>Your Projects</h3>
+          <ListOfProjects title={title} projects={this.props.projects} />
         </div>
-
       </div>
     )
   }
