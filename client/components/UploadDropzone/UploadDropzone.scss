@@ -1,5 +1,5 @@
-@import '../../scss/partials/_partials';
-@import '../../scss/elements/_form';
+@import '../../scss/partials/partials';
+@import '../../scss/elements/form';
 
 .dropzone {
   @extend %dropzone;
@@ -28,27 +28,28 @@
 }
 
 .accept {
-  border: 2px solid #c8c8c8;
+  border: 2px solid $validInputColor;
   background-size: 150% 100%;
   background-image: repeating-linear-gradient(
     -45deg,
     #f0f0f0,
     #f0f0f0 25px,
-    #c8c8c8 25px,
-    #c8c8c8 50px
+    $validInputColor 25px,
+    $validInputColor 50px
   );
   @include animation(scroll 2s linear infinite);
 }
 
 .reject {
-  border: 2px solid #c8c8c8;
+  border: 2px solid $errorColor;
   background-size: 150% 100%;
   background-image: repeating-linear-gradient(
     -45deg,
+    /* this colour is just an arbitrary lighter red */
     #fc8785,
     #fc8785 25px,
-    #f4231f 25px,
-    #f4231f 50px
+    $errorColor 25px,
+    $errorColor 50px
   );
   @include animation(scroll 2s linear infinite);
 }
