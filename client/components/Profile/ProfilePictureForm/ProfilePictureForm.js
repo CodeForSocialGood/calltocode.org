@@ -14,6 +14,14 @@ class ProfilePictureForm extends Component {
     }
   }
 
+  handleFormSubmit(event) {
+    event.preventDefault()
+  }
+
+  handleClick(event) {
+    this.setState({ showForm: true })
+  }
+
   saveFile (file) {
     this.uploadImage(file)
   }
@@ -37,7 +45,8 @@ class ProfilePictureForm extends Component {
     return (
       <form
         id="uploadProfilePictureForm"
-        className={styles.form} >
+        className={styles.form}
+        onSubmit={this.handleFormSubmit.bind(this)} >
         {this.renderImageUpload()}
       </form>
     )
@@ -48,7 +57,7 @@ class ProfilePictureForm extends Component {
     return (
       <div
         className={styles.profilePicture}
-        onClick={() => this.setState({ showForm: true })}>
+        onClick={this.handleClick.bind(this)}>
         <div className={styles.profilePictureInner}>
           <img
             className={styles.image}
