@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import defaultProfileImage from '../../../images/profile-image.jpg'
 import VerticalAlignHelper from '../../shared/VerticalAlignHelper/VerticalAlignHelper'
 import UploadDropzone from '../../UploadDropzone/UploadDropzone'
 import styles from './ProfilePictureForm.scss'
@@ -53,8 +53,7 @@ class ProfilePictureForm extends Component {
           <img
             className={styles.image}
             src={
-              user.profilePicture ||
-              require('../../../images/profile-image.jpg')
+              user.profilePicture || defaultProfileImage
             }
           />
 

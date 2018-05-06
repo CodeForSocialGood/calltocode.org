@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography'
 import Avatar from 'material-ui/Avatar'
 import Badge from 'material-ui/Badge'
 import Button from 'material-ui/Button'
-
+import defaultProfileImage from '../../../images/profile-image.jpg'
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
 import ApplicationActionCreator from '../../actions/application'
@@ -65,8 +65,7 @@ class Header extends Component {
           className={this.getLinkStyles('profile')}>
           <Avatar
             src={
-              this.props.user.profilePicture ||
-              require('../../images/profile-image.jpg')
+              this.props.user.profilePicture || defaultProfileImage
             }
           />
         </Link>
