@@ -69,10 +69,13 @@ $hoverTransition: opacity linear 100ms;
   :global .c4sg-dropzone {
     margin: 0 auto;
   }
+}
 
-  .buttonSubmit {
-    @extend %buttonSubmit;
-    grid-column: 1 / 1;
-    grid-row: 4;
+button.confirmation {
+  @extend %buttonSubmit;
+  margin-top: 10px;
+
+  &:hover  {
+    background-color: $validInputColor;
   }
 }

@@ -10,26 +10,35 @@ class ProfilePictureForm extends Component {
     super(props)
 
     this.state = {
-      showForm: false
+      showForm: false,
+      showConfirmation: false
     }
   }
 
-  handleFormSubmit(event) {
+  handleFormSubmit (event) {
     event.preventDefault()
   }
 
-  handleClick(event) {
-    this.setState({ showForm: true })
+  handleUploadClick (event) {
+    this.setState({ showForm: true, showConfirmation: false })
   }
 
   saveFile (file) {
-    this.uploadImage(file)
+    this.file = file
+    this.setState({ showConfirmation: true })
+  }
+
+  async handleConfirmationClick (event) {
+    event.preventDefault()
+    await this.uploadImage(this.file)
+    this.setState({ showForm: false, showConfirmation: false })
   }
 
   async uploadImage (file) {
+    if (!file) {
+      return this.setState({ showForm: true, showConfirmation: false })
+    }
     await this.props.updateProfilePicture(file)
-
-    this.setState({ showForm: false })
   }
 
   renderImageUpload (field) {
@@ -57,7 +66,7 @@ class ProfilePictureForm extends Component {
     return (
       <div
         className={styles.profilePicture}
-        onClick={this.handleClick.bind(this)}>
+        onClick={this.handleUploadClick.bind(this)}>
         <div className={styles.profilePictureInner}>
           <img
             className={styles.image}
@@ -86,6 +95,13 @@ class ProfilePictureForm extends Component {
       <div className={styles.profilePictureWrapper}>
         <h3 className={styles.formHeading}>You</h3>
         {render}
+        {this.state.showConfirmation && (
+          <button
+            className={styles.confirmation}
+            onClick={this.handleConfirmationClick.bind(this)}>
+            Confirm
+          </button>
+        )}
       </div>
     )
   }
