@@ -41,3 +41,11 @@
   padding: 20px;
   background-color: #36E671;
 }
+
+%dropzone {
+  @extend %hover;
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #C8C8C8;
+  @include border-radius(5px);
+}

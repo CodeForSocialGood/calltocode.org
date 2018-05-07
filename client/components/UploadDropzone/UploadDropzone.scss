@@ -1,11 +1,8 @@
-@import '../../scss/partials/_partials';
+@import '../../scss/partials/partials';
+@import '../../scss/elements/form';
 
 .dropzone {
-  @extend %hover;
-  width: 200px;
-  height: 200px;
-  border: 2px dashed #C8C8C8;
-  @include border-radius(5px);
+  @extend %dropzone;
 }
 
 .dropzoneInterior {
@@ -31,16 +28,29 @@
 }
 
 .accept {
-  border: 2px solid #C8C8C8;
+  border: 2px solid $validInputColor;
   background-size: 150% 100%;
-  background-image: repeating-linear-gradient(-45deg, #F0F0F0, #F0F0F0 25px, #C8C8C8 25px, #C8C8C8 50px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #f0f0f0,
+    #f0f0f0 25px,
+    $validInputColor 25px,
+    $validInputColor 50px
+  );
   @include animation(scroll 2s linear infinite);
 }
 
 .reject {
-  border: 2px solid #C8C8C8;
+  border: 2px solid $errorColor;
   background-size: 150% 100%;
-  background-image: repeating-linear-gradient(-45deg, #fc8785, #fc8785 25px, #f4231f 25px, #f4231f 50px);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    /* this colour is just an arbitrary lighter red */
+    #fc8785,
+    #fc8785 25px,
+    $errorColor 25px,
+    $errorColor 50px
+  );
   @include animation(scroll 2s linear infinite);
 }
 
@@ -50,9 +60,9 @@
 
 @include keyframes(scroll) {
   0% {
-      background-position: 0 0;
+    background-position: 0 0;
   }
   100% {
-      background-position: -75px 0;
+    background-position: -75px 0;
   }
 }

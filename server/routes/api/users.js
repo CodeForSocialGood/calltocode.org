@@ -20,6 +20,12 @@ router.route('/login')
 router.route('/salt')
   .get(users.getSalt)
 
+router.route('/presignedUrl')
+  .get(auth.optional, users.getPresignedUrl)
+
+router.route('/profilePicture')
+  .put(auth.required, users.updateProfilePicture)
+
 router.route('/apply/:projectId')
   .post(auth.required, users.applyForProject)
 

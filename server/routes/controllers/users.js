@@ -3,10 +3,20 @@ import UserModel from '../../database/models/User'
 import ForgotPasswordModel from '../../database/models/ForgotPassword'
 import ProjectModel from '../../database/models/Project'
 import mailer from '../../lib/mailer'
-import { ForbiddenError, NotFoundError } from '../../lib/errors'
+import { ForbiddenError, NotFoundError, RequestError } from '../../lib/errors'
+import { presignedPutObject, createBucketIfNecessary } from '../../lib/minio'
+import { minioConfig } from '../../config'
+
+const { client } = minioConfig
+
+const usersBucket = 'users'
 
 export default {
-  _init (Users = UserModel, ForgotPasswords = ForgotPasswordModel, Projects = ProjectModel) {
+  _init (
+    Users = UserModel,
+    ForgotPasswords = ForgotPasswordModel,
+    Projects = ProjectModel
+  ) {
     bindFunctions(this)
 
     this.Users = Users
@@ -41,9 +51,7 @@ export default {
     const query = {}
     const sort = { createdAt: 'desc' }
 
-    const users = await this.Users
-      .find(query)
-      .sort(sort)
+    const users = await this.Users.find(query).sort(sort)
 
     return res.status(200).json(users.map(user => user.toJSON()))
   },
@@ -68,11 +76,38 @@ export default {
     return res.status(200).json(newUser.toJSON())
   },
 
+  async getPresignedUrl (req, res, next) {
+    const { imageName } = req.query
+    try {
+      await createBucketIfNecessary(usersBucket)
+      const url = await presignedPutObject(usersBucket, imageName)
+      return res.status(200).json(url)
+    } catch (ex) {
+      throw new RequestError()
+    }
+  },
+
+  async updateProfilePicture (req, res) {
+    const id = req.payload.id
+    const user = await this.Users.findById(id)
+
+    if (!user) throw new NotFoundError()
+
+    let { profilePicture } = req.body
+    profilePicture = `${client.protocol}//${client.host}:${client.port}/${usersBucket}/${profilePicture}`
+
+    const updatedUser = Object.assign(user, { profilePicture })
+
+    await updatedUser.save()
+
+    return res.status(200).json(updatedUser.toJSON())
+  },
+
   async login (req, res) {
     const { email, hash } = req.body
     const user = await this.Users.findOne({ email })
 
-    if (!user || user.hash !== hash) throw new ForbiddenError('Invalid email or password')
+    if (!user || user.hash !== hash) { throw new ForbiddenError('Invalid email or password') }
 
     return res.status(200).json(user.toJSON())
   },
@@ -126,7 +161,11 @@ export default {
     const code = generateSixDigitCode()
     const options = { upsert: true, new: true }
 
-    await this.ForgotPasswords.findOneAndUpdate({ email }, { email, code }, options)
+    await this.ForgotPasswords.findOneAndUpdate(
+      { email },
+      { email, code },
+      options
+    )
     await mailer.sendPasswordCode(user, code)
 
     return res.sendStatus(200)
