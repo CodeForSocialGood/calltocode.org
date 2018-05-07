@@ -7,6 +7,7 @@ import { minioConfig } from '../../config'
 const { client } = minioConfig
 
 const projectsBucket = 'projects'
+const nrRecentProjects = 3
 
 export default {
   _init (Projects = ProjectModel) {
@@ -14,6 +15,22 @@ export default {
 
     this.Projects = Projects
     return this
+  },
+  /**
+ * Method to return the recent projects. By default 3 is returned. If more needed it can be asked
+ * in quantity parameter in the request.
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Object} next - Next
+ */
+  async getRecentProjects (req, res, next) {
+    const sort = { createdAt: 'desc' }
+    const { quantity } = req.query || nrRecentProjects
+    const projects = await this.Projects
+      .find()
+      .sort(sort)
+      .limit(Number(quantity))
+    return res.status(200).json(projects.map(project => project.toJSON()))
   },
 
   async getProjects (req, res, next) {

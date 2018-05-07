@@ -12,6 +12,11 @@ export default {
     projects: [],
     error: {
       message: ''
+    },
+    recentProjects: {
+      isLoading: false,
+      projects: [],
+      error: null
     }
   },
   users: {},
