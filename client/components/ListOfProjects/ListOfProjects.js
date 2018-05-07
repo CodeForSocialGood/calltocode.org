@@ -26,7 +26,8 @@ class ListOfProjects extends Component {
           <Project
             project={project}
             authenticated={this.props.authenticated}
-            applyForProject={this.applyToProject} />
+            applyForProject={this.applyToProject}
+          />
         </div>
       )
     })
@@ -34,11 +35,9 @@ class ListOfProjects extends Component {
 
   render () {
     return (
-      <section className={styles.projectListSection}>
+      <section className={`${styles.projectListSection} project-list-section`}>
         <div className={styles.listContainer}>
-          <div className={styles.list}>
-            { this.renderListOfProjects() }
-          </div>
+          <div className={styles.list}>{this.renderListOfProjects()}</div>
         </div>
       </section>
     )

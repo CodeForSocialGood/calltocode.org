@@ -30,6 +30,23 @@ const usersApiClient = {
     return apiRequest.post('/users', apiOptions, body)
   },
 
+  async getPresignedUrlForUserProfilePicture (apiOptions, imageName) {
+    const query = { imageName }
+    return apiRequest.get('/users/presignedUrl', apiOptions, query)
+  },
+
+  async uploadImage (apiOptions, url, file) {
+    return fetch(url, {
+      method: 'PUT',
+      body: file
+    })
+  },
+
+  async updateUserProfilePictureFilename (apiOptions, filename) {
+    const body = { profilePicture: filename }
+    return apiRequest.put(`/users/profilePicture`, apiOptions, body)
+  },
+
   applyForProject (apiOptions, projectId) {
     return apiRequest.post(`/users/apply/${projectId}`, apiOptions)
   },

@@ -1,0 +1,81 @@
+@import '../../../scss/partials/partials';
+@import '../../../scss/elements/form';
+
+$hoverTransition: opacity linear 100ms;
+
+.profilePicture {
+
+  .profilePictureInner {
+    // extend dropzone so can we mimick the sizing
+    @extend %dropzone;
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid $inputsBorderColor;
+
+    .image {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .uploadNewButton, .imageHoverCover {
+      @extend %hover;
+      transition: $hoverTransition;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+    .uploadNewButton {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+
+      > button {
+        @extend %button;
+        padding: 10px;
+      }
+    }
+
+    .imageHoverCover {
+      background-color: black;
+    }
+  }
+
+  // show the image cover on hover
+  &:hover {
+    .imageHoverCover {
+      opacity: 0.6;
+    }
+
+    .uploadNewButton {
+      opacity: 1;
+
+      button:hover {
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+
+.form {
+  @extend %form;
+  grid-row-gap: 5px;
+  padding: 0;
+
+  :global .c4sg-dropzone {
+    margin: 0 auto;
+  }
+}
+
+button.confirmation {
+  @extend %buttonSubmit;
+  margin-top: 10px;
+
+  &:hover  {
+    background-color: $validInputColor;
+  }
+}

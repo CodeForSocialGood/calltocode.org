@@ -1,0 +1,34 @@
+.profilePage {
+  display: grid;
+  grid-template-columns: 30% repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 15px;
+  padding: 0;
+
+  h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .profilePictureForm {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    text-align: center;
+  }
+
+  .listOfProjects {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+    padding-top: 20px;
+
+    h3 {
+      margin-top: 0;
+      width: 93%;
+    }
+
+    :global(.project-list-section) {
+      padding: 0;
+    }
+  }
+}

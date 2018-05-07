@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
+import Avatar from 'material-ui/Avatar'
 import Badge from 'material-ui/Badge'
 import Button from 'material-ui/Button'
-
+import defaultProfileImage from '../../images/profile-image.jpg'
 import AuthActionCreator from '../../actions/auth'
 import styles from './Header.scss'
 import ApplicationActionCreator from '../../actions/application'
@@ -35,8 +36,7 @@ class Header extends Component {
         <Link
           key="show-applications"
           to="/show-applications"
-          className={this.getLinkStyles('show-project')}
-        >
+          className={this.getLinkStyles('show-project')}>
           {applications.notSeenCounter > 0 ? (
             <Badge badgeContent={applications.notSeenCounter} color="primary">
               <span className={styles.applicationBadgeText}>APPLICATIONS</span>
@@ -56,16 +56,18 @@ class Header extends Component {
           key="logout"
           to="/"
           onClick={this.props.logout}
-          className={this.getLinkStyles()}
-        >
+          className={this.getLinkStyles()}>
           LOG OUT
         </Link>,
         <Link
           key="profile"
           to="/profile"
-          className={this.getLinkStyles('profile')}
-        >
-          PROFILE
+          className={this.getLinkStyles('profile')}>
+          <Avatar
+            src={
+              this.props.user.profilePicture || defaultProfileImage
+            }
+          />
         </Link>
       ]
       if (this.props.user.usertype === 'contact') {
@@ -74,8 +76,7 @@ class Header extends Component {
           <Link
             key="create-project"
             to="/create-project"
-            className={this.getLinkStyles('create-project')}
-          >
+            className={this.getLinkStyles('create-project')}>
             CREATE PROJECT
           </Link>,
           ...authButtons
@@ -88,8 +89,7 @@ class Header extends Component {
         <Link
           key="projects"
           to="/projects"
-          className={this.getLinkStyles('projects')}
-        >
+          className={this.getLinkStyles('projects')}>
           PROJECTS
         </Link>,
         <Link key="login" to="/login" className={this.getLinkStyles('login')}>
@@ -99,8 +99,7 @@ class Header extends Component {
           key="signup"
           to="/signup"
           component={Link}
-          className={styles.navButton}
-        >
+          className={styles.navButton}>
           SIGN UP
         </Button>
       ]
