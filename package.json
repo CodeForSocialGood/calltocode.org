@@ -29,6 +29,7 @@
     "clear-ports": "./.setup/client/clear-ports.sh"
   },
   "dependencies": {
+    "@7rulnik/react-loadable": "^5.3.4",
     "@sendgrid/mail": "^6.1.4",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -63,7 +64,6 @@
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.0.0",
     "react-dropzone": "^4.2.5",
-    "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
@@ -83,6 +83,9 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "browser-sync": "^2.23.3",
     "chromedriver": "^2.34.1",
     "cucumber": "^4.0.0",
@@ -94,7 +97,7 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "ignore-styles": "^5.0.1",    
+    "ignore-styles": "^5.0.1",
     "mongodb-memory-server": "^1.6.3",
     "nightwatch": "^1.0.1",
     "nightwatch-cucumber": "^9.0.0",
