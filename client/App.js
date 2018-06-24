@@ -25,17 +25,17 @@ import LandingD from './components/LandingD/LandingD'
 const ProfileRestrictedLoadable = restricted(Loadable({
   loader: () => import('./components/Profile/Profile'),
   loading: Loading
-}));
+}))
 
 const CreateProjectRestrictedLoadable = restricted(Loadable({
   loader: () => import('./components/CreateProjectForm/CreateProjectForm'),
   loading: Loading
-}));
+}))
 
 const ApplicationsRestrictedLoadable = restricted(Loadable({
   loader: () => import('./components/Applications/ApplicationsList'),
   loading: Loading
-}));
+}))
 
 class App extends Component {
   componentDidMount () {
@@ -90,11 +90,11 @@ function mapStateToProps (state) {
 
 const mapDispatchToProps = {
   appLoad: AuthActionCreator.appLoad
-};
+}
 
 App.propTypes = {
   appLoad: PropTypes.func,
   appLoaded: PropTypes.bool
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
