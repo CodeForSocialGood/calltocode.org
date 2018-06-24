@@ -8,11 +8,8 @@ $white: #fff;
 .container {
   background: linear-gradient(to bottom, #e74e2b, #ff3e3e);
   height: 423px;
-  left: 0;
-  right: 0;
+  width: 100%;
   display: grid;
-  position: absolute;
-  margin: 0 auto;
   justify-items: center;
 }
 

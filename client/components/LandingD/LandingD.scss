@@ -13,7 +13,6 @@ $coolgrey: #9fa3a7;
   left: 0;
   right: 0;
   padding: 20px 20px;
-  position: absolute;
 }
 
 .subcontainer {
@@ -97,11 +96,12 @@ a.learnMore {
 
 .viewAllContainer {
   position: relative;
+  height: 200px;
 }
 
 a.viewAll {
   @include centerer;
-  margin-top: 100px;
+  margin-bottom: 50px;
   border-radius: 1.2px;
   background: $top-red;
   padding: 23px 52px;
