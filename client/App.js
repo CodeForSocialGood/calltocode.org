@@ -44,7 +44,7 @@ class App extends Component {
 
   renderAppLoaded () {
     return (
-      <div>
+      <div style={{'width': '100%'}}>
         <Header />
         <Version />
         <Switch>

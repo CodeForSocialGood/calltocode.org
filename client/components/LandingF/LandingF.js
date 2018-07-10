@@ -20,7 +20,7 @@ class Footer extends React.Component {
 
         <div className={styles.column3}>
           <ul className={styles.list}>
-            <li className={styles.about}><a href="#" className={styles.link}>About</a></li>
+            <li className={styles.about}><a href="/about" className={styles.link}>About</a></li>
           </ul>
         </div>
 
