@@ -11,6 +11,10 @@ import linkedIn from '../../images/linked-in.png';
 import pininterest from '../../images/pininterest.png';
 import twitter from '../../images/twitter.png';
 import c3nonprofit from '../../images/501-c-3-nonprofit.png';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
 
 class Footer extends React.Component {
   render () {
@@ -49,8 +53,13 @@ class Footer extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.column1}>
+<<<<<<< HEAD
           <img src={logo} alt="Call to code logo" className={styles.logoHome} />
           <p><img src={c3nonprofit} className="nonProfit" /></p>
+=======
+          <img src={logo} alt="Call to code logo" className="logo-home" />
+          <p><img src={c3nonprofit} className="non-profit" /></p>
+>>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
         </div>
 
 
@@ -83,6 +92,7 @@ class Footer extends React.Component {
     )
   }
 }
+};
 
 export default Footer
             <li className={styles.company}>Company</li>
@@ -100,6 +110,7 @@ export default Footer
           </ul>
         </div>
 
+<<<<<<< HEAD
         // <div className={styles.column4}>
         //   <p className={styles.followUS}>FOLLOW US</p>
         //   <div className={styles.socialMedia}>
@@ -109,6 +120,17 @@ export default Footer
         //     <a href="#"><img src={pininterest} alt="pininterest logo" className={styles.pininterest} /></a>
         // </div>
         // </div>
+=======
+        <div className={styles.column4}>
+          <p className={styles.followUS}>FOLLOW US</p>
+          <div className={styles.socialMedia}>
+            <a href="#"><img src={facebook} alt="facebook logo" className="facebook" /></a>
+            <a href="#"><img src={twitter} alt="twitter logo" className="twitter" /></a>
+            <a href="#"><img src={linked-in} alt="linkedin logo" className="linkedIn" /></a>
+            <a href="#"><img src={pininterest} alt="pininterest logo" className="pininterest" /></a>
+        </div>
+        </div>
+>>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
       </div>
     )
   }
