@@ -20,25 +20,6 @@ $white: #ffffff;
   width: 103px;
   height: 15px;
   list-style-type: none;
-<<<<<<< HEAD
-=======
-  font-size: 30px;
->>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
-  font-family: Gotham;
-  background-color: $black;
-  background-size: cover;
-  height: 438px;
-  color: $grey;
-  display: flex;
-  position: absolute;
-}
-
-.projects, .about {
-  width: 103px;
-  height: 15px;
-  list-style-type: none;
-  font-family: Gotham;
-  font-size: 15.6px;
   font-size: 15.6px;
   font-weight: bold;
   letter-spacing: 3.1px;
@@ -48,93 +29,8 @@ $white: #ffffff;
 .link {
   color: $white;
 }
-.link {
-  color: $grey;
-}
-.column1, .column2, .column3, .column4 {
-  margin-top: 103px;
-}
-
-.column1 {
-  margin-left: 95px;
-}
-.column2 {
-  margin-left: 137px;
-  padding-left: 0px;
-  text-align: left;
-  color: $grey;
-}
-
-.column3 {
-  margin-left: 155px;
-<<<<<<< HEAD
-  width: 131px;
-=======
->>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
-}
-//
-//
-//
-// .followUS {
-//   width: 127px;
-//   height: 15px;
-//   font-family: Gotham;
-//   font-family: Gotham;
-//   font-size: 15.6px;
-//   font-weight: bold;
-//   text-align: left;
-//   color: #ffffff;
-// }
-
-// .popular, .press {
-//   margin-top: 32px;
-// }
-//
-// .list {
-//   padding-left: 0px;
-// }
-// .listItems {
-//   list-style-type: none;
-//   width: 131px;
-//   margin-bottom: 28px;
-//   object-fit: contain;
-//   font-family: Gotham;
-//   font-size: 18.2px;
-//   text-align: left;
-//   color: #9fa3a7;
-// }
-//
-// .socialMedia {
-//   display: flex;
-// }
-<<<<<<< HEAD
-
-// .popular, .press {
-//   margin-top: 32px;
-// }
-//
-// .list {
-//   padding-left: 0px;
-// }
-// .listItems {
-//   list-style-type: none;
-//   width: 131px;
-//   margin-bottom: 28px;
-//   object-fit: contain;
-//   font-family: Gotham;
-//   font-size: 18.2px;
-//   text-align: left;
-//   color: #9fa3a7;
-// }
-//
-// .socialMedia {
-//   display: flex;
-// }
-=======
->>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
 
 .column1, .column2, .column3 {
-.column1, .column2, .column3, .column4 {
   margin-top: 103px;
   display: inline-block;
 }
@@ -147,17 +43,6 @@ $white: #ffffff;
   margin-top: 24px;
 }
 
-.nonProfit {
-  margin-top: 24px;
-}
-
-<<<<<<< HEAD
-.nonProfit {
-  margin-top: 24px;
-}
-
-=======
->>>>>>> 7fcea305a1e111cc6d48d4b6e341182eb4eac9cc
 .column2 {
   margin-left: 80px;
   padding-left: 0px;
@@ -167,117 +52,4 @@ $white: #ffffff;
 
 .column3 {
   width: 131px;
-  color: #9fa3a7;
-}
-
-.column3 {
-  margin-left: 155px;
-}
-
-.column4 {
-  margin-left: 153px;
-}
-
-.logoHome {
-  width: 248px;
-  height: 90px;
-}
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
-}
-
-.column3 {
-  margin-left: 155px;
-}
-
-// .column4 {
-//   margin-left: 153px;
-// }
-
-.logoHome {
-  width: 248px;
-  height: 90px;
-}
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
-}
-
-.column3 {
-  margin-left: 155px;
-}
-
-// .column4 {
-//   margin-left: 153px;
-// }
-
-.logoHome {
-  width: 248px;
-  height: 90px;
-}
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
-}
-
-.column3 {
-  margin-left: 155px;
-}
-
-// .column4 {
-//   margin-left: 153px;
-// }
-
-.logoHome {
-  width: 248px;
-  height: 90px;
-}
-
-.facebook, .twitter, .linkedIn, .pininterest {
-    margin-right: 66px;
-}
-
-.followUS {
-  width: 127px;
-  height: 15px;
-  font-family: Gotham;
-  font-family: Gotham;
-  font-size: 15.6px;
-  font-weight: bold;
-  text-align: left;
-  color: #ffffff;
 }
