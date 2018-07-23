@@ -20,8 +20,6 @@ import Footer from './components/LandingF/LandingF'
 import LandingB from './components/LandingB/LandingB'
 import LandingE from './components/LandingE/LandingE'
 import LandingD from './components/LandingD/LandingD'
-import LandingF from './components/LandingF/LandingF'
-import Footer from './components/LandingF/LandingF'
 
 // set up components for lazy loading
 const ProfileRestrictedLoadable = restricted(Loadable({
