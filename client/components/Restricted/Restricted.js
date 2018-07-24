@@ -12,7 +12,7 @@ export default function (BaseComponent) {
       this.checkAuthentication(this.props)
     }
 
-    componentWillReceiveProps (nextProps) {
+    UnsafeComponentWillReceiveProps (nextProps) {
       if (nextProps.location !== this.props.location) {
         this.checkAuthentication(nextProps)
       }

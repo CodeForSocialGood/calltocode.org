@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ApplicationActionCreator from '../../actions/application/'
 
 class ApplicationsList extends Component {
-  componentWillReceiveProps (nextProps) {
+  UnsafeComponentWillReceiveProps (nextProps) {
     this._markAsSeenApplications(nextProps.applications)
   }
 
