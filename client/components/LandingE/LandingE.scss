@@ -16,6 +16,7 @@ $white: #fff;
 img {
   vertical-align: middle;
 }
+
 h1 {
   color: $white;
   text-align: center;
@@ -26,6 +27,36 @@ h1 {
 
  a.github {
   background: $white;
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+}
+
+a.slack {
+  background: $white;
+  width: 369px;
+  height: 75px;
+  border-radius: 49.5px;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: $white;
+  }
+}
+
+.slack{
+  margin-top:-15px;
+  font-size: 30px;
+}
+
+.slack, .github {
   width: 369px;
   height: 75px;
   border-radius: 49.5px;
@@ -80,4 +111,5 @@ a.slack {
   text-align: left;
   color: #000000;
   padding-left: 10px;
+  color: #000000
 }

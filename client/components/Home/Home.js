@@ -32,7 +32,7 @@ class Home extends Component {
     this.props.onLoad()
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  UnsafeComponentWillReceiveProps = (nextProps) => {
     if (this.props.projects !== nextProps.projects) {
       this.setState({filteredProjects: nextProps.projects})
     }
