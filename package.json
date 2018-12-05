@@ -55,7 +55,7 @@
     "jsonwebtoken": "^8.1.0",
     "material-ui": "^1.0.0-beta.29",
     "material-ui-icons": "^1.0.0-beta.17",
-    "minio": "^6.0.0",
+    "minio": "^7.0.2",
     "mongoose": "^5.0.0",
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
