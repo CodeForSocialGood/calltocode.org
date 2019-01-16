@@ -105,7 +105,7 @@
     "npm-run-all": "^4.1.1",
     "selenium-standalone": "^6.13.0",
     "sinon": "^6.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "3.3.0"
   },
   "ava": {
     "files": [
