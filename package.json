@@ -59,7 +59,7 @@
     "mongoose": "^5.0.0",
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.7.2",
     "react": "^16.0.0",
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.0.0",
