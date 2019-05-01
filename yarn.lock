@@ -6213,9 +6213,10 @@ minimist@~0.0.1:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
-minio@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/minio/-/minio-6.0.0.tgz#7e514d38eaacf2264556b232f1c2c063cc6ca7ba"
+minio@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/minio/-/minio-7.0.8.tgz#67b20a85a13f0fef030447f5822a629e709894d0"
+  integrity sha512-nPVmtms5cARaaqCCH3n0n0jIMaaG+y8Ka5s0/YA8X5/fvZoHmDmaIoJtvSwZc72L/gQgqEJqcIvBMrbjW7NkHQ==
   dependencies:
     async "^1.5.2"
     block-stream2 "^1.0.0"
@@ -6226,7 +6227,6 @@ minio@^6.0.0:
     mime-types "^2.1.14"
     mkdirp "^0.5.1"
     querystring "0.2.0"
-    source-map-support "^0.4.12"
     through2 "^0.6.5"
     uuid "^3.1.0"
     xml "^1.0.0"
@@ -8780,7 +8780,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.4.12, source-map-support@^0.4.15:
+source-map-support@^0.4.15:
   version "0.4.18"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.18.tgz#0286a6de8be42641338594e97ccea75f0a2c585f"
   dependencies:
