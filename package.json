@@ -60,7 +60,7 @@
     "morgan": "^1.9.0",
     "node-sass": "^4.5.3",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
+    "react": "^16.9.0",
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.0.0",
     "react-dropzone": "^4.2.5",
