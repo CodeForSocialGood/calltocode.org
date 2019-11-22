@@ -101,7 +101,7 @@
     "mongodb-memory-server": "^1.6.3",
     "nightwatch": "^1.0.1",
     "nightwatch-cucumber": "^9.0.0",
-    "nodemon": "^1.12.1",
+    "nodemon": "^2.0.1",
     "npm-run-all": "^4.1.1",
     "selenium-standalone": "^6.13.0",
     "sinon": "^6.0.0",
