@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@7rulnik/react-loadable": "^5.3.4",
-    "@sendgrid/mail": "^6.1.4",
+    "@sendgrid/mail": "^7.1.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
